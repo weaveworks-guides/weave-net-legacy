@@ -1,4 +1,4 @@
-# Getting started with Weave and Docker on Ubuntu #
+# Getting started with Weave and Docker on CentOS #
 
 ## What you will build ##
 
