@@ -9,7 +9,6 @@ require 'ipaddr'
 Vagrant.require_version ">= 1.6.0"
 
 VAGRANTFILE_API_VERSION = "2"
-CLOUD_CONFIG_PATH = File.join(File.dirname(__FILE__), "user-data")
 CONFIG = File.join(File.dirname(__FILE__), "config.rb")
 SIMPLE_DOCKER_HW = File.join(File.dirname(__FILE__), "Dockerfile-hw-centos")
 
