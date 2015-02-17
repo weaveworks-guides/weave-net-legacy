@@ -29,7 +29,7 @@ All of the code for this example is available on github, and you first clone the
 git clone http://github.com/fintanr/weave-gs
 ```
 
-You will use vagrant to setup and configure two Ubuntu hosts and install Docker. These hosts will be assigned ip addresses on a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and named `weave-gs-01` and `weave-gs-02`.
+You will use vagrant to setup and configure two Ubuntu hosts and install Docker. These hosts will be assigned IP addresses on a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and named `weave-gs-01` and `weave-gs-02`.
 
 ```
 cd weave-gs/ubuntu-simple
@@ -38,7 +38,7 @@ vagrant up
 
 Vagrant will pull down and configure an ubuntu image, this may take a few minutes depending on  the speed of your network connection. For more details on Vagrant please refer to the [Vagrant documentation](http://vagrantup.com).
 
-You may be prompted for a password when /etc/hosts is being updated during the Vagrant setup, please just hit return at this point.
+You may be prompted for a password when `/etc/hosts` is being updated during the Vagrant setup, please just hit return at this point.
 
 Once the setup of the hosts is complete you can check their status with
 
@@ -95,7 +95,7 @@ As this is the first time you have launched Weave you
 * downloaded a docker image for the Weave router container
 * launched that container
 
-On your first host, `weave-gs-01`, you have launched a Weave router container. On your second host, `weave-gs-02`, you launched another Weave router container with the ip address of your first host. This command tells the Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
+On your first host, `weave-gs-01`, you have launched a Weave router container. On your second host, `weave-gs-02`, you launched another Weave router container with the IP address of your first host. This command tells the Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
 
 At this point you have a single container running on each host, which you can see from docker. On either host run
 
@@ -149,11 +149,9 @@ At this point you have a running Apache server in a Docker container.
 
 ### What has happened?
 
-Weave has launched a pre-built Docker container containing an Apache webserver, and assigned it an address of 10.0.1.1. The Docker image you are using has been downloaded from the [Docker Hub](https://hub.docker.com/).
+Weave has launched a pre-built Docker container containing an Apache webserver, and assigned it an address of `10.0.1.1`. The Docker image you are using has been downloaded from the [Docker Hub](https://hub.docker.com/).
 
 The container is registered with Weave and is accessible to other containers registered with Weave across multiple hosts.
-
-<!-- may be this can be improved a bit -->
 
 ### Creating our client container
 
@@ -196,7 +194,7 @@ You have now used Weave to quickly deploy an application across two hosts using 
 
 ## The Dockerfile ##
 
-We have also included the Dockerfile we used for creating the `fintanr/weave-gs-simple-hw` docker image in our repo. While this is a very simple example it demonstrates how easy it is to create docker images.
+We have also included the Dockerfile we used for creating the `fintanr/weave-gs-simple-hw` Docker image in our repo. While this is a very simple example it demonstrates how easy it is to create Docker images.
 
 ```
 MAINTAINER    fintan@weave.works
@@ -218,8 +216,8 @@ A quick explanation of the Dockerfile
 - `ADD` - add a file to the docker image you are creating
 - `CMD` - a command or commands to run when the docker image is launched
 
-As you can see here we are using the Ubuntu docker image as our basis, updating this image, installing and configuring `apache2` and `php`. We then copy a new default apache page into place. Finally when a container is launched with this image we start an Apache webserver.
+As you can see here we are using the Ubuntu Docker image as our basis, updating this image, installing and configuring `apache2` and `php`. We then copy a new default Apache page into place. Finally when a container is launched with this image we start an Apache webserver.
 
 The Docker documentation provides a lot more detail on [building docker images](https://docs.docker.com/reference/builder/)
 
-This Dockerfile has been placed in the /home/vagrant directory on each host you created earlier. As an experiment you could review the building docker images documentation and create your own Ubuntu docker image with curl already installed to avoid the extra install steps we went through above.
+This Dockerfile has been placed in the `/home/vagrant` directory on each host you created earlier. As an experiment you could review the building docker images documentation and create your own Ubuntu docker image with curl already installed to avoid the extra install steps we went through above.
