@@ -89,6 +89,10 @@ To start the example run the script `launch-nginx-demo.sh`. This will
 * launch six containers across our three hosts running an apache2 instance with our simple php site
 * launch Nginx as a load balancer in front of the six containers  
 
+```
+./launch-nginx-demo.sh
+```
+
 If you would like to execute these steps manually the commands to launch Weave and WeaveDNS are
 
 ```
@@ -137,7 +141,7 @@ application and Nginx together using Weave.
 
 ## Testing our example ##
 
-To demonstrate our example we have provided a small script which will make http requests to the our Nginx container. We make 
+To demonstrate our example we have provided a small curl script which will make http requests to the our Nginx container. We make 
 six requests so you can see Nginx moving through each of the webservers in turn.  
 
 ```
@@ -187,16 +191,16 @@ You have now used Weave to deploy a containerised PHP application using Nginx ac
 ## The Dockerfiles ##
 
 We have included the two Dockerfiles we used for creating our containers, and copy these, and the
-associated files we are using, onto each of the vagrant hosts we created for you to play around with.
+associated files we are using, onto each of the Vagrant hosts we created for you to play around with.
 A full discussion of Dockerfiles is out of scope for this guide, for more information refer to the 
-offical guide at 
+offical guide on [docker.com](https://docs.docker.com/reference/builder/).
 
 Our containers have been built from the offical [Nginx](https://registry.hub.docker.com/_/nginx/) and [Ubuntu](https://registry.hub.docker.com/_/ubuntu/) images, and pushed to the Docker Hub    
 
-If you want to experiment with these images just log into one of the vagrant hosts and go the appropriate
+If you want to experiment with these images just log into one of the Vagrant hosts and go the appropriate
 directory
 
-### NGinx ### 
+### NGinx ###
 
 ```
 vagrant ssh weave-gs-01
@@ -234,6 +238,7 @@ or to just launch the container
 ```
 sudo docker run 5583ba8e1c8a
 ```
+
 ### Apache and PHP Application ###
 
 ```

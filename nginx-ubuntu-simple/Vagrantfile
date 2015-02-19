@@ -75,7 +75,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     SHELL
 
     if File.exist?(SIMPLE_DOCKER_NGINX)
-        config.vm.provision "shell", inline: "sudo mkdir /home/vagrant/nginx-example" 
+        config.vm.provision "shell", inline: "mkdir /home/vagrant/nginx-example; chown -R vagrant:vagrant /home/vagrant/nginx-example" 
         config.vm.provision "file", :source => "#{SIMPLE_DOCKER_NGINX}", :destination => "/home/vagrant/nginx-example/Dockerfile"
     end 
     
@@ -84,7 +84,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     if File.exists?(SIMPLE_DOCKER_APACHE)
-        config.vm.provision "shell", inline: "sudo mkdir -p /home/vagrant/apache-php-example/example" 
+        config.vm.provision "shell", inline: "mkdir -p /home/vagrant/apache-php-example/example; chown -R vagrant:vagrant /home/vagrant/apache-php-example" 
         config.vm.provision "file", :source => "#{SIMPLE_DOCKER_NGINX}", :destination => "/home/vagrant/apache-php-example/Dockerfile"
     end 
     
