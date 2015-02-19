@@ -125,8 +125,8 @@ sudo weave run --with-dns 10.3.1.5/24 -h ws5.weave.local fintanr/weave-gs-nginx-
 sudo weave run --with-dns 10.3.1.6/24 -h ws6.weave.local fintanr/weave-gs-nginx-apache
 ```
 
-Note the --with-dns option and the -h option, these tell Weave to register this container with WeaveDNS using the hostname provided.
-When you use --with-dns and -h you must include .weave.local in the -h option. 
+Note the --with-dns option and the -h option, --with-dns tells the container to use WeaveDNS to resolve names and
+-h x.weave.local allows the host to be resolvable with WeaveDNS. 
 
 Finally we launch our Nginx container
 ```
