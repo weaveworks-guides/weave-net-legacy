@@ -73,7 +73,7 @@ fi
 
 aws ec2 authorize-security-group-ingress --group-name $WEAVEDEMO_GROUPNAME --protocol tcp --port 22 --cidr $WEAVEDEMO_CIDR
 aws ec2 create-key-pair --key-name $KEYPAIR --query 'KeyMaterial' --output text > $MY_KEY
-aws ec2 run-instances --image-id ami-81fa71f6  --count $WEAVEDEMO_HOSTCOUNT --instance-type t1.micro --key-name $KEYPAIR --security-groups $WEAVEDEMO_GROUPNAME 
+aws ec2 run-instances --image-id $AWS_AMI  --count $WEAVEDEMO_HOSTCOUNT --instance-type t1.micro --key-name $KEYPAIR --security-groups $WEAVEDEMO_GROUPNAME 
 
 chmod 400 $MY_KEY 
 
@@ -98,9 +98,7 @@ do
     $MY_SSH $SSH_OPTS ubuntu@$i "sudo chmod a+x /usr/local/bin/weave"
     HOSTCOUNT=`expr $HOSTCOUNT + 1`
     echo "export WEAVE_AWS_DEMO_HOST$HOSTCOUNT=$i" >> $WEAVEDEMO_ENVFILE
-    DEMO_ARRAY="$DEMO_ARRAY $i"
 done
 
-DEMO_ARRAY=$(echo $DEMO_ARRAY | sed -e "s/^\s+//")
 echo "export WEAVE_AWS_DEMO_HOSTCOUNT=$WEAVEDEMO_HOSTCOUNT" >> $WEAVEDEMO_ENVFILE
-echo "export WEAVE_AWS_DEMO_HOSTS=($DEMO_ARRAY)" >> $WEAVEDEMO_ENVFILE
+echo "export WEAVE_AWS_DEMO_HOSTS=($OUR_IP_ADDRESSES)" >> $WEAVEDEMO_ENVFILE
