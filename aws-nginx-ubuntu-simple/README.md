@@ -202,7 +202,7 @@ Connecting to Nginx in Weave on AWS demo
 
 You have now used Weave to deploy a containerised PHP application using Nginx across multiple hosts on AWS EC2.
 
-## Manual Install on AWS##  
+## Manual Install on AWS ##  
 
 We make use of the [Amazon Web Services (AWS) CLI tool](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) to 
 manage and access AWS for this getting started guide. You will need to have a valid [Amazon Web Services](http://aws.amazon.com) account, and the AWS CLI setup and configured before working.
@@ -236,7 +236,7 @@ aws ec2 create-key-pair --key-name weavedemo-key --query 'KeyMaterial' --output 
 You will need to install docker on each host in turn. Please follow the offical instructions for installing Docker on Ubuntu on the [Docker website](https://docs.docker.com/installation/ubuntulinux/).
 
 
-### Starting Your Instance### 
+### Starting Your Instance ### 
 
 Now you start your instances. Please note the $AWS_AMI variable here, you need to give an image id for AWS to use. 
 In this demo we use Ubuntu, and a list of the available Trusty 14.04 images are available [here](http://cloud-images.ubuntu.com/trusty/current/). 
