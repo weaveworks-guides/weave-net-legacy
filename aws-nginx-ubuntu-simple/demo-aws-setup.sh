@@ -50,7 +50,8 @@ REGION=$(aws configure list | grep region | awk '{print $2}')
 
 if [ -z $AWS_AMI ]; then
     echo "Selecting an AMI to use for the $REGION region"
-    AWS_AMI=$(grep $REGION $AMI_LIST | cut -d"," -f2)    
+    AWS_AMI=$(grep $REGION $AMI_LIST | cut -d"," -f2)
+    echo "Using AMI $AWS_AMI"
 else
     echo "Using user provided AMI of ${AWS_AMI}"
 fi
@@ -72,6 +73,9 @@ else
 fi
 
 aws ec2 authorize-security-group-ingress --group-name $WEAVEDEMO_GROUPNAME --protocol tcp --port 22 --cidr $WEAVEDEMO_CIDR
+aws ec2 authorize-security-group-ingress --group-name $WEAVEDEMO_GROUPNAME --protocol tcp --port 80 --cidr $WEAVEDEMO_CIDR
+aws ec2 authorize-security-group-ingress --group-name $WEAVEDEMO_GROUPNAME --protocol tcp --port 6783 --cidr $WEAVEDEMO_CIDR
+aws ec2 authorize-security-group-ingress --group-name $WEAVEDEMO_GROUPNAME --protocol udp --port 6783 --cidr $WEAVEDEMO_CIDR
 aws ec2 create-key-pair --key-name $KEYPAIR --query 'KeyMaterial' --output text > $MY_KEY
 aws ec2 run-instances --image-id $AWS_AMI  --count $WEAVEDEMO_HOSTCOUNT --instance-type t1.micro --key-name $KEYPAIR --security-groups $WEAVEDEMO_GROUPNAME 
 
@@ -86,6 +90,8 @@ if [ -f $WEAVEDEMO_ENVFILE ]; then
     rm -f $WEAVEDEMO_ENVFILE
 fi
 
+HOSTS_ARRAY=
+
 for i in $OUR_IP_ADDRESSES
 do
     echo "Installing Weave and Docker on host $i"
@@ -98,7 +104,9 @@ do
     $MY_SSH $SSH_OPTS ubuntu@$i "sudo chmod a+x /usr/local/bin/weave"
     HOSTCOUNT=`expr $HOSTCOUNT + 1`
     echo "export WEAVE_AWS_DEMO_HOST$HOSTCOUNT=$i" >> $WEAVEDEMO_ENVFILE
+    HOSTS_ARRAY=$(echo "$HOSTS_ARRAY $i")
 done
 
+HOSTS_ARRAY=$(echo $HOSTS_ARRAY | sed -e "s/^\s+//")
 echo "export WEAVE_AWS_DEMO_HOSTCOUNT=$WEAVEDEMO_HOSTCOUNT" >> $WEAVEDEMO_ENVFILE
-echo "export WEAVE_AWS_DEMO_HOSTS=($OUR_IP_ADDRESSES)" >> $WEAVEDEMO_ENVFILE
+echo "export WEAVE_AWS_DEMO_HOSTS=($HOSTS_ARRAY)" >> $WEAVEDEMO_ENVFILE

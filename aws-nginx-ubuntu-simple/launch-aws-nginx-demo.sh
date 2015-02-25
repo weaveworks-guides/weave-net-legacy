@@ -34,7 +34,7 @@ function launchWeave() {
 
     echo "Launching Weave and WeaveDNS on $myHostIP"
 
-    if [ $myHostIP != $myWeaveDnsPeer ]; then
+    if [ $myHostIP == $myWeaveDnsPeer ]; then
         $MY_SSH $SSH_OPTS ubuntu@$myHostIP "sudo weave launch"
     else 
         $MY_SSH $SSH_OPTS ubuntu@$myHostIP "sudo weave launch $myWeaveDnsPeer"
@@ -74,27 +74,33 @@ echo "Launching Weave and WeaveDNS on each AWS host"
 
 . $WEAVEDEMO_ENVFILE
 
-TMP_HOSTCOUNT=$(expr $WEAVEDEMO_HOSTCOUNT - 1)
+TMP_HOSTCOUNT=0
 
-while [ $TMP_HOSTCOUNT -ge 0 ]; do
+while [ $TMP_HOSTCOUNT -lt $WEAVE_AWS_DEMO_HOSTCOUNT ]; do
     HOST_IP=${WEAVE_AWS_DEMO_HOSTS[$TMP_HOSTCOUNT]}  
     launchWeave $HOST_IP $WEAVE_AWS_DEMO_HOST1 $DNS_OFFSET
     DNS_OFFSET=$(expr $DNS_OFFSET + 1)
-    TMP_HOSTCOUNT=$(expr $TMP_HOSTCOUNT - 1)
+    TMP_HOSTCOUNT=$(expr $TMP_HOSTCOUNT + 1)
 done
 
 echo "Launching 3 Simple PHP App Containers on each AWS host"
 
-TMP_HOSTCOUNT=$(expr $WEAVEDEMO_HOSTCOUNT - 1)
+TMP_HOSTCOUNT=0
 
-while [ $TMP_HOSTCOUNT -ge 0 ]; do
+while [ $TMP_HOSTCOUNT -lt $WEAVE_AWS_DEMO_HOSTCOUNT ]; do
     HOST_IP=${WEAVE_AWS_DEMO_HOSTS[$TMP_HOSTCOUNT]}  
 
     while [ `expr $CONTAINER_OFFSET % 3` -ne 0 ]; do   
         launchApacheDemo $HOST_IP $CONTAINER_OFFSET
         CONTAINER_OFFSET=$(expr $CONTAINER_OFFSET + 1 )
     done
-    TMP_HOSTCOUNT=$(expr $TMP_HOSTCOUNT - 1)
+
+    if [ `expr $CONTAINER_OFFSET % 3` -eq 0 ]; then
+        launchApacheDemo $HOST_IP $CONTAINER_OFFSET
+    fi
+
+    CONTAINER_OFFSET=$(expr $CONTAINER_OFFSET + 1 )
+    TMP_HOSTCOUNT=$(expr $TMP_HOSTCOUNT + 1)
 done
 
 echo "Launching our Nginx front end"
