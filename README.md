@@ -1,4 +1,4 @@
-* Weave Getting Started Guides
+# Weave Getting Started Guides #
 
 A set of getting started guides demonstrating Weave 
 
