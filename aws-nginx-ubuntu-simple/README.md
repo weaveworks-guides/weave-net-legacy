@@ -44,8 +44,8 @@ You will use the AWS CLI to setup and configure two AWS EC2 instances. For the p
 use the smallest available instances, t1.micro. We provide a script to set up your initial environment with Weave and Docker,
 installed on Ubuntu.  
 
-If you would like to manually work through these steps, and for further details on the script, please refer to the ~~Manual 
-install on AWS section~~ at the end of this guide. 
+If you would like to manually work through these steps, and for further details on the script, please refer to the _**Manual 
+install on AWS section**_ at the end of this guide. 
 
 ```
 ./demo-aws-setup.sh
@@ -53,7 +53,7 @@ install on AWS section~~ at the end of this guide.
 
 This script will generate quite a lot of output, but once it is completed you will have two aws instances, running Ubuntu,
 with Weave with Docker installed. You will need the IP addresses of these instances to complete the rest of this guide. These are 
-stored in an environment file weavedemo.env which we create during the execution of the demo-aws-setup.sh. 
+stored in an environment file `weavedemo.env` which we create during the execution of the `demo-aws-setup.sh`. 
 
 You will see something similar to the output below when you look at the weavedemo.env file. Please note these are *not* the 
 IP addresses for your demo, AWS will dynamically allocate IP addresses to your instances.
@@ -88,7 +88,7 @@ While our example application is very simple, as a php application running on ap
 in use. We have created an Nginx configuration which will round-robin across the websevers our php application is running on.
 The details of the Nginx configuration are out of scope for this article, but you can review it at [on github](https://github.com/fintanr/weave-gs/blob/master/nginx-ubuntu-simple/example/nginx.conf).   
 
-The two docker containers we use in this guide were created for an [earlier getting started guide](https://github.com/fintanr/weave-gs/tree/master/nginx-ubuntu-simple). If you would like further details on how these were created refer to the Dockerfile section at the end of this of guide.  
+The two docker containers we use in this guide were created for an [earlier getting started guide](https://github.com/fintanr/weave-gs/blob/master/nginx-ubuntu-simple/README.md). If you would like further details on how these were created refer to the Dockerfile section at the end of this of guide.  
 
 ## Application Portability with Weave and Docker ##
 
@@ -202,7 +202,7 @@ Connecting to Nginx in Weave on AWS demo
 
 You have now used Weave to deploy a containerised PHP application using Nginx across multiple hosts on AWS EC2.
 
-## Manual Install on AWS ## 
+## Manual Install on AWS ##  
 
 We make use of the [Amazon Web Services (AWS) CLI tool](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) to 
 manage and access AWS for this getting started guide. You will need to have a valid [Amazon Web Services](http://aws.amazon.com) account, and the AWS CLI setup and configured before working.
@@ -233,7 +233,7 @@ aws ec2 create-key-pair --key-name weavedemo-key --query 'KeyMaterial' --output 
 
 ### Installing Weave and Docker ###
 
-You will need to install docker on each host in turn
+You will need to install docker on each host in turn. Please follow the offical instructions for installing Docker on Ubuntu on the [Docker website](https://docs.docker.com/installation/ubuntulinux/).
 
 
 ### Starting Your Instance ### 
@@ -274,7 +274,7 @@ Our containers have been built from the offical [Nginx](https://registry.hub.doc
 
 If you want to experiment with these Dockerfiles it is easiest to git clone the [Weave Getting Started repository](http://github.com/fintanr/weave-gs-guides) on the host. You may need to install git. 
 
-### NGinx ###
+### Nginx ###
 
 ```
 ssh -i weavedemo-key.pem ubuntu@$WEAVE_AWS_DEMO_HOST1

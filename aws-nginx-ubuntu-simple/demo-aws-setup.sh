@@ -26,6 +26,7 @@ MY_KEY=$DIRNAME/$WEAVEDEMO_GROUPNAME-key.pem
 WEAVEDEMO_ENVFILE=$DIRNAME/weavedemo.env
 KEYPAIR=$WEAVEDEMO_GROUPNAME-key
 MY_R_FILTER="Name=instance-state-name,Values=running"
+MY_G_FILTER="Name=instance.group-name,Values=$WEAVEDEMO_GROUPNAME"
 MY_SSH="ssh -i $MY_KEY"
 HOSTCOUNT=0
 
@@ -84,7 +85,7 @@ chmod 400 $MY_KEY
 echo "Waiting for one minute for our instances to initialize"
 sleep 60
 
-OUR_IP_ADDRESSES=$(aws ec2 describe-instances --output text --filters $MY_R_FILTER | grep ^ASSOCIATION | awk '{print $4}' | sort -u)
+OUR_IP_ADDRESSES=$(aws ec2 describe-instances --output text --filters $MY_R_FILTER $MY_G_FILTER | grep ^ASSOCIATION | awk '{print $4}' | sort -u)
 
 if [ -f $WEAVEDEMO_ENVFILE ]; then
     rm -f $WEAVEDEMO_ENVFILE
