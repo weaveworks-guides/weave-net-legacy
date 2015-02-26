@@ -35,7 +35,7 @@ through this getting started guide. Amazon provide an extensive guide on how to 
 
 All of the code for this example is available on github, and you first clone the getting started repository.
 
-```
+```bash
 git clone http://github.com/fintanr/weave-gs
 cd weave-gs/aws-nginx-ubuntu-simple
 ```
@@ -47,7 +47,7 @@ installed on Ubuntu.
 If you would like to manually work through these steps, and for further details on the script, please refer to the _**Manual 
 install on AWS section**_ at the end of this guide. 
 
-```
+```bash
 ./demo-aws-setup.sh
 ```
 
@@ -58,7 +58,7 @@ stored in an environment file `weavedemo.env` which we create during the executi
 You will see something similar to the output below when you look at the weavedemo.env file. Please note these are *not* the 
 IP addresses for your demo, AWS will dynamically allocate IP addresses to your instances.
 
-```
+```bash
 cat weavedemo.env
 export WEAVE_AWS_DEMO_HOST1=52.16.63.10 
 export WEAVE_AWS_DEMO_HOST2=52.16.63.7
@@ -69,7 +69,7 @@ export WEAVE_AWS_DEMO_HOSTS=(52.16.63.10 52.16.63.7)
 If you are using a bash or similar you can just source this file to use for the rest of this guide, otherwise please
 subsititue the relevant IP address for $WEAVE_AWS_DEMO_HOST1 or 2.
 
-```
+```bash
 . ./weavedemo.env
 ```
 
@@ -107,13 +107,13 @@ To start the example run the script `launch-aws-nginx-demo.sh`. This will
 * launch six containers across our two hosts running an apache2 instance with our simple php site
 * launch Nginx as a load balancer in front of the six containers  
 
-```
+```bash
 ./launch-aws-nginx-demo.sh
 ```
 
 If you would like to execute these steps manually the commands to launch Weave and WeaveDNS are
 
-```
+```bash
 ssh -i weavedemo-key.pem ubuntu@$WEAVE_AWS_DEMO_HOST1
 sudo weave launch
 sudo weave launch-dns 10.2.1.1/24
@@ -125,7 +125,7 @@ sudo weave launch-dns 10.2.1.2/24
 
 The commands to launch our application containers are 
 
-```
+```bash
 ssh -i weavedemo-key.pem ubuntu@$WEAVE_AWS_DEMO_HOST1
 sudo weave run --with-dns 10.3.1.1/24 -h ws1.weave.local fintanr/weave-gs-nginx-apache
 sudo weave run --with-dns 10.3.1.2/24 -h ws2.weave.local fintanr/weave-gs-nginx-apache
@@ -141,7 +141,7 @@ Note the --with-dns option and the -h option, --with-dns tells the container to 
 -h x.weave.local allows the host to be resolvable with WeaveDNS. 
 
 Finally we launch our Nginx container
-```
+```bash
 ssh -i weavedemo-key.pem ubuntu@$WEAVE_AWS_DEMO_HOST1
 sudo weave run --with-dns 10.3.1.7/24 -ti -h nginx.weave.local -d -p 80:80 fintanr/weave-gs-nginx-simple 
 ```
@@ -158,13 +158,13 @@ Our Nginx container is publicly exposed as a http server on $WEAVE_AWS_DEMO_HOST
 To demonstrate our example we have provided a small curl script which will make http requests to the our Nginx container. We make 
 six requests so you can see Nginx moving through each of the webservers in turn.  
 
-```
+```bash
 ./access-aws-hosts.sh 
 ```
 
 You will see output similar to
 
-```
+```javascript
 Connecting to Nginx in Weave on AWS demo
 {
     "message" : "Hello Weave - nginx example",
@@ -211,14 +211,14 @@ manage and access AWS for this getting started guide. You will need to have a va
 
 You first create a security group, for our example this is `weavedemo`
 
-``` 
+```bash 
 aws ec2 create-security-group --group-name weavedemo --description "Weave Demo"
 ```
 
 You then allow access to the host on ports 22 (for ssh), 80 (for http) and on 6783 (for weave). Please note the cidr option we pass in here. 
 For real world deployments you should limit this cidr to something more restricted, particuarly for ssh.
 
-```
+```bash
 aws ec2 authorize-security-group-ingress --group-name weavedemo --protocol tcp --port 22 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-name weavedemo --protocol tcp --port 80 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-name weavedemo --protocol tcp --port 6783 --cidr 0.0.0.0/0 
@@ -227,7 +227,7 @@ aws ec2 authorize-security-group-ingress --group-name weavedemo --protocol udp -
 
 Next you create a key pair which allows us to access any EC2 instances which are associated with this security group.
 
-```
+```bash
 aws ec2 create-key-pair --key-name weavedemo-key --query 'KeyMaterial' --output text > weavedemo-key.pem
 ```
 
@@ -241,7 +241,7 @@ You will need to install docker on each host in turn. Please follow the offical 
 Now you start your instances. Please note the $AWS_AMI variable here, you need to give an image id for AWS to use. 
 In this demo we use Ubuntu, and a list of the available Trusty 14.04 images are available [here](http://cloud-images.ubuntu.com/trusty/current/). 
 
-```
+```bash
 aws ec2 run-instances --image-id $AWS_AMI  --count 2 --instance-type t1.micro --key-name weavedemo-key --security-groups weavedemo
 ```
 
@@ -250,7 +250,7 @@ aws ec2 run-instances --image-id $AWS_AMI  --count 2 --instance-type t1.micro --
 You will need to get the IP addresses of your instances in order to access them. You can get these details by looking at your 
 running instances.
 
-```
+```bash
 aws ec2 describe-instances --output text --filters "Name=instance-state-name,Values=running" "Name=instance.group-name,Values=weavedemo" 
 ```
 
@@ -259,7 +259,7 @@ aws ec2 describe-instances --output text --filters "Name=instance-state-name,Val
 You will need to install docker on each host in turn, please follow the instructions on the [Docker website]().
 To install weave you will need to ssh into each host and run the following commands.
 
-```
+```bash
 sudo wget -O /usr/local/bin/weave https://github.com/zettio/weave/releases/download/latest_release/weave
 sudo chmod a+x /usr/local/bin/weave 
 ```
@@ -276,7 +276,7 @@ If you want to experiment with these Dockerfiles it is easiest to git clone the 
 
 ### Nginx ###
 
-```
+```bash
 ssh -i weavedemo-key.pem ubuntu@$WEAVE_AWS_DEMO_HOST1
 git clone http://github.com/fintanr/weave-gs
 cd weave-gs/aws-nginx-ubuntu-demo
@@ -285,7 +285,7 @@ sudo docker build -f Dockerfile-simple-nginx .
 
 When you run docker build you will see out similar to 
 
-```
+```bash
 Sending build context to Docker daemon 34.82 kB
 Sending build context to Docker daemon 
 Step 0 : FROM nginx
@@ -304,19 +304,19 @@ Successfully built 5583ba8e1c8a
 
 To run this container take the id from the ~Successfully built~ output and use Weave or Docker to launch the container.
 
-```
+```bash
 sudo weave run 10.3.1.64/24 5583ba8e1c8a
 ``` 
 
 or to just launch the container
 
-```
+```bash
 sudo docker run 5583ba8e1c8a
 ```
 
 ### Apache and PHP Application ###
 
-```
+```bash
 ssh -i weavedemo-key.pem ubuntu@$WEAVE_AWS_DEMO_HOST1
 git clone http://github.com/fintanr/weave-gs
 cd weave-gs/aws-nginx-ubuntu-demo

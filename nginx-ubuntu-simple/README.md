@@ -32,13 +32,13 @@ This getting started guide is self contained. You will use Weave, Docker, Nginx 
 
 All of the code for this example is available on github, and you first clone the getting started repository.
 
-```
+```bash
 git clone http://github.com/fintanr/weave-gs
 ```
 
 You will use Vagrant to setup and configure three Ubuntu hosts and install Docker. We make use of Vagrant's functionality to download the base docker images we will be using, and we then install Weave. If you would like to work through the installation steps please review our [getting started guide](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/README.md) for a more manual example.
    
-```
+```bash
 cd weave-gs/nginx-ubuntu-simple
 vagrant up
 ```
@@ -49,13 +49,13 @@ You may be prompted for a password when `/etc/hosts` is being updated during the
 
 Once the setup of the hosts is complete you can check their status with
 
-```
+```bash
 vagrant status
 ```
 
 The IP addresses we use for this demo are
 
-```
+```bash
 172.17.8.101 	weave-gs-01
 172.17.8.102 	weave-gs-02
 172.17.8.103 	weave-gs-03
@@ -89,13 +89,13 @@ To start the example run the script `launch-nginx-demo.sh`. This will
 * launch six containers across our three hosts running an apache2 instance with our simple php site
 * launch Nginx as a load balancer in front of the six containers  
 
-```
+```bash
 ./launch-nginx-demo.sh
 ```
 
 If you would like to execute these steps manually the commands to launch Weave and WeaveDNS are
 
-```
+```bash
 vagrant ssh weave-gs-01
 sudo weave launch
 sudo weave launch-dns 10.2.1.1/24
@@ -111,7 +111,7 @@ sudo weave launch-dns 10.2.1.3/24
 
 The commands to launch our application containers are 
 
-```
+```bash
 vagrant ssh weave-gs-01
 sudo weave run --with-dns 10.3.1.1/24 -h ws1.weave.local fintanr/weave-gs-nginx-apache
 sudo weave run --with-dns 10.3.1.2/24 -h ws2.weave.local fintanr/weave-gs-nginx-apache
@@ -129,7 +129,8 @@ Note the --with-dns option and the -h option, --with-dns tells the container to 
 -h x.weave.local allows the host to be resolvable with WeaveDNS. 
 
 Finally we launch our Nginx container
-```
+
+```bash
 vagrant ssh weave-gs-01
 sudo weave run --with-dns 10.3.1.7/24 -ti -h nginx.weave.local -d -p 80:80 fintanr/weave-gs-nginx-simple 
 ```
@@ -144,13 +145,13 @@ application and Nginx together using Weave.
 To demonstrate our example we have provided a small curl script which will make http requests to the our Nginx container. We make 
 six requests so you can see Nginx moving through each of the webservers in turn.  
 
-```
+```bash
 ./access-hosts.sh
 ```
 
 You will see output similar to
 
-```
+```javascript
 Connecting to Nginx in Weave demo
 {
     "message" : "Hello Weave - nginx example",
@@ -202,7 +203,7 @@ directory
 
 ### NGinx ###
 
-```
+```bash
 vagrant ssh weave-gs-01
 cd nginx-example
 sudo docker build .
@@ -210,7 +211,7 @@ sudo docker build .
 
 When you run docker build you will see out similar to 
 
-```
+```bash
 Sending build context to Docker daemon 34.82 kB
 Sending build context to Docker daemon 
 Step 0 : FROM nginx
@@ -229,19 +230,19 @@ Successfully built 5583ba8e1c8a
 
 To run this container take the id from the ~Successfully built~ output and use Weave or Docker to launch the container.
 
-```
+```bash
 sudo weave run 10.3.1.64/24 5583ba8e1c8a
 ``` 
 
 or to just launch the container
 
-```
+```bash
 sudo docker run 5583ba8e1c8a
 ```
 
 ### Apache and PHP Application ###
 
-```
+```bash
 vagrant ssh weave-gs-01
 cd apache-php-example
 sudo docker build .
