@@ -25,13 +25,13 @@ This getting started guide is self contained. You will use Weave, Docker and Ubu
 
 All of the code for this example is available on github, and you first clone the getting started repository.
 
-```
+```bash
 git clone http://github.com/fintanr/weave-gs
 ```
 
 You will use vagrant to setup and configure two Ubuntu hosts and install Docker. These hosts will be assigned IP addresses on a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and named `weave-gs-01` and `weave-gs-02`.
 
-```
+```bash
 cd weave-gs/ubuntu-simple
 vagrant up
 ```
@@ -42,7 +42,7 @@ You may be prompted for a password when `/etc/hosts` is being updated during the
 
 Once the setup of the hosts is complete you can check their status with
 
-```
+```bash
 vagrant status
 ```
 
@@ -57,7 +57,7 @@ The IP addresses we use for this demo are
 
 Now you install Weave on each host.
 
-```
+```bash
 vagrant ssh weave-gs-01
 sudo wget -O /usr/local/bin/weave https://github.com/zettio/weave/releases/download/latest_release/weave
 sudo chmod a+x /usr/local/bin/weave
@@ -76,13 +76,13 @@ Next you start Weave on each host in turn.
 
 On host `weave-gs-01`
 
-```
+```bash
 sudo weave launch
 ```
 
 On host `weave-gs-02`
 
-```
+```bash
 sudo weave launch 172.17.8.101
 ```
 
@@ -99,22 +99,22 @@ On your first host, `weave-gs-01`, you have launched a Weave router container. O
 
 At this point you have a single container running on each host, which you can see from docker. On either host run
 
-```
+```bash
 sudo docker ps
 ```
 
 and you will see something similar to
 
-```
+```bash
 CONTAINER ID        IMAGE                COMMAND                CREATED             STATUS              PORTS                                            NAMES
 f975990040f1        zettio/weave:0.9.0   "/home/weave/weaver    7 minutes ago       Up 7 minutes        0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave
 ```
 You can see your peered network by using `weave status`
 
-```
+```bash
 sudo weave status
 ```
-```
+```bash
 weave router 0.9.0
 Encryption off
 Our name is 7a:42:86:2f:2c:c4
@@ -141,7 +141,7 @@ Next you will use Weave to run a Docker image containing an Apache webserver.  D
 
 On `weave-gs-01` run
 
-```
+```bash
 sudo weave run 10.0.1.1/24 -t -i fintanr/weave-gs-simple-hw
 ```
 
@@ -157,7 +157,7 @@ The container is registered with Weave and is accessible to other containers reg
 
 You now want to create a container on your second host and connect to the webserver in the container on our first host. Containers return a container ID which you will capture to use further on in this example. On `weave-gs-02` run
 
-```
+```bash
 CONTAINER=`sudo weave run 10.0.1.2/24 -t -i ubuntu`
 ```
 
@@ -165,21 +165,21 @@ This installs the default Ubuntu Docker image. This image is sparse, and one of 
 
 First attach to your Docker container using the `CONTAINER` value we captured earlier
 
-```
+```bash
 sudo docker attach $CONTAINER
 ```
 
-```
+```bash
 apt-get install -qq curl
 ```
 
-```
+```bash
 curl http://10.0.1.1
 ```
 
 And you will see a JSON string similar too
 
-```
+```javascript
 {
     "message" : "Hello World",
     "date" : "2015-02-16 15:02:57"
@@ -196,7 +196,7 @@ You have now used Weave to quickly deploy an application across two hosts using 
 
 We have also included the Dockerfile we used for creating the `fintanr/weave-gs-simple-hw` Docker image in our repo. While this is a very simple example it demonstrates how easy it is to create Docker images.
 
-```
+```bash
 MAINTAINER    fintan@weave.works
 FROM          ubuntu
 RUN           apt-get -y update
