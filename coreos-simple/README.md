@@ -25,12 +25,12 @@ This getting started guide is self contained. You will use Weave, Docker and Cor
 ## A Note on CoreOS ##
 
 CoreOS is one of a new breed of Linux distributions, primarily aimed at running container solutions such as 
-[Docker](http://docker.com) and [Rocket](http://coreos.com). Emerging distributions in this space include
+[Docker](http://docker.com) and [Rocket](https://github.com/coreos/rocket). Emerging distributions in this space include
 [Snappy](https://developer.ubuntu.com/en/snappy/) from [Canonical](http://canonical.com), [Project Atomic](http://www.projectatomic.io/) from [Redhat](http://redhat.com) and others.
 
 CoreOS is not a general purpose operating system, and may feel somewhat alien if you are more accustomed to 
 one of the more established distributions. If you feel more comfortable with a general purpose operating system 
-you may prefer to follow our getting started guides from [Ubuntu](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/README.md), [CentOS](https://github.com/fintanr/weave-gs/blob/master/centos-simple/README.md).
+you may prefer to follow our getting started guides on [Ubuntu](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/README.md) or [CentOS](https://github.com/fintanr/weave-gs/blob/master/centos-simple/README.md).
 
 ## Setting up your hosts ##
 
