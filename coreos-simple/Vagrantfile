@@ -1,0 +1,78 @@
+# Basic CoreOS and Docker setup Vagrantfile
+#
+# Weave Getting Started Guides
+#
+# Derived in part from CoreOS Vagrant Repo
+#  https://github.com/coreos/coreos-vagrant
+#
+
+require 'fileutils'
+require 'ipaddr'
+
+Vagrant.require_version ">= 1.6.0"
+
+VAGRANTFILE_API_VERSION = "2"
+CONFIG = File.join(File.dirname(__FILE__), "config.rb")
+SIMPLE_DOCKER_APACHE = File.join(File.dirname(__FILE__), "Dockerfile-simple-apache")
+CLOUD_CONFIG_PATH = File.join(File.dirname(__FILE__), "user-data")
+
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
+# Defaults for config options defined in CONFIG
+#
+
+$num_instances = 2
+$instance_name_prefix = "weave-gs"
+$share_home = false
+$vm_gui = false
+$vm_memory = 1024
+$vm_cpus = 1
+$vm_starting_ip = "172.17.8.100"
+
+if File.exist?(CONFIG)
+    require CONFIG
+end
+
+$vm_ip = $vm_starting_ip
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    config.vm.box = "coreos-stable"
+    config.vm.box_version = ">308.0.1"
+    config.vm.box_url = "http://stable.release.core-os.net/amd64-usr/current/coreos_production_vagrant.json"
+    config.ssh.insert_key = true
+
+    if Vagrant.has_plugin?("vagrant-cachier")
+        config.cache.scope = :box
+    end
+
+    (1..$num_instances).each do |i|
+    
+        config.vm.define vm_name = "%s-%02d" % [$instance_name_prefix, i] do |config|
+            config.vm.hostname = vm_name
+
+            # just split out the ip
+            #
+
+            ip = IPAddr.new($vm_ip)
+            $vm_ip = ip.succ.to_s
+            config.vm.network :private_network, ip: $vm_ip 
+        end
+    end
+
+    config.vm.provider :virtualbox do |vb|
+        vb.gui = $vm_gui
+        vb.memory = $vm_memory
+        vb.cpus = $vm_cpus
+    end
+
+    if File.exist?(CLOUD_CONFIG_PATH)
+        config.vm.provision :file, :source => "#{CLOUD_CONFIG_PATH}", :destination => "/tmp/vagrantfile-user-data"
+        config.vm.provision :shell, :inline => "mv /tmp/vagrantfile-user-data /var/lib/coreos-vagrant/", :privileged => true
+    end
+
+    # for the purposes of our example we create a dockerfile to install apache
+
+    if File.exist?(SIMPLE_DOCKER_APACHE)
+        config.vm.provision "file", :source => "#{SIMPLE_DOCKER_APACHE}", :destination => "/home/core/Dockerfile"
+    end 
+end
