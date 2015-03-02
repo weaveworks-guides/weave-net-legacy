@@ -8,6 +8,8 @@ In this example we will demonstrate how Weave allows you to quickly and easily d
 a load balancer for a simple php application running in containers on multiple nodes, with no 
 modifications to the application and minimal docker knowledge. 
 
+![Weave, Nginx, Apache and Docker 3 Nodes](https://github.com/fintanr/weave-gs/blob/master/nginx-ubuntu-simple/3_Node_Nginx_Example.png)
+
 You will also be introduced to [WeaveDNS](https://github.com/zettio/weave/tree/master/weavedns#readme),
 which provides a simple way for containers to find each other using hostnames and requires no code
 changes.
