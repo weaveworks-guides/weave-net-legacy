@@ -59,7 +59,7 @@ vagrant status
 
 The IP addresses we use for this demo are
 
-```
+```bash
 172.17.8.101 	weave-gs-01
 172.17.8.102 	weave-gs-02
 ```
