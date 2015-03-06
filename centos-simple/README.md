@@ -139,7 +139,7 @@ Reconnects:
 
 ## Our Hello World Service ##
 
-Next you will use Weave to run a Docker image containing an Apache webserver.  Details on how this container was created using docker are available [here](https://github.com/fintanr/weave-gs/blob/master/centos-simple/README.md).
+Next you will use Weave to run a Docker image containing an Apache webserver.  Details on how this container was created using docker are available [here](https://github.com/fintanr/weave-gs/blob/master/centos-simple/DockerfileREADME.md).
 
 On `weave-gs-01` run
 
