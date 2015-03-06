@@ -187,32 +187,3 @@ Now you can exit from the container. As you have finished the command that the c
 ## Summary ##
 
 You have now used Weave to quickly deploy an application across two hosts using containers.
-
-## The Dockerfile ##
-
-We have also included the Dockerfile we used for creating the `fintanr/weave-gs-centos-hw` Docker image in our repo. While this is a simple example it demonstrates how easy it is to create Docker images.
-
-```bash
-MAINTAINER    fintan@weave.works
-FROM          centos
-RUN           yum install -y httpd
-RUN           yum install -y php
-ADD           example/index.php /var/www/html/
-ADD           example/run-httpd.sh /run-httpd.sh
-RUN           chmod -v +x /run-httpd.sh
-CMD           ["/run-httpd.sh"]
-```
-
-A quick explanation of the Dockerfile
-
-- `FROM` - this is the image we have used as the basis for our image
-- `MAINTAINER` - the name and/or e-mail address of the maintainer of this image
-- `RUN` - a command or commands to run when creating the image
-- `ADD` - add a file to the docker image you are creating
-- `CMD` - a command or commands to run when the docker image is launched
-
-As you can see here we are using the CentOS Docker image as our basis, updating this image, installing and configuring `apache2` and `php`. We then copy a new default Apache page into place. Finally when a container is launched with this image we start an Apache webserver.
-
-The Docker documentation provides a lot more detail on [building docker images](https://docs.docker.com/reference/builder/)
-
-This Dockerfile has been placed in the `/home/vagrant` directory on each host you created earlier.
