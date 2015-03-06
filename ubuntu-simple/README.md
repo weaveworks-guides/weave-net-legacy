@@ -6,6 +6,8 @@ Weave allows you to focus on developing your application, rather than your infra
 
 In this example you will be creating a simple application running in a container on one host. Your service provides a JSON message containing hello world and a date - we call this your hello world service. In your second container, running on a seperate host, you use curl to query the hello world service.
 
+![Weave and Docker](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/Simple_Weave.png)
+
 ## What you will use ##
 
 * [Weave](http://weave.works)
@@ -36,7 +38,7 @@ cd weave-gs/ubuntu-simple
 vagrant up
 ```
 
-Vagrant will pull down and configure an ubuntu image, this may take a few minutes depending on  the speed of your network connection. For more details on Vagrant please refer to the [Vagrant documentation](http://vagrantup.com).
+Vagrant will pull down and configure an ubuntu image, this may take a few minutes depending on the speed of your network connection. For more details on Vagrant please refer to the [Vagrant documentation](http://vagrantup.com).
 
 You may be prompted for a password when `/etc/hosts` is being updated during the Vagrant setup, please just hit return at this point.
 
@@ -67,8 +69,7 @@ sudo wget -O /usr/local/bin/weave https://github.com/zettio/weave/releases/downl
 sudo chmod a+x /usr/local/bin/weave
 ```
 
-We provide the commands to install Weave as part of this getting started guide, but in practice you would automate
-this step.
+We provide the commands to install Weave as part of this getting started guide, but in practice you would automate this step.
 
 ## Using Weave ##
 
@@ -137,7 +138,7 @@ Reconnects:
 
 ## Our Hello World Service ##
 
-Next you will use Weave to run a Docker image containing an Apache webserver.  Details on how this container was created using docker are at the end of this getting started guide.
+Next you will use Weave to run a Docker image containing an Apache webserver.  Details on how this container was created using docker are available [here](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/README.md).
 
 On `weave-gs-01` run
 
@@ -155,22 +156,18 @@ The container is registered with Weave and is accessible to other containers reg
 
 ### Creating our client container
 
-You now want to create a container on your second host and connect to the webserver in the container on our first host. Containers return a container ID which you will capture to use further on in this example. On `weave-gs-02` run
+Next you want to create a container on your second host and connect to the webserver in the container on our first host. We will use another prebuilt container, `fintanr/weave-gs-ubuntu-curl` for this example. Containers return a container ID which you will capture to use further on in this example. On `weave-gs-02` run
 
 ```bash
-CONTAINER=`sudo weave run 10.0.1.2/24 -t -i ubuntu`
+CONTAINER=`sudo weave run 10.0.1.2/24 -t -i fintanr/weave-gs-ubuntu-curl`
 ```
-
-This installs the default Ubuntu Docker image. This image is sparse, and one of the tools you will be missing is [curl](http://curl.haxx.se/). To install this you will use `apt-get` in the normal way, as shown below. The Ubuntu Docker image you are using here is the same image that we based our Apache Docker image on.
+The Ubuntu Docker image you are using here is the same image that we based our Apache Docker image on,
+with the addition of curl.
 
 First attach to your Docker container using the `CONTAINER` value we captured earlier
 
 ```bash
 sudo docker attach $CONTAINER
-```
-
-```bash
-apt-get install -qq curl
 ```
 
 ```bash
@@ -191,33 +188,3 @@ Now you can exit from the container. As you have finished the command that the c
 ## Summary ##
 
 You have now used Weave to quickly deploy an application across two hosts using containers.
-
-## The Dockerfile ##
-
-We have also included the Dockerfile we used for creating the `fintanr/weave-gs-simple-hw` Docker image in our repo. While this is a very simple example it demonstrates how easy it is to create Docker images.
-
-```bash
-MAINTAINER    fintan@weave.works
-FROM          ubuntu
-RUN           apt-get -y update
-RUN           apt-get -y install apache2
-RUN           apt-get -y install php5 libapache2-mod-php5 php5-mcrypt
-RUN           sed -e "s/DirectoryIndex/DirectoryIndex index.php/" < /etc/apache2/mods-enabled/dir.conf > /tmp/foo.sed
-RUN           mv /tmp/foo.sed /etc/apache2/mods-enabled/dir.conf
-ADD           example/index.php /var/www/html/
-CMD           ["/usr/sbin/apache2ctl", "-D FOREGROUND"]
-```
-
-A quick explanation of the Dockerfile
-
-- `FROM` - this is the image we have used as the basis for our image
-- `MAINTAINER` - the name and/or e-mail address of the maintainer of this image
-- `RUN` - a command or commands to run when creating the image
-- `ADD` - add a file to the docker image you are creating
-- `CMD` - a command or commands to run when the docker image is launched
-
-As you can see here we are using the Ubuntu Docker image as our basis, updating this image, installing and configuring `apache2` and `php`. We then copy a new default Apache page into place. Finally when a container is launched with this image we start an Apache webserver.
-
-The Docker documentation provides a lot more detail on [building docker images](https://docs.docker.com/reference/builder/)
-
-This Dockerfile has been placed in the `/home/vagrant` directory on each host you created earlier. As an experiment you could review the building docker images documentation and create your own Ubuntu docker image with curl already installed to avoid the extra install steps we went through above.

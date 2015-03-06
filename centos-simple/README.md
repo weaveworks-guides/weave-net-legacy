@@ -6,6 +6,8 @@ Weave allows you to focus on developing your application, rather than your infra
 
 In this example you will be creating a simple application running in a container on one host. Your service provides a JSON message containing hello world and a date - we call this your hello world service. In your second container, running on a seperate host, you use curl to query the hello world service.
 
+![Weave and Docker](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/Simple_Weave.png)
+
 ## What you will use ##
 
 * [Weave](http://weave.works)
@@ -137,7 +139,7 @@ Reconnects:
 
 ## Our Hello World Service ##
 
-Next you will use Weave to run a docker image containing an Apache webserver.  Details on how this container was created using docker are at the end of this getting started guide.
+Next you will use Weave to run a Docker image containing an Apache webserver.  Details on how this container was created using docker are available [here](https://github.com/fintanr/weave-gs/blob/master/centos-simple/README.md).
 
 On `weave-gs-01` run
 
