@@ -9,10 +9,8 @@
     - ansible_aws_variables.yml
   vars:
     ssh_key: weavedemo
-    #aws_region: eu-west-1
     num_nodes: 2
     security_group_name: weavedemo
-    #template: ami-799e100e
     instance_type: m1.small
 
   roles:
