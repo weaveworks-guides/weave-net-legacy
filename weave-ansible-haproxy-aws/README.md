@@ -9,6 +9,8 @@ a load balancer for a simple php application running in containers on multiple n
 Web Services](http://aws.amazon.com), with no modifications to the application and minimal docker 
 knowledge.
 
+![Weave and Docker](https://github.com/fintanr/weave-gs/blob/master/weave-ansible-haproxy-aws/2_Node_HAProxy_AWS_Example.png)
+
 ## What you will use ##
 
 * [Weave](http://weave.works)
