@@ -11,8 +11,6 @@
   command: sudo weave launch-dns 10.2.1.1/24
   when: new_host == "weave-gs-01"
 
-- debug: vars {{ public_ip }}
-
 - name: Launch Weave on weave-gs-02 
   command: sudo weave launch {{ public_ip }} 
   when: new_host == "weave-gs-02"

@@ -32,7 +32,7 @@ You will need to have [Ansible installed](http://docs.ansible.com/intro_installa
 * [Git](http://git-scm.com/downloads)
 * [Ansible >= 1.8.4](http://docs.ansible.com/intro_installation.html)
 
-It may be helpful to have the [AWS CLI]((http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) installed, but this is optional.
+It may be helpful to have the [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) installed, but this is optional.
  
 * [AWS CLI > 1.7.12 ](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
 
@@ -45,7 +45,7 @@ You will use Weave and Ansible to
 
 You will then connect to your public facing HAProxy container.
 
-## Configuring and setting up your Instances ## 
+## Configuring and setting up your instances ## 
 
 All of the code for this example is available on [github](http://github.com/fintanr/weave-gs), and you first clone the 
 getting started repository.
@@ -92,7 +92,7 @@ This ansible playbook will take four to five minutes to complete. When you execu
 You have created a private key for use with AWS and a security group, weavedemo, to run your instances in.
 You have then started two ec2 instances with Ubuntu, updated your image and installed Docker and Weave. 
 
-## Using Ansible and Weave to launch our Containerized App ##
+## Using Ansible and Weave to launch our containerized App ##
 
 You will use the second Ansible playbook provided to
 
@@ -104,7 +104,7 @@ You will use the second Ansible playbook provided to
 ansible-playbook launch-weave-haproxy-aws-demo.yml
 ```
 
-This ansible playbook will take a few minutes to complete. When you execute this playbook you will get output similar to what you can see at this [gist](). 
+This ansible playbook will take a few minutes to complete. When you execute this playbook you will get output similar to what you can see at this [gist](https://gist.github.com/fintanr/a53febe129fea9219ef0). 
 
 ## What has happened ##
 
@@ -125,14 +125,59 @@ all of the web application containers you have started.
 Which will give you output similar too
 
 ```bash
+Connecting to HAProxy with Weave on AWS demo
+{
+    "message" : "Hello Weave - HAProxy Example",
+    "hostname" : ws1.weave.local",
+    "date" : "2015-03-13 11:23:12"
+}
 
+{
+    "message" : "Hello Weave - HAProxy Example",
+    "hostname" : ws4.weave.local",
+    "date" : "2015-03-13 11:23:12"
+}
+
+{
+    "message" : "Hello Weave - HAProxy Example",
+    "hostname" : ws5.weave.local",
+    "date" : "2015-03-13 11:23:12"
+}
+
+{
+    "message" : "Hello Weave - HAProxy Example",
+    "hostname" : ws2.weave.local",
+    "date" : "2015-03-13 11:23:12"
+}
+
+{
+    "message" : "Hello Weave - HAProxy Example",
+    "hostname" : ws3.weave.local",
+    "date" : "2015-03-13 11:23:12"
+}
+
+{
+    "message" : "Hello Weave - HAProxy Example",
+    "hostname" : ws6.weave.local",
+    "date" : "2015-03-13 11:23:12"
+}
 ```
 
 ### Connecting directly with curl ###
 
+You can also connect to your HAProxy instance directly with Curl.
+
 ```bash
 AWS_PUBLIC_IP=$(grep public_ip inventory | cut -d"=" -f2)
 curl $AWS_PUBLIC_IP
+```
+
+```bash
+{
+    "message" : "Hello Weave - HAProxy Example",
+    "hostname" : ws1.weave.local",
+    "date" : "2015-03-13 11:25:30"
+}
 ```
 
 ## Summary ##
