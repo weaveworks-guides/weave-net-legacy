@@ -26,7 +26,7 @@ knowledge.
 This getting started guide is self contained. You will use Weave, Docker, Ansible, HAProxy, Apache, 
 Ubuntu and Amazon Web Services.  
 
-You will need to have a valid [Amazon Web Services](http://aws.amazon.com) (AWS) account and to know your AWS acess key id and secret. Please refer to [AWS Identity and Access Management documentation] (http://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_Introduction.html#IAM-credentials-summary) for details on how to retrive your credentials. If you have already installed the [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html) these details will be accesible to Ansible.
+You will need to have a valid [Amazon Web Services](http://aws.amazon.com) (AWS) account and to know your AWS acess key id and secret. Please refer to [AWS Identity and Access Management documentation](http://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_Introduction.html#IAM-credentials-summary) for details on how to retrive your credentials. If you have already installed the [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html) these details will be accesible to Ansible.
 
 You will need to have [Ansible installed](http://docs.ansible.com/intro_installation.html). Interacting with AWS via Ansible also requires [boto](http://docs.pythonboto.org/en/latest/), which provides a Python interface to AWS.  
 
