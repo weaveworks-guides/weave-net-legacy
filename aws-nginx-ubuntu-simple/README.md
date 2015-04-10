@@ -10,7 +10,7 @@ Web Services](http://aws.amazon.com), with no modifications to the application a
 
 ![Weave, Nginx, Apache and Docker on AWS](https://github.com/fintanr/weave-gs/blob/master/aws-nginx-ubuntu-simple/2_Node_Nginx_AWS_Example.png)
 
-You will also be introduced to [WeaveDNS](https://github.com/zettio/weave/tree/master/weavedns#readme),
+You will also be introduced to [WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme),
 which provides a simple way for containers to find each other using hostnames and requires no code
 changes.
  
@@ -77,7 +77,7 @@ subsititue the relevant IP address for $WEAVE_AWS_DEMO_HOST1 or 2.
 
 ## Introducing WeaveDNS ##
 
-[WeaveDNS](https://github.com/zettio/weave/tree/master/weavedns#readme) answers name queries in a Weave network. WeaveDNS provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', this requires no code changes and works across hosts.
+[WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme) answers name queries in a Weave network. WeaveDNS provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', this requires no code changes and works across hosts.
 
 In this example you will give each container a hostname and use WeaveDNS to allow Nginx to find the correct container for a request.
 
@@ -262,7 +262,7 @@ You will need to install docker on each host in turn, please follow the instruct
 To install weave you will need to ssh into each host and run the following commands.
 
 ```bash
-sudo wget -O /usr/local/bin/weave https://github.com/zettio/weave/releases/download/latest_release/weave
+sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
 sudo chmod a+x /usr/local/bin/weave 
 ```
 

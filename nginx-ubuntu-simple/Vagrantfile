@@ -70,7 +70,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
     
     config.vm.provision "shell", privileged: true, inline: <<-SHELL
-        sudo wget -O /usr/local/bin/weave https://github.com/zettio/weave/releases/download/latest_release/weave
+        sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
         sudo chmod a+x /usr/local/bin/weave
     SHELL
 

@@ -101,7 +101,7 @@ do
     $MY_SSH $SSH_OPTS ubuntu@$i "sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9"
     $MY_SSH $SSH_OPTS ubuntu@$i "sudo apt-get update"
     $MY_SSH $SSH_OPTS ubuntu@$i "sudo apt-get install -y lxc-docker"
-    $MY_SSH $SSH_OPTS ubuntu@$i "sudo wget -O /usr/local/bin/weave https://github.com/zettio/weave/releases/download/latest_release/weave"
+    $MY_SSH $SSH_OPTS ubuntu@$i "sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave"
     $MY_SSH $SSH_OPTS ubuntu@$i "sudo chmod a+x /usr/local/bin/weave"
     HOSTCOUNT=`expr $HOSTCOUNT + 1`
     echo "export WEAVE_AWS_DEMO_HOST$HOSTCOUNT=$i" >> $WEAVEDEMO_ENVFILE

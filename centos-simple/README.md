@@ -61,11 +61,11 @@ Now you install Weave on each host.
 
 ```bash
 vagrant ssh weave-gs-01
-sudo wget -O /usr/local/bin/weave https://github.com/zettio/weave/releases/download/latest_release/weave
+sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
 sudo chmod a+x /usr/local/bin/weave
 
 vagrant ssh weave-gs-02
-sudo wget -O /usr/local/bin/weave https://github.com/zettio/weave/releases/download/latest_release/weave
+sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
 sudo chmod a+x /usr/local/bin/weave
 ```
 
