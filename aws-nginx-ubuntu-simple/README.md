@@ -47,7 +47,9 @@ use the smallest available instances, t1.micro. We provide a script to set up yo
 installed on Ubuntu.  
 
 If you would like to manually work through these steps, and for further details on the script, please refer to the _**Manual 
-install on AWS section**_ at the end of this guide. 
+install on AWS section**_ at the end of this guide.
+
+If you get errors regarding the AMI, please set your preferred Ubuntu AMI value is the environment variable `AWS_AMI`.
 
 ```bash
 ./demo-aws-setup.sh

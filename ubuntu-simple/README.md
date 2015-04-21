@@ -107,8 +107,8 @@ sudo docker ps
 and you will see something similar to
 
 ```bash
-CONTAINER ID        IMAGE                COMMAND                CREATED             STATUS              PORTS                                            NAMES
-f975990040f1        zettio/weave:0.9.0   "/home/weave/weaver    7 minutes ago       Up 7 minutes        0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave
+CONTAINER ID        IMAGE                     COMMAND                CREATED             STATUS              PORTS                                            NAMES
+ce3488ed2217        weaveworks/weave:0.10.0   "/home/weave/weaver    12 seconds ago      Up 12 seconds       0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave   
 ```
 You can see your peered network by using `weave status`
 
@@ -116,23 +116,26 @@ You can see your peered network by using `weave status`
 sudo weave status
 ```
 ```bash
-weave router 0.9.0
+weave router 0.10.0
 Encryption off
-Our name is 7a:42:86:2f:2c:c4
-Sniffing traffic on &{10 65535 ethwe 66:cb:17:94:af:39 up|broadcast|multicast}
+Our name is da:61:17:9e:e9:8b(weave-gs-02)
+Sniffing traffic on &{10 65535 ethwe a2:00:b3:3c:da:19 up|broadcast|multicast}
 MACs:
+a2:00:b3:3c:da:19 -> da:61:17:9e:e9:8b(weave-gs-02) (2015-04-21 16:18:30.799434125 +0000 UTC)
+da:61:17:9e:e9:8b -> da:61:17:9e:e9:8b(weave-gs-02) (2015-04-21 16:18:31.500875071 +0000 UTC)
+ea:96:cd:1d:b7:3e -> da:61:17:9e:e9:8b(weave-gs-02) (2015-04-21 16:18:32.09948203 +0000 UTC)
 Peers:
-Peer 7a:42:86:2f:2c:c4 (v2) (UID 13774419172407657760)
-   -> 7a:2e:1e:f1:e0:1a [172.17.8.101:6783]
-Peer 7a:2e:1e:f1:e0:1a (v2) (UID 10517587287546927665)
-   -> 7a:42:86:2f:2c:c4 [172.17.8.102:41754]
+da:61:17:9e:e9:8b(weave-gs-02) (v2) (UID 6202496262843123525)
+   -> 2e:5a:ea:dd:74:5e(weave-gs-01) [172.17.8.101:6783]
+2e:5a:ea:dd:74:5e(weave-gs-01) (v2) (UID 1601799468160875229)
+   -> da:61:17:9e:e9:8b(weave-gs-02) [172.17.8.102:49600]
 Routes:
 unicast:
-7a:42:86:2f:2c:c4 -> 00:00:00:00:00:00
-7a:2e:1e:f1:e0:1a -> 7a:2e:1e:f1:e0:1a
+da:61:17:9e:e9:8b -> 00:00:00:00:00:00
+2e:5a:ea:dd:74:5e -> 2e:5a:ea:dd:74:5e
 broadcast:
-7a:42:86:2f:2c:c4 -> [7a:2e:1e:f1:e0:1a]
-7a:2e:1e:f1:e0:1a -> []
+da:61:17:9e:e9:8b -> [2e:5a:ea:dd:74:5e]
+2e:5a:ea:dd:74:5e -> []
 Reconnects:
 ```
 
