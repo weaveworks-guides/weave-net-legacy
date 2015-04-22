@@ -138,15 +138,14 @@ At this point you have a single container running on each host, which you can se
 sudo docker ps
 ```
 
-and you will see something similar to (on this case from weave-gs-01)
+and you will see something similar to (on this case from weave-gs-02)
 
 ```bash
-vagrant@weave-gs-01:~$ sudo docker ps
-CONTAINER ID        IMAGE                          COMMAND                CREATED             STATUS              PORTS                                            NAMES
-cef5f355e59b        fintanr/seneca_webapp:latest   "nodejs /opt/app/ser   2 minutes ago       Up 2 minutes        0.0.0.0:80->80/tcp                               sad_rosalind        
-c1bade861820        fintanr/seneca_offer:latest    "nodejs /opt/app/ser   3 minutes ago       Up 3 minutes                                                         silly_goldstine     
-6d3afd54681f        zettio/weavedns:0.9.0          "/home/weave/weavedn   3 minutes ago       Up 3 minutes        10.1.42.1:53->53/udp                             weavedns            
-8864d666cf1e        zettio/weave:0.9.0             "/home/weave/weaver    3 minutes ago       Up 3 minutes        0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave   
+vagrant@weave-gs-02:~$ docker ps
+CONTAINER ID        IMAGE                        COMMAND                CREATED             STATUS              PORTS                                            NAMES
+8c7d304a5130        fintanr/seneca_user:latest   "nodejs /opt/app/ser   3 minutes ago       Up 3 minutes                                                         serene_wilson       
+6c2067546fcf        weaveworks/weavedns:0.10.0   "/home/weave/weavedn   3 minutes ago       Up 3 minutes        10.1.42.1:53->53/udp                             weavedns            
+ae46b1ec7b01        weaveworks/weave:0.10.0      "/home/weave/weaver    4 minutes ago       Up 4 minutes        0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave     
 ```
 
 You can see your peered network by using `weave status`
@@ -155,33 +154,41 @@ You can see your peered network by using `weave status`
 sudo weave status
 ```
 ```bash
-vagrant@weave-gs-01:~$ sudo weave status
-weave router 0.9.0
+vagrant@weave-gs-02:~$ sudo weave status
+weave router 0.10.0
 Encryption off
-Our name is 7a:58:a4:8a:4c:f4
-Sniffing traffic on &{26 65535 ethwe da:39:e5:93:41:f5 up|broadcast|multicast}
+Our name is 22:02:90:da:43:c7(weave-gs-02)
+Sniffing traffic on &{10 65535 ethwe 9a:23:26:22:74:b8 up|broadcast|multicast}
 MACs:
-da:39:e5:93:41:f5 -> 7a:58:a4:8a:4c:f4 (2015-03-23 17:45:23.101447546 +0000 UTC)
-52:60:89:f0:60:1a -> 7a:58:a4:8a:4c:f4 (2015-03-23 17:45:23.315699612 +0000 UTC)
-4a:35:8d:99:09:be -> 7a:58:a4:8a:4c:f4 (2015-03-23 17:45:30.53047339 +0000 UTC)
-ce:e7:0e:d5:8f:06 -> 7a:69:dd:f8:b0:22 (2015-03-23 17:45:44.169875835 +0000 UTC)
-d6:c0:27:ed:39:96 -> 7a:69:dd:f8:b0:22 (2015-03-23 17:45:49.97411692 +0000 UTC)
-fe:58:7f:46:77:a5 -> 7a:58:a4:8a:4c:f4 (2015-03-23 17:45:57.577251193 +0000 UTC)
-9e:90:49:2b:ae:1f -> 7a:69:dd:f8:b0:22 (2015-03-23 17:46:09.155057407 +0000 UTC)
-f2:0e:09:74:88:fa -> 7a:58:a4:8a:4c:f4 (2015-03-23 17:46:15.974840611 +0000 UTC)
+96:24:95:ef:6a:43 -> 22:02:90:da:43:c7(weave-gs-02) (2015-04-22 10:18:33.650212936 +0000 UTC)
+76:f3:28:b8:df:2f -> 96:29:08:74:25:5a(weave-gs-01) (2015-04-22 10:18:41.457756818 +0000 UTC)
+9a:23:26:22:74:b8 -> 22:02:90:da:43:c7(weave-gs-02) (2015-04-22 10:18:03.258755761 +0000 UTC)
+22:02:90:da:43:c7 -> 22:02:90:da:43:c7(weave-gs-02) (2015-04-22 10:18:03.30600729 +0000 UTC)
+a2:5e:80:79:89:20 -> 22:02:90:da:43:c7(weave-gs-02) (2015-04-22 10:18:03.890434428 +0000 UTC)
+c2:83:69:27:f0:96 -> 22:02:90:da:43:c7(weave-gs-02) (2015-04-22 10:18:18.518841678 +0000 UTC)
+32:4e:b6:49:6d:5a -> 96:29:08:74:25:5a(weave-gs-01) (2015-04-22 10:18:24.817665796 +0000 UTC)
 Peers:
-Peer 7a:58:a4:8a:4c:f4 (v2) (UID 718236049010220522)
-   -> 7a:69:dd:f8:b0:22 [172.17.8.102:58836]
-Peer 7a:69:dd:f8:b0:22 (v2) (UID 9669953362032727155)
-   -> 7a:58:a4:8a:4c:f4 [172.17.8.101:6783]
+22:02:90:da:43:c7(weave-gs-02) (v2) (UID 17259012827778123555)
+   -> 96:29:08:74:25:5a(weave-gs-01) [172.17.8.101:6783]
+96:29:08:74:25:5a(weave-gs-01) (v2) (UID 16312797204840322867)
+   -> 22:02:90:da:43:c7(weave-gs-02) [172.17.8.102:40786]
 Routes:
 unicast:
-7a:58:a4:8a:4c:f4 -> 00:00:00:00:00:00
-7a:69:dd:f8:b0:22 -> 7a:69:dd:f8:b0:22
+22:02:90:da:43:c7 -> 00:00:00:00:00:00
+96:29:08:74:25:5a -> 96:29:08:74:25:5a
 broadcast:
-7a:69:dd:f8:b0:22 -> []
-7a:58:a4:8a:4c:f4 -> [7a:69:dd:f8:b0:22]
+96:29:08:74:25:5a -> []
+22:02:90:da:43:c7 -> [96:29:08:74:25:5a]
 Reconnects:
+
+
+weave DNS 0.10.0
+Local domain weave.local.
+Listen address :53
+mDNS interface &{14 65535 ethwe c2:83:69:27:f0:96 up|broadcast|multicast}
+Fallback DNS config &{[10.0.2.3] [overplay] 53 1 5 2}
+Zone database:
+8c7d304a5130 10.3.1.2 user-ms.weave.local.
 ```
 
 ## Our Microservices Example With Seneca ##
@@ -194,7 +201,7 @@ The example itself is a very simple demonstration of how to use the Seneca frame
 is out of scope for this guide. For more details see the [http://senecajs.org/](Seneca website). 
 
 Seneca is written in node.js, and the Dockerfiles used for building the containers in this guide are also 
-included in our [github repo](). 
+included in our [github repo](https://github.com/fintanr/weave-gs/tree/master/microservices-seneca-ubuntu-simple). 
 
 ## Summary ##
 

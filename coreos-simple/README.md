@@ -113,8 +113,8 @@ sudo docker ps
 and you will see something similar to
 
 ```bash
-CONTAINER ID        IMAGE                COMMAND                CREATED             STATUS              PORTS                                            NAMES
-52bbb9eee7aa        zettio/weave:0.9.0   "/home/weave/weaver    29 seconds ago      Up 28 seconds       0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave  
+ONTAINER ID        IMAGE                     COMMAND                CREATED             STATUS              PORTS                                            NAMES
+fb36f1bd4fbe        weaveworks/weave:0.10.0   "/home/weave/weaver    14 seconds ago      Up 14 seconds       0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave   
 ```
 You can see your peered network by using `weave status`
 
@@ -122,26 +122,26 @@ You can see your peered network by using `weave status`
 sudo weave status
 ```
 ```bash
-weave router 0.9.0
+weave router 0.10.0
 Encryption off
-Our name is 7a:6c:f3:f3:ae:ff
-Sniffing traffic on &{10 65535 ethwe e2:50:86:f5:27:91 up|broadcast|multicast}
+Our name is da:e1:a3:11:7c:ca(weave-gs-02)
+Sniffing traffic on &{10 65535 ethwe 6a:4b:27:d8:7b:18 up|broadcast|multicast}
 MACs:
-aa:04:03:5a:c0:0a -> 7a:6c:f3:f3:ae:ff (2015-02-27 17:23:29.336971738 +0000 UTC)
-e2:50:86:f5:27:91 -> 7a:6c:f3:f3:ae:ff (2015-02-27 17:23:27.951086308 +0000 UTC)
-7a:6c:f3:f3:ae:ff -> 7a:6c:f3:f3:ae:ff (2015-02-27 17:23:28.397837633 +0000 UTC)
+6a:4b:27:d8:7b:18 -> da:e1:a3:11:7c:ca(weave-gs-02) (2015-04-21 17:12:45.822547728 +0000 UTC)
+da:e1:a3:11:7c:ca -> da:e1:a3:11:7c:ca(weave-gs-02) (2015-04-21 17:12:45.822675947 +0000 UTC)
+3a:b6:a1:d5:e7:34 -> da:e1:a3:11:7c:ca(weave-gs-02) (2015-04-21 17:12:45.874775196 +0000 UTC)
 Peers:
-Peer 7a:6c:f3:f3:ae:ff (v2) (UID 15834305660056266284)
-   -> 7a:87:55:81:55:c9 [172.17.8.101:6783]
-Peer 7a:87:55:81:55:c9 (v2) (UID 7370780921418713878)
-   -> 7a:6c:f3:f3:ae:ff [172.17.8.102:42087]
+62:03:57:2c:fd:5b(weave-gs-01) (v2) (UID 16942516529400376177)
+   -> da:e1:a3:11:7c:ca(weave-gs-02) [172.17.8.102:47965]
+da:e1:a3:11:7c:ca(weave-gs-02) (v2) (UID 3714469127016325760)
+   -> 62:03:57:2c:fd:5b(weave-gs-01) [172.17.8.101:6783]
 Routes:
 unicast:
-7a:87:55:81:55:c9 -> 7a:87:55:81:55:c9
-7a:6c:f3:f3:ae:ff -> 00:00:00:00:00:00
+da:e1:a3:11:7c:ca -> 00:00:00:00:00:00
+62:03:57:2c:fd:5b -> 62:03:57:2c:fd:5b
 broadcast:
-7a:6c:f3:f3:ae:ff -> [7a:87:55:81:55:c9]
-7a:87:55:81:55:c9 -> []
+da:e1:a3:11:7c:ca -> [62:03:57:2c:fd:5b]
+62:03:57:2c:fd:5b -> []
 Reconnects:
 ```
 
