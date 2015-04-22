@@ -170,32 +170,32 @@ You will see output similar to
 Connecting to Nginx in Weave on AWS demo
 {
     "message" : "Hello Weave - nginx example",
-    "hostname" : ws1.weave.local",
+    "hostname" : "ws1.weave.local",
     "date" : "2015-02-25 14:35:53"
 }
 {
     "message" : "Hello Weave - nginx example",
-    "hostname" : ws2.weave.local",
+    "hostname" : "ws2.weave.local",
     "date" : "2015-02-25 14:35:53"
 }
 {
     "message" : "Hello Weave - nginx example",
-    "hostname" : ws3.weave.local",
+    "hostname" : "ws3.weave.local",
     "date" : "2015-02-25 14:35:53"
 }
 {
     "message" : "Hello Weave - nginx example",
-    "hostname" : ws4.weave.local",
+    "hostname" : "ws4.weave.local",
     "date" : "2015-02-25 14:35:53"
 }
 {
     "message" : "Hello Weave - nginx example",
-    "hostname" : ws5.weave.local",
+    "hostname" : "ws5.weave.local",
     "date" : "2015-02-25 14:35:53"
 }
 {
     "message" : "Hello Weave - nginx example",
-    "hostname" : ws6.weave.local",
+    "hostname" : "ws6.weave.local",
     "date" : "2015-02-25 14:35:53"
 }
 ```

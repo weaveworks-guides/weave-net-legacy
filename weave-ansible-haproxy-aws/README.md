@@ -128,37 +128,37 @@ Which will give you output similar too
 Connecting to HAProxy with Weave on AWS demo
 {
     "message" : "Hello Weave - HAProxy Example",
-    "hostname" : ws1.weave.local",
+    "hostname" : "ws1.weave.local",
     "date" : "2015-03-13 11:23:12"
 }
 
 {
     "message" : "Hello Weave - HAProxy Example",
-    "hostname" : ws4.weave.local",
+    "hostname" : "ws4.weave.local",
     "date" : "2015-03-13 11:23:12"
 }
 
 {
     "message" : "Hello Weave - HAProxy Example",
-    "hostname" : ws5.weave.local",
+    "hostname" : "ws5.weave.local",
     "date" : "2015-03-13 11:23:12"
 }
 
 {
     "message" : "Hello Weave - HAProxy Example",
-    "hostname" : ws2.weave.local",
+    "hostname" : "ws2.weave.local",
     "date" : "2015-03-13 11:23:12"
 }
 
 {
     "message" : "Hello Weave - HAProxy Example",
-    "hostname" : ws3.weave.local",
+    "hostname" : "ws3.weave.local",
     "date" : "2015-03-13 11:23:12"
 }
 
 {
     "message" : "Hello Weave - HAProxy Example",
-    "hostname" : ws6.weave.local",
+    "hostname" : "ws6.weave.local",
     "date" : "2015-03-13 11:23:12"
 }
 ```
@@ -175,7 +175,7 @@ curl $AWS_PUBLIC_IP
 ```bash
 {
     "message" : "Hello Weave - HAProxy Example",
-    "hostname" : ws1.weave.local",
+    "hostname" : "ws1.weave.local",
     "date" : "2015-03-13 11:25:30"
 }
 ```
