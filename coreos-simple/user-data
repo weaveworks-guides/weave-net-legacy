@@ -36,4 +36,5 @@ coreos:
         ExecStartPre=/usr/bin/docker pull zettio/weave:latest
         ExecStartPre=/usr/bin/docker pull zettio/weavetools:latest
         ExecStartPre=/usr/bin/docker pull zettio/weavedns:latest
+        ExecStartPre=/usr/bin/docker pull weaveworks/weaveexec:latest
         ExecStart=/bin/echo Weave Installed
