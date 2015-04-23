@@ -198,7 +198,7 @@ various services are up and running point your browser to [http://localhost:8080
 You will be greated with a login screen. Login with the username and password u1/U1.
 
 The example itself is a very simple demonstration of how to use the Seneca framework, discussion of which 
-is out of scope for this guide. For more details see the [http://senecajs.org/](Seneca website). 
+is out of scope for this guide. For more details see the [Seneca website](http://senecajs.org/). 
 
 Seneca is written in node.js, and the Dockerfiles used for building the containers in this guide are also 
 included in our [github repo](https://github.com/fintanr/weave-gs/tree/master/microservices-seneca-ubuntu-simple). 
