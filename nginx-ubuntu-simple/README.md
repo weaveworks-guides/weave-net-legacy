@@ -1,4 +1,4 @@
-# Using Nginx as a reserve proxy/load balancer with Weave and Docker #
+# Using Nginx as a reverse proxy/load balancer with Weave and Docker #
 
 ## What you will build ##
 
