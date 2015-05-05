@@ -1,4 +1,4 @@
-# Using Nginx as a reserve proxy/load balancer with Weave and Docker on Amazon Web Services #
+# Using Nginx as a reverse proxy/load balancer with Weave and Docker on Amazon Web Services #
 
 ## What you will build ##
 
