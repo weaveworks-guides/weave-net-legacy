@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/gorilla/mux"
 	"log"
@@ -14,7 +15,7 @@ func main() {
 	router.HandleFunc("/", HelloWeave)
 	router.HandleFunc("/myip", myIp)
 
-	log.Fatal(http.ListenAndServe(":80", router))
+	log.Fatal(http.ListenAndServe(":8081", router))
 }
 
 func HelloWeave(w http.ResponseWriter, r *http.Request) {
@@ -22,13 +23,15 @@ func HelloWeave(w http.ResponseWriter, r *http.Request) {
 }
 
 func myIp(w http.ResponseWriter, r *http.Request) {
+	var theIps bytes.Buffer
+
 	addrs, _ := net.InterfaceAddrs()
-	var thisIp string
+	//var thisIp string
 	for _, a := range addrs {
 		if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
-			thisIp = ipnet.IP.String()
+			theIps.WriteString(ipnet.IP.String())
+			theIps.WriteString("\n")
 		}
 	}
-	// just pring the last ip, its a demo
-	fmt.Fprintln(w, thisIp)
+	fmt.Fprintln(w, theIps.String())
 }
