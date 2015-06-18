@@ -13,10 +13,10 @@ for i in $(seq 3) ; do
   ## (`-initpeercount`) needs to be supplied,
   ## as we don't pass any peer addresses yet
   ./weave launch -initpeercount 3
-  ## TODO: WeaveDNS should soon be launched by default
+  ## Launch WeaveDNS on 10.53.1.0/24 subnet
   ./weave launch-dns "10.53.1.${i}/24"
   ## Proxy will use TLS arguments we just obtained from Docker
-  ## daemon and should have DNS and IPAM enabled too
+  ## daemon and should have DNS enabled too
   ./weave launch-proxy --with-dns ${tlsargs}
 
   ## Let's connect-up the Weave cluster by telling
