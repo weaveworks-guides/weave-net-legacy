@@ -83,22 +83,22 @@ Now you are all set to deploy containers with Weave and use DNS for containers t
 
 Let's now run a couple of very simple containers.
 
-First, let's run a container named `pingme.weave.local`. It consists of a simple netcat (aka `nc`) server running on TCP
+First, let's run a container named `pingme`. It consists of a simple netcat (aka `nc`) server running on TCP
 port 4000 and sending a short `Hello, Weave!` message to each client that connects to it.
 
-    > ./weave run --with-dns --name=c1 -h pingme.weave.local gliderlabs/alpine nc -p 4000 -lk -e echo 'Hello, Weave!'
+    > ./weave run --name=pingme gliderlabs/alpine nc -p 4000 -lk -e echo 'Hello, Weave!'
     e4978c68dec348b6515f4b6671bc094f4f8cd08a1b60491c7f47e63775c6b3b0
 
-And, second container we will call `pinger.weave.local`, we will use it interactively (hence `-ti` flags) to run a few
-simple command that will confirm that netcat server is accessible via `pingme.weave.local` DNS name and functions as expected.
+And, second container we will call `pinger`, we will use it interactively (hence `-ti` flags) to run a few simple command
+that will confirm that netcat server is accessible via `pingme.weave.local` DNS name and functions as expected.
 
-    > ./weave run --with-dns --name=c2 -ti -h pinger.weave.local gliderlabs/alpine sh -l
+    > ./weave run --name=pinger -ti gliderlabs/alpine sh -l
     655a63506d01595c4aa04a486be854ba713371f9bdbb72c59b87b3245abfeca5
 
 As we will use this container interactively, we will need to attach it first with `docker attach` and be sure to hit
 return/enter key to get the prompt.
 
-    > docker $DOCKER_CLIENT_ARGS attach c2
+    > docker $DOCKER_CLIENT_ARGS attach pinger
 
 First, let's ping the other container by it's DNS name
 
@@ -124,9 +124,9 @@ We can exit the test container now.
 
 And, as all worked well, let's get rid of both containers by running
 
-    > docker $DOCKER_CLIENT_ARGS rm -f c1 c2
-    c1
-    c2
+    > docker $DOCKER_CLIENT_ARGS rm -f pingme pinger
+    pingme
+    pinger
 
 Next, we could probably do something a bit more fancy, but for that we will need to introduce a few more concepts in the
 [next chapter][ch2].

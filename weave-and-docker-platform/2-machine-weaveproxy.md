@@ -92,7 +92,7 @@ and test if all is well with
 
 All tricks are done, and we can start our _"Hello, Weave!"_ app using Docker client instead of Weave script like this
 
-    > docker $DOCKER_CLIENT_ARGS run -d --name=c1 -h pingme.weave.local gliderlabs/alpine nc -p 4000 -lk -e echo 'Hello, Weave!'
+    > docker $DOCKER_CLIENT_ARGS run -d --name=pingme gliderlabs/alpine nc -p 4000 -lk -e echo 'Hello, Weave!'
     635ebf591cedc01610faea18b78ff977830dfc5bcb239accc833243304da619d
 
 This is a simple netcat (aka `nc`) server that runs on TCP port 4000 and sends a short `Hello, Weave!` message to each
@@ -100,7 +100,7 @@ client that connects to it.
 
 Next, we can start an interactive test container without having to call `docker attach` like we had to do previously.
 
-    > docker $DOCKER_CLIENT_ARGS run --name=c2 -ti -h pinger.weave.local gliderlabs/alpine sh -l
+    > docker $DOCKER_CLIENT_ARGS run --name=pinger -ti gliderlabs/alpine sh -l
 
 And now let's repeat the test just as we [did before][prev2].
 
@@ -127,9 +127,9 @@ We can exit the test container now.
 
 And, as all worked well, let's get rid of both containers by running
 
-    > docker $DOCKER_CLIENT_ARGS rm -f c1 c2
-    c1
-    c2
+    > docker $DOCKER_CLIENT_ARGS rm -f pingme pinger
+    pingme
+    pinger
 
 ## Cleanup
 

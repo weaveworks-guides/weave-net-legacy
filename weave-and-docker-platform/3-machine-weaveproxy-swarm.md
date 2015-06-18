@@ -159,15 +159,15 @@ This is great, we can run some containers now.
 
 First, let's run same _"Hello, Weave!"_ container like we did before
 
-    > docker `docker-machine config --swarm weave-1` run -d --name=c1 \
-        -h pingme.weave.local gliderlabs/alpine nc -p 4000 -l -e echo 'Hello, Weave!'
+    > docker `docker-machine config --swarm weave-1` run -d --name=pingme \
+        gliderlabs/alpine nc -p 4000 -l -e echo 'Hello, Weave!'
     df8bb89d048abce4f9ed25259072ac6c177ebdae708222662325603ef4ec4a78
 
-Next, in order to confirm that we have truly transparent multi-host setup, we should make sure that test container `c2`
-doesn't run on the same hosts as `c1` does, for this we can set Swarm affinity constraint with `-e 'affinity:container!=c1'`.
+Next, in order to confirm that we have truly transparent multi-host setup, we should make sure that test container `pinger`
+doesn't run on the same hosts as `pingme` does, for this we can set Swarm affinity constraint with `-e 'affinity:container!=pingme'`.
 
-    > docker `docker-machine config --swarm weave-1` run -e 'affinity:container!=c1' --name=c2 -ti \
-        -h pinger.weave.local gliderlabs/alpine sh -l
+    > docker `docker-machine config --swarm weave-1` run -e 'affinity:container!=pingme' --name=pinger -ti \
+        gliderlabs/alpine sh -l
 
 Now let's repeat our test with `ping` and `nc` commands, just like we did in the two previous chapters.
 
@@ -189,10 +189,10 @@ Before we tear down two running container, let's convince ourselves that these a
 In a new terminal window run
 
     > docker `docker-machine config --swarm weave-1` ps | grep alpine
-    aa5ae81e5cf4      gliderlabs/alpine:latest    "/w/w sh -l"          7 minutes ago   Up 7 minutes   weave-2/c2
-    df8bb89d048a      gliderlabs/alpine:latest    "/w/w nc -p 4000 -lk  6 minutes ago   Up 6 minutes   weave-3/c1
+    aa5ae81e5cf4      gliderlabs/alpine:latest    "/w/w sh -l"          7 minutes ago   Up 7 minutes   weave-2/pinger
+    df8bb89d048a      gliderlabs/alpine:latest    "/w/w nc -p 4000 -lk  6 minutes ago   Up 6 minutes   weave-3/pingme
 
-and you will see that there hostnames of our VMs in the last column, i.e. `weave-2/c2` and `weave-3/c1`.
+and you will see that there hostnames of our VMs in the last column, i.e. `weave-2/pinger` and `weave-3/pingme`.
 
 We can exit the test container now.
 
@@ -200,9 +200,9 @@ We can exit the test container now.
 
 And, as all worked well, let's get rid of both containers by running
 
-    > docker $DOCKER_CLIENT_ARGS rm -f c1 c2
-    c1
-    c2
+    > docker `docker-machine config --swarm weave-1` rm -f pingme pinger
+    pingme
+    pinger
 
 ## Cleanup
 
