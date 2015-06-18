@@ -159,10 +159,11 @@ That's great, we have deployed and scaled-up our simple app using Weave, Swarm a
 
 ## Next steps
 
-Next, you can deploy a cluster in public cloud, which should be pretty simple and you should be able to simply set the
-`DOCKER_MACHINE_DRIVER` and provider-specific environment variables prior to running `./1-machine-create.sh`.
+Next, you can deploy a cluster in public cloud, which should be pretty simple and you should be able to just set the
+`DOCKER_MACHINE_DRIVER` and a few provider-specific environment variables prior to running `./1-machine-create.sh`,
+but make sure to [cleanup VirtualBox VMs first](#cleanup).
 
-For example, in for Microsoft Azure it should be anought set the following
+For example, for Microsoft Azure it should be enought set the following
 
     export DOCKER_MACHINE_DRIVER="azure"
     export AZURE_SUBSCRIPTION_CERT="/path/to/mycert.pem"
