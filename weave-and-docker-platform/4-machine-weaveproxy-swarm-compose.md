@@ -185,6 +185,13 @@ If you feel like you are done for now, you can tear-down the VMs you have deploy
 
     docker-machine rm -f weave-1 weave-2 weave-3
 
+## Summary
+
+In this final chapter of _"Creating distributed applications with Weave and the Docker platform"_ guide we have looked
+at utilising all 3 great components of the Docker platform (Machine, Swarm & Compose). You should now be able to understand
+all what's required to set up a scalable cluster of Docker hosts with Weave tools and deploy your application to it with
+ease. You may chose to do the automation somehow differently, hence I've split this guide into 4 chapters, showing all
+the details you need in order to understand how it works and where all these different pieces fit together.
 
 [ch1]: /guides/weave-and-docker-platform/chapter1/machine.html
 [ch2]: /guides/weave-and-docker-platform/chapter2/machine-with-weave-proxy.html
