@@ -65,7 +65,7 @@ network setup. You also should run these if you chose to destroy the `weave-1` m
     chmod +x ./weave
     docker-machine create -d virtualbox weave-1
     export DOCKER_CLIENT_ARGS=$(docker-machine config weave-1)
-    ./weave launch -iprange 10.20.0.0/16
+    ./weave launch
     ./weave launch-dns 10.53.1.1/16
 
 Next, before we can launch Weave proxy, we will need to obtain the TLS settings from Docker daemon

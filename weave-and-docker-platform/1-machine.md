@@ -70,7 +70,7 @@ You can verify all is well by running
 
 Next, you should proceed to setup Weave network
 
-    ./weave launch -iprange 10.20.0.0/16
+    ./weave launch
     ./weave launch-dns 10.53.1.1/16
 
 <div class="alert alert-warning">

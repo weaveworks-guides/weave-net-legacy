@@ -83,12 +83,11 @@ Next we need to launch Weave on each of these machines. We have see how to do th
 chapter][ch2].
 
 As we don't know the IP addresses of all the peers ahead of time, will need to pass `-initpeercount` to `weave launch`,
-which should be set to 3, as we are looking to setup a cluster of 3 VMs. We also need to pass `-iprange`, which we have
-seen already.
+which should be set to 3, as we are looking to setup a cluster of 3 VMs.
 
 First, on each of the there nodes we need to
 
-  1. launch Weave router with `-iprange 10.20.0.0/16 -initpeercount 3`
+  1. launch Weave router with `-initpeercount 3`
   2. launch WeaveDNS on subnet `10.53.1.0/24`
   3. launch proxy with DNS and IPAM enabled and copy of TLS flags from Docker daemon
 
