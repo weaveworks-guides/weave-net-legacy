@@ -1,6 +1,8 @@
 #!/bin/bash -e
 
-DOCKER_MACHINE_DRIVER=${DOCKER_MACHINE_DRIVER:-"--driver virtualbox"}
+DOCKER_MACHINE_DRIVER=${DOCKER_MACHINE_DRIVER:-"virtualbox"}
+
+dirver_flags="--driver ${DOCKER_MACHINE_DRIVER}"
 
 ## I am using curl to create tokens as I find it the easiest, otherwise
 ## one needs to either download or compile a `docker-swarm` binary or
@@ -13,7 +15,7 @@ for i in $(seq 3) ; do
   if [ ${i} = 1 ] ; then
     ## The first machine shall be the Swarm master
     docker-machine create \
-      ${DOCKER_MACHINE_DRIVER} \
+      ${driver_flags} \
       ${swarm_flags} \
       --swarm-master \
       "weave-${i}"
