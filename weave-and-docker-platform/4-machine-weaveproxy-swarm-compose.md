@@ -35,7 +35,7 @@ In this chapter we will use a cluster of 3 Swarm-enabled VirtualBox VMs that we 
 and look at using Compose to create a simple 2-tier application stack with Python Flask front-end app and Redis as the
 database. We will then scale the front-end app to take advantage of all 3 VMs we have.
 
-It would not be possible to do the same so easily without [Weave Net](/net) and [Weave Run](/run), which boost Swarm cluster
+It would not be possible to build the same so easily without [Weave Net](/net) and [Weave Run](/run), which boost Swarm cluster
 scalability and enable simple DNS-based container discovery. More specifically, Weave provide true portability to a Swarm
 cluster. The exact same setup can be reproduced and scaled as easily in any environment, whether it's in the public cloud or
 an in-house datacenter. Additionally, Weave eliminates the need for [ambassador pattern][ambassador], or any other approach
@@ -156,6 +156,34 @@ We can test each of the instances just as well.
     Hello World! I have been seen 5 times.
 
 That's great, we have deployed and scaled-up our simple app using Weave, Swarm and Compose!
+
+## Next steps
+
+Next, you can deploy a cluster in public cloud, which should be pretty simple and you should be able to simply set the
+`DOCKER_MACHINE_DRIVER` and provider-specific environment variables prior to running `./1-machine-create.sh`.
+
+For example, in for Microsoft Azure it should be anought set the following
+
+    export DOCKER_MACHINE_DRIVER="azure"
+    export AZURE_SUBSCRIPTION_CERT="/path/to/mycert.pem"
+    export AZURE_SUBSCRIPTION_ID="MySubscriptionID"
+
+Or for Google Compute Engine
+
+    export DOCKER_MACHINE_DRIVER="google"
+    export GOOGLE_PROJECT="my-awesome-project-1"
+    export GOOGLE_AUTH_TOKEN="MyAuthToken"
+
+You would need to find out what the right values are, of course. Do note that this guide is open-source, and if you'd
+like to expand this guide to cover some clould providers in detail, feel free to submit a pull-request to our [guides
+repository](https://github.com/weaveworks/guides).
+
+## Cleanup
+
+If you feel like you are done for now, you can tear-down the VMs you have deployed just now
+
+    docker-machine rm -f weave-1 weave-2 weave-3
+
 
 [ch1]: /guides/weave-and-docker-platform/chapter1/machine.html
 [ch2]: /guides/weave-and-docker-platform/chapter2/machine-with-weave-proxy.html
