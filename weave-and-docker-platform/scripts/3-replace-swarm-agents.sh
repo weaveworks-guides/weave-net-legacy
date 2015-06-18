@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-DOCKER_SWARM_CREATE=${DOCKER_SWARM_CREATE:-"curl -XPOST https://discovery-stage.hub.docker.com/v1/clusters"}
+DOCKER_SWARM_CREATE=${DOCKER_SWARM_CREATE:-"curl -s -XPOST https://discovery-stage.hub.docker.com/v1/clusters"}
 
 ## This script will replace Swarm agent, aside from that it will have
 ## point them to Weave proxy port 12375 instead of Docker port 2376,
