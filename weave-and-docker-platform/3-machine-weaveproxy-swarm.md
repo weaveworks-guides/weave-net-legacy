@@ -172,10 +172,10 @@ doesn't run on the same hosts as `c1` does, for this we can set Swarm affinity c
 Now let's repeat our test with `ping` and `nc` commands, just like we did in the two previous chapters.
 
     pinger:/# ping -c3 pingme.weave.local
-    PING pingme.weave.local (10.20.128.0): 56 data bytes
-    64 bytes from 10.20.128.0: seq=0 ttl=64 time=17.572 ms
-    64 bytes from 10.20.128.0: seq=1 ttl=64 time=7.900 ms
-    64 bytes from 10.20.128.0: seq=2 ttl=64 time=3.284 ms
+    PING pingme.weave.local (10.128.128.0): 56 data bytes
+    64 bytes from 10.128.128.0: seq=0 ttl=64 time=17.572 ms
+    64 bytes from 10.128.128.0: seq=1 ttl=64 time=7.900 ms
+    64 bytes from 10.128.128.0: seq=2 ttl=64 time=3.284 ms
 
     --- pingme.weave.local ping statistics ---
     3 packets transmitted, 3 packets received, 0% packet loss

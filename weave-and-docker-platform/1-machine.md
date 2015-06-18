@@ -103,10 +103,10 @@ return/enter key to get the prompt.
 First, let's ping the other container by it's DNS name
 
     pinger:/# ping -c3 pingme.weave.local
-    PING pingme.weave.local (10.20.0.1): 56 data bytes
-    64 bytes from 10.20.0.1: seq=0 ttl=64 time=0.158 ms
-    64 bytes from 10.20.0.1: seq=1 ttl=64 time=0.161 ms
-    64 bytes from 10.20.0.1: seq=2 ttl=64 time=0.062 ms
+    PING pingme.weave.local (10.128.0.1): 56 data bytes
+    64 bytes from 10.128.0.1: seq=0 ttl=64 time=0.158 ms
+    64 bytes from 10.128.0.1: seq=1 ttl=64 time=0.161 ms
+    64 bytes from 10.128.0.1: seq=2 ttl=64 time=0.062 ms
 
     --- pingme.weave.local ping statistics ---
     3 packets transmitted, 3 packets received, 0% packet loss
