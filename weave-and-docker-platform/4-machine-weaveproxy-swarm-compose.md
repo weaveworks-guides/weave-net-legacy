@@ -84,6 +84,13 @@ If you haven't yet installed VirtualBox, be sure to follow [installation instruc
 If you haven't followed through [the previous chapter][ch3], you can run the following commands to get a set of 3 VMs with Weave
 network setup. You also should run these if you chose to destroy all the VMs once you finished reading that chapter.
 
+First, you need to clone the repository
+
+    git clone https://github.com/weaveworks/guides weaveworks-guides
+    cd ./weaveworks-guides/weave-and-docker-platform/scripts
+
+Now, run these 3 scripts
+
     ./1-machine-create.sh
     ./2-weave-launch.sh
     ./3-replace-swarm-agents.sh

@@ -115,7 +115,12 @@ done in [`scripts/3-replace-swarm-agents.sh`][step3].
 
 ### Put it all together
 
-Now that we understand how provisioning works, we can run all scripts
+First you shoild obtain the repository with
+
+    git clone https://github.com/weaveworks/guides weaveworks-guides
+    cd ./weaveworks-guides/weave-and-docker-platform/scripts
+
+Now that we understand how provisioning works, we can run all 3 scripts
 
     ./1-machine-create.sh
     ./2-weave-launch.sh
@@ -215,9 +220,9 @@ to create a cluster of Docker hosts and should understanding how to integrate We
 with confidence. Next we will look at how to use Compose to deploy an entier stack of containers to a Swarm cluster powered
 by [Weave Net](/net) and [Weave Run](/run).
 
-[step1]: https://github.com/errordeveloper/weave-demos/blob/master/quartet/scripts/1-machine-create.sh
-[step2]: https://github.com/errordeveloper/weave-demos/blob/master/quartet/scripts/2-weave-launch.sh
-[step3]: https://github.com/errordeveloper/weave-demos/blob/master/quartet/scripts/3-replace-swarm-agents.sh
+[step1]: https://github.com/weaveworks/guides/blob/d6c3b28061d40774818734dee915fd829b93e6bf/weave-and-docker-platform/scripts/1-machine-create.sh
+[step2]: https://github.com/weaveworks/guides/blob/d6c3b28061d40774818734dee915fd829b93e6bf/weave-and-docker-platform/scripts/2-weave-launch.sh
+[step3]: https://github.com/weaveworks/guides/blob/d6c3b28061d40774818734dee915fd829b93e6bf/weave-and-docker-platform/scripts/3-replace-swarm-agents.sh
 [ch1]: /guides/weave-and-docker-platform/chapter1/machine.html
 [ch2]: /guides/weave-and-docker-platform/chapter2/machine-with-weave-proxy.html
 [ch3]: /guides/weave-and-docker-platform/chapter3/machine-and-swarm-with-weave-proxy.html
