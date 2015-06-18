@@ -100,7 +100,7 @@ Now, run these 3 scripts
 First, we need build the app and make images available on each of the Docker hosts, there is a script which does this for
 you. You should simply change to the `app` direcorty and run it like this
 
-    cd app
+    cd ../app
     ./build.sh
 
 Now we need to setup the environment variable to make Compose talk to Swarm endpoint.
