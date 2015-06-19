@@ -2,7 +2,7 @@
 
 DOCKER_MACHINE_DRIVER=${DOCKER_MACHINE_DRIVER:-"virtualbox"}
 
-dirver_flags="--driver ${DOCKER_MACHINE_DRIVER}"
+driver_flags="--driver ${DOCKER_MACHINE_DRIVER}"
 
 ## I am using curl to create tokens as I find it the easiest, otherwise
 ## one needs to either download or compile a `docker-swarm` binary or
