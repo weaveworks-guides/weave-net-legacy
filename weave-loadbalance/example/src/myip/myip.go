@@ -25,12 +25,12 @@ func HelloWeave(w http.ResponseWriter, r *http.Request) {
 func myIp(w http.ResponseWriter, r *http.Request) {
 	var theIps bytes.Buffer
 
-	addrs, _ := net.InterfaceAddrs()
+	ief, _ := net.InterfaceByName("ethwe")
+	addrs, _ := ief.Addrs()
 
 	for _, a := range addrs {
 		if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
 			theIps.WriteString(ipnet.IP.String())
-			theIps.WriteString("\n")
 		}
 	}
 	fmt.Fprintln(w, theIps.String())
