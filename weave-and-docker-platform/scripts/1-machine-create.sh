@@ -22,7 +22,7 @@ for i in $(seq 3) ; do
   else
     ## The rest of machines are Swarm slaves
     docker-machine create \
-      ${DOCKER_MACHINE_DRIVER} \
+      ${driver_flags} \
       ${swarm_flags} \
       "weave-${i}"
   fi
