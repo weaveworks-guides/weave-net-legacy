@@ -79,12 +79,14 @@ On host `weave-gs-01`
 
 ```bash
 sudo weave launch
+sudo weave launch-dns
 ```
 
 On host `weave-gs-02`
 
 ```bash
 sudo weave launch 172.17.8.101
+sudo weave launch-dns
 ```
 
 Your two hosts are now connected to each other, and any subsequent containers you launch with Weave will be visible to other containers Weave is aware of.
@@ -137,6 +139,9 @@ broadcast:
 da:61:17:9e:e9:8b -> [2e:5a:ea:dd:74:5e]
 2e:5a:ea:dd:74:5e -> []
 Reconnects:
+
+Allocator range [10.128.0.0-10.192.0.0)
+Allocator default subnet: 10.128.0.0/10
 ```
 
 ## Our Hello World Service ##
@@ -146,14 +151,17 @@ Next you will use Weave to run a Docker image containing an Apache webserver.  D
 On `weave-gs-01` run
 
 ```bash
-sudo weave run 10.0.1.1/24 -t -i fintanr/weave-gs-simple-hw
+sudo weave run --name=web1 -t -i fintanr/weave-gs-simple-hw
 ```
 
 At this point you have a running Apache server in a Docker container.
 
 ### What has happened?
 
-Weave has launched a pre-built Docker container containing an Apache webserver, and assigned it an address of `10.0.1.1`. The Docker image you are using has been downloaded from the [Docker Hub](https://hub.docker.com/).
+Weave has launched a pre-built Docker image containing an Apache
+webserver, given it the name "web1", and assigned it an IP
+address. The Docker image you are using has been downloaded from the
+[Docker Hub](https://hub.docker.com/).
 
 The container is registered with Weave and is accessible to other containers registered with Weave across multiple hosts.
 
@@ -162,7 +170,7 @@ The container is registered with Weave and is accessible to other containers reg
 Next you want to create a container on your second host and connect to the webserver in the container on our first host. We will use another prebuilt container, `fintanr/weave-gs-ubuntu-curl` for this example. Containers return a container ID which you will capture to use further on in this example. On `weave-gs-02` run
 
 ```bash
-CONTAINER=`sudo weave run 10.0.1.2/24 -t -i fintanr/weave-gs-ubuntu-curl`
+CONTAINER=`sudo weave run -t -i fintanr/weave-gs-ubuntu-curl`
 ```
 The Ubuntu Docker image you are using here is the same image that we based our Apache Docker image on,
 with the addition of curl.
@@ -174,7 +182,7 @@ sudo docker attach $CONTAINER
 ```
 
 ```bash
-curl http://10.0.1.1
+curl http://web1
 ```
 
 And you will see a JSON string similar too
