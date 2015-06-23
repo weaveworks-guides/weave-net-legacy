@@ -12,7 +12,8 @@ modifications to the application and minimal docker knowledge.
 
 You will also be introduced to [WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme),
 which provides a simple way for containers to find each other using hostnames and requires no code
-changes.
+changes, and [Automatic IP Address Management](http://docs.weave.works/weave/latest_release/ipam.html), which
+allows Weave to automatically assign containers IP addresses accross the network.
  
 ## What you will use ##
 
@@ -45,9 +46,7 @@ cd weave-gs/nginx-ubuntu-simple
 vagrant up
 ```
 
-Vagrant will pull down and configure an Ubuntu image, this may take a few minutes depending on the speed of your network connection. For more details on Vagrant please refer to the [Vagrant documentation](http://vagrantup.com).
-
-You may be prompted for a password when `/etc/hosts` is being updated during the Vagrant setup, please just hit return at this point.
+Vagrant will pull down and configure an Ubuntu image, this may take a few minutes depending on the speed of your network connection. For more details on Vagrant please refer to the [Vagrant documentation](http://vagrantup.com). If you happen to want a cup of coffee this is probably a good point to go get one.
 
 Once the setup of the hosts is complete you can check their status with
 
@@ -71,6 +70,13 @@ Our Vagrantfile also configures weave-gs-01 to pass traffic from port 80 to loca
 
 In this example you will give each container a hostname and use WeaveDNS to allow Nginx to find the correct container for a request.
 
+## Introduction Automatic IP Address Management ##
+
+[Automatic IP Address Management(IPAM)](http://docs.weave.works/weave/latest_release/ipam.html) automatically assigns containers an IP address that is unique across the network, and releases that address when a container exit. 
+
+In this example you will use IPAM to automatically allocate IP addresses to the containers used across our network. IPAM and WeaveDNS work
+seemlessly together, and you will 
+
 ## Nginx and a simple PHP application running in Apache ##
 
 Nginx is a popular free, open-source, high-performance HTTP server and reverse proxy. It is frequently used as a load balancer. In this 
@@ -87,7 +93,7 @@ the Dockerfile section at the end of this guide.
 
 To start the example run the script `launch-nginx-demo.sh`. This will 
 
-* launch Weave and WeaveDNS on each host 
+* launch Weave and WeaveDNS on each host.  
 * launch six containers across our three hosts running an apache2 instance with our simple php site
 * launch Nginx as a load balancer in front of the six containers  
 
@@ -98,49 +104,47 @@ To start the example run the script `launch-nginx-demo.sh`. This will
 If you would like to execute these steps manually the commands to launch Weave and WeaveDNS are
 
 ```bash
-vagrant ssh weave-gs-01
-sudo weave launch
-sudo weave launch-dns 10.2.1.1/24
+vagrant ssh weave-gs-01 -c "sudo weave launch -initpeercount 3"
+vagrant ssh weave-gs-02 -c "sudo weave launch -initpeercount 3 172.17.8.101" 
+vagrant ssh weave-gs-03 -c "sudo weave launch -initpeercount 3 172.17.8.101" 
 
-vagrant ssh weave-gs-02
-sudo weave launch 172.17.8.101
-sudo weave launch-dns 10.2.1.2/24 
-
-vagrant ssh weave-gs-03
-sudo weave launch 172.17.8.101 
-sudo weave launch-dns 10.2.1.3/24
+vagrant ssh weave-gs-01 -c "sudo weave launch-dns"
+vagrant ssh weave-gs-02 -c "sudo weave launch-dns"
+vagrant ssh weave-gs-03 -c "sudo weave launch-dns"
 ```
+
+You will note that we first launched weave on each host, and then WeaveDNS. This is to allow the IPAM functionality
+to find at least a majority of peers, and ensure that unique IP addresses will be allocated on each host.
 
 The commands to launch our application containers are 
 
 ```bash
 vagrant ssh weave-gs-01
-sudo weave run --with-dns 10.3.1.1/24 -h ws1.weave.local fintanr/weave-gs-nginx-apache
-sudo weave run --with-dns 10.3.1.2/24 -h ws2.weave.local fintanr/weave-gs-nginx-apache
+sudo weave run -h ws1.weave.local fintanr/weave-gs-nginx-apache
+sudo weave run -h ws2.weave.local fintanr/weave-gs-nginx-apache
 
 vagrant ssh weave-gs-02
-sudo weave run --with-dns 10.3.1.3/24 -h ws3.weave.local fintanr/weave-gs-nginx-apache
-sudo weave run --with-dns 10.3.1.4/24 -h ws4.weave.local fintanr/weave-gs-nginx-apache
+sudo weave run -h ws3.weave.local fintanr/weave-gs-nginx-apache
+sudo weave run -h ws4.weave.local fintanr/weave-gs-nginx-apache
 
 vagrant ssh weave-gs-03
-sudo weave run --with-dns 10.3.1.5/24 -h ws5.weave.local fintanr/weave-gs-nginx-apache
-sudo weave run --with-dns 10.3.1.6/24 -h ws6.weave.local fintanr/weave-gs-nginx-apache
+sudo weave run -h ws5.weave.local fintanr/weave-gs-nginx-apache
+sudo weave run -h ws6.weave.local fintanr/weave-gs-nginx-apache
 ```
 
-Note the --with-dns option and the -h option, --with-dns tells the container to use WeaveDNS to resolve names and
--h x.weave.local allows the host to be resolvable with WeaveDNS. 
+Note the -h option, when WeaveDNS has been launched -h x.weave.local allows the host to be resolvable.
 
 Finally we launch our Nginx container
 
 ```bash
 vagrant ssh weave-gs-01
-sudo weave run --with-dns 10.3.1.7/24 -ti -h nginx.weave.local -d -p 80:80 fintanr/weave-gs-nginx-simple 
+sudo weave run -ti -h nginx.weave.local -d -p 80:80 fintanr/weave-gs-nginx-simple 
 ```
  
 ### What has happened? ###
 
 At this point you have launched Weave and WeaveDNS on all of your hosts, and connected six containers running our simple php
-application and Nginx together using Weave. 
+application and Nginx together using Weave.  
 
 ## Testing our example ##
 
@@ -155,35 +159,36 @@ You will see output similar to
 
 ```javascript
 Connecting to Nginx in Weave demo
+Connecting to Nginx in Weave demo
 {
     "message" : "Hello Weave - nginx example",
-    "hostname" : "ws1.weave.local",
-    "date" : "2015-02-19 17:24:50"
+    "hostname" : ws1.weave.local",
+    "date" : "2015-06-23 16:01:55"
 }
 {
     "message" : "Hello Weave - nginx example",
-    "hostname" : "ws2.weave.local",
-    "date" : "2015-02-19 17:24:50"
+    "hostname" : ws2.weave.local",
+    "date" : "2015-06-23 16:01:55"
 }
 {
     "message" : "Hello Weave - nginx example",
-    "hostname" : "ws3.weave.local",
-    "date" : "2015-02-19 17:24:50"
+    "hostname" : ws3.weave.local",
+    "date" : "2015-06-23 16:02:11"
 }
 {
     "message" : "Hello Weave - nginx example",
-    "hostname" : "ws4.weave.local",
-    "date" : "2015-02-19 17:24:50"
+    "hostname" : ws4.weave.local",
+    "date" : "2015-06-23 16:02:11"
 }
 {
     "message" : "Hello Weave - nginx example",
-    "hostname" : "ws5.weave.local",
-    "date" : "2015-02-19 17:24:50"
+    "hostname" : ws5.weave.local",
+    "date" : "2015-06-23 16:01:55"
 }
 {
     "message" : "Hello Weave - nginx example",
-    "hostname" : "ws6.weave.local",
-    "date" : "2015-02-19 17:24:50"
+    "hostname" : ws6.weave.local",
+    "date" : "2015-06-23 16:01:55"
 }
 ```
 
