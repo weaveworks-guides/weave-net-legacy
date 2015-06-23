@@ -6,7 +6,7 @@
 # 
 # This script will cleanup a weavedemo AWS environment, please use with care.
 # if you have any doubts at all as to what this script does use the AWS console
-# to shutodwn and these demo remove instances.
+# to shutdown and remove these demo instances.
 #
 
 WEAVEDEMO_GROUPNAME=${WEAVEDEMO_GROUPNAME:-weavedemo}
