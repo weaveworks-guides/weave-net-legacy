@@ -64,7 +64,7 @@ network setup. You also should run these if you chose to destroy the `weave-1` m
     curl -OL git.io/weave
     chmod +x ./weave
     docker-machine create -d virtualbox weave-1
-    export DOCKER_CLIENT_ARGS=$(docker-machine config weave-1)
+    export DOCKER_CLIENT_ARGS="$(docker-machine config weave-1)"
     ./weave launch
     ./weave launch-dns 10.53.1.1/16
 
@@ -82,7 +82,7 @@ to know is that it can be accessed on port 12375 and we need to point docker cli
 
 Let's modify the `DOCKER_CLIENT_ARGS` environment variable
 
-    export DOCKER_CLIENT_ARGS=$(docker-machine config weave-1 | sed 's|:2376|:12375|')
+    export DOCKER_CLIENT_ARGS="$(docker-machine config weave-1 | sed 's|:2376|:12375|')"
 
 and test if all is well with
 
