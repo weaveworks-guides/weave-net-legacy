@@ -13,7 +13,7 @@ modifications to the application and minimal docker knowledge.
 You will also be introduced to [WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme),
 which provides a simple way for containers to find each other using hostnames and requires no code
 changes, and [Automatic IP Address Management](http://docs.weave.works/weave/latest_release/ipam.html), which
-allows Weave to automatically assign containers IP addresses accross the network.
+allows Weave to automatically assign container IP addresses across the network.
  
 ## What you will use ##
 
