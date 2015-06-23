@@ -9,7 +9,7 @@ toolkit for building microservices in [node.js](http://nodejs.org), [Seneca](htt
 The example you will use here is derived from the Seneca microservices example available on 
 [github](https://github.com/rjrodger/seneca-examples/tree/master/micro-services).
 
-![Weave, Microservices and Docker](https://github.com/fintanr/weave-gs/blob/master/microservices-seneca-ubuntu-simple/Microservices_Seneca_Weave.png)
+![Weave, Microservices and Docker](https://github.com/weaveworks/guides/blob/master/microservices-seneca-ubuntu-simple/Microservices_Seneca_Weave.png)
 
 ## What you will use ##
 
@@ -48,16 +48,16 @@ articles and presentations by [Martin Fowler and James Lewis](http://martinfowle
   
 ## Setting up our hosts ##
 
-All of the code for this example is available on [github](http://github.com/fintanr/weave-gs/microservices-seneca-ubuntu-simple), and you first clone the getting started repository.
+All of the code for this example is available on [github](http://github.com/weaveworks/guides/microservices-seneca-ubuntu-simple), and you first clone the getting started repository.
 
 ```bash
-git clone http://github.com/fintanr/weave-gs
+git clone http://github.com/weaveworks/guides
 ```
 
-You will use Vagrant to setup and configure an Ubuntu host and install Docker. We make use of Vagrant's functionality to download the base docker images we will be using, and we then install Weave. If you would like to work through the installation steps please review our [hello world getting started guide](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/README.md) for a more manual example.
+You will use Vagrant to setup and configure an Ubuntu host and install Docker. We make use of Vagrant's functionality to download the base docker images we will be using, and we then install Weave. If you would like to work through the installation steps please review our [hello world getting started guide](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/README.md) for a more manual example.
 
 ```bash
-cd weave-gs/microservices-seneca-ubuntu-simple
+cd guides/microservices-seneca-ubuntu-simple
 vagrant up
 ```
 
@@ -201,7 +201,7 @@ The example itself is a very simple demonstration of how to use the Seneca frame
 is out of scope for this guide. For more details see the [Seneca website](http://senecajs.org/). 
 
 Seneca is written in node.js, and the Dockerfiles used for building the containers in this guide are also 
-included in our [github repo](https://github.com/fintanr/weave-gs/tree/master/microservices-seneca-ubuntu-simple). 
+included in our [github repo](https://github.com/weaveworks/guides/tree/master/microservices-seneca-ubuntu-simple). 
 
 ## Summary ##
 

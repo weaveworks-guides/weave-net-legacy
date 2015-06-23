@@ -6,7 +6,7 @@ Weave allows you to focus on developing your application, rather than your infra
 
 In this example you will be creating a simple application running in a container on one host. Your service provides a JSON message containing hello world and a date - we call this your hello world service. In your second container, running on a seperate host, you use curl to query the hello world service.
 
-![Weave and Docker](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/Simple_Weave.png)
+![Weave and Docker](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/Simple_Weave.png)
 
 ## What you will use ##
 
@@ -28,13 +28,13 @@ This getting started guide is self contained. You will use Weave, Docker and Cen
 All of the code for this example is available on github, and you first clone the getting started repository.
 
 ```bash
-git clone http://github.com/fintanr/weave-gs
+git clone http://github.com/weaveworks/guides
 ```
 
 You will use vagrant to setup and configure two CentOS hosts and install Docker. These hosts will be assigned IP addresses on a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and named `weave-gs-01` and `weave-gs-02`.
 
 ```bash
-cd weave-gs/centos-simple
+cd guides/centos-simple
 vagrant up
 ```
 
@@ -61,11 +61,11 @@ Now you install Weave on each host.
 
 ```bash
 vagrant ssh weave-gs-01
-sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
+sudo curl -L git.io/weave -o /usr/local/bin/weave
 sudo chmod a+x /usr/local/bin/weave
 
 vagrant ssh weave-gs-02
-sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
+sudo curl -L git.io/weave -o /usr/local/bin/weave
 sudo chmod a+x /usr/local/bin/weave
 ```
 
@@ -139,7 +139,7 @@ Reconnects:
 
 ## Our Hello World Service ##
 
-Next you will use Weave to run a Docker image containing an Apache webserver.  Details on how this container was created using docker are available [here](https://github.com/fintanr/weave-gs/blob/master/centos-simple/DockerfileREADME.md).
+Next you will use Weave to run a Docker image containing an Apache webserver.  Details on how this container was created using docker are available [here](https://github.com/weaveworks/guides/blob/master/centos-simple/DockerfileREADME.md).
 
 On `weave-gs-01` run
 

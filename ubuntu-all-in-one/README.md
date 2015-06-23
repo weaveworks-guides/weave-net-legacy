@@ -6,7 +6,7 @@ Weave allows you to focus on developing your application, rather than your infra
 
 In this example you will be creating a simple application running in a container on one host. Your service provides a JSON message containing hello world and a date - we call this your hello world service. In your second container, running on a seperate host, you use curl to query the hello world service.
 
-![Weave and Docker](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/Simple_Weave.png)
+![Weave and Docker](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/Simple_Weave.png)
 
 ## What you will use ##
 
@@ -24,20 +24,20 @@ This getting started guide is self contained. You will use Weave, Docker and Ubu
 * [Vagrant > 1.6](https://docs.vagrantup.com/v2/installation/index.html)
 
 You are also provided with a script to setup the demo, if you would like to work through a manual example please
-see our more detailed [getting started guide](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/README.md).
+see our more detailed [getting started guide](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/README.md).
 
 ## Setting up our hosts ##
 
 All of the code for this example is available on github, and you first clone the getting started repository.
 
 ```bash
-git clone http://github.com/fintanr/weave-gs
+git clone http://github.com/weaveworks/guides
 ```
 
 You will use vagrant to setup and configure two Ubuntu hosts, install Docker and install weave. These hosts will be assigned IP addresses on a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and named `weave-gs-01` and `weave-gs-02`.
 
 ```bash
-cd weave-gs/ubuntu-all-in-one
+cd guides/ubuntu-all-in-one
 vagrant up
 ```
 

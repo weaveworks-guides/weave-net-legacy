@@ -8,7 +8,7 @@ In this example we will demonstrate how Weave allows you to quickly and easily d
 a load balancer for a simple php application running in containers on multiple nodes in [Amazon 
 Web Services](http://aws.amazon.com), with no modifications to the application and minimal docker knowledge. 
 
-![Weave, Nginx, Apache and Docker on AWS](https://github.com/fintanr/weave-gs/blob/master/aws-nginx-ubuntu-simple/2_Node_Nginx_AWS_Example.png)
+![Weave, Nginx, Apache and Docker on AWS](https://github.com/weaveworks/guides/blob/master/aws-nginx-ubuntu-simple/2_Node_Nginx_AWS_Example.png)
 
 You will also be introduced to [WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme),
 which provides a simple way for containers to find each other using hostnames and requires no code
@@ -38,8 +38,8 @@ through this getting started guide. Amazon provide an extensive guide on how to 
 All of the code for this example is available on github, and you first clone the getting started repository.
 
 ```bash
-git clone http://github.com/fintanr/weave-gs
-cd weave-gs/aws-nginx-ubuntu-simple
+git clone http://github.com/weaveworks/guides
+cd guides/aws-nginx-ubuntu-simple
 ```
 
 You will use the AWS CLI to setup and configure two AWS EC2 instances. For the purposes of this this getting started guide you will
@@ -90,9 +90,9 @@ example we will use Nginx to load balance requests to a set of containers runnin
 
 While our example application is very simple, as a php application running on apache2 it resembles many real world applications 
 in use. We have created an Nginx configuration which will round-robin across the websevers our php application is running on.
-The details of the Nginx configuration are out of scope for this article, but you can review it at [on github](https://github.com/fintanr/weave-gs/blob/master/nginx-ubuntu-simple/example/nginx.conf).   
+The details of the Nginx configuration are out of scope for this article, but you can review it at [on github](https://github.com/weaveworks/guides/blob/master/nginx-ubuntu-simple/example/nginx.conf).   
 
-The two docker containers we use in this guide were created for an [earlier getting started guide](https://github.com/fintanr/weave-gs/blob/master/nginx-ubuntu-simple/README.md). If you would like further details on how these were created refer to the Dockerfile section at the end of this of guide.  
+The two docker containers we use in this guide were created for an [earlier getting started guide](https://github.com/weaveworks/guides/blob/master/nginx-ubuntu-simple/README.md). If you would like further details on how these were created refer to the Dockerfile section at the end of this of guide.  
 
 ## Application Portability with Weave and Docker ##
 
@@ -264,7 +264,7 @@ You will need to install docker on each host in turn, please follow the instruct
 To install weave you will need to ssh into each host and run the following commands.
 
 ```bash
-sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
+sudo curl -L git.io/weave -o /usr/local/bin/weave
 sudo chmod a+x /usr/local/bin/weave 
 ```
 
@@ -276,14 +276,14 @@ scope for this guide, for more information refer to the offical guide on [docker
 
 Our containers have been built from the offical [Nginx](https://registry.hub.docker.com/_/nginx/) and [Ubuntu](https://registry.hub.docker.com/_/ubuntu/) images, and pushed to the Docker Hub    
 
-If you want to experiment with these Dockerfiles it is easiest to git clone the [Weave Getting Started repository](http://github.com/fintanr/weave-gs-guides) on the host. You may need to install git. 
+If you want to experiment with these Dockerfiles it is easiest to git clone the [Weave Getting Started repository](http://github.com/weaveworks/guides) on the host. You may need to install git. 
 
 ### Nginx ###
 
 ```bash
 ssh -i weavedemo-key.pem ubuntu@$WEAVE_AWS_DEMO_HOST1
-git clone http://github.com/fintanr/weave-gs
-cd weave-gs/aws-nginx-ubuntu-demo
+git clone http://github.com/weaveworks/guides
+cd guides/aws-nginx-ubuntu-demo
 sudo docker build -f Dockerfile-simple-nginx .
 ```
 
@@ -322,7 +322,7 @@ sudo docker run 5583ba8e1c8a
 
 ```bash
 ssh -i weavedemo-key.pem ubuntu@$WEAVE_AWS_DEMO_HOST1
-git clone http://github.com/fintanr/weave-gs
-cd weave-gs/aws-nginx-ubuntu-demo
+git clone http://github.com/weaveworks/guides
+cd guides/aws-nginx-ubuntu-demo
 sudo docker build -f Dockerfile-simple-apache .
 ```

@@ -8,7 +8,7 @@ In this example we will demonstrate how Weave allows you to quickly and easily d
 a load balancer for a simple php application running in containers on multiple nodes, with no 
 modifications to the application and minimal docker knowledge. 
 
-![Weave, Nginx, Apache and Docker 3 Nodes](https://github.com/fintanr/weave-gs/blob/master/nginx-ubuntu-simple/3_Node_Nginx_Example.png)
+![Weave, Nginx, Apache and Docker 3 Nodes](https://github.com/weaveworks/guides/blob/master/nginx-ubuntu-simple/3_Node_Nginx_Example.png)
 
 You will also be introduced to [WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme),
 which provides a simple way for containers to find each other using hostnames and requires no code
@@ -36,13 +36,13 @@ This getting started guide is self contained. You will use Weave, Docker, Nginx 
 All of the code for this example is available on github, and you first clone the getting started repository.
 
 ```bash
-git clone http://github.com/fintanr/weave-gs
+git clone http://github.com/weaveworks/guides
 ```
 
-You will use Vagrant to setup and configure three Ubuntu hosts and install Docker. We make use of Vagrant's functionality to download the base docker images we will be using, and we then install Weave. If you would like to work through the installation steps please review our [getting started guide](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/README.md) for a more manual example.
+You will use Vagrant to setup and configure three Ubuntu hosts and install Docker. We make use of Vagrant's functionality to download the base docker images we will be using, and we then install Weave. If you would like to work through the installation steps please review our [getting started guide](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/README.md) for a more manual example.
    
 ```bash
-cd weave-gs/nginx-ubuntu-simple
+cd guides/nginx-ubuntu-simple
 vagrant up
 ```
 
@@ -84,7 +84,7 @@ example we will use Nginx to load balance requests to a set of containers runnin
 
 While our example application is very simple, as a php application running on apache2 it resembles many real world applications 
 in use. We have created an Nginx configuration which will round-robin across the websevers our php application is running on.
-The details of the Nginx configuration are out of scope for this article, but you can review it at [on github](https://github.com/fintanr/weave-gs/blob/master/nginx-ubuntu-simple/example/nginx.conf)  
+The details of the Nginx configuration are out of scope for this article, but you can review it at [on github](https://github.com/weaveworks/guides/blob/master/nginx-ubuntu-simple/example/nginx.conf)  
 
 We have created two docker containers specifically for this guide, if you would like further details on how these were created refer to 
 the Dockerfile section at the end of this guide. 

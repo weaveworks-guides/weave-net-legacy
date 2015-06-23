@@ -9,7 +9,7 @@ a load balancer for a simple php application running in containers on multiple n
 Web Services](http://aws.amazon.com), with no modifications to the application and minimal docker 
 knowledge.
 
-![Weave and Docker](https://github.com/fintanr/weave-gs/blob/master/weave-ansible-haproxy-aws/2_Node_HAProxy_AWS_Example.png)
+![Weave and Docker](https://github.com/weaveworks/guides/blob/master/weave-ansible-haproxy-aws/2_Node_HAProxy_AWS_Example.png)
 
 ## What you will use ##
 
@@ -49,12 +49,12 @@ You will then connect to your public facing HAProxy container.
 
 ## Configuring and setting up your instances ## 
 
-All of the code for this example is available on [github](http://github.com/fintanr/weave-gs), and you first clone the 
+All of the code for this example is available on [github](http://github.com/weaveworks/guides), and you first clone the 
 getting started repository.
 
 ```bash
-git clone http://github.com/fintanr/weave-gs
-cd weave-gs/weave-ansible-haproxy-aws
+git clone http://github.com/weaveworks/guides
+cd guides/weave-ansible-haproxy-aws
 ```
 
 ### AWS Regions ### 

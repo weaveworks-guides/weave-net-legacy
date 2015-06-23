@@ -6,7 +6,7 @@ Weave allows you to focus on developing your application, rather than your infra
 
 In this example you will be creating a simple application running in a container on one host. Your service provides a JSON message containing hello world and a date - we call this your hello world service. In your second container, running on a seperate host, you use curl to query the hello world service.
 
-![Weave and Docker](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/Simple_Weave.png)
+![Weave and Docker](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/Simple_Weave.png)
 
 ## What you will use ##
 
@@ -32,20 +32,20 @@ CoreOS is one of a new breed of Linux distributions, primarily aimed at running 
 
 CoreOS is not a general purpose operating system, and may feel somewhat alien if you are more accustomed to 
 one of the more established distributions. If you feel more comfortable with a general purpose operating system 
-you may prefer to follow our getting started guides on [Ubuntu](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/README.md) or [CentOS](https://github.com/fintanr/weave-gs/blob/master/centos-simple/README.md).
+you may prefer to follow our getting started guides on [Ubuntu](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/README.md) or [CentOS](https://github.com/weaveworks/guides/blob/master/centos-simple/README.md).
 
 ## Setting up your hosts ##
 
 All of the code for this example is available on github, and you first clone the getting started repository.
 
 ```bash
-git clone http://github.com/fintanr/weave-gs
+git clone http://github.com/weaveworks/guides
 ```
 
 You will use vagrant to setup and configure two CoreOS hosts and install Weave. These hosts will be assigned IP addresses on a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and named `weave-gs-01` and `weave-gs-02`.
 
 ```bash
-cd weave-gs/coreos-simple
+cd guides/coreos-simple
 vagrant up
 ```
 
@@ -74,7 +74,7 @@ read more about in the [CoreOS Using Cloud Config](https://coreos.com/docs/clust
 document. 
 
 To install Weave we use a feature of the CoreOS cloud config files called "units" to create a systemd unit which
-installs weave. You can review the cloud-config file we used [here](https://github.com/fintanr/weave-gs/blob/master/coreos-simple/user-data). Systemd is outside the scope of this document, for more information please review [Getting Started With
+installs weave. You can review the cloud-config file we used [here](https://github.com/weaveworks/guides/blob/master/coreos-simple/user-data). Systemd is outside the scope of this document, for more information please review [Getting Started With
 systemd](https://coreos.com/docs/launching-containers/launching/getting-started-with-systemd/).     
  
 ## Using Weave ##
