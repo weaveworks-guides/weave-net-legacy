@@ -28,13 +28,13 @@ This getting started guide is self contained. You will use Weave, Docker and Ubu
 All of the code for this example is available on github, and you first clone the getting started repository.
 
 ```bash
-git clone http://github.com/fintanr/weave-gs
+git clone http://github.com/weaveworks/guides
 ```
 
 You will use vagrant to setup and configure two Ubuntu hosts and install Docker. These hosts will be assigned IP addresses on a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and named `weave-gs-01` and `weave-gs-02`.
 
 ```bash
-cd weave-gs/ubuntu-simple
+cd guides/ubuntu-simple
 vagrant up
 ```
 
@@ -61,11 +61,11 @@ Now you install Weave on each host.
 
 ```bash
 vagrant ssh weave-gs-01
-sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
+sudo curl -L git.io/weave -o /usr/local/bin/weave
 sudo chmod a+x /usr/local/bin/weave
 
 vagrant ssh weave-gs-02
-sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
+sudo curl -L git.io/weave -o /usr/local/bin/weave
 sudo chmod a+x /usr/local/bin/weave
 ```
 
@@ -109,39 +109,54 @@ sudo docker ps
 and you will see something similar to
 
 ```bash
-CONTAINER ID        IMAGE                     COMMAND                CREATED             STATUS              PORTS                                            NAMES
-ce3488ed2217        weaveworks/weave:0.10.0   "/home/weave/weaver    12 seconds ago      Up 12 seconds       0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave   
+CONTAINER ID        IMAGE                       COMMAND                CREATED             STATUS              PORTS                                            NAMES
+e3fba94a35fc        weaveworks/weavedns:1.0.1   "/home/weave/weavedn   57 seconds ago      Up 56 seconds       10.1.42.1:53->53/udp                             weavedns            
+dd3878af6307        weaveworks/weave:1.0.1      "/home/weave/weaver    16 minutes ago      Up 16 minutes       0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave  
 ```
 You can see your peered network by using `weave status`
 
 ```bash
 sudo weave status
 ```
+
 ```bash
-weave router 0.10.0
+weave router 1.0.1
+Our name is b2:6d:8c:74:4a:31(weave-gs-01)
 Encryption off
-Our name is da:61:17:9e:e9:8b(weave-gs-02)
-Sniffing traffic on &{10 65535 ethwe a2:00:b3:3c:da:19 up|broadcast|multicast}
+Peer discovery on
+Sniffing traffic on &{10 65535 ethwe 36:bd:bd:11:79:43 up|broadcast|multicast}
 MACs:
-a2:00:b3:3c:da:19 -> da:61:17:9e:e9:8b(weave-gs-02) (2015-04-21 16:18:30.799434125 +0000 UTC)
-da:61:17:9e:e9:8b -> da:61:17:9e:e9:8b(weave-gs-02) (2015-04-21 16:18:31.500875071 +0000 UTC)
-ea:96:cd:1d:b7:3e -> da:61:17:9e:e9:8b(weave-gs-02) (2015-04-21 16:18:32.09948203 +0000 UTC)
+b6:66:e6:8a:c4:3e -> aa:3c:6c:5f:fa:31(weave-gs-02) (2015-06-23 09:50:46.840569861 +0000 UTC)
+4e:60:c7:bd:20:0c -> b2:6d:8c:74:4a:31(weave-gs-01) (2015-06-23 09:51:15.181934617 +0000 UTC)
+2a:c2:80:3e:5c:db -> b2:6d:8c:74:4a:31(weave-gs-01) (2015-06-23 09:48:07.853429348 +0000 UTC)
+aa:3c:6c:5f:fa:31 -> aa:3c:6c:5f:fa:31(weave-gs-02) (2015-06-23 09:50:46.368725659 +0000 UTC)
 Peers:
-da:61:17:9e:e9:8b(weave-gs-02) (v2) (UID 6202496262843123525)
-   -> 2e:5a:ea:dd:74:5e(weave-gs-01) [172.17.8.101:6783]
-2e:5a:ea:dd:74:5e(weave-gs-01) (v2) (UID 1601799468160875229)
-   -> da:61:17:9e:e9:8b(weave-gs-02) [172.17.8.102:49600]
+b2:6d:8c:74:4a:31(weave-gs-01) (v2) (UID 10617824048609415185)
+   -> aa:3c:6c:5f:fa:31(weave-gs-02) [172.17.8.102:36982]
+aa:3c:6c:5f:fa:31(weave-gs-02) (v2) (UID 17525028717806349409)
+   -> b2:6d:8c:74:4a:31(weave-gs-01) [172.17.8.101:6783]
 Routes:
 unicast:
-da:61:17:9e:e9:8b -> 00:00:00:00:00:00
-2e:5a:ea:dd:74:5e -> 2e:5a:ea:dd:74:5e
+b2:6d:8c:74:4a:31 -> 00:00:00:00:00:00
+aa:3c:6c:5f:fa:31 -> aa:3c:6c:5f:fa:31
 broadcast:
-da:61:17:9e:e9:8b -> [2e:5a:ea:dd:74:5e]
-2e:5a:ea:dd:74:5e -> []
+b2:6d:8c:74:4a:31 -> [aa:3c:6c:5f:fa:31]
+aa:3c:6c:5f:fa:31 -> []
+Direct Peers:
 Reconnects:
 
 Allocator range [10.128.0.0-10.192.0.0)
+Owned Ranges:
+  10.128.0.0 -> b2:6d:8c:74:4a:31 (weave-gs-01) (v3)
 Allocator default subnet: 10.128.0.0/10
+
+weave DNS 1.0.1
+Listen address :53
+Fallback DNS config &{[10.0.2.3] [overplay] 53 1 5 2}
+
+Local domain weave.local.
+Interface &{18 65535 ethwe 4e:60:c7:bd:20:0c up|broadcast|multicast}
+Zone database:
 ```
 
 ## Our Hello World Service ##
