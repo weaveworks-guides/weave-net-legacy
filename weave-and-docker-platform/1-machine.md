@@ -62,7 +62,7 @@ Now, you should create a VM with
 
 Once the VM is up, you need to point Weave at this VM by setting `DOCKER_CLIENT_ARGS` environment variable.
 
-    export DOCKER_CLIENT_ARGS=$(docker-machine config weave-1)
+    export DOCKER_CLIENT_ARGS="$(docker-machine config weave-1)"
 
 You can verify all is well by running
 
