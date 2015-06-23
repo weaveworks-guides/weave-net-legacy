@@ -81,15 +81,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     SHELL
 
     # Pre-pull images to make running the examples faster
-    config.vm.provision "docker" do |d|
-        d.pull_images %w(
-          weaveworks/weave
-          weaveworks/weaveexec
-          postgres
-          ruby:2.2
-          rails
-          rails:onbuild
-        )
-    end
+    config.vm.provision "docker", images: %w(
+      weaveworks/weave
+      weaveworks/weaveexec
+      postgres
+      ruby:2.2
+      rails
+      rails:onbuild
+    )
 
 end
