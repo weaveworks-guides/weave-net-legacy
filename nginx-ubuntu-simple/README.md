@@ -10,15 +10,6 @@ modifications to the application and minimal docker knowledge.
 
 ![Weave, Nginx, Apache and Docker 3 Nodes](https://github.com/weaveworks/guides/blob/master/nginx-ubuntu-simple/3_Node_Nginx_Example.png)
 
-You will use the [Weave proxy](http://docs.weave.works/weave/latest_release/features.html#docker) functionality, which gives seamless integration with Docker.
- 
-You will also be introduced to [WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme),
-which provides a simple way for containers to find each other using hostnames and requires no code
-changes, and [Automatic IP Address Management](http://docs.weave.works/weave/latest_release/ipam.html), which
-allows Weave to automatically assign container IP addresses across the network.
-
-Together these features allow you to easily use Docker, but with the power and functionality of Weave.
-  
 ## What you will use ##
 
 * [Weave](http://weave.works)
@@ -74,12 +65,16 @@ Our Vagrantfile also configures weave-gs-01 to pass traffic from port 80 to loca
 
 In this example you will give each container a hostname and use WeaveDNS to allow Nginx to find the correct container for a request.
 
-## Introduction Automatic IP Address Management ##
+## Introducing Automatic IP Address Management ##
 
 [Automatic IP Address Management(IPAM)](http://docs.weave.works/weave/latest_release/ipam.html) automatically assigns containers an IP address that is unique across the network, and releases that address when a container exit. 
 
 In this example you will use IPAM to automatically allocate IP addresses to the containers used across our network. IPAM and WeaveDNS work
 seemlessly together, and you will 
+
+## Introduction Weave Proxy ##
+
+You will use the [Weave proxy](http://docs.weave.works/weave/latest_release/features.html#docker) functionality, which gives seamless integration with Docker.
 
 ## Nginx and a simple PHP application running in Apache ##
 
