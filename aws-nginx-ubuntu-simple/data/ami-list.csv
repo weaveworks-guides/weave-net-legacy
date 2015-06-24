@@ -1,0 +1,10 @@
+# region, ami
+eu-west-1,ami-7dc8ab0a
+ap-northeast-1,ami-3b71953b
+ap-southeast-1,ami-d4f1c486
+ap-southeast-2,ami-a5b2c59f
+eu-central-1,ami-b683b0ab
+sa-east-1,ami-c744fbda
+us-east-1,ami-08f8b160
+us-west-1,ami-7e9d863b
+us-west-2,ami-830a2fb3
