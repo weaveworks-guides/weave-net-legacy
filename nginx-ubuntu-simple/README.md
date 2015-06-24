@@ -10,11 +10,15 @@ modifications to the application and minimal docker knowledge.
 
 ![Weave, Nginx, Apache and Docker 3 Nodes](https://github.com/weaveworks/guides/blob/master/nginx-ubuntu-simple/3_Node_Nginx_Example.png)
 
+You will use the [Weave proxy](http://docs.weave.works/weave/latest_release/features.html#docker) functionality, which gives seamless integration with Docker.
+ 
 You will also be introduced to [WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme),
 which provides a simple way for containers to find each other using hostnames and requires no code
 changes, and [Automatic IP Address Management](http://docs.weave.works/weave/latest_release/ipam.html), which
 allows Weave to automatically assign container IP addresses across the network.
- 
+
+Together these features allow you to easily use Docker, but with the power and functionality of Weave.
+  
 ## What you will use ##
 
 * [Weave](http://weave.works)
@@ -26,7 +30,7 @@ allows Weave to automatically assign container IP addresses across the network.
 
 This getting started guide is self contained. You will use Weave, Docker, Nginx and Ubuntu, and we make use of VirtualBox and Vagrant to allow you to run this entire getting started guide on your personal system.
 
-* 20 minutes
+* 15 minutes plus time for vagrant images to download.
 * [Git](http://git-scm.com/downloads)
 * [VirtualBox > 4.3.20](https://www.virtualbox.org/wiki/Downloads)
 * [Vagrant > 1.6](https://docs.vagrantup.com/v2/installation/index.html)
@@ -101,35 +105,39 @@ To start the example run the script `launch-nginx-demo.sh`. This will
 ./launch-nginx-demo.sh
 ```
 
-If you would like to execute these steps manually the commands to launch Weave and WeaveDNS are
+If you would like to execute these steps manually the commands to launch Weave, WeaveDNS and Weave Proxy
 
 ```bash
 vagrant ssh weave-gs-01 -c "sudo weave launch -initpeercount 3"
 vagrant ssh weave-gs-02 -c "sudo weave launch -initpeercount 3 172.17.8.101" 
 vagrant ssh weave-gs-03 -c "sudo weave launch -initpeercount 3 172.17.8.101" 
 
-vagrant ssh weave-gs-01 -c "sudo weave launch-dns"
-vagrant ssh weave-gs-02 -c "sudo weave launch-dns"
-vagrant ssh weave-gs-03 -c "sudo weave launch-dns"
+vagrant ssh weave-gs-01 -c "sudo weave launch-dns; sudo weave launch-proxy"
+vagrant ssh weave-gs-02 -c "sudo weave launch-dns; sudo weave launch-proxy"
+vagrant ssh weave-gs-03 -c "sudo weave launch-dns; sudo weave launch-proxy"
 ```
 
-You will note that we first launched weave on each host, and then WeaveDNS. This is to allow the IPAM functionality
-to find at least a majority of peers, and ensure that unique IP addresses will be allocated on each host.
+You will note that we first launched weave on each host, and then WeaveDNS. This is to allow the IPAM functionality to find at least a majority of peers, and ensure that unique IP addresses will be allocated on each host.
+
+We also launched Weave Proxy
 
 The commands to launch our application containers are 
 
 ```bash
 vagrant ssh weave-gs-01
-sudo weave run -h ws1.weave.local fintanr/weave-gs-nginx-apache
-sudo weave run -h ws2.weave.local fintanr/weave-gs-nginx-apache
+eval $(weave proxy-env)
+docker run -d -h ws1.weave.local fintanr/weave-gs-nginx-apache
+docker run -d -h ws2.weave.local fintanr/weave-gs-nginx-apache
 
 vagrant ssh weave-gs-02
-sudo weave run -h ws3.weave.local fintanr/weave-gs-nginx-apache
-sudo weave run -h ws4.weave.local fintanr/weave-gs-nginx-apache
+eval $(weave proxy-env)
+docker run -d -h ws3.weave.local fintanr/weave-gs-nginx-apache
+docker run -d -h ws4.weave.local fintanr/weave-gs-nginx-apache
 
 vagrant ssh weave-gs-03
-sudo weave run -h ws5.weave.local fintanr/weave-gs-nginx-apache
-sudo weave run -h ws6.weave.local fintanr/weave-gs-nginx-apache
+eval $(weave proxy-env)
+docker run -d -h ws5.weave.local fintanr/weave-gs-nginx-apache
+docker run -d -h ws6.weave.local fintanr/weave-gs-nginx-apache
 ```
 
 Note the -h option, when WeaveDNS has been launched -h x.weave.local allows the host to be resolvable.
@@ -138,7 +146,8 @@ Finally we launch our Nginx container
 
 ```bash
 vagrant ssh weave-gs-01
-sudo weave run -ti -h nginx.weave.local -d -p 80:80 fintanr/weave-gs-nginx-simple 
+eval $(weave proxy-env)
+docker run -ti -h nginx.weave.local -d -p 80:80 fintanr/weave-gs-nginx-simple 
 ```
  
 ### What has happened? ###
@@ -158,7 +167,6 @@ six requests so you can see Nginx moving through each of the webservers in turn.
 You will see output similar to
 
 ```javascript
-Connecting to Nginx in Weave demo
 Connecting to Nginx in Weave demo
 {
     "message" : "Hello Weave - nginx example",
