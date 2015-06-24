@@ -43,3 +43,5 @@ $MY_SSH $SSH_OPTS ubuntu@$WEAVE_AWS_DEMO_HOST1 "sudo weave run --name ws1 -p 80:
 echo "Launching Postgres on local VM"
 
 vagrant ssh weave-gs-01 -c "sudo weave run --name dbserver -e POSTGRES_PASSWORD=mysecretpassword -d postgres"
+
+echo "Note your AWS address is $WEAVE_AWS_DEMO_HOST1"

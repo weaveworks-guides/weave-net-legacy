@@ -94,10 +94,39 @@ will take care of resolving that address to our postgres container.
 To start the example run the script `launch-cross-cloud-demo.sh`. This will 
 
 * launch Weave and WeaveDNS
-* launch one container on aws running an Apache instance with our simple PHP site
+* launch one container on AWS running an Apache instance with our simple PHP site
 * launch one container on our local Vagrant host running Postgres
 
 ```bash
 ./launch-cross-cloud-demo.sh
 ```
 
+## Testing the service ##
+
+There is a small file `checkdb.php` inside the Apache container to let
+you check that it is working.
+
+Take the IP address of your AWS instance - it's printed out at the end
+by the launch script, e.g. 54.154.252.55, and then you can use curl,
+or a web browser, to call up the checkdb file:
+
+```bash
+curl http://54.154.252.55/checkdb.php
+Connected to Postgres version PostgreSQL 9.4.4 on x86_64-unknown-linux-gnu, compiled by gcc (Debian 4.7.2-5) 4.7.2, 64-bit
+```
+
+### What has happened?
+
+Weave has launched one container from a pre-built Docker image with an
+Apache webserver, and another running a Postgres database.  The Apache
+server is running on an AWS VM, and the database is running on a VM on
+your own machine.
+
+Using `curl`, you have run some PHP code inside the Apache container
+that connects over the weave network to the database running on your
+own machine.
+
+## Summary ##
+
+You have now used Weave to deploy an application across two hosts in
+widely-separated locations using containers.
