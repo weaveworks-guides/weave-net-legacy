@@ -1,0 +1,39 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "us-west-2",
+    "source_ami": "ami-db0306eb",
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "Weaveworks ECS Image ({{timestamp}})"
+  }],
+
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "sleep 30",
+      "sudo yum install python-pip jq",
+      "sudo python-pip install awscli",
+
+      "sudo curl -L git.io/weave -o /usr/local/bin/weave",
+      "sudo chmod +x /usr/local/bin/weave",
+      "sudo weave setup",
+
+      "sed -i 's/start on stopped rc RUNLEVEL=\\[345\\]/start on started weave/g' /etc/init/ecs.conf"
+    ]
+  }, {
+    "type": "file",
+    "source": "./peers.sh",
+    "destination": "/etc/weave/peers.sh"
+  }, {
+    "type": "file",
+    "source": "weave.conf",
+    "destination": "/etc/init/weave.conf"
+  }]
+}
