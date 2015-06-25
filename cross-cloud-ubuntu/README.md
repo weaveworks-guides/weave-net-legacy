@@ -58,7 +58,7 @@ network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and named
 `weave-gs-01`.
 
 ```bash
-cd weave-gs/cross-cloud-ubuntu
+cd guides/cross-cloud-ubuntu
 vagrant up
 ```
 

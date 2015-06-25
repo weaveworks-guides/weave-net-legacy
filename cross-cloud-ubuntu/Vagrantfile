@@ -76,7 +76,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         apt-get update
         apt-get install -y lxc-docker
 
-        sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
+        sudo curl -L git.io/weave -o /usr/local/bin/weave
         sudo chmod a+x /usr/local/bin/weave
     SHELL
 
