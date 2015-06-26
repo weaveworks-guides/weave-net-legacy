@@ -19,7 +19,7 @@ func main() {
 }
 
 func HelloWeave(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Welcome!")
+	fmt.Fprintln(w, "Welcome to Weave, you probably want /myip")
 }
 
 func myIp(w http.ResponseWriter, r *http.Request) {
@@ -31,6 +31,7 @@ func myIp(w http.ResponseWriter, r *http.Request) {
 	for _, a := range addrs {
 		if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
 			theIps.WriteString(ipnet.IP.String())
+			theIps.WriteString("\n")
 		}
 	}
 	fmt.Fprintln(w, theIps.String())
