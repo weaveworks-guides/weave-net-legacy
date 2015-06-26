@@ -126,6 +126,10 @@ Using `curl`, you have run some PHP code inside the Apache container
 that connects over the weave network to the database running on your
 own machine.
 
+Note that only the AWS instance has a public IP - we initiate the
+connection from the local VM towards AWS, and weave then routes
+traffic in either direction across the link.
+
 ## Summary ##
 
 You have now used Weave to deploy an application across two hosts in
