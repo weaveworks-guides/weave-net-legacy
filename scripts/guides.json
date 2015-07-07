@@ -68,6 +68,6 @@
 		    "highlighter" : "pygments",
             "image" : "Weave_LoadBalance.png",
             "keywords" : "weave, docker, containers, networking, software defined networking, load balancing, microservices, service discovery, dns, scaling",
-            "additionaFiles" : [] },	
+            "additionaFiles" : [] }	
     ]
 }
