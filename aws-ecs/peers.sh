@@ -5,7 +5,15 @@
 set -eu
 
 aws=/usr/local/bin/aws
-ecs_cluster_name=$(cat /etc/ecs/ecs.config | grep ECS_CLUSTER | cut -d= -f2)
+cluster_name() {
+    if [ -e /etc/ecs/ecs.config ]; then
+	cat /etc/ecs/ecs.config | grep ECS_CLUSTER | cut -d= -f2
+    else
+	echo default
+    fi
+}
+
+ecs_cluster_name=$(cluster_name)
 ecs_instance_role=$(curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/ecsInstanceRole)
 
 export AWS_ACCESS_KEY_ID=$(echo "$ecs_instance_role" | grep AccessKeyId | cut -d':' -f2 | sed 's/[^0-9A-Z]*//g')

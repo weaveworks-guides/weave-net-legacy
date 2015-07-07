@@ -10,30 +10,49 @@
     "region": "us-west-2",
     "source_ami": "ami-db0306eb",
     "instance_type": "t2.micro",
-    "ssh_username": "ubuntu",
-    "ami_name": "Weaveworks ECS Image ({{timestamp}})"
+    "ssh_username": "ec2-user",
+    "ami_name": "Weaveworks ECS Image ({{timestamp}})",
+    "communicator": "ssh",
+    "ssh_pty": true
   }],
 
   "provisioners": [{
+    "type": "file",
+    "source": "ecs-init-1.2.1-2.el7.centos.x86_64.rpm",
+    "destination": "/home/ec2-user/ecs-init-1.2.1-2.el7.centos.x86_64.rpm"
+  }, {
+    "type": "file",
+    "source": "ecs.conf",
+    "destination": "/home/ec2-user/ecs.conf"
+  }, {
+    "type": "file",
+    "source": "weave.conf",
+    "destination": "/home/ec2-user/weave.conf"
+  }, {
+    "type": "file",
+    "source": "peers.sh",
+    "destination": "/home/ec2-user/peers.sh"
+  }, {
     "type": "shell",
     "inline": [
       "sleep 30",
-      "sudo yum install python-pip jq",
+
+      "sudo yum -y remove ecs-init",
+      "sudo rpm -i /home/ec2-user/ecs-init-1.2.1-2.el7.centos.x86_64.rpm",
+ 
+      "sudo yum -y install python-pip jq",
       "sudo python-pip install awscli",
 
       "sudo curl -L git.io/weave -o /usr/local/bin/weave",
       "sudo chmod +x /usr/local/bin/weave",
-      "sudo weave setup",
+      "sudo /usr/local/bin/weave setup",
 
-      "sed -i 's/start on stopped rc RUNLEVEL=\\[345\\]/start on started weave/g' /etc/init/ecs.conf"
+      "sudo mv /home/ec2-user/weave.conf /etc/init/weave.conf",
+      "sudo mv /home/ec2-user/ecs.conf /etc/init/ecs.conf",
+      
+      "sudo mkdir /etc/weave",
+      "sudo mv /home/ec2-user/peers.sh /etc/weave/peers.sh"
     ]
-  }, {
-    "type": "file",
-    "source": "./peers.sh",
-    "destination": "/etc/weave/peers.sh"
-  }, {
-    "type": "file",
-    "source": "weave.conf",
-    "destination": "/etc/init/weave.conf"
   }]
+
 }

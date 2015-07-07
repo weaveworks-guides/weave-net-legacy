@@ -26,13 +26,20 @@ All of the code for this example is available on github, and you first clone the
 
 ```bash
 git clone http://github.com/weaveworks/guides
+cd guides/aws-ecs
 ```
 
-Next, use packer to build the AMI.  This step installs (in the image) the awscli, jq, weave, init scripts for weave and updates the ECS agent to use Weave proxy.
+First, build a weave-compatible-version of ecs-init. You will need to have Docker installed for this to work.
 
 ```bash
-wget https://dl.bintray.com/mitchellh/packer/packer_0.8.0_linux_amd64.zip
-unzip packer_0.8.0_linux_amd64.zip -d ~/bin
+./build-ecs-init-weave.sh
+```
+
+Next, use our SFTP-enabled version of packer to build the AMI.  This step installs (in the image) the version of ecs-init we just built, awscli, jq, weave, init scripts for weave and updates the ECS agent to use Weave proxy.
+
+```bash
+wget https://dl.bintray.com/2opremio/generic/packer-sftp_0.8.1_linux_amd64.zip
+unzip packer-sftp_0.8.1_linux_amd64.zip -d ~/bin
 packer build -var 'aws_access_key=YOUR ACCESS KEY' -var 'aws_secret_key=YOUR SECRET KEY' template.json
 ```
 
