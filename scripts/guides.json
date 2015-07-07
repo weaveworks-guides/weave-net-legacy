@@ -60,6 +60,14 @@
 		    "highlighter" : "pygments",
             "image" : "Microservices_Seneca_Weave.png",
             "keywords" : "weave, docker, containers, networking, software defined networking, node.js, node, ubuntu, microservices, dns",
-            "additionalFiles" : [] }
+            "additionalFiles" : [] },
+	    {   "indir" : "weave-loadbalance",
+		    "outfile" : "weave-docker-loadbalancing-simple.md",
+		    "layout" : "guides",
+		    "markdown" : "kramdown",
+		    "highlighter" : "pygments",
+            "image" : "Weave_LoadBalance.png",
+            "keywords" : "weave, docker, containers, networking, software defined networking, load balancing, microservices, service discovery, dns, scaling",
+            "additionaFiles" : [] },	
     ]
 }
