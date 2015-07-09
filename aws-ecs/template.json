@@ -22,6 +22,10 @@
     "destination": "/home/ec2-user/ecs-init-1.2.1-2.el7.centos.x86_64.rpm"
   }, {
     "type": "file",
+    "source": "weave.tar",
+    "destination": "/home/ec2-user/weave.tar"
+  }, {
+    "type": "file",
     "source": "ecs.conf",
     "destination": "/home/ec2-user/ecs.conf"
   }, {
@@ -46,7 +50,8 @@
 
       "sudo curl -L https://raw.githubusercontent.com/weaveworks/weave/master/weave -o /usr/local/bin/weave",
       "sudo chmod +x /usr/local/bin/weave",
-      "sudo /usr/local/bin/weave setup",
+      "sudo docker load < /home/ec2-user/weave.tar",
+      "sudo rm /home/ec2-user/weave.tar",
 
       "sudo mv /home/ec2-user/weave.conf /etc/init/weave.conf",
       "sudo mv /home/ec2-user/ecs.conf /etc/init/ecs.conf",
