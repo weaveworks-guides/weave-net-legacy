@@ -39,11 +39,12 @@
 
       "sudo yum -y remove ecs-init",
       "sudo rpm -i /home/ec2-user/ecs-init-1.2.1-2.el7.centos.x86_64.rpm",
+      "rm /home/ec2-user/ecs-init-1.2.1-2.el7.centos.x86_64.rpm",
  
       "sudo yum -y install python-pip jq",
       "sudo python-pip install awscli",
 
-      "sudo curl -L git.io/weave -o /usr/local/bin/weave",
+      "sudo curl -L https://raw.githubusercontent.com/weaveworks/weave/master/weave -o /usr/local/bin/weave",
       "sudo chmod +x /usr/local/bin/weave",
       "sudo /usr/local/bin/weave setup",
 
@@ -51,7 +52,8 @@
       "sudo mv /home/ec2-user/ecs.conf /etc/init/ecs.conf",
       
       "sudo mkdir /etc/weave",
-      "sudo mv /home/ec2-user/peers.sh /etc/weave/peers.sh"
+      "sudo mv /home/ec2-user/peers.sh /etc/weave/peers.sh",
+      "sudo chmod +x /etc/weave/peers.sh"
     ]
   }]
 
