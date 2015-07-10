@@ -1,0 +1,34 @@
+{
+  "family": "weave-ecs-example",
+  "containerDefinitions": [
+    {
+      "name": "data_producer",
+      "entryPoint": ["sh", "-c"],
+      "command": [
+        "while true; do echo 'Hi, this is the data producer' | nc -l -p 4540; done"
+      ],
+      "essential": true,
+      "memory": 300,
+      "cpu": 10,
+      "image": "busybox"
+    },
+    {
+      "name": "http_server",
+      "environment" : [{ "name" : "DATA_PRODUCER", "value" : "data_producer.weave.local" }],
+      "portMappings": [
+        {
+          "hostPort": 8080,
+          "containerPort": 8080,
+          "protocol": "tcp"
+        }],
+      "entryPoint": ["sh", "-c"],
+      "command": [
+        "while true; do DATA_PRODUCER_MESSAGE=`nc ${DATA_PRODUCER} -p 4540`; echo \"<html> <head> <title>Amazon ECS Weaveworks Sample App</title> <style>body {margin-top: 40px; background-color: #333;} </style> </head><body> <div style=color:white;text-align:center> <h1>Data producer message:</h1> <h2>${DATA_PRODUCER_MESSAGE}</h2> </div>\" | nc -l -p 8080; done"
+      ],
+      "essential": true,
+      "memory": 300,
+      "cpu": 10,
+      "image": "busybox"
+    }
+  ]
+}
