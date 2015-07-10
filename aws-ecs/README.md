@@ -54,7 +54,8 @@ IAM Role:
 "ecs:ListClusters",
 "ecs:ListContainerInstances",
 "ecs:DescribeContainerInstances",
-"ec2:DescribeInstances"
+"ec2:DescribeInstances",
+"autoscaling:DescribeAutoScalingInstances"
 ````
 
 ## Summary ##

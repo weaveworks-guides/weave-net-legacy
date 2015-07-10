@@ -3,46 +3,29 @@
 # cluster.
 set -eu
 
-# Read agent configuration
-if [ -e /etc/ecs/ecs.config ]; then
-  . /etc/ecs/ecs.config
-else
-  ECS_CLUSTER=default
-fi
-
 aws=/usr/local/bin/aws
 
 export AWS_DEFAULT_REGION=$(curl -s curl http://169.254.169.254/latest/dynamic/instance-identity/document | \
                             jq -r .region)
-current_instance_id=$(curl -s curl http://169.254.169.254/latest/dynamic/instance-identity/document | \
-                      jq -r .instanceId)
+current_instance_id=$(curl -s curl http://169.254.169.254/latest/meta-data/instance-id)
+current_autoscaling_group=$(aws autoscaling describe-auto-scaling-instances | \
+                            jq -r ".AutoScalingInstances[] | select(.InstanceId == \"$current_instance_id\") | .AutoScalingGroupName")
 
-ecs_container_instances=$($aws ecs list-container-instances --cluster $ECS_CLUSTER | \
-	jq -r '.containerInstanceArns | join(" ")')
+if [ -z "$current_autoscaling_group" ]; then
+  # Instance doesn't belong to an autoscaling group
+  exit 1
+fi
 
-if [ -z "$ecs_container_instances" ]; then
+peer_instances=$($aws autoscaling describe-auto-scaling-instances | \
+                jq -r ".AutoScalingInstances[] | select(.AutoScalingGroupName == \"$current_autoscaling_group\" and .InstanceId != \"$current_instance_id\") | .InstanceId")
+
+if [ -z "$peer_instances" ]; then
 # no peers found
   exit 0
 fi
 
-ec2_instances=$($aws ecs describe-container-instances --cluster $ECS_CLUSTER --container-instances $ecs_container_instances | \
-	jq -r '.containerInstances | .[] | .ec2InstanceId')
-
-# Filter out current instance
-filtered_instances=""
-for instance_id in $ec2_instances; do
-  if [ "$instance_id" != "$current_instance_id" ]; then
-    filtered_instances="$filtered_instances $instance_id"
-  fi
-done
-
-if [ -z "$filtered_instances" ]; then
-# no peers found
-  exit 0
-fi
-
-ec2_ips=$($aws ec2 describe-instances --instance-ids $filtered_instances | \
+peer_ips=$($aws ec2 describe-instances --instance-ids $peer_instances | \
 	jq -r '.Reservations | .[] | .Instances | .[] | .NetworkInterfaces | .[] | .PrivateIpAddress')
 
-echo $ec2_ips | tr '\n' ' '
+echo $peer_ips | tr '\n' ' '
 echo
