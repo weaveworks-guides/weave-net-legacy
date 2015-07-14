@@ -1,8 +1,8 @@
 {
-  "family": "weave-ecs-example",
+  "family": "weave-ecs-task-example",
   "containerDefinitions": [
     {
-      "name": "data_producer",
+      "name": "dataproducer",
       "entryPoint": ["sh", "-c"],
       "command": [
         "while true; do echo 'Hi, this is the data producer' | nc -l -p 4540; done"
@@ -13,8 +13,8 @@
       "image": "busybox"
     },
     {
-      "name": "http_server",
-      "environment" : [{ "name" : "DATA_PRODUCER", "value" : "data_producer.weave.local" }],
+      "name": "httpserver",
+      "environment" : [{ "name" : "DATA_PRODUCER", "value" : "dataproducer.weave.local" }],
       "portMappings": [
         {
           "hostPort": 8080,
