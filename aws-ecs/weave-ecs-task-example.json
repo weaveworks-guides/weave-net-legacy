@@ -21,9 +21,9 @@
           "containerPort": 80,
           "protocol": "tcp"
         }],
-      "entryPoint": ["sh", "-c"],
+      "entryPoint": ["bash", "-c"],
       "command": [
-        "while true; do DATA_PRODUCER_MESSAGE=`while ! nc ${DATA_PRODUCER_NAME} 4540 ; do sleep 1; done`; DATA_PRODUCER_IPS=`dig +short ${DATA_PRODUCER_NAME}`; echo \"<html> <head> <title>Weaveworks Amazon ECS Sample App</title> <style>body {margin-top: 40px; background-color: #333;} </style> </head><body> <div style=color:white;text-align:center> <h1>Data producer addresses:</h1> <h2>${DATA_PRODUCER_IPS}</h2><h1>Chosen data producer message:</h1> <h2>${DATA_PRODUCER_MESSAGE}</h2> </div>\" | nc -l -p 80; done"
+        "sleep 7; while true; do DATA_PRODUCER_IPS=`dig +short ${DATA_PRODUCER_NAME}`; DATA_PRODUCER_MESSAGE=`nc ${DATA_PRODUCER_IPS%%$'\n'*} 4540`; echo \"<html> <head> <title>Weaveworks Amazon ECS Sample App</title> <style>body {margin-top: 40px; background-color: #333;} </style> </head><body> <div style=color:white;text-align:center> <h1>Data producer addresses:</h1> <h2>${DATA_PRODUCER_IPS}</h2><h1>Chosen data producer message:</h1> <h2>${DATA_PRODUCER_MESSAGE}</h2> </div>\" | nc -l -p 80; done"
       ],
       "essential": true,
       "memory": 300,
