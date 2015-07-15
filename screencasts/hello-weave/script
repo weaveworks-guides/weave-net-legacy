@@ -1,0 +1,15 @@
+*: sudo curl -s -L git.io/weave -o /usr/local/bin/weave
+*: sudo chmod a+x /usr/local/bin/weave
+
+1: weave launch weave-02
+2: weave launch weave-01
+
+*: weave launch-dns
+*: weave launch-proxy
+*: eval $(weave proxy-env)
+
+1: docker run -ti --name hello ubuntu netcat -lk 1234
+
+2: docker run -ti ubuntu
+2: ping -c3 hello
+2: echo 'Hello, Weave!' | netcat hello 1234
