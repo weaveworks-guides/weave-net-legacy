@@ -3,7 +3,7 @@ FROM centos
 ENV GOPATH=/
 
 # Build amazon-ecs-init
-RUN yum -y install git golang make rpm-build
+RUN yum -y install git golang make rpm-build; yum clean all
 RUN mkdir -p /src/github.com/aws/
 RUN git clone -b dev https://github.com/aws/amazon-ecs-init.git /src/github.com/aws/amazon-ecs-init
 RUN make -C /src/github.com/aws/amazon-ecs-init
@@ -14,7 +14,7 @@ RUN cp /src/github.com/aws/amazon-ecs-init/{sources.tgz,ecs.conf} /root/rpmbuild
 RUN make -C /src/github.com/aws/amazon-ecs-init rpm
 
 # Build special version of weave with proxy chunking fixes
-RUN yum -y install docker glibc-static flex bison
+RUN yum -y install docker glibc-static flex bison; yum clean all
 RUN curl -L http://www.tcpdump.org/release/libpcap-1.7.4.tar.gz -o libpcap-1.7.4.tar.gz
 RUN tar -xzf libpcap-1.7.4.tar.gz
 RUN cd libpcap-1.7.4 && ./configure && make && make install
