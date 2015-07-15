@@ -1,6 +1,5 @@
 #!/bin/bash
-# This script print a list of IPs of the EC2 instances in your current ECS
-# cluster.
+# This script print a list of IPs of the EC2 instances in your current Autoscaling Group.
 set -eu
 
 aws=/usr/local/bin/aws
