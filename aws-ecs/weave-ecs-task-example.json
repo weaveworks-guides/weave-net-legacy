@@ -5,30 +5,30 @@
       "name": "dataproducer",
       "entryPoint": ["sh", "-c"],
       "command": [
-        "while true; do echo 'Hi, this is the data producer' | nc -l -p 4540; done"
+        "while true; do echo 'Hi, this is the data producer in' `hostname -i` | nc -l -p 4540; done"
       ],
       "essential": true,
       "memory": 300,
       "cpu": 10,
-      "image": "busybox"
+      "image": "2opremio/weaveecsdemo"
     },
     {
       "name": "httpserver",
-      "environment" : [{ "name" : "DATA_PRODUCER", "value" : "dataproducer.weave.local" }],
+      "environment" : [{ "name" : "DATA_PRODUCER_NAME", "value" : "dataproducer" }],
       "portMappings": [
         {
-          "hostPort": 8080,
-          "containerPort": 8080,
+          "hostPort": 80,
+          "containerPort": 80,
           "protocol": "tcp"
         }],
       "entryPoint": ["sh", "-c"],
       "command": [
-        "while true; do DATA_PRODUCER_MESSAGE=`nc ${DATA_PRODUCER} -p 4540`; echo \"<html> <head> <title>Amazon ECS Weaveworks Sample App</title> <style>body {margin-top: 40px; background-color: #333;} </style> </head><body> <div style=color:white;text-align:center> <h1>Data producer message:</h1> <h2>${DATA_PRODUCER_MESSAGE}</h2> </div>\" | nc -l -p 8080; done"
+        "while true; do DATA_PRODUCER_MESSAGE=`while ! nc ${DATA_PRODUCER_NAME} 4540 ; do sleep 1; done`; DATA_PRODUCER_IPS=`dig +short ${DATA_PRODUCER_NAME}`; echo \"<html> <head> <title>Weaveworks Amazon ECS Sample App</title> <style>body {margin-top: 40px; background-color: #333;} </style> </head><body> <div style=color:white;text-align:center> <h1>Data producer addresses:</h1> <h2>${DATA_PRODUCER_IPS}</h2><h1>Chosen data producer message:</h1> <h2>${DATA_PRODUCER_MESSAGE}</h2> </div>\" | nc -l -p 80; done"
       ],
       "essential": true,
       "memory": 300,
       "cpu": 10,
-      "image": "busybox"
+      "image": "2opremio/weaveecsdemo"
     }
   ]
 }
