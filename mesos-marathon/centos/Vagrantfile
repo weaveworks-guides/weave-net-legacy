@@ -4,7 +4,7 @@
 ## The variables bellow can be overriden in `config.rb` file
 $mesos_slaves = 1
 $memory = 1024*2
-$cpu = 2
+$cpus = 2
 $network = [172, 17, 85]
 
 CONFIG = File.join(File.dirname(__FILE__), 'config.rb')
