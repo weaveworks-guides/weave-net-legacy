@@ -31,7 +31,7 @@
       "ilya@weave-02:~$ "
     ],
     [
-      2.303956,
+      3.803956,
       "\u001b[H\u001b[2J"
     ],
     [
@@ -319,7 +319,7 @@
       "ilya@weave-02:~$ "
     ],
     [
-      24.015020,
+      20.015020,
       "e"
     ],
     [
@@ -431,15 +431,15 @@
       "e"
     ],
     [
-      0.145080,
+      0.165080,
       "a"
     ],
     [
-      0.145080,
+      0.125080,
       "r"
     ],
     [
-      0.748453,
+      1.748453,
       "\r\n"
     ],
     [
@@ -543,7 +543,7 @@
       "\u001b]0;root@399a1565edc8: /\u0007root@399a1565edc8:/# "
     ],
     [
-      9.196271,
+      8.196271,
       "p"
     ],
     [
@@ -572,7 +572,7 @@
     ],
     [
       0.901632,
-      "3"
+      "1"
     ],
     [
       0.060277,
@@ -607,20 +607,8 @@
       "PING hello.weave.local (10.160.0.1) 56(84) bytes of data.\r\n"
     ],
     [
-      0.015880,
-      "64 bytes from hello.weave.local (10.160.0.1): icmp_seq=1 ttl=64 time=15.1 ms"
-    ],
-    [
-      0.001192,
-      "\r\n"
-    ],
-    [
-      0.986222,
-      "64 bytes from hello.weave.local (10.160.0.1): icmp_seq=2 ttl=64 time=0.824 ms\r\n"
-    ],
-    [
       0.999899,
-      "64 bytes from hello.weave.local (10.160.0.1): icmp_seq=3 ttl=64 time=0.997 ms\r\n\r\n--- hello.weave.local ping statistics ---\r\n3 packets transmitted, 3 received, 0% packet loss, time 2001ms\r\nrtt min/avg/max/mdev = 0.824/5.672/15.197/6.735 ms\r\n\u001b]0;root@399a1565edc8: /\u0007root@399a1565edc8:/# "
+      "64 bytes from hello.weave.local (10.160.0.1): icmp_seq=1 ttl=64 time=0.997 ms\r\n\r\n--- hello.weave.local ping statistics ---\r\n1 packets transmitted, 1 received, 0% packet loss, time 1ms\r\nrtt min/avg/max/mdev = 0.997/0.997/0.997/0.000 ms\r\n\u001b]0;root@399a1565edc8: /\u0007root@399a1565edc8:/# "
     ],
     [
       1.721424,
