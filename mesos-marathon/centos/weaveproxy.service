@@ -1,0 +1,15 @@
+[Unit]
+Description=Weave Run - DNS
+Documentation=http://docs.weave.works/
+After=weave.service
+Requires=docker.service weave.service weavedns.service
+[Service]
+TimeoutStartSec=0
+EnvironmentFile=-/etc/weave.env
+EnvironmentFile=-/etc/weave.%H.env
+ExecStartPre=/usr/local/bin/weave launch-proxy --with-dns
+ExecStart=/usr/bin/docker attach weaveproxy
+Restart=on-failure
+ExecStop=/usr/local/bin/weave stop-proxy
+[Install]
+WantedBy=weave.target
