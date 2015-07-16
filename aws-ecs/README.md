@@ -122,7 +122,7 @@ Choose an Weave ECS AMI depending on your availability zone:
 and execute the command below replacing `XXXX` with the AMI of the availability zone and `YYYY` with the security group Id from step 
 
 ```bash
-AMI=XXXX SECURITY_GROUP=YYYY aws autoscaling create-launch-configuration --image-id ${AMI} --launch-configuration-name weave-ecs-launch-configuration --key-name weave-ecs-demo-key --security-groups ${SECURITY_GROUP} --instance-type t2.micro --user-data file://set-ecs-cluster-name.sh  --iam-instance-profile weave-ecs-instance-profile --associate-public-ip-address --instance-monitoring Enabled=false  --block-device-mappings "$(cat block-device-mappings.json)"
+AMI=XXXX SECURITY_GROUP=YYYY aws autoscaling create-launch-configuration --image-id ${AMI} --launch-configuration-name weave-ecs-launch-configuration --key-name weave-ecs-demo-key --security-groups ${SECURITY_GROUP} --instance-type t2.micro --user-data file://set-ecs-cluster-name.sh  --iam-instance-profile weave-ecs-instance-profile --associate-public-ip-address --instance-monitoring Enabled=false"
 ```
 
 ## Create Auto Scaling Group ##
