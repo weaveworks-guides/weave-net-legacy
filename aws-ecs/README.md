@@ -296,13 +296,13 @@ aws iam add-role-to-instance-profile --instance-profile-name weave-ecs-instance-
 
 ## Create Launch Configuration ##
 
-Choose an Weave ECS AMI depending on your configured region:
+Choose a Weave ECS AMI depending on your configured region:
 
-* `us-east-1` -> `ami-fdcf1e96`
-* `us-west-2` -> `ami-cd989afd`
-* `eu-west-1` -> `ami-e0155c97`
-* `ap-northeast-1` -> `ami-b2e752b2`
-* `ap-southeast-2` -> `ami-9b2660a1`
+* `us-east-1` -> `ami-97b86afc`
+* `us-west-2` -> `ami-69d3de59`
+* `eu-west-1` -> `ami-d26d25a5`
+* `ap-northeast-1` -> `ami-083b8f08`
+* `ap-southeast-2` -> `ami-1d80c627`
 
 
 and execute the command below replacing `XXXX` with the AMI of your region.

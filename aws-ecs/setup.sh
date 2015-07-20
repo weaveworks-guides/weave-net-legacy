@@ -1,11 +1,11 @@
 #!/bin/bash
 
 declare -A WEAVE_ECS_AMIS
-WEAVE_ECS_AMIS['us-east-1']='ami-fdcf1e96'
-WEAVE_ECS_AMIS['us-west-2']='ami-cd989afd'
-WEAVE_ECS_AMIS['eu-west-1']='ami-e0155c97'
-WEAVE_ECS_AMIS['ap-northeast-1']='ami-b2e752b2'
-WEAVE_ECS_AMIS['ap-southeast-2']='ami-9b2660a1'
+WEAVE_ECS_AMIS['us-east-1']='ami-97b86afc'
+WEAVE_ECS_AMIS['us-west-2']='ami-69d3de59'
+WEAVE_ECS_AMIS['eu-west-1']='ami-d26d25a5'
+WEAVE_ECS_AMIS['ap-northeast-1']='ami-083b8f08'
+WEAVE_ECS_AMIS['ap-southeast-2']='ami-1d80c627'
 
 
 # Check that we have everything we need
