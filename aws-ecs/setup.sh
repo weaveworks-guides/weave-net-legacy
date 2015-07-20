@@ -1,11 +1,11 @@
 #!/bin/bash
 
 declare -A WEAVE_ECS_AMIS
-WEAVE_ECS_AMIS['us-east-1']='ami-c3ce18a8'
-WEAVE_ECS_AMIS['us-west-2']=TODO
+WEAVE_ECS_AMIS['us-east-1']='ami-fdcf1e96'
+WEAVE_ECS_AMIS['us-west-2']='ami-cd989afd'
 WEAVE_ECS_AMIS['eu-west-1']='ami-e0155c97'
-WEAVE_ECS_AMIS['ap-northeast-1']=TODO
-WEAVE_ECS_AMIS['ap-southeast-2']=TODO
+WEAVE_ECS_AMIS['ap-northeast-1']='ami-b2e752b2'
+WEAVE_ECS_AMIS['ap-southeast-2']='ami-9b2660a1'
 
 
 # Check that we have everything we need
@@ -69,7 +69,7 @@ aws iam add-role-to-instance-profile --instance-profile-name weave-ecs-instance-
 echo "done"
 
 # Launch configuration
-echo -n "Creating weave-ecs-launch-configuration Launch Configuration .. "
+echo -n "Creating Launch Configuration (weave-ecs-launch-configuration) .. "
 # Wait for the role to be ready, otherwise we get:
 # A client error (ValidationError) occurred when calling the CreateLaunchConfiguration operation: You are not authorized to perform this operation.
 sleep 8
@@ -77,7 +77,7 @@ aws autoscaling create-launch-configuration --image-id ${AMI} --launch-configura
 echo "done"
 
 # Auto Scaling Group
-echo -n "Creating weave-ecs-demo-group Auto Scaling Group with 3 instances .. "
+echo -n "Creating Auto Scaling Group (weave-ecs-demo-group) with 3 instances .. "
 SUBNET=$(aws ec2 describe-subnets --query 'Subnets[0].SubnetId' --output text)
 aws autoscaling create-auto-scaling-group --auto-scaling-group-name weave-ecs-demo-group --launch-configuration-name weave-ecs-launch-configuration --min-size 3 --max-size 3 --desired-capacity 3 --vpc-zone-identifier ${SUBNET}
 echo "done"
