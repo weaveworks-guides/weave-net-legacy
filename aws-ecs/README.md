@@ -389,8 +389,8 @@ unzip packer-sftp_0.8.1_linux_amd64.zip -d ~/bin
 
 Finally, invoke `./build-all-amis.sh` to build `Weave ECS` images for all
 regions. This step installs (in the image) the version of ecs-init we just
-built, AWS-CLI, jq, Weave, init scripts for Weave and updates the ECS agent to
-use WeaveProxy.
+built, AWS-CLI, jq, Weave/master, init scripts for Weave and updates the ECS
+agent to use WeaveProxy.
 
 You can customize the image by modifying `template.json` to match your
 requirements.

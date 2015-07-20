@@ -21,7 +21,7 @@ RUN cd libpcap-1.7.4 && ./configure && make && make install
 RUN go clean -i net
 RUN go install -tags netgo std
 RUN mkdir -p /src/github.com/weaveworks
-RUN git clone -b donotremove/aws-ecs https://github.com/weaveworks/weave.git /src/github.com/weaveworks/weave
+RUN git clone https://github.com/weaveworks/weave.git /src/github.com/weaveworks/weave
 # we are root, so sudo shouldn't do anything
 RUN echo -e '#!/bin/bash\nexec $@\n' > /bin/sudo && chmod +x /bin/sudo
 # Build weave using the host's docker daemon
