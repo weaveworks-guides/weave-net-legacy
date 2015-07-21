@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 if [ -z "${AWS_ACCESS_KEY_ID}" -a -z "${AWS_SECRET_ACCESS_KEY}" ]; then
     echo "error: both AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY need to be set"
     echo "usage: AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE AWS_SECRET_ACCES_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY $0"
