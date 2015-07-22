@@ -150,13 +150,13 @@ load-balancing between them.
 Both the HTTP Server and Data Producer containers are very simple (naive if you
 may) to make easy to understand how they work.
 
-They are implemented in a few lines of bash, mainly using Netcat and Dig. 
+They are implemented in a few lines of bash, mostly using Netcat.
 
 Container `dataproducer`:
 
 ```bash
 while true; do
-  echo 'Hi, this is the data producer in' `hostname -i` | nc -l -p 4540
+  echo 'Hi, this is the data producer in' `hostname -i` | nc -q 0 -l -p 4540
 done
 ```
 
@@ -165,12 +165,10 @@ Container `httpserver`:
 ```bash
 sleep 7 # Wait for data producers to start
 while true; do
-  # Get the IPs of all the Data Producers
-  DATA_PRODUCER_IPS=`dig +short dataproducer`
-  # Get a message from the first IP in the list
-  DATA_PRODUCER_MESSAGE=`nc ${DATA_PRODUCER_IPS%%$'\n'*} 4540`
-  HTML="<html> <head> <title>Weaveworks Amazon ECS Sample App<\/title> <style>body {margin-top: 40px; background-color: #333;} <\/style> <\/head><body> <div style=color:white;text-align:center> <h1>Data producer addresses:<\/h1> <h2>${DATA_PRODUCER_IPS}<\/h2><h1>Chosen data producer message:<\/h1> <h2>${DATA_PRODUCER_MESSAGE}<\/h2> <\/div>"
-  echo "$HTML" | nc -l -p 80
+  # Get a message from a data producer
+  DATA_PRODUCER_MESSAGE=`nc dataproducer 4540`
+  HTML="<html> <head> <title>Weaveworks Amazon ECS Sample App<\/title> <style>body {margin-top: 40px; background-color: #333;} <\/style> <\/head><body> <div style=color:white;text-align:center> <h1>Chosen data producer message:<\/h1> <h2>${DATA_PRODUCER_MESSAGE}<\/h2> <\/div>"
+  echo "$HTML" | nc -q 0 -l -p 80
 done
 ```
 
@@ -185,14 +183,11 @@ The Data Producer waits for requests on TCP port 4540 and responds with a string
 
 The HTTP Server works as follows:
 
-1. Finds out the IP of all the Data Producers by making a DNS query for hostname
-   `dataproducer` (`dig +short dataproducer`).  This works because WeaveDNS
-   keeps A-records for all of them. Also, for load balancing purposes, WeaveDNS
-   will randomize the order of the IPs in every request.
-2. Pick the first IP from that list (`${DATA_PRODUCER_IPS%%$'\n'*}`) and request
-   a message to it.
-3. Compose some HTML with the information obtained in (1) and (2).
-4. Wait for a browser to connect.
+1. Contact a Data Producer and obtain its message (`nc dataproducer 4540`). This
+   will implicitly do load balancing due to WeaveDNS' response randomization
+   (more about it this in next section).
+2. Compose some HTML with the information obtained in (1) and (2).
+3. Wait for a browser to connect.
 
 
 ## What's happening in the hosts? ##
@@ -221,20 +216,39 @@ e2fe07ab4768        2opremio/weaveecsdemo:latest     "\"/w/w bash -c 'sle   7 mi
 ```
 
 * Container `ecs-weave-ecs-demo-task-1-httpserver-9682f3b0cd868cd60d00` is the
-  web server producing the output you saw in your browser.  Note how container
-  names are mangled by ECS to
+  HTTP Server of this host, producing the output you saw in your browser.  Note
+  how container names are mangled by ECS to
   `ecs-${TASK_FAMILY_NAME}-${TASK_FAMILY_VERSION}-${STRIPPED_CONTAINER_NAME}-${UUID}`.
 
 * Container `ecs-weave-ecs-demo-task-8-dataproducer-b8ecddb78a8fecfc3900` is the
-  `dataproducer` 
+  Data Producer of this host.
 
-* Containers `weaveproxy` and `weave` (also unsurprisingly) are responsible of
+* Containers `weaveproxy` and `weave` unsurprisingly are responsible of
   running Weave in each ECS instance.
 
-* Container `ecs-agent` unsurprisingly corresponds to
+* Container `ecs-agent` (also unsurprisingly) corresponds to
   [Amazon's ECS Agent](https://github.com/aws/amazon-ecs-agent), which runs on
   all ECS instances and starts containers on behalf of Amazon ECS.
 
+
+You can see the IPs of all the HTTP Servers and Data Producers by running:
+
+```bash
+[ec2-user@ip-XXX-XXX-XXX-XXX ~]$ export DOCKER_HOST=unix:///var/run/weave.sock # Use weave-proxy
+[ec2-user@ip-XXX-XXX-XXX-XXX ~]$ docker run 2opremio/weaveecsdemo dig +short httpserver
+10.36.0.3
+10.32.0.3
+10.40.0.2
+[ec2-user@ip-XXX-XXX-XXX-XXX ~]$ docker run 2opremio/weaveecsdemo dig +short dataproducer
+10.36.0.2
+10.32.0.2
+10.40.0.1
+```
+
+Running the commands above multiple times will yield to different orderings in
+the output. This is because WeaveDNS randomizes the order of the IPs, which in
+turn causes HTTP Servers to transparently do load balancing when connecting to
+Data Producers.
 
 ### Cleanup ###
 

@@ -6,7 +6,7 @@
             "-c"
         ],
         "command": [
-            "while true; do echo 'Hi, this is the data producer in' `hostname -i` | nc -l -p 4540; done"
+            "while true; do echo 'Hi, this is the data producer in' `hostname -i` | nc -q 0 -l -p 4540; done"
         ],
         "essential": true,
         "memory": 300,
@@ -33,7 +33,7 @@
             "-c"
         ],
         "command": [
-            "sleep 7; while true; do DATA_PRODUCER_IPS=`dig +short ${DATA_PRODUCER_NAME}`; DATA_PRODUCER_MESSAGE=`nc ${DATA_PRODUCER_IPS%%$'\n'*} 4540`; echo \"<html> <head> <title>Weaveworks Amazon ECS Sample App<\/title> <style>body {margin-top: 40px; background-color: #333;} <\/style> <\/head><body> <div style=color:white;text-align:center> <h1>Data producer addresses:<\/h1> <h2>${DATA_PRODUCER_IPS}<\/h2><h1>Chosen data producer message:<\/h1> <h2>${DATA_PRODUCER_MESSAGE}<\/h2> <\/div>\" | nc -l -p 80; done"
+            "set -x; sleep 7; while true; do DATA_PRODUCER_MESSAGE=`nc ${DATA_PRODUCER_NAME} 4540`; echo \"<html> <head> <title>Weaveworks Amazon ECS Sample App<\/title> <style>body {margin-top: 40px; background-color: #333;} <\/style> <\/head><body> <div style=color:white;text-align:center><h1>Chosen data producer message:<\/h1> <h2>${DATA_PRODUCER_MESSAGE}<\/h2> <\/div>\" | nc -q 0 -l -p 80; done"
         ],
         "essential": true,
         "memory": 300,
