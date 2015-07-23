@@ -7,7 +7,7 @@ Weave allows you to focus on developing your application, rather than your
 infrastructure.
 
 In this example you will be using Weave for service discovery and load balancing
-between [ECS containers](http://aws.amazon.com/ecs/).
+between [containers on ECS](http://aws.amazon.com/ecs/).
 
 You will use two type of containerized microservices: HTTP Servers and Data
 Producers.
@@ -19,7 +19,7 @@ https://github.com/isaacs/github/issues/316
 However, I left it since svg adapts much better to different displays and the
 final user should use Weavework's website anyways.
 -->
-![system diagram](img/diagram.svg)
+![overview diagram](img/overview-diagram.svg)
 
 Unsurprisingly, the HTTP Servers will serve data produced from the Data
 Producers.
@@ -174,7 +174,13 @@ done
 
 Note that, for clarity purposes, the sources above have been slightly reformatted.
 
-At launch time, WeaveDNS will register A-records based on the container's name:
+
+![ECS and Weave Diagram](img/ecs+weave-diagram.svg)
+
+When ECS launches a container, the call to Docker is intercepted by WeaveProxy,
+which allocates an address using weave's automatic ip allocation, registers the
+container in WeaveDNS and attaches it to the weave network. WeaveDNS will
+register A-records based on the container's name:
 
 * A `dataproducer` A-record for all the Data Producer containers.
 * A `httpserver` A-record for all the HTTP Server container.
@@ -223,12 +229,16 @@ e2fe07ab4768        2opremio/weaveecsdemo:latest     "\"/w/w bash -c 'sle   7 mi
 * Container `ecs-weave-ecs-demo-task-8-dataproducer-b8ecddb78a8fecfc3900` is the
   Data Producer of this host.
 
-* Containers `weaveproxy` and `weave` unsurprisingly are responsible of
-  running Weave in each ECS instance.
+* Containers `weaveproxy` and `weave` are unsurprisingly responsible of running
+  Weave in each ECS instance. For simplification, the proxy was represented out
+  of Docker in previous section's diagram, but it so happens that WeaveProxy runs
+  inside of Docker.
 
-* Container `ecs-agent` (also unsurprisingly) corresponds to
+* Container `ecs-agent`, also unsurprisingly, corresponds to
   [Amazon's ECS Agent](https://github.com/aws/amazon-ecs-agent), which runs on
-  all ECS instances and starts containers on behalf of Amazon ECS.
+  all ECS instances and starts containers on behalf of Amazon ECS. Again, for
+  simplification, the ECS Agent was represented out of Docker in previous
+  section's diagram.
 
 
 You can see the IPs of all the HTTP Servers and Data Producers by running:
@@ -363,7 +373,7 @@ aws ecs run-task --cluster weave-ecs-demo-cluster --task-definition weave-ecs-de
 ## Summary ##
 
 You have used Weave out-of-the-box in ECS, both for service discovery and load
-balancing between ECS containers, regardless of whether the execute in the same or
+balancing between containers on ECS, regardless of whether the execute in the same or
 different hosts.
 
 ## Known issues/limitations ##
