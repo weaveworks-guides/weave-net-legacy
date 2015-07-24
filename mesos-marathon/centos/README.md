@@ -5,22 +5,22 @@ permalink: /guides/platform/mesos-marathon/os/centos/cloud/vagrant/index.html
 tags: docker, mesos, marathon, cli, vagrant, virtualbox, dns, ipam
 ---
 
-##What You Will Build## 
+##What You Will Build 
 
 Weave provides a software network that is optimized for visualizing and communicating with apps scattered within Docker containers. Using tools and protocols that are familiar to you, Weave provides the network topology that allows you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
  
-This example describes how to setup a Weave Network on a cluster manager, specifically, within the Apache Mesos & Marathon environment. For more details on the Apache Mesosphere and its application manager, Marathon, see the [Apache Mesos Docs](http://mesos.apache.org/documentation/latest/) and the [Marathon Docs](https://mesosphere.github.io/marathon/).
+This example describes how to setup a Weave Network on a cluster manager, specifically, within the Apache Mesos & Marathon environment. For more details on the Apache Mesos and its application manager, Marathon, see the [Apache Mesos Docs](http://mesos.apache.org/documentation/latest/) and the [Marathon Docs](https://mesosphere.github.io/marathon/).
 
-##What You Will Use ##
+## What You Will Use
 
-* [Weave](http://weave.works)
 * [Docker](http://docker.com)
+* [Weave](http://weave.works)
 * [CentOS](http://http://centos.org/)
-* [Apache Mesos Marathon](https://mesosphere.github.io/marathon/)
+* [Apache Mesos & Marathon](https://mesosphere.github.io/marathon/)
 
-## Before you start ##
+## Before You Start
 
-This self-contained tutorial uses Vagrant to install and configure the virtual machines with CentOS, then it sets up and configures Apache Mesos Marathon and finally it installs and launches both Docker and Weave onto the virtual machines.  
+This self-contained tutorial uses Vagrant to install and configure the virtual machines with CentOS, then it installs and launches both Docker and Weave onto the virtual machines and finally, it sets up and configures Apache Mesos & Marathon, and then it deploys a sample app.  
 
 Before you start have the following installed: 
 
@@ -43,25 +43,25 @@ Before you start have the following installed:
 
         vagrant up
         
-4. The Vagrant script installed the Virtual Machines `mesos-00` and `mesos-01`. `mesos-00` is configured as a 	master, where it runs as a single Zookeeper instance within the Marathon framework. `mesos-01` is configured in this example, as the slave.
+4. The Vagrant script installed the Virtual Machines `mesos-00` and `mesos-01`. A single Apache Zookeeper instance manages `mesos-00` as master, and `mesos-01` as slave within the Marathon framework. 
 
-5.  View the installed virtual machines by typing: 
+5.  From the same directory as the Vagrant script was run, view the installed virtual machines by typing: 
 
         vagrant status
 
-5.  Access Marathon through your browser at: `http://172.17.85.100:8080`  where you can view the sample app, Basic-3 running.
+5.  Access Marathon through your browser at: `http://172.17.85.100:8080`  where the sample app, Basic-3 is running.
 	
-##Viewing the Weave Network on the Virtual Machines##
+## Viewing the Weave Network on the Virtual Machines
 
 To view the containers and the Weave network on the virtual machines:
 
 1. Open a terminal, and ssh onto one of the virtual machines:
       
-       vagrant ssh mesos-00
+        vagrant ssh mesos-00
       
 2. View Weave status: 
 
-       [vagrant@mesos-00 ~]$ sudo /usr/local/bin/weave status
+        vagrant@mesos-00 ~]$ sudo weave status
        
    The following should appear: 
        
@@ -108,17 +108,16 @@ To view the containers and the Weave network on the virtual machines:
       
 3.  View the Docker containers with Weave running: 
       
-        [vagrant@mesos-00 ~]$ sudo /usr/bin/docker ps
+        [vagrant@mesos-00 ~]$ sudo docker ps
   
  
-XSCREEN CAPTURE TO BE PLACED HEREX
 
-![Weave Network running with Docker](https://github.com/weaveworks/guides/blob/master/mesos-marathon/docker-ps.png)
+![Weave Network running with Docker](docker-ps.png)
        
      		
-For more information about Weave, type `sudo  /usr/local/bin/weave --help` and docker, type `sudo /usr/bin/docker --help`		   
+For more information about Weave, type `sudo weave --help` and docker, type `sudo docker --help`		   
 
-###Overriding the Default Configuration Variables
+### Overriding the Default Configuration Variables
 
 The folllowing are the default variables set up in the `Vagrantfile`:
 
