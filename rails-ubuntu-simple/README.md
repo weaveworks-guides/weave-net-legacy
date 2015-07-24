@@ -43,7 +43,7 @@ This getting started guide is self contained. You will use Weave, Docker, Rails,
 All of the code for this example is available on github, and you first clone the getting started repository.
 
 ```bash
-$ git clone http://github.com/fintanr/weave-gs
+$ git clone http://github.com/weaveworks/guides
 ```
 
 You will use Vagrant to setup and configure three Ubuntu hosts and
@@ -51,7 +51,7 @@ install Docker. We make use of Vagrant's functionality to download the
 base docker images we will be using, and we then install Weave. If you
 would like to work through the installation steps please review our
 [getting started
-guide](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/README.md)
+guide](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/README.md)
 for a more manual example.
 
 ```bash
