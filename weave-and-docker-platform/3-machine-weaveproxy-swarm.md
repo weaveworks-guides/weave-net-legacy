@@ -68,7 +68,7 @@ people's laptops and is enough to showcase Weave. Let's give these VMs names tha
 
 ### Setting up Swarm
 
-Having 3 VMs to provision, we will need to chose one that will be our Swarm master first of all, it is natual to pick
+Having 3 VMs to provision, we will need to chose one that will be our Swarm master first of all, it is natural to pick
 `weave-1`, or, as I call it, the head node. So the flow will be like this
 
   1. create `weave-1` as a Swarm master
