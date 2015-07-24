@@ -127,7 +127,7 @@ The folllowing are the default variables set up in the `Vagrantfile`:
 		$cpus = 2
 		$network = [172, 17, 85]
 
-You can override any of these settings by creating a `config.rb` with your specified variable attributes.  		  	
+You can override any of these settings by creating a `config.rb` file with your specified variable attributes.  		  	
 
 
 
