@@ -112,7 +112,7 @@ To view the containers and the Weave network on the virtual machines:
   
  
 
-![Weave Network running with Docker](docker-ps.png)
+![Weave Network running with Docker](docker-PS.png)
        
      		
 For more information about Weave, type `sudo weave --help` and docker, type `sudo docker --help`		   
