@@ -98,7 +98,7 @@ Now, run these 3 scripts
 ### Create
 
 First, we need build the app and make images available on each of the Docker hosts, there is a script which does this for
-you. You should simply change to the `app` direcorty and run it like this
+you. You should simply change to the `app` directory and run it like this
 
     cd ../app
     ./build.sh
