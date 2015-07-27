@@ -106,9 +106,9 @@ To view the containers and the Weave network on the virtual machines:
 		weave proxy is running
        
       
-3. To view a more detailed status of weave, type:
+3. To view a detailed status of weave:
 
-       [vagrant@mesos-00 ~]$ sudo systemctl status weave weavedns weaveproxy
+         [vagrant@mesos-00 ~]$ sudo systemctl status weave weavedns weaveproxy
  
    You will see the following: 
        
@@ -131,13 +131,13 @@ To view the containers and the Weave network on the virtual machines:
 		Jul 24 15:12:34 mesos-01 docker[13398]: weave 2015/07/24 15:12:34.219589 Expired MAC 02:12:a9:c1:92:59 at a6:ae:84:c4:b2:d5(mesos-01)
 		Jul 24 15:16:06 mesos-01 docker[13398]: weave 2015/07/24 15:16:06.887280 Discovered local MAC 02:12:a9:c1:92:59
 		
-		weavedns.service - Weave Run - DNS
-		   Loaded: loaded (/etc/systemd/system/weavedns.service; disabled)
-		   Active: active (running) since Wed 2015-07-22 21:52:37 UTC; 1 day 20h ago
-		     Docs: http://docs.weave.works/
-		 Main PID: 14008 (docker)
-		   CGroup: /system.slice/weavedns.service
-		           └─14008 /usr/bin/docker attach weavedns
+			weavedns.service - Weave Run - DNS
+			   Loaded: loaded (/etc/systemd/system/weavedns.service; disabled)
+			   Active: active (running) since Wed 2015-07-22 21:52:37 UTC; 1 day 20h ago
+			     Docs: http://docs.weave.works/
+			 Main PID: 14008 (docker)
+			   CGroup: /system.slice/weavedns.service
+			           └─14008 /usr/bin/docker attach weavedns
 		
 		Jul 24 12:16:05 mesos-01 docker[14008]: INFO: 2015/07/24 12:16:05.536725 [http] Adding basic-3.weave.local -> 10.160.0.1
 		Jul 24 12:16:06 mesos-01 docker[14008]: INFO: 2015/07/24 12:16:06.984246 [zonedb] Container 655c979c73a274a5f509538c904376486cb3a0b11a089c7eae67ab6451d84726 down. Removing records
@@ -150,13 +150,13 @@ To view the containers and the Weave network on the virtual machines:
 		Jul 24 12:54:35 mesos-01 docker[14008]: INFO: 2015/07/24 12:54:35.313959 [http] Adding basic-3.weave.local -> 10.160.0.2
 		Jul 24 12:54:41 mesos-01 docker[14008]: INFO: 2015/07/24 12:54:41.230726 [http] Adding basic-3.weave.local -> 10.160.0.3
 		
-		weaveproxy.service - Weave Run - DNS
-		   Loaded: loaded (/etc/systemd/system/weaveproxy.service; disabled)
-		   Active: active (running) since Wed 2015-07-22 21:52:17 UTC; 1 day 20h ago
-		     Docs: http://docs.weave.works/
-		 Main PID: 13673 (docker)
-		   CGroup: /system.slice/weaveproxy.service
-		           └─13673 /usr/bin/docker attach weaveproxy
+			weaveproxy.service - Weave Run - DNS
+			   Loaded: loaded (/etc/systemd/system/weaveproxy.service; disabled)
+			   Active: active (running) since Wed 2015-07-22 21:52:17 UTC; 1 day 20h ago
+			     Docs: http://docs.weave.works/
+			 Main PID: 13673 (docker)
+			   CGroup: /system.slice/weaveproxy.service
+			           └─13673 /usr/bin/docker attach weaveproxy
 		
 		Jul 24 12:54:40 mesos-01 docker[13673]: INFO: 2015/07/24 12:54:40.303734 GET /v1.18/images/python:3/json
 		Jul 24 12:54:40 mesos-01 docker[13673]: INFO: 2015/07/24 12:54:40.429436 POST /v1.18/containers/create?name=mesos-d13cce4c-a9c4-4b08-adfd-edd6ce6995c1
