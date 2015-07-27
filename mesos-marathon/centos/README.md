@@ -65,7 +65,6 @@ To view the containers and the Weave network on the virtual machines:
        
    The following should appear: 
        
-		Usage of loopback devices is strongly discouraged for production use. Either use `--storage-opt  					dm.thinpooldev`or use `--storage-opt dm.no_warn_on_loop_devices=true` to suppress this warning.
 		
 		weave router 1.0.1
 		Our name is 36:d7:f7:78:e6:1e(mesos-00)
