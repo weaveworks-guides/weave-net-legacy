@@ -34,11 +34,11 @@ Before you start have the following installed:
 1.  Clone the repository:
 
         git clone https://github.com/weaveworks/guides
-     
+
 2.  Change to the following sub-directory: 
 
         cd mesos-marathon/centos
-    
+
 3.  Run the Vagrant script: 
 
         vagrant up
@@ -49,22 +49,23 @@ Before you start have the following installed:
 
         vagrant status
 
-5.  Access Marathon through your browser at: `http://172.17.85.100:8080`  where the sample app, Basic-3 is running.
-	
+5.  Access Marathon through your browser at: `http://172.17.85.100:8080`  where you can see the sample app, Basic-3 running.
+
 ## Viewing the Weave Network on the Virtual Machines
 
 To view the containers and the Weave network on the virtual machines:
 
-1.  Open a terminal, and ssh onto one of the virtual machines:
+1. Open a terminal, and ssh onto one of the virtual machines:
       
         vagrant ssh mesos-00
       
-2.  View Weave status: 
+2. View Weave status: 
 
         vagrant@mesos-00 ~]$ sudo weave status
-       
+
    The following should appear: 
        
+
         Usage of loopback devices is strongly discouraged for production use. Either use `--storage-opt dm.thinpooldev`or use `--storage-opt dm.no_warn_on_loop_devices=true` to suppress this warning.
 
         weave router 1.0.1
@@ -106,9 +107,8 @@ To view the containers and the Weave network on the virtual machines:
         Zone database:
 
         weave proxy is running
-       
-      
-3.  To view a detailed status of weave:
+
+3. To view a detailed status of weave:
 
          [vagrant@mesos-00 ~]$ sudo systemctl status weave weavedns weaveproxy
  
@@ -171,26 +171,23 @@ To view the containers and the Weave network on the virtual machines:
         Jul 24 12:54:41 mesos-01 docker[13673]: INFO: 2015/07/24 12:54:41.400307 POST /v1.18/containers/mesos-d13cce4c-a9c4-4b08-adfd-edd6ce6995c1/wait
         Jul 24 12:54:42 mesos-01 docker[13673]: INFO: 2015/07/24 12:54:42.347627 GET /v1.18/containers/mesos-d13cce4c-a9c4-4b08-adfd-edd6ce6995c1/json        
 
-
 4.  View the Docker containers with Weave: 
-      
+
          [vagrant@mesos-00 ~]$ sudo docker ps
         
         CONTAINER ID        IMAGE                        COMMAND                CREATED             STATUS              PORTS                                            NAMES
         c1151278ab82        python:3                     "/w/w /bin/sh -c 'py   4 hours ago         Up 4 hours          0.0.0.0:31002->8080/tcp                          mesos-d13cce4c-a9c4-4b08-adfd-edd6ce6995c1   
-		f7c6f74c5698        python:3                     "/w/w /bin/sh -c 'py   4 hours ago         Up 4 hours          0.0.0.0:31001->8080/tcp                          mesos-3d40b117-2339-4cf7-a6c4-9e4a865acc7f   
-		224eb5f51aeb        python:3                     "/w/w /bin/sh -c 'py   4 hours ago         Up 4 hours          0.0.0.0:31000->8080/tcp                          mesos-9a60628e-b35c-4a29-b994-2c0f530a03f4   
-		a529d21d2729        weaveworks/weavedns:1.0.1    "/home/weave/weavedn   43 hours ago        Up 43 hours         10.1.42.1:53->53/udp                             weavedns                                     
-		23fe7f3e7ac8        weaveworks/weaveexec:1.0.1   "/home/weave/weavepr   43 hours ago        Up 43 hours                                                          weaveproxy                                   
-		e4caf3cc6fdc        weaveworks/weave:1.0.1       "/home/weave/weaver    43 hours ago        Up 43 hours         0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave
- 
-       
+        f7c6f74c5698        python:3                     "/w/w /bin/sh -c 'py   4 hours ago         Up 4 hours          0.0.0.0:31001->8080/tcp                          mesos-3d40b117-2339-4cf7-a6c4-9e4a865acc7f   
+        224eb5f51aeb        python:3                     "/w/w /bin/sh -c 'py   4 hours ago         Up 4 hours          0.0.0.0:31000->8080/tcp                          mesos-9a60628e-b35c-4a29-b994-2c0f530a03f4   
+        a529d21d2729        weaveworks/weavedns:1.0.1    "/home/weave/weavedn   43 hours ago        Up 43 hours         10.1.42.1:53->53/udp                             weavedns                                     
+        23fe7f3e7ac8        weaveworks/weaveexec:1.0.1   "/home/weave/weavepr   43 hours ago        Up 43 hours                                                          weaveproxy                                   
+        e4caf3cc6fdc        weaveworks/weave:1.0.1       "/home/weave/weaver    43 hours ago        Up 43 hours         0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave
 
 For more information about Weave, type `sudo weave --help` and docker, type `sudo docker --help`
 
 ### Overriding the Default Configuration Variables
 
-The folllowing are the default variables set up in the `Vagrantfile`:
+The following are the default variables set up in the `Vagrantfile`:
 
         $mesos_slaves = 1
         $memory = 1024*2
@@ -198,11 +195,3 @@ The folllowing are the default variables set up in the `Vagrantfile`:
         $network = [172, 17, 85]
 
 You can override any of these settings by creating a `config.rb` file with your specified variable attributes.
-
-
-
-
-
-
-
-

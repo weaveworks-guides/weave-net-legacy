@@ -1,5 +1,5 @@
 [Unit]
-Description=Weave Run - DNS
+Description=Weave Run - Docker API proxy
 Documentation=http://docs.weave.works/
 After=weave.service
 Requires=docker.service weave.service weavedns.service
