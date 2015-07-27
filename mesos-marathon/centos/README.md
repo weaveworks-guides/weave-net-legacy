@@ -112,13 +112,13 @@ To view the containers and the Weave network on the virtual machines:
  
    You will see the following: 
        
-       weave.service - Weave Net
-	   Loaded: loaded (/etc/systemd/system/weave.service; disabled)
-	   Active: active (running) since Wed 2015-07-22 21:52:14 UTC; 1 day 20h ago
-	     Docs: http://docs.weave.works/
-	 Main PID: 13398 (docker)
-	   CGroup: /system.slice/weave.service
-	           └─13398 /usr/bin/docker attach weave
+	       weave.service - Weave Net
+		   Loaded: loaded (/etc/systemd/system/weave.service; disabled)
+		   Active: active (running) since Wed 2015-07-22 21:52:14 UTC; 1 day 20h ago
+		     Docs: http://docs.weave.works/
+		 Main PID: 13398 (docker)
+		   CGroup: /system.slice/weave.service
+		           └─13398 /usr/bin/docker attach weave
 	
 		Jul 24 12:26:47 mesos-01 docker[13398]: weave 2015/07/24 12:26:47.271091 Expired MAC a6:d2:7a:e0:9b:f0 at a6:ae:84:c4:b2:d5(mesos-01)
 		Jul 24 12:26:47 mesos-01 docker[13398]: weave 2015/07/24 12:26:47.271098 Expired MAC ba:c7:80:ad:c0:22 at a6:ae:84:c4:b2:d5(mesos-01)
