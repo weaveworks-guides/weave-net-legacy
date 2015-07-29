@@ -1,12 +1,26 @@
 #!/bin/bash
 
-declare -A WEAVE_ECS_AMIS
-WEAVE_ECS_AMIS['us-east-1']='ami-97b86afc'
-WEAVE_ECS_AMIS['us-west-2']='ami-69d3de59'
-WEAVE_ECS_AMIS['eu-west-1']='ami-d26d25a5'
-WEAVE_ECS_AMIS['ap-northeast-1']='ami-083b8f08'
-WEAVE_ECS_AMIS['ap-southeast-2']='ami-1d80c627'
+WEAVE_ECS_AMIS=('us-east-1:ami-97b86afc'
+		'us-west-2:ami-69d3de59'
+		'eu-west-1:ami-d26d25a5'
+		'ap-northeast-1:ami-083b8f08'
+		'ap-southeast-2:ami-1d80c627'
+	       )
 
+# Mimic associative arrays using ":" to compose keys and values,
+# to make them work in bash v3
+function key(){
+    echo  ${1%%:*}
+}
+
+function value(){
+    echo  ${1#*:}
+}
+
+REGIONS=""
+for I in ${WEAVE_ECS_AMIS[@]}; do
+    REGIONS="$REGIONS $(key $I)"
+done
 
 # Check that we have everything we need
 
@@ -21,9 +35,15 @@ if [ -z "$REGION" ]; then
     exit 1
 fi
 
-AMI=${WEAVE_ECS_AMIS[$REGION]}
+AMI=""
+for I in ${WEAVE_ECS_AMIS[@]}; do
+    if [ "$(key $I)" = "$REGION" ]; then
+	AMI=$(value $I)
+    fi
+done
+
 if [ -z "$AMI" ]; then
-    echo "error: AWS-CLI is using '$REGION', which doesn't offer ECS yet, please set it to one from: ${!WEAVE_ECS_AMIS[@]}"
+    echo "error: AWS-CLI is using '$REGION', which doesn't offer ECS yet, please set it to one from: ${REGIONS}"
     exit 1
 fi
 
