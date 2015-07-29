@@ -58,10 +58,15 @@ To view the containers and the Weave network on the virtual machines:
 1. Open a terminal, and ssh onto one of the virtual machines:
       
         vagrant ssh mesos-00
-      
+
+1. Become root first
+
+        [vagrant@mesos-00 ~]$ sudo -s
+        [root@mesos-00 vagrant]#
+
 2. View Weave status: 
 
-        [vagrant@mesos-00 ~]$ sudo weave status
+        [root@mesos-00 vagrant]# weave status
 
    The following should appear: 
 
@@ -107,7 +112,7 @@ To view the containers and the Weave network on the virtual machines:
 
 3. To view a detailed status of weave:
 
-         [vagrant@mesos-00 ~]$ sudo systemctl status weave weavedns weaveproxy
+        [root@mesos-00 vagrant]# systemctl status weave weavedns weaveproxy
  
    You will see the following: 
        
@@ -170,7 +175,7 @@ To view the containers and the Weave network on the virtual machines:
 
 4.  View the Docker containers with Weave: 
 
-         [vagrant@mesos-00 ~]$ sudo docker ps
+        [root@mesos-00 vagrant]# docker ps
         
         CONTAINER ID        IMAGE                        COMMAND                CREATED             STATUS              PORTS                                            NAMES
         c1151278ab82        python:3                     "/w/w /bin/sh -c 'py   4 hours ago         Up 4 hours          0.0.0.0:31002->8080/tcp                          mesos-d13cce4c-a9c4-4b08-adfd-edd6ce6995c1   
@@ -180,7 +185,7 @@ To view the containers and the Weave network on the virtual machines:
         23fe7f3e7ac8        weaveworks/weaveexec:1.0.1   "/home/weave/weavepr   43 hours ago        Up 43 hours                                                          weaveproxy                                   
         e4caf3cc6fdc        weaveworks/weave:1.0.1       "/home/weave/weaver    43 hours ago        Up 43 hours         0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave
 
-For more information about Weave, type `sudo weave --help` and docker, type `sudo docker --help`
+For more information about Weave, type `weave --help` and Docker, type `docker --help`
 
 ### Overriding the Default Configuration Variables
 

@@ -7,9 +7,9 @@ Requires=docker.service
 TimeoutStartSec=0
 EnvironmentFile=-/etc/weave.env
 EnvironmentFile=-/etc/weave.%H.env
-ExecStartPre=/usr/local/bin/weave launch $WEAVE_PEERS
+ExecStartPre=/usr/bin/weave launch $WEAVE_PEERS
 ExecStart=/usr/bin/docker attach weave
 Restart=on-failure
-ExecStop=/usr/local/bin/weave stop
+ExecStop=/usr/bin/weave stop
 [Install]
 WantedBy=weave.target
