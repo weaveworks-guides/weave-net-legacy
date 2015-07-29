@@ -61,7 +61,7 @@ To view the containers and the Weave network on the virtual machines:
       
 2. View Weave status: 
 
-        vagrant@mesos-00 ~]$ sudo weave status
+        [vagrant@mesos-00 ~]$ sudo weave status
 
    The following should appear: 
 
