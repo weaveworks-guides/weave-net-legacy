@@ -11,7 +11,7 @@ application and minimal docker knowledge.
 We will run a very simple go based rest server which shows the IP address of each container
 to demonstrate our use of round robin DNS.
 
-![Simple Loadbalancing with Weave](https://github.com/weaveworks/guides/blob/master/weave-loadbalance/Weave_LoadBalance.png)
+![Simple Loadbalancing with Weave](/guides/images/Weave_LoadBalance.png)
 
 ## What you will use ##
 
