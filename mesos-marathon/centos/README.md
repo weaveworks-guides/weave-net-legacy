@@ -61,6 +61,7 @@ or see a more detailed status of weave:
         [root@mesos-00 vagrant]# systemctl status weave weavedns weaveproxy
 
 
+
 and then view three Docker containers and Weave: 
 
          [root@mesos-00 ~]$ docker ps
