@@ -54,7 +54,7 @@ Become root first
 
 View Weave status: 
 
-               [root@mesos-00 ~]$ weave status
+         [root@mesos-00 ~]$ weave status
 
 or see a more detailed status of weave:
 
