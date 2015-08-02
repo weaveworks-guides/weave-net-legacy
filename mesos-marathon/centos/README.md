@@ -52,7 +52,7 @@ or see a more detailed status of weave:
 
          [vagrant@mesos-00 ~]$ sudo systemctl status weave weavedns weaveproxy
 
-and then view Docker containers and Weave: 
+and then view the three Docker containers and Weave: 
 
          [vagrant@mesos-00 ~]$ sudo docker ps
          
