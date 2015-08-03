@@ -28,10 +28,11 @@ Before you begin, please ensure the following are installed:
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
 First, clone the repo and run the vagrant script:
-
-    git clone https://github.com/weaveworks/guides
-    cd mesos-marathon/centos
-    vagrant up
+~~~ bash
+git clone https://github.com/weaveworks/guides
+cd mesos-marathon/centos
+vagrant up
+~~~
 
 The Vagrant script installed the Virtual Machines `mesos-00` and `mesos-01`. It also configured a single Apache Zookeeper instance that manages `mesos-00` as master, and `mesos-01` as slave within the Marathon framework.
 
@@ -40,25 +41,34 @@ Once `vagrant up` has exited, access the Marathon admin UI through your browser 
 ## Viewing the Weave Network on the Virtual Machines
 
 View the Weave network on the virtual machines:
-
-    vagrant ssh mesos-00
+~~~ bash
+vagrant ssh mesos-00
+~~~
 
 Become root first
 
-    [vagrant@mesos-00 ~]$ sudo -s
-    [root@mesos-00 vagrant]#
+~~~ bash
+[vagrant@mesos-00 ~]$ sudo -s
+[root@mesos-00 vagrant]#
+~~~
 
 View Weave status:
 
-    [root@mesos-00 vagrant]# weave status
+~~~ bash
+[root@mesos-00 vagrant]# weave status
+~~~
 
 or see a more detailed status of weave:
 
-    [root@mesos-00 vagrant]# systemctl status weave weavedns weaveproxy
+~~~ bash
+[root@mesos-00 vagrant]# systemctl status weave weavedns weaveproxy
+~~~
 
 and then view three Docker containers and Weave:
 
-    [root@mesos-00 vagrant]# docker ps
+~~~ bash
+[root@mesos-00 vagrant]# docker ps
+~~~
 
 Where you should see something similar to this:
 
@@ -69,11 +79,15 @@ Where you should see something similar to this:
 
 There is not much else to do on `mesos-00`, so you can exit:
 
-    [root@mesos-00 vagrant]# exit
+~~~ bash
+[root@mesos-00 vagrant]# exit
+~~~
 
 Back in your local shell, run:
 
-    ./deploy_on_marathon.sh outyet.json
+~~~ bash
+./deploy_on_marathon.sh outyet.json
+~~~
 
 Where a simple "Hello, World" web app is deployed, as shown in [Marathon tutorial](http://open.mesosphere.com/intro-course/ex17.html).  In this case, 4 instances of the web app are deployed.
 
@@ -102,8 +116,10 @@ List the container processes to confirm that there 4 instances of the app
 
 Next, test the app's functionality by creating an interactive container on Weave
 
-    [root@mesos-01 vagrant]# docker run -ti centos:7
-    [root@7844aae5d94d /]# curl outyet:8080
+~~~ bash
+[root@mesos-01 vagrant]# docker run -ti centos:7
+[root@7844aae5d94d /]# curl outyet:8080
+~~~
 
 You should see output similar to this:
 
@@ -139,18 +155,23 @@ During the provisioning phase (`vagrant up`), a set of shell scripts run on Vagr
 
 Default variables for this tutorial are specified in the `Vagrantfile`:
 
-        $mesos_slaves = 1
-        $memory = 1024*2
-        $cpus = 2
-        $network = [172, 17, 85]
+~~~ bash
+$mesos_slaves = 1
+$memory = 1024*2
+$cpus = 2
+$network = [172, 17, 85]
+~~~
+
 
 Override any of these by creating a `config.rb` file with the desired variables and saving the file in the same directory.
 
 For example, you can grow the cluster by running
 
-    echo '$mesos_slaves = 3' > config.rb
-    vagrant up mesos-02 mesos-03
+~~~ bash
+echo '$mesos_slaves = 3' > config.rb
+vagrant up mesos-02 mesos-03
+~~~
 
 ###Conclusion
 
-This guide shown you how to use Weave with Apache Mesos and its Marathon framework. It uses Vagrant and CentOS, however you should be able to adopt the configuration described here for your own implementation. We would be very happy to hear any of your thoughts via [email](help@weave.works) or [Twitter](https://twitter.com/weaveworks).
+In this guide, we described how to use Weave with Apache Mesos and its Marathon framework. We configured and installed the infrastructure using Vagrant on CentOS. You can easily adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](help@weave.works) or [Twitter](https://twitter.com/weaveworks).
