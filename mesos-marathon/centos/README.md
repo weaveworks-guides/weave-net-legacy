@@ -15,7 +15,7 @@ In particular, you should learn about load-balancing in [Weave Run](/run) and us
 
 In this self-contained tutorial, you will:
 
-1. Use Vagrant to install and configure the virtual machines with [CentOS](http://http://centos.org/).
+1. Use Vagrant to install and configure the virtual machines with [CentOS](http://centos.org/).
 2. Install and launch [Docker](http://docker.com) and [Weave](http://weave.works) onto the virtual machines
 3. Set up and configure [Apache Mesos & Marathon](https://mesosphere.github.io/marathon/)
 4. Deploy and test a simple web app.
