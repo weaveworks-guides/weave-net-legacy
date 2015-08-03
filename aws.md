@@ -1,4 +1,8 @@
-# Some notes on using AWS #
+---
+permalink: /guides/about/aws.html
+title: Some notes on using AWS
+layout: guides
+---
 
 We make use of the [Amazon Web Services (AWS) CLI
 tool](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
