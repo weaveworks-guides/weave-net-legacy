@@ -6,21 +6,11 @@
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "outyet",
+      "image": "docker.io/goexample/outyet",
       "network": "BRIDGE",
       "parameters": [
         { "key": "hostname", "value": "outyet.weave.local" }
       ]
     }
-  },
-  "healthChecks": [
-    {
-      "protocol": "HTTP",
-      "portIndex": 0,
-      "path": "/",
-      "gracePeriodSeconds": 5,
-      "intervalSeconds": 20,
-      "maxConsecutiveFailures": 3
-    }
-  ]
+  }
 }
