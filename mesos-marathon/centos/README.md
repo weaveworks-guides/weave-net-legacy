@@ -116,7 +116,7 @@ If you run `curl -v outyet:8080` a few times, you should be able to confirm that
 
 [Weave Net](/net) takes care of connecting containers on an isolated overlay network and [Weave Run](/run) provides the DNS and IP address allocation.
 
-Mesos Marathon frameworks provides a management API (used by `deploy_on_marathon.sh` script) and UI. Mesos schedules tasks created through Marathon and runs those on the cluster, there is a `mesos-slave` service on each of the nodes except from `mesos-00`. Docked and the Weave containers run on all the nodes, it doesn't have to run on `mesos-00`, but it can be convenient for management purposes. The following diagram illustrates this.
+Mesos Marathon frameworks provides a management API (used by `deploy_on_marathon.sh` script) and UI. Mesos schedules tasks created through Marathon and runs those on the cluster, there is a `mesos-slave` service on each of the nodes except from `mesos-00`. Docker and the Weave containers run on all the nodes, it doesn't have to run on `mesos-00`, but it can be convenient for management purposes. The following diagram illustrates this.
 
 ![Architecture Overview](/guides/images/mesos-marathon/centos/diagram-1.png)
 
