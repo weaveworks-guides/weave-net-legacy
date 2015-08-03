@@ -9,8 +9,8 @@
     "docker": {
       "image": "outyet",
       "network": "BRIDGE",
-      "portMappings": [
-        { "containerPort": 8080, "hostPort": 0, "servicePort": 0, "protocol": "tcp" }
+      "parameters": [
+        { "key": "hostname", "value": "outyet.weave.local" }
       ]
     }
   },
