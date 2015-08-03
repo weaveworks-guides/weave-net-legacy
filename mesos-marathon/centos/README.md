@@ -28,6 +28,7 @@ Before you begin, please ensure the following are installed:
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
 First, clone the repo and run the vagrant script:
+
 ~~~ bash
 git clone https://github.com/weaveworks/guides
 cd mesos-marathon/centos
@@ -41,6 +42,7 @@ Once `vagrant up` has exited, access the Marathon admin UI through your browser 
 ## Viewing the Weave Network on the Virtual Machines
 
 View the Weave network on the virtual machines:
+
 ~~~ bash
 vagrant ssh mesos-00
 ~~~
