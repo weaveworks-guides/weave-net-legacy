@@ -99,6 +99,8 @@ Next, test the functionality of the app by creating an interactive container on 
     [root@mesos-01 vagrant]# docker run -ti centos:7
     [root@7844aae5d94d /]# curl outyet:8080
 
+You should see output like this:
+
     <!DOCTYPE html><html><body><center>
             <h2>Is Go 1.4 out yet?</h2>
             <h1>
@@ -110,7 +112,7 @@ Next, test the functionality of the app by creating an interactive container on 
 
 If you run `curl -v outyet:8080` a few times, you should be able to confirm that Weave Run does the load-ballancing as IP address for `outyet` is not always the same.
 
-### So how does this work?
+### How does this work?
 
 [Weave Net](/net) takes care of connecting containers on an isolated overlay network and [Weave Run](/run) provides the DNS and IP address allocation.
 
@@ -122,7 +124,9 @@ To make Marathon deploy tasks as Docker containers and use Weave there is [a con
 
 ![Weave Details](/guides/images/mesos-marathon/centos/diagram-2.png)
 
-### How it is setup exactly?
+### How is this setup?
+
+The is a set of small shell scripts that run on Vagrant during provisioning phase (`vagrant up`), if you look at [Vagrantfile](https://github.com/weaveworks/guides/blob/ab8fb8efd9e5da943cfbd98361d78008e1c46f71/mesos-marathon/centos/Vagrantfile#L59-L82), you will see the logic of how, where and when those are executed. The scripts install and configure Weeave as well as RPM packages from the Mesosphere repository.
 
 ### Overriding Default Configuration Variables
 
