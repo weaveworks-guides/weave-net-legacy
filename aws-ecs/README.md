@@ -1,45 +1,40 @@
-
-# Service Discovery and Load Balancing with Weave on Amazon's ECS #
+---
+layout: guides
+title: Service Discovery and Load Balancing with Weave on Amazon's ECS
+description: Service Discovery and Load Balancing with Weave on Amazon's ECS
+keywords: weave, amazon ECS, service discovery, load balancing, software defined networking
+permalink: /guides/service-discovery-with-weave-aws-ecs.html
+---
 
 ## What you will build ##
 
 Weave allows you to focus on developing your application, rather than your
 infrastructure.
 
-In this example you will be using Weave for service discovery and load balancing
+In this example you will use Weave for service discovery and load balancing
 between [containers on ECS](http://aws.amazon.com/ecs/).
 
-You will use two type of containerized microservices: HTTP Servers and Data
+Two types of containerized microservices are used in this example: HTTP Servers and Data
 Producers.
 
-<!---
-Github does not display svg images in READMEs for security reasons
-https://github.com/isaacs/github/issues/316
-
-However, I left it since svg adapts much better to different displays and the
-final user should use Weavework's website anyways.
--->
 ![overview diagram](img/overview-diagram.svg)
 
-Unsurprisingly, the HTTP Servers will serve data produced from the Data
+The HTTP Servers will serve data produced from the Data
 Producers.
 
-This is a very common pattern, whose implementation phase requires answering a
-few questions, among which are:
+This is a very common pattern, whose implementation requires answers to the following questions:
 
-* Service discovery: How does an HTTP Server find a Data Producer to connect to?
-* Load balancing/fault tolerance: How can the HTTP Server's make uniform use of
+1. Service discovery: How does an HTTP Server find a Data Producer to connect to?
+2. Load balancing/fault tolerance: How can the HTTP Servers make uniform use of
   all the Data Producers?
 
+Weave, makes use of
+[WeaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html), where
+it automatically and transparently:
 
-Weave, making use of
-[WeaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html), will
-automatically and transparently:
-
-* Take care of service discovery by adding DNS A-records for your containers based on
-  their names.
-* Take care of load balancing by randomizing the order in DNS responses.
-
+* Implements service discovery by adding DNS A-records for your containers based on
+their names. and, 
+* Secondly, manages load balancing by randomizing the order of DNS responses.
 
 ## What you will use ##
 
@@ -50,11 +45,11 @@ automatically and transparently:
 ## What you will need to complete this guide ##
 
 This getting started guide is self contained. You will use Weave, Docker and
-Amazon ECS. We make use of the
+Amazon ECS. We also make use of the
 [Amazon Web Services (AWS) CLI tool](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
-to manage and access AWS.  You will need to have a valid
-[Amazon Web Services](http://aws.amazon.com) account, and the AWS CLI setup and
-configured before working through this getting started guide. Amazon provides an
+to manage and access AWS.  You will need a valid
+[Amazon Web Services](http://aws.amazon.com) account, and have the AWS CLI setup and
+configured before working through this guide. Amazon provides an
 extensive guide on how to setup the
 [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html).
 
@@ -68,10 +63,10 @@ extensive guide on how to setup the
 
 All of the code for this example is available on GitHub.
 
-First, you need to clone the `weaveworks/guides` repository and move to the `aws-ecs`
-directory, from which you will be working during most of this guide.
+First, clone the `weaveworks/guides` repository and then move to the `aws-ecs`
+directory, from which you will be working throughout most of this guide.
 
-```bash
+``` bash
 git clone http://github.com/weaveworks/guides
 cd guides/aws-ecs
 ```
@@ -83,72 +78,66 @@ Make sure AWS-CLI is set to use a region where ECS is available
 the time of writing this guide).
 
 You can see AWS-CLI's  configuration with
-
 ```bash
 aws configure list
 ```
-
-and modify it running
-
+and modify it by running:
 ```bash
 aws configure
 ```
-
 ## Automatic setup ##
 
-In order to set everything up automatically, just run the following command:
-
+To set everything up automatically, just run the following command:
 ```bash
 ./setup.sh
 ```
-
 You should get an output like the following:
 
-```
-Creating ECS cluster (weave-ecs-demo-cluster) .. done
-Creating Security Group (weave-ecs-demo) .. Done
-Creating Key Pair (weave-ecs-demo, file weave-ecs-demo-key.pem) .. done
-Creating IAM role (weave-ecs-role) .. done
-Creating Launch Configuration (weave-ecs-launch-configuration) .. done
-Creating Auto Scaling Group (weave-ecs-demo-group) with 3 instances .. done
-Waiting for instances to join the cluster (this may take a few minutes) .. done
-Registering ECS Task Definition (weave-ecs-demo-task) .. done
-Launching (3) tasks .. done
-Waiting for tasks to start running .. done
-Setup is ready!
-Open your browser and go to any of these URLs:
-  http://foo.region.compute.amazonaws.com
-  http://bar.region.compute.amazonaws.com
-  http://baz.region.compute.amazonaws.com
-```
+    Creating ECS cluster (weave-ecs-demo-cluster) .. done
+    Creating Security Group (weave-ecs-demo) .. Done
+    Creating Key Pair (weave-ecs-demo, file weave-ecs-demo-key.pem) .. done
+    Creating IAM role (weave-ecs-role) .. done
+    Creating Launch Configuration (weave-ecs-launch-configuration) .. done
+    Creating Auto Scaling Group (weave-ecs-demo-group) with 3 instances .. done
+    Waiting for instances to join the cluster (this may take a few minutes) .. done
+    Registering ECS Task Definition (weave-ecs-demo-task) .. done
+    Launching (3) tasks .. done
+    Waiting for tasks to start running .. done
+    Setup is ready!
+    Open your browser and go to any of these URLs:
+      http://foo.region.compute.amazonaws.com
+      http://bar.region.compute.amazonaws.com
+      http://baz.region.compute.amazonaws.com
 
-## What did just happen? ##
 
-The automatic `setup.sh` script has:
+## What just happened? ##
+
+The automatic `setup.sh` script:
 
 * Created an ECS cluster named `weave-ecs-demo-cluster`
 * Spawned three hosts (EC2 instances in Amazon's jargon), which are now part of
   the cluster and are based on Weave's ECS
   [AMI](https://en.wikipedia.org/wiki/Amazon_Machine_Image).
-* Created a ECS task family definition, which describes the HTTP Server and Data Producer containers.
-* Spawned three tasks, one per host, resulting in an HTTP Server and Data Producer container running in each host.
+* Created an ECS task family definition that describes the HTTP Server and Data Producer containers.
+* Spawned three tasks, one per host, resulting in an HTTP Server and a Data Producer container running on each host.
 
 ## Testing the setup ##
 
-The three URLs at the end of `setup.sh`'s output will communicate your browser
-with the HTTP Server containers. Pick one of them (or take the three of them if
-you like) and open them in your browser. This is what you should see:
+The three URLs shown above, which is the result of `setup.sh`'s output will communicate via your browser with the HTTP Server containers. Pick one of them (or all three of them if
+you like) and open them in your browser. 
+
+This is what you should see:
 
 ![httpserver's output](img/httpserver.png)
 
-Pressing reload in your browser will cause HTTP Server to refresh its Data
-Provider address list (generated randomly by `WeaveDNS`) resulting in
+Press reload in your browser to refresh the HTTP Server and reload the server's Data
+Provider address list (generated randomly by `WeaveDNS`), resulting in
 load-balancing between them.
 
 ## How does service discovery and load balancing work? ##
 
-Both the HTTP Server and Data Producer containers are very simple (naive if you
-may) to make easy to understand how they work.
+Both the HTTP Server and the Data Producer containers are very simple (naive if you
+may).
 
 They are implemented in a few lines of bash, mostly using Netcat.
 
@@ -164,10 +153,10 @@ Container `httpserver`:
 
 ```bash
 sleep 7 # Wait for data producers to start
-while true; do
+  while true; do
   # Get a message from a data producer
   DATA_PRODUCER_MESSAGE=`nc dataproducer 4540`
-  HTML="<html> <head> <title>Weaveworks Amazon ECS Sample App<\/title> <style>body {margin-top: 40px; background-color: #333;} <\/style> <\/head><body> <div style=color:white;text-align:center> <h1>Chosen data producer message:<\/h1> <h2>${DATA_PRODUCER_MESSAGE}<\/h2> <\/div>"
+  HTML="<html> <head> <title>Weaveworks Amazon ECS Sample App<\/title> <style>body {margin-top:   40px; background-color: #333;} <\/style> <\/head><body> <div style=color:white;text-align:center> <h1>Chosen data producer message:<\/h1> <h2>${DATA_PRODUCER_MESSAGE}<\/h2> <\/div>"
   echo "$HTML" | nc -q 0 -l -p 80
 done
 ```
@@ -199,10 +188,10 @@ The HTTP Server works as follows:
 ## What's happening in the hosts? ##
 
 If you are curious about what's happening in the ECS instances, you can access
-them through ssh by doing:
+them through ssh:
 
-```
-ssh -i weave-ecs-demo-key.pem ec2-user@${INSTANCE}
+```bash
+    ssh -i weave-ecs-demo-key.pem ec2-user@${INSTANCE}
 ```
 
 where `${INSTANCE}` can be any of your 3 instance hostnames
@@ -211,15 +200,16 @@ where `${INSTANCE}` can be any of your 3 instance hostnames
 
 For example, you can list what containers are running in the instance:
 
-```
-[ec2-user@ip-XXX-XXX-XXX-XXX ~]$ docker ps
-CONTAINER ID        IMAGE                            COMMAND                CREATED             STATUS              PORTS                                                                                            NAMES
-e2fe07ab4768        2opremio/weaveecsdemo:latest     "\"/w/w bash -c 'sle   7 minutes ago       Up 7 minutes        0.0.0.0:80->80/tcp                                                                               ecs-weave-ecs-demo-task-1-httpserver-9682f3b0cd868cd60d00
-42658f9eaef5        2opremio/weaveecsdemo:latest     "/w/w sh -c 'while t   7 minutes ago       Up 7 minutes                                                                                                         ecs-weave-ecs-demo-task-1-dataproducer-b8ecddb78a8fecfc3900
-18db610b28f7        amazon/amazon-ecs-agent:latest   "/w/w /agent"          8 minutes ago       Up 8 minutes        127.0.0.1:51678->51678/tcp                                                                       ecs-agent
-4221747c81e3        weaveworks/weaveexec:latest      "/home/weave/weavepr   8 minutes ago       Up 8 minutes                                                                                                         weaveproxy
-9457fff981b8        weaveworks/weave:latest          "/home/weave/weaver    8 minutes ago       Up 8 minutes        0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp, 172.17.42.1:53->53/tcp, 172.17.42.1:53->53/udp   weave
-```
+    [ec2-user@ip-XXX-XXX-XXX-XXX ~]$ docker ps
+    
+    
+    CONTAINER ID        IMAGE                            COMMAND                CREATED             STATUS              PORTS                                                                                            NAMES
+    e2fe07ab4768        2opremio/weaveecsdemo:latest     "\"/w/w bash -c 'sle   7 minutes ago       Up 7 minutes        0.0.0.0:80->80/tcp                                                                               ecs-weave-ecs-demo-task-1-httpserver-9682f3b0cd868cd60d00
+    42658f9eaef5        2opremio/weaveecsdemo:latest     "/w/w sh -c 'while t   7 minutes ago       Up 7 minutes                                                                                                         ecs-weave-ecs-demo-task-1-dataproducer-b8ecddb78a8fecfc3900
+    18db610b28f7        amazon/amazon-ecs-agent:latest   "/w/w /agent"          8 minutes ago       Up 8 minutes        127.0.0.1:51678->51678/tcp                                                                       ecs-agent
+    4221747c81e3        weaveworks/weaveexec:latest      "/home/weave/weavepr   8 minutes ago       Up 8 minutes                                                                                                         weaveproxy
+    9457fff981b8        weaveworks/weave:latest          "/home/weave/weaver    8 minutes ago       Up 8 minutes        0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp, 172.17.42.1:53->53/tcp, 172.17.42.1:53->53/udp   weave
+
 
 * Container `ecs-weave-ecs-demo-task-1-httpserver-9682f3b0cd868cd60d00` is the
   HTTP Server of this host, producing the output you saw in your browser.  Note
@@ -229,7 +219,7 @@ e2fe07ab4768        2opremio/weaveecsdemo:latest     "\"/w/w bash -c 'sle   7 mi
 * Container `ecs-weave-ecs-demo-task-8-dataproducer-b8ecddb78a8fecfc3900` is the
   Data Producer of this host.
 
-* Containers `weaveproxy` and `weave` are unsurprisingly responsible of running
+* Containers `weaveproxy` and `weave` are unsurprisingly responsible for running
   Weave in each ECS instance. For simplification, the proxy was represented out
   of Docker in previous section's diagram, but it so happens that WeaveProxy runs
   inside of Docker.
@@ -241,29 +231,27 @@ e2fe07ab4768        2opremio/weaveecsdemo:latest     "\"/w/w bash -c 'sle   7 mi
   section's diagram.
 
 
-You can see the IPs of all the HTTP Servers and Data Producers by running:
+To view the IPs of all the HTTP Servers and Data Producers by running:
 
-```bash
-[ec2-user@ip-XXX-XXX-XXX-XXX ~]$ export DOCKER_HOST=unix:///var/run/weave.sock # Use weave-proxy
-[ec2-user@ip-XXX-XXX-XXX-XXX ~]$ docker run 2opremio/weaveecsdemo dig +short httpserver
-10.36.0.3
-10.32.0.3
-10.40.0.2
-[ec2-user@ip-XXX-XXX-XXX-XXX ~]$ docker run 2opremio/weaveecsdemo dig +short dataproducer
-10.36.0.2
-10.32.0.2
-10.40.0.1
-```
 
-Running the commands above multiple times will yield to different orderings in
+    [ec2-user@ip-XXX-XXX-XXX-XXX ~]$ export DOCKER_HOST=unix:///var/run/weave.sock # Use weave-proxy
+    [ec2-user@ip-XXX-XXX-XXX-XXX ~]$ docker run 2opremio/weaveecsdemo dig +short httpserver
+    10.36.0.3
+    10.32.0.3
+    10.40.0.2
+    [ec2-user@ip-XXX-XXX-XXX-XXX ~]$ docker run 2opremio/weaveecsdemo dig +short dataproducer
+    10.36.0.2
+    10.32.0.2
+    10.40.0.1
+
+Running the commands above multiple times will result in different orderings in
 the output. This is because WeaveDNS randomizes the order of the IPs, which in
 turn causes HTTP Servers to transparently do load balancing when connecting to
 Data Producers.
 
 ### Cleanup ###
 
-To clean everything which was created by `setup.sh` just run:
-
+To clean up everything which was created by `setup.sh` run:
 ```bash
 ./cleanup.sh
 ```
@@ -373,8 +361,8 @@ aws ecs run-task --cluster weave-ecs-demo-cluster --task-definition weave-ecs-de
 ## Summary ##
 
 You have used Weave out-of-the-box in ECS, both for service discovery and load
-balancing between containers on ECS, regardless of whether the execute in the same or
-different hosts.
+balancing between containers on ECS, regardless of whether they are executed on the same or
+on different hosts.
 
 ## Known issues/limitations ##
 
@@ -382,7 +370,7 @@ different hosts.
   instances, they won't work be able to see each other due to how Weave finds peers in ECS.
 * Due to how ECS mangles container names at launch, Weave's service discovery is
   only supported in container names with alphanumeric characters
-  (e.g. `httpserver` would be OK but `http-server` wouldn't due to the hyphen)
+  (e.g. `httpserver` would be OK but `http-server` won't work due to the hyphen)
 
 
 ## For the advanced user: Build your own Weave ECS AMI ##
