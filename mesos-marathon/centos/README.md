@@ -78,7 +78,10 @@ Back in your local shell, run
 
 This deploys a simple "Hello, World" type of a web app, as show in [Marathon tutorial](http://open.mesosphere.com/intro-course/ex17.html). There are 4 instances of this app being deployed and this guide will demonstrate how easy it is to use DNS-based load-balancing in Weave Run, as well as how the use of Weave Net eliminate the need for port remapping and just a default container port will be used.
 
-Accessing Marathon UI at `http://172.17.85.100:8080` should show the app going from deployment to running status, it should take just a few minutes.
+Accessing Marathon UI at `http://172.17.85.100:8080` should show the app going from deployment to running status as show on screenshots below, it should take just a few minutes.
+
+![Marathon Apps](/guides/images/mesos-marathon/centos/marathon-1.png)
+![Marathon Apps - outyet](/guides/images/mesos-marathon/centos/marathon-1.png)
 
 Login to `mesos-01` now, become root and setup environment variables for using the Docker API proxy
 
