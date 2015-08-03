@@ -23,7 +23,7 @@ In this self-contained tutorial, you will:
 Before you begin, please ensure you have the following installed:
 
 * [Git](http://git-scm.com/downloads)
-* [Vagrant & VirtualBox](http://weave.works/guides/about/vagrant.html)
+* [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
 First, clone the repo and run the vagrant script:
 
