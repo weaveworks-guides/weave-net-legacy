@@ -5,7 +5,7 @@ permalink: /guides/platform/mesos-marathon/os/centos/cloud/vagrant/index.html
 tags: docker, mesos, marathon, cli, vagrant, virtualbox, dns, ipam
 ---
 
-##What You Will Build
+## What You Will Build
 
 Weave provides a software network that is optimized for visualizing and communicating with apps scattered within Docker containers. Using tools and protocols that are familiar to you, Weave provides the network topology that allows you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
 
@@ -146,3 +146,7 @@ For example, you can grow the cluster by running
 
     echo '$mesos_slaves = 3' > config.rb
     vagrant up mesos-02 mesos-03
+
+## Conclusion
+
+This guide shown you how to use Weave with Apache Mesos and its Marathon framework. It uses Vagrant and CentOS, however you should be able to adopt the configuration described here for your own implementation. We would be very happy to hear any of your thoughts [via email](mailto:help@weave.works) or [Twitter](https://twitter.com/weaveworks).
