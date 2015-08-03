@@ -81,7 +81,7 @@ This deploys a simple "Hello, World" type of a web app, as show in [Marathon tut
 Accessing Marathon UI at `http://172.17.85.100:8080` should show the app going from deployment to running status as show on screenshots below, it should take just a few minutes.
 
 ![Marathon Apps](/guides/images/mesos-marathon/centos/marathon-1.png)
-![Marathon Apps - outyet](/guides/images/mesos-marathon/centos/marathon-1.png)
+![Marathon Apps - outyet](/guides/images/mesos-marathon/centos/marathon-2.png)
 
 Login to `mesos-01` now, become root and setup environment variables for using the Docker API proxy
 
