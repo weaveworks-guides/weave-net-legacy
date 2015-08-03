@@ -2682,7 +2682,7 @@ and load-ballancing}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2015-08-03 12:06:06 +0000</string>
+	<string>2015-08-03 14:33:04 +0000</string>
 	<key>Modifier</key>
 	<string>Ilya Dmitrichenko</string>
 	<key>NotesVisible</key>
@@ -2760,7 +2760,7 @@ and load-ballancing}</string>
 		<key>FitInWindow</key>
 		<true/>
 		<key>Frame</key>
-		<string>{{-31, 3}, {1440, 873}}</string>
+		<string>{{0, 4}, {1440, 873}}</string>
 		<key>ShowInfo</key>
 		<true/>
 		<key>ShowRuler</key>
