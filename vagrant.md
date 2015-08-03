@@ -1,14 +1,20 @@
 ---
 permalink: /guides/about/vagrant.html
 title: Usage of Vagrant in our guides
+layout: guides
 ---
 
 ## What is Vagrant
 
 [Vagrant](https://www.vagrantup.com/) is a great product by our friends at [HashiCorp](https://hashicorp.com/), it allows
-one to automate provisoning of VirtualBox VMs in a very simple way, it enables you to rapidly prototyping your infrastructure
-or subsets of it with a very simple Ruby-based DSL. Additionally it works on VMWare products as well as KVM, and number public
-cloud plugins exist also.
+you to automate provisoning of VirtualBox VMs in a very simple way, and enables rapid prototyping of infrastructure or
+subsets of it with a very simple Ruby-based DSL. Additionally it works on VMWare products as well as KVM, and a number of
+public cloud plugins exist also.
+
+## Installation
+
+ * [Vagrant](https://docs.vagrantup.com/v2/installation/index.html)
+ * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 ## How we use Vagrant in our guides
 
@@ -21,10 +27,13 @@ license or public cloud compute time), they can just run everything on their own
 
 The intention of our guides is to demonstrate a fully-functional system in a box, and we do expect users to learn it
 from using a Vagrant-based guide and later adopt elsewhere. As said, we always assume a VirtualBox-based setup, but will
-certain except contributions for other environments. However, we do not recommend users to directly deploy the ecact
-same Vagrant infrastructure in public cloud using any of the 3rd-party plugins, as there exist better tools for this
-(e.g. [Terraform](http://terraform.io)), such 3rd party plugins only work well when you need extra compute resources in test
-or development.
+certainly accept contributions for enabling other environments. However, we do not recommend users to directly deploy the
+exact same Vagrant infrastructure in public cloud using any of the 3rd-party plugins, as there exist better tools for this
+(e.g. [Terraform](http://terraform.io)), as Vagrant is meant as development-only type of tool by design. A public cloud
+provider plugin could come in handy when you want to scale out your development cluster, but you should consider using
+a tool that will allow you to manage instances as well as other resources, e.g. storage and access from external
+networks. Vagrant won't manage any resources for you and mixing tools makes your work harder if you haven't picked the
+right one in the first place.
 
 Do note that we currently have no implicit figures of RAM and CPU requirements in any of our guides, and perfomance may
 vary depending on your hardware, however in most cases you should be able to reduce the figures declared in Vagrantfile
@@ -41,14 +50,14 @@ then boot one or more VMs with
 
     vagrant up
 
-and then depending on what VMs there are login with
+and then, depending on what VMs there are, login with
 
     vagtant ssh [<vm>]
 
 
-Sometime we do just say login to `vm-X`, which implies "open another terminal, go to the directory of the guide and run
-`vagrant ssh vm-X`".
+When we just say _"login to `vm-X`"_, it implies _"open another terminal, go to the directory of the guide and run
+`vagrant ssh vm-X`"_.
 
 In step-by-step sections of our guides you will see command prefixed with remote prompt of the shell, just as it will
-appear to you, but we do not show it when you are expected to copy several commands at once or run somithing on your
+appear to you, but we do not show it when you are expected to copy several commands at once or run something on your
 local machine (e.g. `vagrant up` as it appears above).
