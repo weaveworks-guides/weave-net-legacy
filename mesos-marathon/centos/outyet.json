@@ -1,0 +1,27 @@
+{
+  "id": "outyet",
+  "cpus": 0.2,
+  "mem": 20.0,
+  "instances": 4,
+  "constraints": [["hostname", "UNIQUE", ""]],
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "outyet",
+      "network": "BRIDGE",
+      "portMappings": [
+        { "containerPort": 8080, "hostPort": 0, "servicePort": 0, "protocol": "tcp" }
+      ]
+    }
+  },
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "portIndex": 0,
+      "path": "/",
+      "gracePeriodSeconds": 5,
+      "intervalSeconds": 20,
+      "maxConsecutiveFailures": 3
+    }
+  ]
+}
