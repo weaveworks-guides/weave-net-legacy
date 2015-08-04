@@ -8,7 +8,7 @@ permalink: /guides/service-discovery-with-weave-aws-ecs.html
 
 ## What You Will Build
 
-Amazon container service or ECS is a scalable container management service that allows you to manage Docker Containers on a cluster of EC2 instances. Weave provides a software network between containers and amongst clusters regardless of the host, providing a way for you to communicate and manage containers with familiar tools. With Weave you focus on developing your application, rather than your infrastructure.
+Amazon container service or ECS is a scalable container management service that allows you to manage Docker Containers on a cluster of EC2 instances. Weave provides a software network between containers and amongst clusters regardless of the host, providing a way for you to manage containers using familiar tools. With Weave you focus on developing your application, rather than your infrastructure.
 
 In this example you will use Weave for service discovery and load balancing
 between [containers that have been deployed to Amazon Elastic Cloud (EC2) instances using Amazon Container Service or ECS](http://aws.amazon.com/ecs/).
@@ -175,7 +175,7 @@ The HTTP Server works as follows:
 
 1. Contacts a Data Producer and obtains its message (`nc dataproducer 4540`). This
    implicitly does the load balancing due to WeaveDNS' response randomization
-   (more about it this in next section).
+   (more about this in the next section).
 2. Composes HTML with the information obtained in (1) and (2).
 3. Waits for a browser to connect.
 
