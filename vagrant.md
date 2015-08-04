@@ -16,6 +16,28 @@ public cloud plugins exist also.
  * [Vagrant](https://docs.vagrantup.com/v2/installation/index.html)
  * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
+## General usage pattern
+
+Most of our Vagrant-based guides adopt a usage pattern where one clones the repository first, the goes to a subdirectory with
+
+    cd guides/<title>
+
+then boot one or more VMs with
+
+    vagrant up
+
+and then, depending on what VMs there are, login with
+
+    vagrant ssh [<vm>]
+
+
+When we just say _"login to `vm-X`"_, it implies _"open another terminal, go to the directory of the guide and run
+`vagrant ssh vm-X`"_.
+
+In step-by-step sections of our guides you will see commands prefixed with the remote prompt of the shell, just as it will
+appear to you, but we do not show it when you are expected to copy several commands at once or run something on your
+local machine (e.g. `vagrant up` as it appears above).
+
 ## How we use Vagrant in our guides
 
 We always test using the latest release of Vagrant and most recent release of VirtualBox, so if something doesn't work,
@@ -37,24 +59,3 @@ that you are using. We do generally refrain from using more then 3 VMs claiming 
 Vagrant is generally used as a development tool, so we don't recommend transplanting Vagrant workflows directly to
 production. If are thinking about this, you may wish to consider [other HashiCorp tool](https://www.terraform.io/intro/hashicorp-ecosystem.html).
 
-## General usage pattern
-
-Most of our Vagrant-based guides adopt a usage pattern where one clones the repository first, the goes to a subdirectory with
-
-    cd guides/<title>
-
-then boot one or more VMs with
-
-    vagrant up
-
-and then, depending on what VMs there are, login with
-
-    vagtant ssh [<vm>]
-
-
-When we just say _"login to `vm-X`"_, it implies _"open another terminal, go to the directory of the guide and run
-`vagrant ssh vm-X`"_.
-
-In step-by-step sections of our guides you will see commands prefixed with the remote prompt of the shell, just as it will
-appear to you, but we do not show it when you are expected to copy several commands at once or run something on your
-local machine (e.g. `vagrant up` as it appears above).
