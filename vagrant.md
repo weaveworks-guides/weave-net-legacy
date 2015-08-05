@@ -18,7 +18,7 @@ public cloud plugins exist also.
 
 ## General usage pattern
 
-Most of our Vagrant-based guides adopt a usage pattern where one clones the repository first, the goes to a subdirectory with
+Most of our Vagrant-based guides adopt a usage pattern where one clones the [`weaveworks/guides`](https://github.cim/weaveworks/guides) repository first, then goes to a subdirectory with
 
     cd guides/<title>
 
