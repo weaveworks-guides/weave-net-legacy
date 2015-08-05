@@ -28,6 +28,7 @@ Weave solves these issues with [WeaveDNS](http://docs.weave.works/weave/latest_r
 * Implements service discovery by adding DNS A-records for your containers based on
 their names 
 * Manages load balancing by randomizing the order of DNS responses.
+* For more information on WeaveDNS see [Automatic Discovery with WeaveDNS](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
 
 ## What You Will Use
 
@@ -212,7 +213,7 @@ Where you will see something similar to this:
 
 * Container `ecs-weave-ecs-demo-task-1-httpserver-9682f3b0cd868cd60d00` is the
   HTTP Server of this host, producing the output you saw in your browser.  Note
-  how container names are altered by ECS: 
+  how container names are mangled by ECS: 
   `ecs-${TASK_FAMILY_NAME}-${TASK_FAMILY_VERSION}-${STRIPPED_CONTAINER_NAME}-${UUID}`.
 
 * Container `ecs-weave-ecs-demo-task-8-dataproducer-b8ecddb78a8fecfc3900` is the
@@ -356,7 +357,7 @@ aws ecs run-task --cluster weave-ecs-demo-cluster --task-definition weave-ecs-de
 
 * Auto Scaling Groups are required for ECS to work with Weave. If you create individual
   instances, they won't work be able to see each other due to how Weave finds peers in ECS.
-* Due to the way ECS alters container names at launch, Weave's service discovery
+* Due to the way ECS mangles container names at launch, Weave's service discovery
   only supports container names with alphanumeric characters
   (e.g. `httpserver` would be OK but `http-server` won't work due to the hyphen)
 
