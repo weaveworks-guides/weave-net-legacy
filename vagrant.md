@@ -38,6 +38,12 @@ In step-by-step sections of our guides you will see commands prefixed with the r
 appear to you, but we do not show it when you are expected to copy several commands at once or run something on your
 local machine (e.g. `vagrant up` as it appears above).
 
+Once you have complited a guide, you can dispose of running VM(s) by typing
+
+    vagrant destroy
+
+You can also run `vagrant destroy` at any time, if you have to free-up resources on you machine and resume the guide later.
+
 ## How we use Vagrant in our guides
 
 We always test using the latest release of Vagrant and most recent release of VirtualBox, so if something doesn't work,
