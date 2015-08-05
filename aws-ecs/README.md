@@ -8,7 +8,17 @@ permalink: /guides/service-discovery-with-weave-aws-ecs.html
 
 ## What You Will Build
 
-Amazon container service or ECS is a scalable container management service that allows you to manage Docker containers on a cluster of EC2 instances. Weave provides a software network optimized for visualizing and communicating with apps scattered within Docker containers. Using tools and protocols that are familiar to you, Weave's network topology enables you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently. With Weave you focus on developing your application, rather than your infrastructure.
+Amazon container service or ECS is a scalable container management service that allows you to manage Docker containers on a cluster of Amazon EC2 instances. Weave provides a software network optimized for visualizing and communicating with apps scattered within Docker containers. Using tools and protocols that are familiar to you, Weave's network topology enables you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
+
+Without Weave, setting up a containerized network within Amazon’s ECS can be a complex process. Since containers in the ECS ecosystem do not utilize the default ports, you must declare the ports your internal services will be using. Then you need to write code for the client to lookup the environment variables which map host IP addresses and the ports of those internal services. If you are running multiple identical containers on the same container instance, as you can imagine, custom port mapping can get very complex.
+
+Even in the simplest case, environment variable lookup requires quite a bit of custom code. It matters not whether the lookup code resides in your app or in an external shell script, it is still extra code that will need maintenance and updating. 
+
+Weave uses default port numbers and looks up IP addresses in DNS. An advantage to using DNS is that when you set a hostname within a config file, you are not required to have a script in place to generate the hostname based on input variables. You can also optionally burn the config file with the hostname right into the container image.
+
+One work around to this port mapping limitation when using Amazon ECS alone is to enable the [Amazon Elastic Load Balancer (ELB)](https://aws.amazon.com/elasticloadbalancing/) with [Amazon Route53](https://aws.amazon.com/documentation/route53/). These web services can take care of port forwarding with DNS lookup, but running them increases your overhead costs both from a billing perspective and, since these services also need provisioning, from a resource complexity perspective as well. Weave in essence saves you time and money, and lets you focus on app development, rather than your infrastructure design.
+
+###About This Example
 
 In this example you will use Weave for service discovery and load balancing
 between [containers that have been deployed to Amazon Elastic Cloud (EC2) instances using Amazon Container Service or ECS](http://aws.amazon.com/ecs/).
