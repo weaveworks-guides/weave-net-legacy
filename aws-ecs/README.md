@@ -26,8 +26,8 @@ Producers. This is a very common pattern in practise, but its implementation req
 Weave solves these issues with [WeaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html), where it securely and transparently:
 
 * Implements service discovery by adding DNS A-records for your containers based on
-their names. and, 
-* Secondly, it manages load balancing by randomizing the order of DNS responses.
+their names 
+* Manages load balancing by randomizing the order of DNS responses.
 
 ## What You Will Use
 
@@ -163,7 +163,7 @@ Note the source code shown above has been reformatted for clarity.
 ![ECS and Weave Diagram](img/ecs+weave-diagram.svg)
 
 When ECS launches a container, the call to Docker is intercepted by WeaveProxy,
-and an address is assigned using weave's automatic ip allocation, next the container is registered in WeaveDNS and attached to the weave network. WeaveDNS 
+and an address is assigned using weave's automatic IP allocation, then the container is registered in WeaveDNS and it is attached to the weave network. WeaveDNS 
 registers A-records based on the container's name:
 
 * A `dataproducer` A-record for all the Data Producer containers.
@@ -193,7 +193,7 @@ where `${INSTANCE}` can be any of your 3 instance hostnames
 (`foo.region.compute.amazonaws.com`, `bar.region.compute.amazonaws.com` or
 `baz.region.compute.amazonaws.com` in the `setup.sh` example listing above).
 
-For example, to list the active containers are running in the instance run:
+For example, to list the active running containers in the instance:
 
 ~~~bash
 [ec2-user@ip-XXX-XXX-XXX-XXX ~]$ docker ps
@@ -226,7 +226,7 @@ Where you will see something similar to this:
 * Container `ecs-agent` corresponds to
   [Amazon's ECS Agent](https://github.com/aws/amazon-ecs-agent), which runs on
   all of the EC2 instances and is responsible for starting containers on behalf of Amazon ECS. Again, for
-  simplification, the ECS Agent was represented out of Docker in previous
+  simplification, the ECS Agent was represented out of Docker in the previous
   section's diagram.
 
 View the IP addresses of the HTTP Servers and the Data Producers by running:
