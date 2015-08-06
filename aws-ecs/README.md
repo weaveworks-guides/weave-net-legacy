@@ -38,7 +38,7 @@ Weave solves these issues using the [weavedns service](http://docs.weave.works/w
 * Implements service discovery by adding DNS A-records for your containers based on
 their names 
 * Manages load balancing by randomizing the order of DNS responses.
-* For more information about the weavedns service see [Automatic Discovery with WeaveDNS](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
+* For more information about the weavedns service see [Automatic Discovery with weavedns](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
 
 ## What You Will Use
 
@@ -48,11 +48,7 @@ their names
 
 ## What You Will Need to Complete This Guide
 
-This getting started guide is self contained. You will use Weave, Docker and
-Amazon ECS. We also make use of the [Amazon Web Services (AWS) CLI tool](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
-to manage and access AWS.  You will need a valid [Amazon Web Services](http://aws.amazon.com) account, and have the AWS CLI setup and
-configured before working through this guide. Amazon provides an extensive guide on how to setup the
-[AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html).
+This getting started guide is self contained. You will use Weave, Docker and Amazon ECS. We also make use of the [Amazon Web Services (AWS) CLI tool](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) to manage and access AWS.  You will need a valid [Amazon Web Services](http://aws.amazon.com) account, and have the AWS CLI setup and configured before working through this guide. Amazon provides extensive documentation on how to setup the [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html).
 
 * [Git](http://git-scm.com/downloads)
 * [AWS CLI >= 1.7.35 ](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
@@ -131,8 +127,7 @@ The `setup.sh` script automatically:
 
 ## Testing the Setup
 
-The three URLs shown above communicates via your browser with the HTTP Server containers. Pick one of them (or all three of them if
-you like) and open them in your browser:
+The three URLs shown above communicates via your browser with the HTTP Server containers. Pick one of them (or all three of them if you like) and open them in your browser:
 
       http://foo.region.compute.amazonaws.com
       http://bar.region.compute.amazonaws.com
@@ -142,7 +137,7 @@ This is what you should see:
 
 ![httpserver's output](img/httpserver.png)
 
-Reload your browser to force the HTTP Server to refresh its Data Provider address list (generated randomly by `WeaveDNS`), balancing the load between the EC2 instances.
+Reload your browser to force the HTTP Server to refresh its Data Provider address list (generated randomly by `weavedns`), balancing the load between the EC2 instances.
 
 
 ## How Does Service Discovery and Load Balancing Work?
@@ -174,9 +169,8 @@ Note the source code shown above has been reformatted for clarity.
 
 ![ECS and Weave Diagram](img/ecs+weave-diagram.svg)
 
-When ECS launches a container, the call to Docker is intercepted by WeaveProxy,
-and an address is assigned using weave's automatic IP allocation, then the container is registered in WeaveDNS and it is attached to the weave network. WeaveDNS 
-registers A-records based on the container's name:
+When ECS launches a container, the call to Docker is intercepted by weaveproxy,
+and an address is assigned using weave's automatic IP allocation, then the container is registered with the weavedns service and it is attached to the weave network. Weavedns registers A-records based on the container's name:
 
 * A `dataproducer` A-record for all the Data Producer containers.
 * A `httpserver` A-record for all the HTTP Server container.
@@ -186,7 +180,7 @@ The Data Producer waits for requests on TCP port 4540 and it responds with a str
 The HTTP Server works as follows:
 
 1. Contacts a Data Producer and obtains its message (`nc dataproducer 4540`). This
-   implicitly does the load balancing due to WeaveDNS' response randomization
+   implicitly does the load balancing due to weavedns' response randomization
    (more about this in the next section).
 2. Composes HTML with the information obtained in (1) and (2).
 3. Waits for a browser to connect.
@@ -232,7 +226,7 @@ Where you will see something similar to this:
 
 * Containers `weaveproxy` and `weave` are responsible for running
   Weave within each ECS instance. For illustration purposes, the proxy was shown out
-  of Docker in the previous section's diagram, but in actual fact WeaveProxy runs
+  of Docker in the previous section's diagram, but in actual fact weaveproxy runs
   inside of Docker.
 
 * Container `ecs-agent` corresponds to
@@ -253,7 +247,7 @@ View the IP addresses of the HTTP Servers and the Data Producers by running:
     10.32.0.2
     10.40.0.1
 
-Re-running the commands listed above will vary the IP addresses. This is WeaveDNS transparently balancing the load by randomizing the IP addresses, as the HTTP servers are connecting to Data Producers.
+Re-running the commands listed above will vary the IP addresses. This is the weavedns service transparently balancing the load by randomizing the IP addresses, as the HTTP servers are connecting to Data Producers.
 
 ###Cleanup
 
@@ -402,7 +396,7 @@ unzip packer-sftp_0.8.1_linux_amd64.zip -d ~/bin
 Finally, invoke `./build-all-amis.sh` to build `Weave ECS` images for all
 regions. This step installs (in the image) the version of ecs-init we just
 built, AWS-CLI, jq, Weave/master, init scripts for Weave and it also updates the ECS
-agent to use WeaveProxy.
+agent to use weaveproxy.
 
 Customize the image by modifying `template.json` to match your
 requirements.
@@ -428,6 +422,6 @@ You can easily adapt this example and use it as a template for your own implemen
 
 ###Find Out More
 
-* [Automatic Discovery with WeaveDNS](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
+* [Automatic Discovery with weavedns](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
 * [Weave - Weaving Containers into Applications](https://github.com/weaveworks/weave)
 * [Documentation Home Page](http://docs.weave.works/weave/latest_release/)
