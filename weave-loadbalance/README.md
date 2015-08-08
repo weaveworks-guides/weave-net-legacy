@@ -188,18 +188,26 @@ In this container lets connect to our endpoint, and make a request to our myip s
 This will give you output such as
 
     root@81fc16c65cbd:/# for i in `seq 1 20`; do curl lb.weave.local/myip; done
-    10.2.0.7
-    fe80::f049:33ff:fe82:63ad
-
-    10.2.0.2
-    fe80::8037:a3ff:fe19:dd61
-
-    10.2.0.8
-    fe80::240e:48ff:fe32:d4f7
-
+    10.2.128.2
+    fe80::9421:2bff:fec1:6d09
+    
+    10.2.128.2
+    fe80::9421:2bff:fec1:6d09
+    
     10.2.0.4
-    fe80::acdf:29ff:fe28:f3ae
+    fe80::4838:e2ff:fef1:246f
+    
+    10.2.128.3
+    fe80::f0b0:1eff:fe57:f322
+    
+    10.2.128.3
+    fe80::f0b0:1eff:fe57:f322
+    
+    10.2.0.2
+    fe80::3c60:1fff:feee:644a
     ....
+
+Note that your requests are balanced equally among all 6 containers you are running on both weave hosts (`10.2.0.x` are from `weave-gs-01`, and `10.2.128.x` are from `weave-gs-02`, that's how those agreed on splitting allocated IP range).
 
 ## Summary ##
 
