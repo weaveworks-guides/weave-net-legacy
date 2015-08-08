@@ -207,7 +207,7 @@ This will give you output such as
     fe80::3c60:1fff:feee:644a
     ....
 
-Note that your requests are balanced equally among all 6 containers you are running on both weave hosts (`10.2.0.x` are from `weave-gs-01`, and `10.2.128.x` are from `weave-gs-02`, that's how those agreed on splitting allocated IP range).
+Note that your requests are balanced equally among all 6 containers you are running on both weave hosts (`10.2.0.x` are from `weave-gs-01`, and `10.2.128.x` are from `weave-gs-02`, that's how weave hosts have agreed on splitting allocated IP range).
 
 ## Summary ##
 
