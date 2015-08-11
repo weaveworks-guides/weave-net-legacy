@@ -8,9 +8,8 @@ tags: docker, machine, swarm, cli, virtualbox, dns, ipam, proxy, hello-weave-app
 
 > ### ***Creating distributed applications with Weave and the Docker platform***
 >
-> - Chapter 1: [Using Weave with Docker Machine][ch1]
+> - Part 1: [Launching Weave Net with Docker Machine][ch1]
 > - Chapter 2: [Using Weave with Docker Machine via proxy][ch2]
-> - Chapter 4: [Creating and scaling multi-host Docker deployment with Swarm and Compose using Weave][ch4]
 
 Weave allows you to focus on developing your application, rather than your infrastructure, and it works great with tools
 like [Docker Machine](https://docs.docker.com/machine/) and [Swarm](https://docs.docker.com/swarm/). Here you will learn

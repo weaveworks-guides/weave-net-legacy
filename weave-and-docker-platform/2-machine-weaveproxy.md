@@ -7,19 +7,18 @@ tags: docker, machine, cli, virtualbox, dns, ipam, proxy, hello-weave-app
 
 > ### ***Creating distributed applications with Weave and the Docker platform***
 >
-> - Chapter 1: [Using Weave with Docker Machine][ch1]
-> - Chapter 3: [Using Weave with Docker Machine and Swarm][ch3]
-> - Chapter 4: [Creating and scaling multi-host Docker deployment with Swarm and Compose using Weave][ch4]
+> - Part 1: [Using Weave with Docker Machine][ch1]
+> - Part 3: [Using Weave with Docker Machine and Swarm][ch3]
+> - Part 4: [Creating and scaling multi-host Docker deployment with Swarm and Compose using Weave][ch4]
 
-Weave allows you to focus on developing your application, rather than your infrastructure, and it works great with tools
-like [Docker Machine](https://docs.docker.com/machine/). Here you will learn how to get started, you can then proceed to
-a more advanced setup with Swarm and later Compose in following chapters of this guide.
+Weave allows you to focus on developing your application, rather than your infrastructure, and it also works great with tools like [Docker Machine](https://docs.docker.com/machine/). 
+
+Here you will learn how to get started, you can then proceed to a more advanced setup with Swarm and later Compose in following chapters of this guide.
 
 ## What you will build
 
 [Docker Machine](https://docs.docker.com/machine/) makes it really easy to create Docker hosts (VMs) on your computer, on
-cloud providers and inside your own data center. It creates servers, installs Docker on them, then configures the Docker
-client to talk to them.
+cloud providers and inside your own data center. It creates servers, installs Docker on them, and then configures the Docker client to talk to them.
 
 This chapter continues from [the previous one][ch1], which I encourage you to read first.
 
@@ -56,47 +55,55 @@ If you haven't yet installed VirtualBox, be sure to follow [installation instruc
 
 ## Let's go!
 
-### Launch
 
-If you haven't followed through the [previous chapter][prev1], you can run the following commands to get a VM with Weave
-network setup. You also should run these if you chose to destroy the `weave-1` machine.
+If you haven't followed through [section 1][prev1], run the following commands to setup a Virtual Machine with the Weave network. You can also use these commands to destroy the `weave-1` machine.
 
-    curl -OL git.io/weave
-    chmod +x ./weave
-    docker-machine create -d virtualbox weave-1
-    export DOCKER_CLIENT_ARGS="$(docker-machine config weave-1)"
-    ./weave launch
-    ./weave launch-dns 10.53.1.1/16
+~~~bash
+curl -OL git.io/weave
+chmod +x ./weave
+docker-machine create -d virtualbox weave-1
+export DOCKER_CLIENT_ARGS="$(docker-machine config weave-1)"
+./weave launch
+~~~
 
-Next, before we can launch Weave proxy, we will need to obtain the TLS settings from Docker daemon
+Note: Weave launch automatically starts DNS and proxy. 
 
-    tlsargs=$(docker-machine ssh weave-1 \
-      "cat /proc/\$(pgrep /usr/local/bin/docker)/cmdline | tr '\0' '\n' | grep ^--tls | tr '\n' ' '")
+Before launching Weave proxy independently, you will need to obtain the [TLS settings](https://docs.docker.com/articles/https/) from the Docker daemon:
 
-Now we can launch the proxy with
+~~~bash
+tlsargs=$(docker-machine ssh weave-1 \
+"cat /proc/\$(pgrep /usr/local/bin/docker)/cmdline | tr '\0' '\n' | grep ^--tls | tr '\n' ' '")
+~~~
 
-    ./weave launch-proxy --with-dns --with-ipam $tlsargs
+Launch the proxy with
 
-If you wish to find out more about how Weave proxy works, you should [read the documentation][proxy]. Here, all we need
-to know is that it can be accessed on port 12375 and we need to point docker client at it next.
+~~~bash
+./weave launch-proxy $tlsargs
+~~~
 
-Let's modify the `DOCKER_CLIENT_ARGS` environment variable
 
-    export DOCKER_CLIENT_ARGS="$(docker-machine config weave-1 | sed 's|:2376|:12375|')"
+For more information about Weave proxy, refer to [the Weaveproxy documentation][proxy]. For the purposes of this tutorial, Weave proxy is accessed on port 12375 and therefore the docker client needs to point to this port by modifying the `DOCKER_CLIENT_ARGS` environment variable: 
 
-and test if all is well with
+~~~bash
 
-    docker $DOCKER_CLIENT_ARGS info
+export DOCKER_CLIENT_ARGS="$(docker-machine config weave-1 | sed 's|:2376|:12375|')"
+~~~
+
+Test that everything is setup correctly:
+
+~~~bash
+docker $DOCKER_CLIENT_ARGS info
+~~~
 
 ### Deploy
 
-All tricks are done, and we can start our _"Hello, Weave!"_ app using Docker client instead of Weave script like this
+Now that the proxy is established, you can start the _"Hello, Weave!"_ app using the Docker client instead of Weave like this:
 
-    > docker $DOCKER_CLIENT_ARGS run -d --name=pingme gliderlabs/alpine nc -p 4000 -lk -e echo 'Hello, Weave!'
-    635ebf591cedc01610faea18b78ff977830dfc5bcb239accc833243304da619d
+~~~bash
+> docker $DOCKER_CLIENT_ARGS run -d --name=pingme gliderlabs/alpine nc -p 4000 -lk -e echo 'Hello, Weave!'
+~~~
 
-This is a simple netcat (aka `nc`) server that runs on TCP port 4000 and sends a short `Hello, Weave!` message to each
-client that connects to it.
+This is a simple netcat (aka `nc`) server that runs on TCP port 4000 and it sends a short `Hello, Weave!` message to each client that connects to it.
 
 Next, we can start an interactive test container without having to call `docker attach` like we had to do previously.
 
