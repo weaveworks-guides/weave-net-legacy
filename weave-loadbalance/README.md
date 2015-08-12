@@ -43,7 +43,7 @@ You will use Weave to
 
 ## Configuring and setting up your hosts ##
 
-All of the code for this example is available on [github](http://github.com/weaveworks/buides), and you first clone the getting started repository.
+All of the code for this example is available on [github](http://github.com/weaveworks/guides), and you first clone the getting started repository.
 
     git clone http://github.com/weaveworks/guides
 
