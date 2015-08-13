@@ -25,7 +25,7 @@ between [containers that have been deployed to Amazon Elastic Cloud (EC2) instan
 
 Two types of containerized microservices are demonstrated in this guide: HTTP Servers and Data Producers.
 
-![overview diagram](img/overview-diagram.svg)
+![overview diagram](/images/aws-ecs/overview-diagram.svg)
 
 The HTTP Servers serve data produced from the Data
 Producers. This is a very common pattern in practise, but its implementation requires answers to the following questions:
@@ -135,7 +135,7 @@ The three URLs shown above communicates via your browser with the HTTP Server co
 
 This is what you should see:
 
-![httpserver's output](img/httpserver.png)
+![httpserver's output](/images/aws-ecs/httpserver.png)
 
 Reload your browser to force the HTTP Server to refresh its Data Provider address list (generated randomly by `weavedns`), balancing the load between the EC2 instances.
 
@@ -167,7 +167,7 @@ done
 Note the source code shown above has been reformatted for clarity.
 
 
-![ECS and Weave Diagram](img/ecs+weave-diagram.svg)
+![ECS and Weave Diagram](/images/aws-ecs/ecs+weave-diagram.svg)
 
 When ECS launches a container, the call to Docker is intercepted by weaveproxy,
 and an address is assigned using weave's automatic IP allocation, then the container is registered with the weavedns service and it is attached to the weave network. Weavedns registers A-records based on the container's name:
