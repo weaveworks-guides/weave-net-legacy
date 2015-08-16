@@ -4,9 +4,10 @@ title: "1. Creating Distributed Apps with Weave and Docker"
 permalink: /guides/weave-and-docker-platform/chapter1/machine.html
 tags: docker, machine, cli, virtualbox, dns, ipam, hello-weave-app
 ---
+> - Part 1: [Launching Weave Net with Docker Machine]
+> - Part 2: [Using Weave with Docker Machine and Swarm]
+> - Part 3: [Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave]
 
-> - Part 2: [Using Weave with Docker Machine and Swarm][ch4]
-> - Part 3: [Creating and Scaling a Multi-host Docker deployment with Swarm and Compose using Weave][ch3]
 
 ## What You Will Build
 
@@ -38,27 +39,25 @@ This tutorial will take about 10 minutes to complete.
 
 ## What You Need to Complete This Chapter
 
+If you are using OSX or Windows, you can install docker, docker machine, virtualbox, compose (mac only) and kitematix using [Docker Toolbox](https://www.docker.com/toolbox).
+
+For other operating systems, you will need to install and configure the following separately before proceeding:
+
   - [`docker-machine`](http://docs.docker.com/machine/#installation) binary (_`>= 0.2.0`_)
   - [`docker`](https://docs.docker.com/installation/#installation) binary, at lest the client (_`>= v1.6.x`_)
   - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (_`>= 4.3.x`_)
   - `curl` (_any version_)
 
-If you are using OSX or Windows, you can install docker, and docker machine using [Docker Toolbox](https://www.docker.com/toolbox).
-
-For other operating systems, please refer to the links above.
-
-If you haven't yet installed VirtualBox, follow the [installation instructions for your OS](https://www.virtualbox.org/wiki/Downloads).
-
 ## Let's go!
 
-First, transfer the Weave script and make it executable.
+First, transfer the Weave script and make it executable. Note that if you don't have ownership of the /usr/local/bin directory, you may need to preface these commands with sudo: 
 
 ~~~bash
-curl -OL git.io/weave
-chmod +x ./weave
+curl -L git.io/weave -o /usr/local/bin/weave
+chmod a+x /usr/local/bin/weave
 ~~~
 
-Next create a Virtual Machine or a VM on the VirtualBox, called weave-1, by running: 
+Next create a Virtual Machine or a VM on the VirtualBox, called 'weave-1', by running: 
 
 ~~~bash
 docker-machine create -d virtualbox weave-1
@@ -76,20 +75,20 @@ Verify that everything installed correctly:
 docker info
 ~~~
 
-Now launch the Weave network and setup the proxy (for all operating systems other than OSX):
+Now launch the Weave network and setup the proxy:
 
 ~~~bash
-./weave launch
+weave launch
 ~~~
 
 Next set up the weave environment for the Docker API proxy: 
 
 
 ~~~bash
-./weave eval "$(weave env)"
+eval "$(weave env)"
 ~~~
 
-Look to see that the proxy is running properly: 
+Check to see that the proxy is running properly: 
 
 ~~~bash
 docker logs weaveproxy
@@ -130,13 +129,13 @@ See [TLS Settings](https://docs.docker.com/articles/https/) for more information
 Next, set up weave's environment properly to use the proxy by running: 
 
 ~~~bash
-eval "$(./weave env)"
+eval "$(weave env)"
 ~~~
 
 Check to see that all worked well: 
 
 ~~~bash
-./weave status
+weave status
 ~~~
 
 and then check the weaveproxy logs from docker to see that proxy is running:
@@ -172,7 +171,7 @@ Start the containers:
 Check to see that weavedns has found them: 
 
 ~~~bash
-./weave status
+weave status
 ~~~
 
 ###Interacting with Containerized Apps
@@ -199,12 +198,16 @@ First ping one of the containers using `docker exec` command:
 docker exec -i pinger echo "What's up?" | nc pingme.weave.local 4000
 ~~~
 
+Returns, 
+
 ~~~bash
 Hello, Weave!
 ~~~
+
+
 ## Cleanup
 
-This completes Part 1 of this tutorial. To remove both containers:
+This completes Part 1 of this tutorial. To remove the containers used in this example:
 
 ~~~bash
 > docker-machine rm -f pingme pinger
@@ -220,6 +223,7 @@ Now you can proceed to part 2, where we will look at how to setup multiple Virtu
 
 ##Further Reading
 
+*[Weave-- weaving containers into applications](https://github.com/weaveworks/weave#readme)
+*[How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
 
-[ch3]: /guides/weave-and-docker-platform/chapter3/machine-and-swarm-with-weave-proxy.html
-[ch4]: /guides/weave-and-docker-platform/chapter4/compose-scalable-swarm-cluster-with-weave.html
+

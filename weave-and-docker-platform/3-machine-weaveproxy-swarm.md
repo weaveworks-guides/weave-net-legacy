@@ -1,6 +1,6 @@
 ---
 layout: guides
-title: "3. Using Weave with Docker Machine and Swarm"
+title: "Using Weave with Docker Machine and Swarm"
 permalink: /guides/weave-and-docker-platform/chapter3/machine-and-swarm-with-weave-proxy.html
 
 tags: docker, machine, swarm, cli, virtualbox, dns, ipam, proxy, hello-weave-app
@@ -8,13 +8,15 @@ tags: docker, machine, swarm, cli, virtualbox, dns, ipam, proxy, hello-weave-app
 
 > ### ***Creating distributed applications with Weave and the Docker platform***
 >
-> - Part 1: [Launching Weave Net with Docker Machine][ch1]
-> - Chapter 2: [Using Weave with Docker Machine via proxy][ch2]
+> - Part 1: [Launching Weave Net with Docker Machine]
+> - Part 2: [Using Weave with Docker Machine and Swarm]
+> - Part 3: [Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave]
+
 
 Weave allows you to focus on developing your application, rather than your infrastructure, and it works great with tools
-like [Docker Machine](https://docs.docker.com/machine/) and [Swarm](https://docs.docker.com/swarm/). Here you will learn
-how to get started with Swarm and Weave, you can then proceed to a more advanced setup with Compose in the final 4th
-chapter of this guide.
+like [Docker Machine](https://docs.docker.com/machine/) and [Swarm](https://docs.docker.com/swarm/). 
+
+In this tutorial you will be shown the basics of setting up and configuring a Docker Swarm with Weave. Once we've accomplished this, we will move onto a more advanced setup which uses Docker Compose in the final part 3 of this guide.
 
 ## What you will build
 
@@ -23,11 +25,9 @@ cloud providers and inside your own data center. It creates servers, installs Do
 client to talk to them.
 
 [Docker Swarm](http://docs.docker.com/swarm/) is native clustering for Docker. It turns a pool of Docker hosts into a single,
-virtual host. You can instruct Machine to provision a Swarm cluster for you, as shown below. This example will demostarate
-how to boost the scalability of Swarm cluster using [Weave Net](/net) and enable simple DNS-based container discovery with
+virtual host. You can instruct Machine to provision a Swarm cluster for you, as shown below. This example will demonstrate
+how to boost the scalability of Swarm cluster using [Weave Net](/net) and also to enable a simple DNS-based container discovery with
 [Weave Run](/run).
-
-This 3rd chapter continues from the [2nd][ch2] and [1st][ch1] chapters, which I encourage you to read first.
 
 In this chapter of the guide we will setup a cluster of machines instead of using just one machine, like we did before. There
 is only very little you can do with a single VM, and doesn't represent a production system at all. We are also going to automate
