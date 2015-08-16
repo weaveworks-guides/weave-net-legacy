@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: "Using Weave with Docker Machine and Swarm"
-permalink: /guides/weave-and-docker-platform/chapter3/machine-and-swarm-with-weave-proxy.html
+permalink: /guides/weave-and-docker-platform/machine-and-swarm-with-weave-proxy.html
 
 tags: docker, machine, swarm, cli, virtualbox, dns, ipam, proxy, hello-weave-app
 ---

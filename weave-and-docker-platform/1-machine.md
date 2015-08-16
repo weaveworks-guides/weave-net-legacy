@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: "1. Creating Distributed Apps with Weave and Docker"
-permalink: /guides/weave-and-docker-platform/chapter1/machine.html
+permalink: /guides/weave-and-docker-platform/machine.html
 tags: docker, machine, cli, virtualbox, dns, ipam, hello-weave-app
 ---
 > - Part 1: [Launching Weave Net with Docker Machine]
