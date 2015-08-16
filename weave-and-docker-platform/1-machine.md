@@ -97,7 +97,7 @@ docker logs weaveproxy
 Running `weave launch` automatically configures your network. Launch starts weavedns, making all your containers discoverable and it also sets up a Docker API proxy on the weave network, so that you can manage your containers using standard Docker commands. 
 
 Both weavedns and weaveproxy services can be started and stopped independently, if required.
-See [TLS Settings](https://docs.docker.com/articles/https/) for more information about specifying these settings in a production environment.
+See [Docker API Proxy](https://github.com/weaveworks/weave/blob/master/site/proxy.md) for more information about the Docker API.
 
 ###Launching Weaveproxy if you are running OSX
 
@@ -224,7 +224,9 @@ Now you can proceed to part 2, where we will look at how to setup multiple Virtu
 
 ##Further Reading
 
-  *  [Weave-- weaving containers into applications](https://github.com/weaveworks/weave#readme)
+  *  [Weave--weaving containers into applications](https://github.com/weaveworks/weave#readme)
   *  [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
+  *  [Docker API](https://github.com/weaveworks/weave/blob/master/site/proxy.md)
+  *  [TLS Settings]((https://docs.docker.com/articles/https/)
 
 
