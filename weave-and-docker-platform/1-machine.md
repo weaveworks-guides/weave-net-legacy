@@ -227,6 +227,6 @@ Now you can proceed to part 2, where we will look at how to setup multiple Virtu
   *  [Weave--weaving containers into applications](https://github.com/weaveworks/weave#readme)
   *  [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
   *  [Docker API](https://github.com/weaveworks/weave/blob/master/site/proxy.md)
-  *  [TLS Settings]((https://docs.docker.com/articles/https/)
+  *  [TLS Settings](https://docs.docker.com/articles/https/)
 
 
