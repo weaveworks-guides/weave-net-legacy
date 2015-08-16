@@ -192,7 +192,8 @@ First ping one of the containers using `docker exec` command:
     round-trip min/avg/max = 0.100/0.108/0.114 ms
 ~~~
 
- Test if pinger can respond on TCP port 4000 as expected:
+Test if pinger responds on TCP port 4000 as expected:
+
 
 ~~~bash
 docker exec -i pinger echo "What's up?" | nc pingme.weave.local 4000
@@ -223,7 +224,7 @@ Now you can proceed to part 2, where we will look at how to setup multiple Virtu
 
 ##Further Reading
 
-*[Weave-- weaving containers into applications](https://github.com/weaveworks/weave#readme)
-*[How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
+  *  [Weave-- weaving containers into applications](https://github.com/weaveworks/weave#readme)
+  *  [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
 
 
