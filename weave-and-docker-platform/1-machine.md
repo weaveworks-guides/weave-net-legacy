@@ -24,7 +24,7 @@ Specifically, you will:
   1. Install Docker Machine and Weave 
   2. Setup Weave onto a single VM on VirtualBox 
   3. Deploy a basic _"Hello, Weave!"_ application
-  4. Access the application from a Weave-attached Docker container on the network.
+  4. Enable weavedns to discover the Weave-attached Docker containers on the network.
   5. Communicate with your app and send a message from one container to another using the Docker API Weaveproxy.
 
 This tutorial uses very simple UNIX tools, and it doesn't require any programming skills. 
