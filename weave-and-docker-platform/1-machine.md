@@ -182,6 +182,7 @@ First ping one of the containers using `docker exec` command:
 > docker exec -i pinger ping -c3 pingme.weave.local
 ~~~
 
+~~~bash
     PING pingme.weave.local (10.128.0.1): 56 data bytes
     64 bytes from 10.128.0.1: seq=0 ttl=64 time=0.100 ms
     64 bytes from 10.128.0.1: seq=1 ttl=64 time=0.114 ms
@@ -196,7 +197,7 @@ First ping one of the containers using `docker exec` command:
 Test if pinger responds on TCP port 4000 as expected:
 
 ~~~bash
-docker exec -i pinger echo "What's up?" | nc pingme.weave.local 4000
+docker exec -i pinger echo "What's up?" nc pingme.weave.local 4000
 ~~~
 
 Returns, 
