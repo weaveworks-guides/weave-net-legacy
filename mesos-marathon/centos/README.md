@@ -95,6 +95,10 @@ Where a simple "Hello, World" web app is deployed, as shown in [Marathon tutoria
 
 This example demonstrates the use of Weave Run, a transparent, DNS-based, load-balancer. It also shows how Weave Net eliminates the need for port remapping and instead uses a default container port.
 
+<div class="alert alert-warning">
+If you are looking to deploy your own app instead of this example, make sure to <a href="https://github.com/weaveworks/guides/blob/0b10b27f0559b8852c12b81b94034823c3816777/mesos-marathon/centos/outyet.json#L12">set the <code>hostname</code> parameter</a>, otherwise your containers will fail to launch.
+</div>
+
 Marathon, which can be accessed at `http://172.17.85.100:8080` shows the app deploying and then running:
 
 ![Marathon Apps](/guides/images/mesos-marathon/centos/marathon-1.png)
@@ -143,7 +147,7 @@ Mesos Marathon frameworks implements a management API (used by `deploy_on_marath
 
 ![Architecture Overview](/guides/images/mesos-marathon/centos/diagram-1.png)
 
-To enable Marathon to deploy tasks as Docker containers and to use Weave, there is [a configuration file](https://github.com/weaveworks/guides/blob/ab8fb8efd9e5da943cfbd98361d78008e1c46f71/mesos-marathon/centos/mesos-slave-containerizers.conf) [installed](https://github.com/weaveworks/guides/blob/ab8fb8efd9e5da943cfbd98361d78008e1c46f71/mesos-marathon/centos/setup_and_launch_mesos_slave.sh#L7) by Vagrant's provisioning logic which is described below. 
+To enable Marathon to deploy tasks as Docker containers and to use Weave, there is [a configuration file](https://github.com/weaveworks/guides/blob/0b10b27f0559b8852c12b81b94034823c3816777/mesos-marathon/centos/mesos-slave-containerizers.conf) [installed](https://github.com/weaveworks/guides/blob/0b10b27f0559b8852c12b81b94034823c3816777/mesos-marathon/centos/setup_and_launch_mesos_slave.sh#L7) by Vagrant's provisioning logic which is described below. 
 
 The following diagram shows how Weave interacts with Docker and Mesos.
 
@@ -151,7 +155,7 @@ The following diagram shows how Weave interacts with Docker and Mesos.
 
 ### How is this setup?
 
-During the provisioning phase (`vagrant up`), a set of shell scripts run on Vagrant where they install and configure both Weave and any necessary RPM packages from the Mesosphere repository. Open the [Vagrantfile](https://github.com/weaveworks/guides/blob/ab8fb8efd9e5da943cfbd98361d78008e1c46f71/mesos-marathon/centos/Vagrantfile#L59-L82), to see the logic of how, where and when those scripts are executed.
+During the provisioning phase (`vagrant up`), a set of shell scripts run on Vagrant where they install and configure both Weave and any necessary RPM packages from the Mesosphere repository. Open the [Vagrantfile](https://github.com/weaveworks/guides/blob/0b10b27f0559b8852c12b81b94034823c3816777/mesos-marathon/centos/Vagrantfile#L59-L82), to see the logic of how, where and when those scripts are executed.
 
 ### Overriding Default Configuration Variables
 
