@@ -118,7 +118,7 @@ then, launch the proxy using the TLS settings you grepped above:
 
 ~~~bash
 
-./weave launch-proxy --tls \
+weave launch-proxy --tls \
          --tlscacert /var/lib/boot2docker/ca.pem \
          --tlscert /var/lib/boot2docker/server.pem \
          --tlskey /var/lib/boot2docker/server-key.pem
@@ -192,8 +192,8 @@ First ping one of the containers using `docker exec` command:
     round-trip min/avg/max = 0.100/0.108/0.114 ms
 ~~~
 
-Test if pinger responds on TCP port 4000 as expected:
 
+Test if pinger responds on TCP port 4000 as expected:
 
 ~~~bash
 docker exec -i pinger echo "What's up?" | nc pingme.weave.local 4000
