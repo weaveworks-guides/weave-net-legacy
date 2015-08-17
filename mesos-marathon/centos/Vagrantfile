@@ -57,7 +57,7 @@ Vagrant.configure(2) do |config|
       weave_peers = ips.select{|host, addr| addr if host != vm_name}.values
 
       ## Base provisioning script is like this, it's generally the same an all the nodes,
-      ## accept for the list of Weaev peers being defined dynamically
+      ## accept for the list of Weave peers being defined dynamically
       do_provisioning = <<-SCRIPT
         set -e
         set -x
