@@ -7,7 +7,7 @@ tags: docker, machine, cli, virtualbox, dns, ipam, hello-weave-app, swarm, compo
 
 This three part tutorial is an introduction to using Weave with the Docker platform. 
 Specifically, it describes how to launch a Weave network using three major components of the Docker platform: Machine, Swarm &amp; Compose. After completing all three parts
-you will understand the basics of using weaving so that you can easily deploy and communicate with your apps within a scalable cluster of Docker hosts. 
+you will understand the basics of using weave so that you can easily deploy and communicate with your apps within a scalable cluster of Docker hosts. 
 
 
   *  Part 1: [Launching Weave Net with Docker Machine]
