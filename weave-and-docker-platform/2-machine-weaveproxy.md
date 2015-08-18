@@ -1,8 +1,5 @@
 ---
-layout: guides
-title: "2. Using Weave with Docker Machine via proxy"
-permalink: /guides/weave-and-docker-platform/chapter2/machine-with-weave-proxy.html
-tags: docker, machine, cli, virtualbox, dns, ipam, proxy, hello-weave-app
+
 ---
 
 > ### ***Creating distributed applications with Weave and the Docker platform***

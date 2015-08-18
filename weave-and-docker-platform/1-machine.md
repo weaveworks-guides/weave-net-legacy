@@ -1,12 +1,16 @@
 ---
 layout: guides
-title: "1. Creating Distributed Apps with Weave and Docker"
+title: "Creating Distributed Apps with Weave and Docker"
 permalink: /guides/weave-and-docker-platform/machine.html
 tags: docker, machine, cli, virtualbox, dns, ipam, hello-weave-app
 ---
-> - Part 1: [Launching Weave Net with Docker Machine]
-> - Part 2: [Using Weave with Docker Machine and Swarm]
-> - Part 3: [Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave]
+
+
+### ***Launching Weave Net with Docker Machine***
+
+> - **Part 1: Launching Weave Net with Docker Machine**
+> - Part 2: [Using Weave with Docker Machine and Swarm][ch2]
+> - Part 3: [Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave][ch3]
 
 
 ## What You Will Build
@@ -212,7 +216,7 @@ Hello, Weave!
 This completes Part 1 of this tutorial. To remove the containers used in this example:
 
 ~~~bash
-> docker-machine rm -f pingme pinger
+> docker rm -f pingme pinger
 ~~~
 
 ## Summary
@@ -230,4 +234,6 @@ Now you can proceed to part 2, where we will look at how to setup multiple Virtu
   *  [Docker API](https://github.com/weaveworks/weave/blob/master/site/proxy.md)
   *  [TLS Settings](https://docs.docker.com/articles/https/)
 
-
+[ch1]:/guides/weave-and-docker-platform/machine.html
+[ch2]: /guides/weave-and-docker-platform/machine-and-swarm-with-weave-proxy.html
+[ch3]: /guides/weave-and-docker-platform/compose-scalable-swarm-cluster-with-weave.html
