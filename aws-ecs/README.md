@@ -72,7 +72,7 @@ cd guides/aws-ecs
 ## AWS-CLI Configuration
 
 Make sure AWS-CLI is set to use a region where Amazon ECS is available
-(`us-east-1`, `us-west-2`, `eu-west-1`, `ap-northeast-1` or `ap-southeast-2` at
+(`us-east-1`, `us-west1`, `us-west-2`, `eu-west-1`, `ap-northeast-1` or `ap-southeast-2` at
 the time of writing this guide). See [Regions & Endpoints documentation at Amazon Web Service](http://docs.aws.amazon.com/general/latest/gr/rande.html) for more information.
 
 View AWS-CLI's configuration with
@@ -86,6 +86,9 @@ and modify it by running:
 ~~~bash
 aws configure
 ~~~
+
+Also, please make sure your AWS account has administrative privileges to be able
+to configure this demonstration.
 
 ## Automatic Setup & Configuration
 
@@ -257,6 +260,12 @@ To clean up this demonstration run:
 ~~~bash
 ./cleanup.sh
 ~~~
+
+The script will work even if something goes wrong when configuring the
+demonstration (e.g. if `setup.sh` didn't finish due missing AWS
+permissions). If that was the case, `cleanup.sh` may output some errors when
+trying to destroy resources which weren't created, you can simply disregard
+them.
 
 ##Manual Setup
 
