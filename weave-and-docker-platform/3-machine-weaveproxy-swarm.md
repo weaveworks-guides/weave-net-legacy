@@ -21,7 +21,7 @@ cloud providers and inside your own data center. With a few commands, it creates
 
 [Docker Swarm](http://docs.docker.com/swarm/) provides a native clustering environment for its Docker engines by turning a pool of Docker hosts into a single, virtual host. 
 
-In this tutorial we will configure a simple swarm and make it contents discoverable with Weave Net  Weave is agnostic to the way in which Docker Swarm is organized, and instead deploys a standard network, making hosts discoverable, and allowing you to manage your distributed app even if they exist within a Swarm. 
+In this tutorial we will configure a simple swarm and make its contents discoverable with Weave Net. Weave is agnostic to the way in which Docker Swarm is organized, and deploys a standard network, making hosts discoverable, so that you can easily manage your distributed apps even if they exist within a Swarm. 
 
 It also enhances the scalability of a Swarm cluster. (how?) 
 
@@ -31,7 +31,7 @@ Specifically, you will:
   2. Deploy Weave Net and discover hosts through DNS.
   3. Deploy a sample app to test that hosts are communicating within the Docker Swarm
 
-This example requires no programming, some UNIX skill and will it take approximately 15-25 minutes to complete. 
+This example requires no programming, some UNIX skills and it will take approximately 15-25 minutes to complete. 
 
 ## What you will use
 
