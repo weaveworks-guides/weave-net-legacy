@@ -378,14 +378,7 @@ git clone http://github.com/weaveworks/guides
 cd guides/aws-ecs/packer
 ~~~
 
-First, build special versions `ecs-init` and `weave`. You will need to have
-Docker installed for this to work.
-
-~~~bash
-./build-ecs-init-weave.sh
-~~~
-
-Next, download an SFTP-enabled version of [Packer](https://www.packer.io/) to build
+Download an SFTP-enabled version of [Packer](https://www.packer.io/) to build
 the AMI.
 
 ~~~bash
