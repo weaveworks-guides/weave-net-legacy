@@ -21,17 +21,17 @@ cloud providers and inside your own data center. With a few commands, it creates
 
 [Docker Swarm](http://docs.docker.com/swarm/) provides a native clustering environment for its Docker engines by turning a pool of Docker hosts into a single, virtual host. 
 
-In this tutorial we will configure a simple swarm and make it discoverable using Weave Net  Weave is agnostic to the swarm way of doing things and instead deploys DNS that allows you to communicate with your apps using standard tools, regardless of the topology. 
+In this tutorial we will configure a simple swarm and make it contents discoverable with Weave Net  Weave is agnostic to the way in which Docker Swarm is organized, and instead deploys a standard network, making hosts discoverable, and allowing you to manage your distributed app even if they exist within a Swarm. 
 
 It also enhances the scalability of a Swarm cluster. (how?) 
 
 Specifically, you will: 
 
   1. Set up a Docker Swarm cluster of 3 virtual hosts.
-  2. Deploy Weave Net and discover hosts through DNS. 
+  2. Deploy Weave Net and discover hosts through DNS.
   3. Deploy a sample app to test that hosts are communicating within the Docker Swarm
 
-  - 15-25 minutes
+This example requires no programming, some UNIX skill and will it take approximately 15-25 minutes to complete. 
 
 ## What you will use
 
@@ -51,10 +51,9 @@ For other operating systems, you will need to install and configure the followin
 
 _If you completed [Part one of this tutorial][ch1], you should already have all of these dependencies installed._
 
-
 ## Let's go!
 
-First, select the number of VMs to provision. For this example we'll limit the number to 3, since this will show Weave in a cluster environment, while at the same time, can still run comfortably on most laptops.  
+First, select the number of VMs to provision. In this example we'll limit the number to 3, since this will demonstrate Weave in a cluster environment, while at the same time still run comfortably on most laptops.  
 
 We will refer to these VM names throughout this tutorial:
 
@@ -64,7 +63,7 @@ We will refer to these VM names throughout this tutorial:
 
 ### Setting up the Swarm
 
-From the 3 VMs to provision, chose one that will be the Swarm master, or more precisely can be referred to as a `bootstrap or head node`, since Weave has no specific knowledge of a Swarm master and its agents.  In this instance, `weave-1` will serve as the `head node` . 
+From the 3 VMs to provision, chose one that will act as the Swarm master. Since Weave has no specific knowledge of a Swarm master and its agents, weave-1 is more accurately referred to as a `bootstrap or head node`. 
 The workflow is as follows:
 
   1. create `weave-1` as a Swarm master
@@ -80,20 +79,22 @@ we do not know the IP addresses and don't have DNS. You should be able to use DN
 Microsoft Azure or Google Compute Engine.
 </div>
 
-To assist in creating the VMs and the obtaining the discovery swarm token, a sample implementation script can be used called, [`scripts/1-machine-create.sh`][step1].
+To obtain the discovery swarm token, and create the VMs, a sample implementation script can be used: [`scripts/1-machine-create.sh`][step1].
 
 ### Launching Weave
 
-Next launch Weave on each of the virtual machines just created.
+Next launch Weave onto each of the virtual machines.
 
 Since the IP addresses of all the peers are not known ahead of time, you will need to pass `--init-peer-count 3` to `weave launch`. 
 This is set to 3, since we are specifying a cluster of 3 VMs. 
 
-Since Weave-1 will be the `bootstrap node`, its target should be set to 0 and so only weave-2 and weave-3 will need `--init-peer-count` set to 3 at launch.
+In this setup, Weave-1 is the `bootstrap node`, and so its target should be set to 0. Only weave-2 and weave-3 need to have  `--init-peer-count` set to 3 at launch.
+
 On each host, except for the `weave-1` which is our `bootstrap node` we will need to:
 
   1. launch Weave router with `--init-peer-count 3`
   3. launch proxy with a copy of TLS flags from Docker daemon
+  4. Connect the host to weave-1
 
 On weave-1 run: 
 
@@ -135,8 +136,7 @@ weave status
 ~~~
 
 
-
- >A helpful script that launches weave and sets up the hosts and connects the cluster can be found here: [`scripts/2-weave-launch.sh`][step2].
+  >>A helpful script that launches weave and sets up the hosts and connects the cluster can be found here: [`scripts/2-weave-launch.sh`][step2].
 
 
 ### Setting up Swarm agents against Weave proxy
