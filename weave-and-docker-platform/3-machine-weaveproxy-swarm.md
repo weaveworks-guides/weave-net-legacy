@@ -22,7 +22,7 @@ For this tutorial we configure a Docker Swarm cluster and then we make its conte
 
 Weave also enhances the scalability of a Swarm cluster and doesn't rely on experimental builds nor does it require additional containers such as Ambassador containers to deploy and specify a TCP/IP network.
 
-Here we describe how to get started with Swarm and Weave, in the next section you will proceed to a more advanced setup using Docker Compose. 
+Here we describe how to get started with Swarm and Weave, in the next section[ch3] you will proceed to a more advanced setup using Docker Compose. 
 
 Specifically in this tutorial, you will: 
 
@@ -82,6 +82,8 @@ The workflow is as follows:
   >>we do not know the IP addresses and don't have DNS. You should be able to use DNS with one of the cloud drivers, such as
   >>Microsoft Azure or Google Compute Engine.
 
+
+
   >>To obtain the discovery swarm token, and create the VMs, a sample implementation script is provided: [`scripts/1-machine-create.sh`][step1].
 
 ### Launching Weave
@@ -91,7 +93,7 @@ Next launch Weave onto each of the virtual machines.
 The IP addresses of all the peers are not known ahead of time, so you will need to pass `--init-peer-count 3` to `weave launch`. 
 `--init-peer-count` is set to 3, as we are specifying a cluster of 3 VMs. 
 
-In this setup, Weave-1 is the bootstrap node, and so its target should be set to 0. Only weave-2 and weave-3 need to have  `--init-peer-count` set to 3 at launch.
+In this setup, `weave-1` is the bootstrap node, and so its target should be 0. Only `weave-2` and `weave-3` need to have  `--init-peer-count` set to 3 at launch.
 
 On each host, except for `weave-1` which is our bootstrap node we will need to:
 
@@ -126,7 +128,7 @@ weave launch-proxy --tls \
          --tlskey /var/lib/boot2docker/server-key.pem
 ~~~
 
-and  then set the weave env for and `weave-2`
+and then set the weave environment variable for and `weave-2`
 
 ~~~bash
 eval "$(weave env)"
@@ -161,7 +163,7 @@ First clone the `Guides` repository:
     git clone https://github.com/weaveworks/guides weaveworks-guides
     cd ./weaveworks-guides/weave-and-docker-platform/scripts
 
-Now that we understand how this is all provisioned, you can run all 3 scripts:
+Now that we understand how this is all provisioned, you can automate the whole process by running these 3 scripts:
 
     ./1-machine-create.sh
     ./2-weave-launch.sh
