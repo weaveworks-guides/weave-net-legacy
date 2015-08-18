@@ -1,10 +1,11 @@
 #!/bin/bash
 
-WEAVE_ECS_AMIS=('us-east-1:ami-97b86afc'
-		'us-west-2:ami-69d3de59'
-		'eu-west-1:ami-d26d25a5'
-		'ap-northeast-1:ami-083b8f08'
-		'ap-southeast-2:ami-1d80c627'
+WEAVE_ECS_AMIS=('us-east-1:ami-df3687b4'
+		'us-west-1:ami-bfec15fb'
+		'us-west-2:ami-cdc1d5fd'
+		'eu-west-1:ami-3ecc9349'
+		'ap-northeast-1:ami-4c2aae4c'
+		'ap-southeast-2:ami-57793b6d'
 	       )
 
 # Mimic associative arrays using ":" to compose keys and values,
