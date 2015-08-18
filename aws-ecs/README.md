@@ -148,7 +148,8 @@ Container `dataproducer`:
 
 ~~~bash
 while true; do
-  echo 'Hi, this is the data producer in' `hostname -i` | nc -q 0 -l -p 4540
+  IP=`hostname -i | awk '{ print $1 }'`
+  echo "Hi, this is the data producer in $IP" | nc -q 0 -l -p 4540
 done
 ~~~
 
