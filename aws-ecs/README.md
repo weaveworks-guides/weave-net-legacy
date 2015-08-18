@@ -14,7 +14,7 @@ Without Weave, setting up a containerized network within Amazon’s ECS can be a
 
 Even in the simplest case, environment variable lookup requires quite a bit of custom code. It matters not whether the lookup code resides in your app or in an external shell script, it is still extra code that will need maintenance and updating. 
 
-Weave, other the hand requires no custom code, and instead, it uses standard, default TCP ports and looks up IP addresses in DNS. An advantage to using DNS is that when you set a hostname within a config file, you are not required to have a script in place to generate the hostname based on input variables. You can also optionally burn the config file with the hostname right into the container image.
+Weave, on the other the hand requires no custom code, and instead, it uses standard, default TCP ports and looks up IP addresses in DNS. An advantage to using DNS is that when you set a hostname within a config file, you are not required to have a script in place to generate the hostname based on input variables. You can also optionally burn the config file with the hostname right into the container image.
 
 One work around to this port mapping limitation when using Amazon ECS alone is to enable the [Amazon Elastic Load Balancer (ELB)](https://aws.amazon.com/elasticloadbalancing/) with [Amazon Route53](https://aws.amazon.com/documentation/route53/). These web services can take care of port forwarding with DNS lookup, but running them increases your overhead costs both from a billing perspective and, since these services also need provisioning, from a resource complexity perspective as well. Weave in essence saves you time and money, and lets you focus on app development, rather than your infrastructure design.
 
