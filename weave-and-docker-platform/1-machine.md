@@ -40,7 +40,6 @@ This tutorial will take about 10 minutes to complete.
 
 ## What You Need to Complete This Chapter
 
-
 If you are using OS X or Windows, you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides all the tools you will need.
 
 For other operating systems, you will need to install and configure the following separately before proceeding:
@@ -101,7 +100,7 @@ Running `weave launch` automatically configures your network. Launch starts `wea
 Both `weavedns` and `weaveproxy` services can be started and stopped independently, if required.
 See [Docker API Proxy](https://github.com/weaveworks/weave/blob/master/site/proxy.md) for more information about the Docker API.
 
-### Launching Weaveproxy if you are running OS X
+### Launching Weaveproxy if You are Running OS X
 
 If you are using OS X, you will need to get the TLS settings from the Docker daemon on the host:
 
