@@ -38,7 +38,7 @@ This tutorial will take about 10 minutes to complete.
   - [Weave](http://weave.works)
   - [Docker & Docker Machine](https://docs.docker.com)
 
-## What You Need to Complete This Chapter
+## What You Need to Complete Part 1
 
 If you are using OS X or Windows, you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides all the tools you will need.
 

@@ -40,7 +40,7 @@ This tutorial will take approximately 15-25 minutes to complete this tutorial.
   - [Weave](http://weave.works)
   - [Docker, Swarm & Machine](http://docker.com)
 
-## What you will Need to Complete This Chapter
+## What you will Need to Complete Part 2
 
 If you are using OS X or Windows, you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides all the tools you will need.
 

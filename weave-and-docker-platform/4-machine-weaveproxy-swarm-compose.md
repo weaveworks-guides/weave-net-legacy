@@ -52,7 +52,7 @@ The tutorial should take 15-25 minutes to complete.
 
 If you are already familiar with Compose, then you will recognise the Flask app used here. If you haven't yet used Compose, then have a look at [the overview in Docker Compose Documentation](https://docs.docker.com/compose/#overview) describes the app and the `docker-compose.yml` file structure, as well as `Dockerfile` used.
 
-## What You Will Need to Complete This Chapter
+## What You Will Need to Complete Part 3
 
 If you are using OS X you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides all the tools you will need.
 
