@@ -20,14 +20,6 @@
 
   "provisioners": [{
     "type": "file",
-    "source": "to-upload/ecs-init-1.3.0-1.el7.centos.x86_64.rpm",
-    "destination": "/home/ec2-user/ecs-init-1.3.0-1.el7.centos.x86_64.rpm"
-  }, {
-    "type": "file",
-    "source": "to-upload/weave.tar",
-    "destination": "/home/ec2-user/weave.tar"
-  }, {
-    "type": "file",
     "source": "to-upload/ecs.conf",
     "destination": "/home/ec2-user/ecs.conf"
   }, {
@@ -41,17 +33,11 @@
   }, {
     "type": "shell",
     "inline": [
-      "sudo yum -y remove ecs-init",
-      "sudo rpm -i /home/ec2-user/ecs-init-1.3.0-1.el7.centos.x86_64.rpm",
-      "rm /home/ec2-user/ecs-init-1.3.0-1.el7.centos.x86_64.rpm",
- 
       "sudo yum -y install python-pip jq",
       "sudo python-pip install awscli",
 
       "sudo curl -L https://raw.githubusercontent.com/weaveworks/weave/master/weave -o /usr/local/bin/weave",
       "sudo chmod +x /usr/local/bin/weave",
-      "sudo docker load < /home/ec2-user/weave.tar",
-      "sudo rm /home/ec2-user/weave.tar",
 
       "sudo mv /home/ec2-user/weave.conf /etc/init/weave.conf",
       "sudo mv /home/ec2-user/ecs.conf /etc/init/ecs.conf",

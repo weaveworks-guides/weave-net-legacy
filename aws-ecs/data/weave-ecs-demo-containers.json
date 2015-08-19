@@ -6,7 +6,7 @@
             "-c"
         ],
         "command": [
-            "while true; do echo 'Hi, this is the data producer in' `hostname -i` | nc -q 0 -l -p 4540; done"
+            "while true; do echo 'Hi, this is the data producer in' `hostname -i | awk '{ print $1 }'` | nc -q 0 -l -p 4540; done"
         ],
         "essential": true,
         "memory": 300,

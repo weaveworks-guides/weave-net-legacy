@@ -14,7 +14,7 @@ Without Weave, setting up a containerized network within Amazon’s ECS can be a
 
 Even in the simplest case, environment variable lookup requires quite a bit of custom code. It matters not whether the lookup code resides in your app or in an external shell script, it is still extra code that will need maintenance and updating. 
 
-Weave, other the hand requires no custom code, and instead, it uses standard, default TCP ports and looks up IP addresses in DNS. An advantage to using DNS is that when you set a hostname within a config file, you are not required to have a script in place to generate the hostname based on input variables. You can also optionally burn the config file with the hostname right into the container image.
+Weave, on the other the hand requires no custom code, and instead, it uses standard, default TCP ports and looks up IP addresses in DNS. An advantage to using DNS is that when you set a hostname within a config file, you are not required to have a script in place to generate the hostname based on input variables. You can also optionally burn the config file with the hostname right into the container image.
 
 One work around to this port mapping limitation when using Amazon ECS alone is to enable the [Amazon Elastic Load Balancer (ELB)](https://aws.amazon.com/elasticloadbalancing/) with [Amazon Route53](https://aws.amazon.com/documentation/route53/). These web services can take care of port forwarding with DNS lookup, but running them increases your overhead costs both from a billing perspective and, since these services also need provisioning, from a resource complexity perspective as well. Weave in essence saves you time and money, and lets you focus on app development, rather than your infrastructure design.
 
@@ -72,7 +72,7 @@ cd guides/aws-ecs
 ## AWS-CLI Configuration
 
 Make sure AWS-CLI is set to use a region where Amazon ECS is available
-(`us-east-1`, `us-west-2`, `eu-west-1`, `ap-northeast-1` or `ap-southeast-2` at
+(`us-east-1`, `us-west1`, `us-west-2`, `eu-west-1`, `ap-northeast-1` or `ap-southeast-2` at
 the time of writing this guide). See [Regions & Endpoints documentation at Amazon Web Service](http://docs.aws.amazon.com/general/latest/gr/rande.html) for more information.
 
 View AWS-CLI's configuration with
@@ -86,6 +86,9 @@ and modify it by running:
 ~~~bash
 aws configure
 ~~~
+
+Also, please make sure your AWS account has administrative privileges to be able
+to configure this demonstration.
 
 ## Automatic Setup & Configuration
 
@@ -148,7 +151,8 @@ Container `dataproducer`:
 
 ~~~bash
 while true; do
-  echo 'Hi, this is the data producer in' `hostname -i` | nc -q 0 -l -p 4540
+  IP=`hostname -i | awk '{ print $1 }'`
+  echo "Hi, this is the data producer in $IP" | nc -q 0 -l -p 4540
 done
 ~~~
 
@@ -257,6 +261,12 @@ To clean up this demonstration run:
 ./cleanup.sh
 ~~~
 
+This script works even if something goes wrong while configuring the
+demonstration (e.g. if `setup.sh` didn't finish due to missing AWS
+permissions). If that was the case, `cleanup.sh` may output some errors when
+trying to destroy resources which weren't created, you can simply disregard
+them.
+
 ##Manual Setup
 
 To manually reproduce what `./setup.sh` does
@@ -310,11 +320,12 @@ aws iam add-role-to-instance-profile --instance-profile-name weave-ecs-instance-
 
 Choose a Weave ECS AMI depending on your configured region:
 
-* `us-east-1` -> `ami-97b86afc`
-* `us-west-2` -> `ami-69d3de59`
-* `eu-west-1` -> `ami-d26d25a5`
-* `ap-northeast-1` -> `ami-083b8f08`
-* `ap-southeast-2` -> `ami-1d80c627`
+* `us-east-1` -> `ami-df3687b4`
+* `us-west-1` -> `ami-bfec15fb`
+* `us-west-2` -> `ami-cdc1d5fd`
+* `eu-west-1` -> `ami-3ecc9349`
+* `ap-northeast-1` -> `ami-4c2aae4c`
+* `ap-southeast-2` -> `ami-57793b6d`
 
 
 and then execute the command below by replacing `XXXX` with the AMI of your region.
@@ -378,14 +389,7 @@ git clone http://github.com/weaveworks/guides
 cd guides/aws-ecs/packer
 ~~~
 
-First, build special versions `ecs-init` and `weave`. You will need to have
-Docker installed for this to work.
-
-~~~bash
-./build-ecs-init-weave.sh
-~~~
-
-Next, download an SFTP-enabled version of [Packer](https://www.packer.io/) to build
+Download an SFTP-enabled version of [Packer](https://www.packer.io/) to build
 the AMI.
 
 ~~~bash
