@@ -19,11 +19,7 @@ With Weave you focus on developing your application, rather than your infrastruc
 
 [Docker Machine](https://docs.docker.com/machine/) makes it simple to create Docker hosts (VMs) on your computer, on cloud providers or within your own data center. It creates servers, installs Docker on them, then it configures the Docker client to talk to them.
 
-<<<<<<< HEAD
-In this part 1 of 'Creating Distributed Apps with Weave and Docker' you will be introduced to the basics of launching a container network with Weave.
-=======
 In this Part 1 of _'Creating Distributed Apps with Weave and Docker'_ you will be introduced to the basics of launching a container network with Weave.
->>>>>>> 9a9c4d87af27f2b9419b783dbb66416d7b4c3f56
 
 Specifically, you will:
 
