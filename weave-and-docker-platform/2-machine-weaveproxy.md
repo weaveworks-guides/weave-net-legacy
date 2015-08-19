@@ -2,7 +2,7 @@
 
 ---
 
-> ### ***Creating distributed applications with Weave and the Docker platform***
+ ### ***Creating distributed applications with Weave and the Docker platform***
 >
 > - Part 1: [Using Weave with Docker Machine][ch1]
 > - Part 3: [Using Weave with Docker Machine and Swarm][ch3]

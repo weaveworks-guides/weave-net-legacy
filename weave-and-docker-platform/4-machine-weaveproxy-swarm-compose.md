@@ -1,49 +1,49 @@
 ---
 layout: guides
-title: "4. Creating and scaling multi-host Docker deployment with Swarm and Compose using Weave"
+title: "Creating Distributed Apps with Weave and Docker"
 permalink: /guides/weave-and-docker-platform/compose-scalable-swarm-cluster-with-weave.html
 tags: docker, machine, swarm, compose, cli, virtualbox, dns, ipam, proxy, python, flask, redis
 ---
 
-> ### ***Creating distributed applications with Weave and the Docker platform***
+> ### ***Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave***
 
-> - Part 1: [Launching Weave Net with Docker Machine]
-> - Part 2: [Using Weave with Docker Machine and Swarm]
-> - Part 3: [Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave]
+> - Part 1: [Launching Weave Net with Docker Machine][ch1]
+> - Part 2: [Using Weave with Docker Machine and Swarm][ch2]
+> - **Part 3: Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave**
 
-Weave allows you to focus on developing your application, rather than your infrastructure, and it works great with tools
-like [Docker Machine](https://docs.docker.com/machine/) and [Swarm](https://docs.docker.com/swarm/). Here you will learn
-how to get started with Weave, and Swarm as well as Compose. After following through this chapter you should be very familiar
-with all the tooling, which is indeed quite simple. Having equipped yourself with the tooling, you can turbocharge the
-application you are developing and achieve greater results without having to spend long time in infrastructure planning.
 
 ## What you will build
 
-[Docker Machine](https://docs.docker.com/machine/) makes it really easy to create Docker hosts (VMs) on your computer, on
-cloud providers and inside your own data center. It creates servers, installs Docker on them, then configures the Docker
-client to talk to them.
+In this example, we show how Weave works seamlessly with tools like [Docker Machine](https://docs.docker.com/machine/) and [Docker Swarm](https://docs.docker.com/swarm/).
 
-[Docker Swarm](http://docs.docker.com/swarm/) is native clustering for Docker. It turns a pool of Docker hosts into a single,
-virtual host. You can instruct Machine to provision a Swarm cluster for you, and we have looked at how to integrate it
-with Weave in [the previous chapters][ch3].
+Part 3 introduces Weave, Swarm and Compose. Upon completion of Part 3, you will be familiar with all of the tooling necessary to get Weave working for you so that you can spend your time fine tuning your application rather than on infrastructure planning.
 
-[Docker Compose](https://docs.docker.com/compose/) is a tool for defining and running complex applications with Docker.
-With Compose, you define a multi-container application in a single file, then spin your application up in a single command
-which does everything that needs to be done to get it running.
+[Docker Machine](https://docs.docker.com/machine/) makes it really easy to create Docker hosts (VMs) on your computer, on cloud providers and inside your own data center. It creates servers, installs Docker on them, then it configures the Docker client to talk to them.
 
-In this chapter we will use a cluster of 3 Swarm-enabled VirtualBox VMs that we have setup in [the previous chapter][ch3],
-and look at using Compose to create a simple 2-tier application stack with Python Flask front-end app and Redis as the
-database. We will then scale the front-end app to take advantage of all 3 VMs we have.
+[Docker Swarm](http://docs.docker.com/swarm/) is Docker's native clustering environment. It turns a pool of Docker hosts into a single, virtual host. You can instruct Docker Machine to provision a Swarm cluster for you, and then integrate the Swarm with Weave. Both of these concepts were explored in [Part 1][ch1] and [Part 2][ch2].
 
-It would not be possible to build the same so easily without [Weave Net](/net) and [Weave Run](/run), which boost Swarm cluster
-scalability and enable simple DNS-based container discovery. More specifically, Weave provide true portability to a Swarm
-cluster. The exact same setup can be reproduced and scaled as easily in any environment, whether it's in the public cloud or
-an in-house datacenter. Additionally, Weave eliminates the need for [ambassador pattern][ambassador], or any other approach
-that might involve some combination of distributed configuration store and a proxy.
+With [Docker Compose](https://docs.docker.com/compose/) you can define and run complex applications with Docker.
+Compose is an extra layer that enables you to define a multi-container application into a single file, where you can launch your application with a single command.
+
+Weave deploys a standard network, and it enables simple DNS-based container discovery, so that you can easily manage your distributed containerized apps without the need to deploy any additional services or software. It also boosts the Swarm cluster scalability, and provides true portability whether deployed to a public cloud or to an in-house datacenter. Weave furthermore, eliminates the need for [ambassador pattern][ambassador], or any other approach that might involve some combination of distributed configuration store and a proxy.
+
 
 [ambassador]: https://docs.docker.com/articles/ambassador_pattern_linking/
 
+Specifically in this tutorial you will do the following: 
+
+  1. Work with a cluster of 3 Swarm-enabled VirtualBox VMs which were setup in [Part 2 of this tutorial][ch2]
+  2. Use Compose to create a simple 2-tier application stack using Python Flask front-end app and using Redis as the
+database. 
+  3. Scale the front-end app to take advantage of all 3 Virtual Machines.
+  
+This tutorial does not require any programming skills, but does require some UNIX skills.  The tutorial should take 15-25 minutes to complete. 
+
 ## What you will use
+
+If you are using OSX or Windows, you can install Docker, Docker Machine, Virtualbox, Compose (OSX only) and Kitematix using [Docker Toolbox](https://www.docker.com/toolbox).
+
+For all other operating systems, install and configure the following separately before proceeding:
 
   - [Weave](http://weave.works)
   - [Docker, Compose, Swarm & Machine](http://docker.com)
@@ -53,29 +53,25 @@ that might involve some combination of distributed configuration store and a pro
 [Flask]: http://flask.pocoo.org/
 [Redis]: http://redis.io/
 
-In case you are familiar with Compose already, you should recognise the Flask app used here. If you haven't used Compose yet,
-do make sure to take a brief look at [the overview](https://docs.docker.com/compose/#overview), which describes the app
-and `docker-compose.yml` file structure as well as `Dockerfile` used.
+If you are already familiar with Compose, then you will recognise the Flask app used here. If you haven't yet used Compose the [the overview in Docker Compose Documentation](https://docs.docker.com/compose/#overview) describes the app and the `docker-compose.yml` file structure, as well as `Dockerfile` used.
 
 ## What you will need to complete this chapter
 
-  - 15-25 minutes
+If you are using OSX or Windows, you can install Docker, docker machine, virtualbox, compose (OSX only) and kitematix using [Docker Toolbox](https://www.docker.com/toolbox).
+
+For all other operating systems, you will need to install and configure the following separately before proceeding:
+
   - [`docker-compose`](http://docs.docker.com/compose/install/) binary (_`>= 1.2.0`_)
   - [`docker-machine`](http://docs.docker.com/machine/#installation) binary (_`>= 0.2.0`_)
   - [`docker`](https://docs.docker.com/installation/#installation) binary, at lest the client (_`>= v1.6.x`_)
   - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (_`>= 4.3.x`_)
   - `curl` (_any version_)
 
-_If you have followed through [the previous chapter][ch3], you should already have **most** of these dependencies installed,
-the only new tool introduced here is **`docker-compose`**._
+_If you have followed through [Part 2 of this tutorial][ch2], then you will have **most** of these dependencies installed,
+the only new tool introduced here is **`docker-compose`**.
 
-If you are using OS X, then you can install these tools with Homebrew like this:
+  >>Note: [Docker Compose](http://docs.docker.com/machine/#installation) is not supported on Windows.
 
-    brew install docker docker-machine docker-compose
-
-For other operating systems, please refer to links above.
-
-If you haven't yet installed VirtualBox, be sure to follow [installation instructions for your OS](https://www.virtualbox.org/wiki/Downloads).
 
 ## Let's go!
 
