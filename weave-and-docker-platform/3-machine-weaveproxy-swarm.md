@@ -32,7 +32,8 @@ Specifically in this tutorial, you will:
   2. Deploy the Weave Network and discover hosts through DNS.
   3. Deploy a sample app to test that hosts are communicating within the Docker Swarm
 
-This example requires no programming, but does require basic UNIX skills. This tutorial will take approximately 15-25 minutes to complete this tutorial. 
+This example requires no programming, but does require basic UNIX skills. 
+This tutorial will take approximately 15-25 minutes to complete this tutorial. 
 
 ## What you will use
 
@@ -96,7 +97,7 @@ The IP addresses of all the peers are not known ahead of time, so you will need 
 
 In this setup, `weave-1` is the bootstrap node, and so its target should be 0. Only `weave-2` and `weave-3` need to have  `--init-peer-count` set to 3 at launch.
 
-On each host, except for `weave-1` which is our bootstrap node we will need to:
+On each host, except for `weave-1` you will need to:
 
   1. launch Weave router with `--init-peer-count 3`
   3. launch proxy with a copy of TLS flags from Docker daemon
@@ -108,29 +109,42 @@ On weave-1 run:
 weave launch
 ~~~
 
-Set the weave env for `weave-1`
-
-~~~bash
-eval "$(weave env)"
-~~~
-
-Next launch weave on `weave-2` with `--init-peer-count set to 3`:
-
-~~~bash
-weave launch-router --init-peer-count 3
-~~~
-
-Next, specify the TLS settings if asked: 
+Specify the TLS settings if asked: 
 
 ~~~bash
 tlsargs=$(docker-machine ssh weave-12 \
   "cat /proc/\$(pgrep /usr/local/bin/docker)/cmdline | tr '\0' '\n' | grep ^--tls | tr '\n' ' '")
 ~~~
 
-View and copy the settings, if necessary:
+launch the proxy using the TLS settings you grepped above:
 
 ~~~bash
-echo $tlsargs
+weave launch-proxy $tlsargs
+~~~
+
+and finally, set the weave environment variable for `weave-1`
+
+~~~bash
+eval "$(weave env)"
+~~~
+
+Set the weave env for `weave-1`
+
+~~~bash
+eval "$(weave env)"
+~~~
+
+Launch weave on `weave-2` with `--init-peer-count set to 3`:
+
+~~~bash
+weave launch-router --init-peer-count 3
+~~~
+
+Specify the TLS settings if asked: 
+
+~~~bash
+tlsargs=$(docker-machine ssh weave-12 \
+  "cat /proc/\$(pgrep /usr/local/bin/docker)/cmdline | tr '\0' '\n' | grep ^--tls | tr '\n' ' '")
 ~~~
 
 then, launch the proxy using the TLS settings you grepped above:
@@ -143,10 +157,6 @@ and finally, set the weave environment variable for `weave-2`
 
 ~~~bash
 eval "$(weave env)"
-~~~
-
-~~~bash
-weave launch-proxy $tlsargs
 ~~~
 
 Next on `weave-2` connect the cluster to our bootstrap node, `weave-1`: 
@@ -169,7 +179,7 @@ Follow the same steps for `weave-3` as you did for `weave-2` above.
 
 ### Setting up Swarm Agents Against Weaveproxy
 
-This next step is a necessary work-around to a reported Docker Machine issue, which we will refrain from covering in detail. But for more information about that, please refer to [issue in Docker Machine](https://github.com/docker/machine/issues/1334). In short, swarm agents are restarted with a new discovery token and then registered to TCP port 12375 for `weaveproxy`. More information can be found the following script [`scripts/3-replace-swarm-agents.sh`][step3].
+This next step is a necessary work-around to a reported Docker Machine issue, which we will refrain from covering in detail. For more information, refer to [issue #1334 in Docker Machine](https://github.com/docker/machine/issues/1334). In short, swarm agents are restarted with a new discovery token and then registered to TCP port 12375 for `weaveproxy`. Have a look at the following script [`scripts/3-replace-swarm-agents.sh`][step3] for more information.
 
 ###Putting it All Together
 
@@ -192,7 +202,7 @@ Once done, check that everything is running properly:
     weave-2            virtualbox   Running   tcp://192.168.99.130:2376   weave-1
     weave-3   *        virtualbox   Running   tcp://192.168.99.131:2376   weave-1
 
-AS you can see the 3 virtual machines are running. Now let's check that they are in a Swarm:
+As you can see the 3 virtual machines are running. Check that they are in a Swarm:
 
     > docker `docker-machine config --swarm weave-1` info
     Containers: 13
@@ -212,7 +222,7 @@ AS you can see the 3 virtual machines are running. Now let's check that they are
       └ Reserved CPUs: 0 / 8
       └ Reserved Memory: 0 B / 1.025 GiB
 
-Now that everything is setup, we can run a few containers.
+Now that everything is setup correctly, we can run a few containers.
 
 ## Deploy
 
@@ -222,7 +232,7 @@ First, deploy the _"Hello, Weave!"_ container like we did in the previous exampl
         gliderlabs/alpine nc -p 4000 -l -e echo 'Hello, Weave!'
     df8bb89d048abce4f9ed25259072ac6c177ebdae708222662325603ef4ec4a78
 
-Next, confirm that there is a transparent multi-host setup, and then check that the test container `pinger`
+Confirm that there is a transparent multi-host setup, and then check that the test container `pinger`
 doesn't run on the same hosts as `pingme` does. This can be checked by setting the Swarm affinity constraint with `-e 'affinity:container!=pingme'`.
 
     > docker `docker-machine config --swarm weave-1` run -e 'affinity:container!=pingme' --name=pinger -ti \
@@ -271,12 +281,11 @@ Unless you proceed to [Part 3 Creating and Scaling Multi-host Docker Deployment 
 
 ## Summary
 
-In this chapter we learned how to use Weave with Docker Swarm & Machine to provision an miniature infrastructure of 3 virtual
+In this Part 3, we learned how to use Weave with Docker Swarm & Machine to provision an miniature infrastructure of 3 virtual
 machines running on VirtualBox with [Weave Net](/net) providing connectivity for Docker containers. We then deployed a simple
-_"Hello, Weave!"_ service and tested that setup. Most importantly, you now know all the commands you need use in order
-to create a cluster of Docker hosts and should understand how to integrate Weave and Docker Swarm to proceed to the next step
-with confidence. Next we will look at how to use Compose to deploy an entire stack of containers to a Swarm cluster all powered
-by [Weave Net](/net) and [Weave Run](/run).
+_"Hello, Weave!"_ service and tested that setup. Most importantly, you now know all the commands to create a cluster of Docker hosts and should understand how to integrate Weave and Docker Swarm to proceed to the next step with confidence. Next we will look at how to use Compose to deploy an entire stack of containers to a Swarm cluster all powered by [Weave Net](/net) and [Weave Run](/run).
+
+You can easily adapt these examples and use them as a templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [email](help@weave.works) or [Twitter](https://twitter.com/weaveworks).
 
 ##Further Reading
 

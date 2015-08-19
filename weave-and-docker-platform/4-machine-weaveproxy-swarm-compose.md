@@ -37,13 +37,10 @@ Specifically in this tutorial you will:
 database. 
   3. Scale the front-end app to take advantage of all 3 Virtual Machines.
   
-This tutorial does not require any programming skills, but does require some UNIX skills.  The tutorial should take 15-25 minutes to complete. 
+This tutorial does not require any programming skills, but does require some UNIX skills.
+The tutorial should take 15-25 minutes to complete. 
 
 ## What You Will Use
-
-If you are using OS X or Windows, you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides all the tools you will need.
-
-For all other operating systems, install and configure the following separately before proceeding:
 
   - [Weave](http://weave.works)
   - [Docker, Compose, Swarm & Machine](http://docker.com)
@@ -57,9 +54,9 @@ If you are already familiar with Compose, then you will recognise the Flask app 
 
 ## What You Will Need to Complete This Chapter
 
-If you are using OSX or Windows, you can install Docker, docker machine, virtualbox, compose (OSX only) and kitematix using [Docker Toolbox](https://www.docker.com/toolbox).
+If you are using OS X you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides all the tools you will need.
 
-For all other operating systems, you will need to install and configure the following separately before proceeding:
+For all other operating systems, install and configure the following separately before proceeding:
 
   - [`docker-compose`](http://docs.docker.com/compose/install/) binary (_`>= 1.2.0`_)
   - [`docker-machine`](http://docs.docker.com/machine/#installation) binary (_`>= 0.2.0`_)
@@ -77,7 +74,7 @@ the only new tool introduced here is **`Docker Compose`**.
 
 ### Setup
 
-If you didn't continue from [Part 3][ch3], you can run the following commands to get a set of 3 VMs with Weave
+If you didn't continue from [Part 2][ch2], you can run the following commands to get a set of 3 VMs with Weave
 network set up. You also should run these if you chose to destroy all the VMs in Part 2.
 
 First, clone the repository
@@ -100,11 +97,11 @@ Change to the `app` directory and run it like this:
     cd ../app
     ./build.sh
 
-Next set up the environment variable to make Compose talk to the Swarm endpoint:
+Next set up the environment variable to enable Compose to communicate with the Swarm endpoint:
 
     eval $(docker-machine env --swarm weave-1)
 
-And finally deploy the stack by running:
+And finally, deploy the stack by running:
 
     docker-compose up -d
 
@@ -116,7 +113,7 @@ Run `docker-compose ps` to show the two deployed containers:
     app_redis_1   /w/w /entrypoint.sh redis- ...   Up      6379/tcp
     app_web_1     /w/w python app.py               Up      192.168.99.131:32768->5000/tcp
 
-Test this with `curl` using IP/port listed above:
+Test the containers with `curl` using IP/port listed above:
 
     > curl 192.168.99.131:32768
     Hello World! I have been seen 1 times.
@@ -127,7 +124,7 @@ Test this with `curl` using IP/port listed above:
 
 ### Scale
 
-Since we have 3 VMs at our disposal, we can force the web service instances to make use of all them.
+Since we have 3 VMs at our disposal, we can force the web service instances to use all of them.
 
     > docker-compose scale web=3
     Creating app_web_2...
@@ -161,13 +158,13 @@ You can deploy a cluster to public cloud by setting the
 `DOCKER_MACHINE_DRIVER` and also by specifying a few provider-specific environment variables prior to running `./1-machine-create.sh`. 
 But before you do so, make sure to [remove the VirtualBox VMs first](#cleanup).
 
-For example, for Microsoft Azure you can set the following:
+For example, with Microsoft Azure set the following:
 
     export DOCKER_MACHINE_DRIVER="azure"
     export AZURE_SUBSCRIPTION_CERT="/path/to/mycert.pem"
     export AZURE_SUBSCRIPTION_ID="MySubscriptionID"
 
-Or for Google Compute Engine:
+Or Google Compute Engine:
 
     export DOCKER_MACHINE_DRIVER="google"
     export GOOGLE_PROJECT="my-awesome-project-1"
@@ -186,12 +183,12 @@ You can tear-down the VMs you have deployed:
 
 ## Summary
 
-In this final chapter of _"Creating distributed applications with Weave and the Docker platform"_ guide we have looked
+In this final Part 3 of _"Creating distributed applications with Weave and the Docker platform"_ guide we have looked
 at utilising all 3 great components of the Docker platform (Machine, Swarm & Compose). You should now be able to understand
-all that's required to set up a scalable cluster of Docker hosts using Weave tools and then deploy your application to it with
-ease. You may choose to automate somewhat differently, hence we've split this guide into three parts, each of which describes concepts that you need to know in order to understand how Weave can help you to deploy applications. 
+all that's required in setting up a scalable cluster of Docker hosts using Weave tools and then deploying your application to it with
+ease. You may choose to automate somewhat differently, hence we've split this guide into three parts, each part describing the concepts that you need to know in order to understand how Weave can help you to deploy your applications. 
 
-You can easily adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](help@weave.works) or [Twitter](https://twitter.com/weaveworks).
+You can easily adapt these examples and use them as a templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [email](help@weave.works) or [Twitter](https://twitter.com/weaveworks).
 
 ##Further Reading
 

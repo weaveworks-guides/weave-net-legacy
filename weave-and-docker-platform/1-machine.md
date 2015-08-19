@@ -217,6 +217,8 @@ Most importantly, you now should be familiar with the commands you need to use i
 
 Proceed to part 2, where we will look at how to setup multiple Virtual Machines, using Docker Swarm to schedule containers, and most importantly using the [Weave Net](/net) to provide transparent connectivity across multiple Docker hosts, with [Weave Run](/run) enabling service discovery via DNS.
 
+You can easily adapt these examples and use them as a templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [email](help@weave.works) or [Twitter](https://twitter.com/weaveworks).
+
 ## Further Reading
 
   *  [Learn more about Weave](http://weave.works/articles/index.html)
