@@ -24,7 +24,7 @@ Weave’s standard container network enables simple DNS-based container discover
 [ambassador]: https://docs.docker.com/articles/ambassador_pattern_linking/
 
 
-Part 2 of this guide describes how to configure a basic Docker Swarm cluster, and how to deploy Weave Net to it, to make its contents easily discoverable. In [Part 3][ch3] you will proceed to a more advanced setup using Docker Compose. 
+Part 2 of this guide describes how to configure a basic Docker Swarm cluster, and how to deploy Weave Net to it, to make its contents easily discoverable. In [Part 3][ch3] we discuss a more advanced setup that uses Docker Compose. 
 
 Specifically in this tutorial, you will: 
 
@@ -33,7 +33,7 @@ Specifically in this tutorial, you will:
   3. Deploy a sample app to test that hosts are communicating within the Docker Swarm
 
 This example requires no programming, but does require basic UNIX skills. 
-This tutorial will take approximately 15-25 minutes to complete this tutorial. 
+This tutorial will take approximately 15-25 minutes to complete. 
 
 ## What you will use
 
@@ -55,7 +55,7 @@ _If you completed [Part one of this tutorial][ch1], you should have all of these
 
 ## Let's go!
 
-Note that the first two parts of this guide describes how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave in action right away, then refer to ["Putting It All Together"](#Putting) below, where several helpful shell scripts are provided, which automate the whole process.
+Note that the first two sections of this guide describes how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave in action right away, then refer to [Putting It All Together](#Putting) below, where several helpful shell scripts are provided, which automate the whole process.
 
 First, select the number of VMs to provision. This example limits the number of VMs to 3 to demonstrate Weave in a cluster environment, while at the same time can still run comfortably on most laptops. In a production setting however, you can have any number of hosts in a  Docker Swarm and connect them using Weave. 
 
@@ -181,7 +181,7 @@ Follow the same steps for `weave-3` as you did for `weave-2` above.
 
 This next step is a necessary work-around to a reported Docker Machine issue, which we will refrain from covering in detail. For more information, refer to [issue #1334 in Docker Machine](https://github.com/docker/machine/issues/1334). In short, swarm agents are restarted with a new discovery token and then registered to TCP port 12375 for `weaveproxy`. Have a look at the following script [`scripts/3-replace-swarm-agents.sh`][step3] for more information.
 
-###Putting it All Together
+### Putting it All Together
 
 First clone the `weaveworks/guides` repository:
 

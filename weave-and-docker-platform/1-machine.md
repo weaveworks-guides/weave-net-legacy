@@ -213,7 +213,7 @@ This completes Part 1 of this tutorial. To remove the containers used in this ex
 
 This tutorial demonstrated how to launch a Weave network using Docker Machine. A simple  _"Hello, Weave!"_ service was deployed to a container that listens on TCP port 4000 for any connections from other containers.
 
-Most importantly, you now should be familiar with the commands you need to use in order to create a Virtual Machine and also those needed to create and start containers on it using the seamlessly integrated Docker API `weaveproxy`.
+Most importantly, you should be familiar with the commands you need to use in order to create Virtual Machines and create and start containers on them using the seamlessly integrated Docker API `weaveproxy`.
 
 Proceed to part 2, where we will look at how to setup multiple Virtual Machines, using Docker Swarm to schedule containers, and most importantly using the [Weave Net](/net) to provide transparent connectivity across multiple Docker hosts, with [Weave Run](/run) enabling service discovery via DNS.
 
