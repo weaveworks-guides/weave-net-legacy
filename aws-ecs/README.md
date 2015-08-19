@@ -261,8 +261,8 @@ To clean up this demonstration run:
 ./cleanup.sh
 ~~~
 
-The script will work even if something goes wrong when configuring the
-demonstration (e.g. if `setup.sh` didn't finish due missing AWS
+This script works even if something goes wrong while configuring the
+demonstration (e.g. if `setup.sh` didn't finish due to missing AWS
 permissions). If that was the case, `cleanup.sh` may output some errors when
 trying to destroy resources which weren't created, you can simply disregard
 them.
