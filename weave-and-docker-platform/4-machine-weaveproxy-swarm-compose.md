@@ -54,7 +54,7 @@ If you are already familiar with Compose, then you will recognise the Flask app 
 
 ## What You Will Need to Complete Part 3
 
-If you are using OS X you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides all the tools you will need.
+If you are using OS X you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides the tools you need.
 
 For all other operating systems, install and configure the following separately before proceeding:
 
@@ -64,7 +64,7 @@ For all other operating systems, install and configure the following separately 
   - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (_`>= 4.3.x`_)
   - `curl` (_any version_)
 
-If you have followed through [Part 2 of this tutorial][ch2], then you will have **most** of these dependencies installed,
+If you have followed through [Part 3 of this tutorial][ch], then you will have **most** of these dependencies installed,
 the only new tool introduced here is **`Docker Compose`**.
 
   >>Note: [Docker Compose](http://docs.docker.com/machine/#installation) is not supported on Windows.
@@ -74,8 +74,7 @@ the only new tool introduced here is **`Docker Compose`**.
 
 ### Setup
 
-If you didn't continue from [Part 2][ch2], you can run the following commands to get a set of 3 VMs with Weave
-network set up. You also should run these if you chose to destroy all the VMs in Part 2.
+If you didn't continue from [Part 2][ch2], you can run the following commands to create the 3 VMs with a Weave network set up. You also should run these if you chose to destroy all the VMs in Part 2.
 
 First, clone the repository
 

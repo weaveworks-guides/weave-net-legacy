@@ -42,7 +42,7 @@ This tutorial will take approximately 15-25 minutes to complete.
 
 ## What you will Need to Complete Part 2
 
-If you are using OS X or Windows, you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides all the tools you will need.
+If you are using OS X or Windows, you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides the tools you need.
 
 For all other operating systems, install and configure the following separately before proceeding:
 
