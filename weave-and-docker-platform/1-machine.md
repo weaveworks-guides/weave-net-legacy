@@ -107,7 +107,7 @@ See [Docker API Proxy](https://github.com/weaveworks/weave/blob/master/site/prox
 If you are using OS X, you will need to get the TLS settings from the Docker daemon on the host:
 
 ~~~bash
-tlsargs=$(docker-machine ssh weave-12 \
+tlsargs=$(docker-machine ssh weave-1 \
   "cat /proc/\$(pgrep /usr/local/bin/docker)/cmdline | tr '\0' '\n' | grep ^--tls | tr '\n' ' '")
 ~~~
 
@@ -150,13 +150,16 @@ Now you are ready to deploy containers and also use DNS so that the containers c
 The first app to be deployed is called `pingme`. It consists of a simple netcat (aka `nc`) server running on TCP port 4000, which sends a short message, `Hello, Weave!` to any client that connects to it.
 
 ~~~bash
-> docker create --name=pingme gliderlabs/alpine nc -p 4000 -lk -e echo 'Hello, Weave!'
+docker run -d --name=pingme \
+        gliderlabs/alpine nc -p 4000 -l -e echo 'Hello, Weave!'
 ~~~
 
 The second containerized app is called `pinger`, and it will be launched interactively using the `-ti` flag, where the container can acccept and run few simple commands.
 
 ~~~bash
-> docker create --name=pinger -ti gliderlabs/alpine sh -l
+docker run -e 'affinity:container!=pingme' --name=pinger -ti \
+        gliderlabs/alpine sh -l
+
 ~~~
 
 Start the containers:
@@ -177,7 +180,7 @@ weave status
 First ping one of the containers using `docker exec` command:
 
 ~~~bash
-> docker exec -i pinger ping -c3 pingme.weave.local
+pinger:/# ping -c3 pingme.weave.local
 ~~~
 
 ~~~bash
@@ -194,7 +197,7 @@ round-trip min/avg/max = 0.100/0.108/0.114 ms
 Test if pinger responds on TCP port 4000 as expected:
 
 ~~~bash
-docker exec -i pinger echo "What's up?" nc pingme.weave.local 4000
+pinger:/# echo "What's up?" | nc pingme.weave.local 4000
 ~~~
 
 Returns,
@@ -217,9 +220,9 @@ This tutorial demonstrated how to launch a Weave network using Docker Machine. A
 
 Most importantly, you should be familiar with the commands you need to use in order to create Virtual Machines and create and start containers on them using the seamlessly integrated Docker API {{ weaveproxy }}.
 
-Proceed to part 2, where we will look at how to setup multiple Virtual Machines, using Docker Swarm to schedule containers, and most importantly using the [Weave Net](/net) to provide transparent connectivity across multiple Docker hosts, with [Weave Run](/run) enabling service discovery via DNS.
+Proceed to Part 2, where we will look at how to setup multiple Virtual Machines, using Docker Swarm to schedule containers, and most importantly using the [Weave Net](/net) to provide transparent connectivity across multiple Docker hosts, with [Weave Run](/run) enabling service discovery via DNS.
 
-You can easily adapt these examples and use them as a templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [email](help@weave.works) or [Twitter](https://twitter.com/weaveworks).
+You can easily adapt these examples and use them as templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [email](help@weave.works) or [Twitter](https://twitter.com/weaveworks).
 
 ## Further Reading
 
