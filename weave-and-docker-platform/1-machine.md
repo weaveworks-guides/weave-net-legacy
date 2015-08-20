@@ -76,7 +76,7 @@ Verify that everything installed correctly:
 docker info
 ~~~
 
-Now launch the Weave network and set up the proxy:
+Now launch the Weave network and automatically launch the Docker API proxy:
 
 ~~~bash
 weave launch
