@@ -159,14 +159,6 @@ The second containerized app is called `pinger`, and it will be launched interac
 ~~~bash
 docker run -e 'affinity:container!=pingme' --name=pinger -ti \
         gliderlabs/alpine sh -l
-
-~~~
-
-Start the containers:
-
-~~~bash
-> docker start pinger
-> docker start pingme
 ~~~
 
 Check to see that {{ weavedns }} has registered them:
@@ -220,7 +212,7 @@ This tutorial demonstrated how to launch a Weave network using Docker Machine. A
 
 Most importantly, you should be familiar with the commands you need to use in order to create Virtual Machines and create and start containers on them using the seamlessly integrated Docker API {{ weaveproxy }}.
 
-Proceed to Part 2, where we will look at how to setup multiple Virtual Machines, using Docker Swarm to schedule containers, and most importantly using the [Weave Net](/net) to provide transparent connectivity across multiple Docker hosts, with [Weave Run](/run) enabling service discovery via DNS.
+Proceed to Part 2, where we will look at how to set up multiple Virtual Machines, using Docker Swarm to schedule containers, and most importantly use [Weave Net](/net) to provide transparent connectivity across multiple Docker hosts and [Weave Run](/run) to enable service discovery via DNS.
 
 You can easily adapt these examples and use them as templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [email](help@weave.works) or [Twitter](https://twitter.com/weaveworks).
 
