@@ -5,6 +5,8 @@ permalink: /guides/weave-and-docker-platform/compose-scalable-swarm-cluster-with
 tags: docker, machine, swarm, compose, cli, virtualbox, dns, ipam, proxy, python, flask, redis
 ---
 
+{% include product-vars %}
+
 > ### ***Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave***
 
 > - Part 1: [Launching Weave Net with Docker Machine][ch1]
