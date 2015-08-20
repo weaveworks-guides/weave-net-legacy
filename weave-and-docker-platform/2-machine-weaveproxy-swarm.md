@@ -24,16 +24,16 @@ Weave’s standard container network enables simple DNS-based container discover
 [ambassador]: https://docs.docker.com/articles/ambassador_pattern_linking/
 
 
-Part 2 of this guide describes how to configure a basic Docker Swarm cluster, and how to deploy Weave Net to it, to make its contents easily discoverable. In [Part 3][ch3] we discuss a more advanced setup that uses Docker Compose. 
+Part 2 of this guide describes how to configure a basic Docker Swarm cluster, and how to deploy Weave Net to it, to make its contents easily discoverable. In [Part 3][ch3] we discuss a more advanced setup that uses Docker Compose.
 
-Specifically in this tutorial, you will: 
+Specifically in this tutorial, you will:
 
   1. Set up a simple Docker Swarm cluster using 3 virtual hosts.
   2. Deploy the Weave Network and discover hosts through DNS.
   3. Deploy a sample app to test that hosts are communicating within the Docker Swarm
 
-This example requires no programming, but does require basic UNIX skills. 
-This tutorial will take approximately 15-25 minutes to complete. 
+This example requires no programming, but does require basic UNIX skills.
+This tutorial will take approximately 15-25 minutes to complete.
 
 ## What you will use
 
@@ -57,7 +57,7 @@ _If you completed [Part one of this tutorial][ch1], you should have all of these
 
 Note that the first two sections of this guide describes how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave in action right away, then refer to [Putting It All Together](#Putting) below, where several helpful shell scripts are provided, which automate the whole process.
 
-First, select the number of VMs to provision. This example limits the number of VMs to 3 to demonstrate Weave in a cluster environment, while at the same time can still run comfortably on most laptops. In a production setting however, you can have any number of hosts in a  Docker Swarm and connect them using Weave. 
+First, select the number of VMs to provision. This example limits the number of VMs to 3 to demonstrate Weave in a cluster environment, while at the same time can still run comfortably on most laptops. In a production setting however, you can have any number of hosts in a  Docker Swarm and connect them using Weave.
 
 We will refer to these VM names throughout this tutorial:
 
@@ -67,9 +67,9 @@ We will refer to these VM names throughout this tutorial:
 
 ### Setting up the Swarm
 
-Among the 3 VMs to be provisioned, chose one that will act as the Swarm master. In this example, we refer to `weave-1` as the head or the bootstrap node. Keep in mind that Weave has no specific knowledge of a Swarm master and its agents, and you can deploy your network in whatever topology you choose. 
+Among the 3 VMs to be provisioned, chose one that will act as the Swarm master. In this example, we refer to `weave-1` as the head or the bootstrap node. Keep in mind that Weave has no specific knowledge of a Swarm master and its agents, and you can deploy your network in whatever topology you choose.
 
-But for the pursposes of this tutorial, `weave-1` will act as the bootstrap node where it will provide the initial configuration information to newly joining nodes, in this case, `weave-2` and `weave-3`. 
+But for the pursposes of this tutorial, `weave-1` will act as the bootstrap node where it will provide the initial configuration information to newly joining nodes, in this case, `weave-2` and `weave-3`.
 
 The workflow, then is as follows:
 
@@ -92,8 +92,8 @@ The workflow, then is as follows:
 
 Next launch Weave onto each of the virtual machines.
 
-The IP addresses of all the peers are not known ahead of time, so you will need to pass `--init-peer-count 3` to `weave launch`. 
-`--init-peer-count` is set to 3, as we are specifying a cluster of 3 VMs. 
+The IP addresses of all the peers are not known ahead of time, so you will need to pass `--init-peer-count 3` to `weave launch`.
+`--init-peer-count` is set to 3, as we are specifying a cluster of 3 VMs.
 
 In this setup, `weave-1` is the bootstrap node, and so its target should be 0. Only `weave-2` and `weave-3` need to have  `--init-peer-count` set to 3 at launch.
 
@@ -101,15 +101,15 @@ On each host, except for `weave-1` you will need to:
 
   1. launch Weave router with `--init-peer-count 3`
   3. launch proxy with a copy of TLS flags from Docker daemon
-  4. Connect the host to weave-1
+  4. Connect the host to `weave-1`
 
-On weave-1 run: 
+On `weave-1` run:
 
 ~~~bash
 weave launch
 ~~~
 
-Specify the TLS settings if asked: 
+Specify the TLS settings if asked:
 
 ~~~bash
 tlsargs=$(docker-machine ssh weave-12 \
@@ -140,7 +140,7 @@ Launch weave on `weave-2` with `--init-peer-count set to 3`:
 weave launch-router --init-peer-count 3
 ~~~
 
-Specify the TLS settings if asked: 
+Specify the TLS settings if asked:
 
 ~~~bash
 tlsargs=$(docker-machine ssh weave-12 \
@@ -159,19 +159,19 @@ and finally, set the weave environment variable for `weave-2`
 eval "$(weave env)"
 ~~~
 
-Next on `weave-2` connect the cluster to our bootstrap node, `weave-1`: 
+Next on `weave-2` connect the cluster to our bootstrap node, `weave-1`:
 
 ~~~bash
 weave connect $(docker-machine ip weave-1)
 ~~~
 
-check to see that all went well: 
+check to see that all went well:
 
 ~~~bash
 weave status
 ~~~
 
-Follow the same steps for `weave-3` as you did for `weave-2` above. 
+Follow the same steps for `weave-3` as you did for `weave-2` above.
 
 
   >>A useful script which launches weave and sets up the hosts and connects the cluster can be found here: [`scripts/2-weave-launch.sh`][step2].
