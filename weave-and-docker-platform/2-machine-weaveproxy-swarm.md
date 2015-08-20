@@ -2,9 +2,10 @@
 layout: guides
 title: "Creating Distributed Apps with Weave and Docker"
 permalink: /guides/weave-and-docker-platform/machine-and-swarm-with-weave-proxy.html
-
 tags: docker, machine, swarm, cli, virtualbox, dns, ipam, proxy, hello-weave-app
 ---
+
+{% include product-vars %}
 
 ### ***Using Weave with Docker Machine and Swarm***
 
@@ -177,9 +178,9 @@ Follow the same steps for `weave-3` as you did for `weave-2` above.
   >>A useful script which launches weave and sets up the hosts and connects the cluster can be found here: [`scripts/2-weave-launch.sh`][step2].
 
 
-### Setting up Swarm Agents Against Weaveproxy
+### Setting up Swarm Agents Against {{ weaveproxy }}
 
-This next step is a necessary work-around to a reported Docker Machine issue, which we will refrain from covering in detail. For more information, refer to [issue #1334 in Docker Machine](https://github.com/docker/machine/issues/1334). In short, swarm agents are restarted with a new discovery token and then registered to TCP port 12375 for `weaveproxy`. Have a look at the following script [`scripts/3-replace-swarm-agents.sh`][step3] for more information.
+This next step is a necessary work-around to a reported Docker Machine issue, which we will refrain from covering in detail. For more information, refer to [issue #1334 in Docker Machine](https://github.com/docker/machine/issues/1334).  In short, swarm agents are restarted with a new discovery token and then registered to TCP port 12375 for {{ weaveproxy }}. Have a look at the following script [`scripts/3-replace-swarm-agents.sh`][step3] for more information.
 
 ### Putting it All Together
 
