@@ -28,8 +28,8 @@ Specifically, you will:
   1. Install Docker Machine and Weave
   2. Setup Weave onto a single VM on VirtualBox
   3. Deploy a basic _"Hello, Weave!"_ application
-  4. Enable {{ weavedns }} to discover the Weave-attached Docker containers on the network.
-  5. Communicate with your app and send a message from one container to another using the Docker API {{ weaveproxy }}.
+  4. Enable {{ weavedns }} to discover the Weave-attached Docker containers on the network
+  5. Communicate with your app and send a message from one container to another using shell commands
 
 This tutorial uses very simple UNIX tools, and it doesn't require any programming skills.
 
@@ -60,7 +60,7 @@ curl -L git.io/weave -o /usr/local/bin/weave
 chmod a+x /usr/local/bin/weave
 ~~~
 
-Next create a Virtual Machine or a VM on the VirtualBox, called `weave-1`, by running:
+Next create a Virtual Machine (VM) on the VirtualBox, called `weave-1`, by running:
 
 ~~~bash
 docker-machine create -d virtualbox weave-1
