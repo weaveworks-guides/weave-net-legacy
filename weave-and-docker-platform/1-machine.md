@@ -69,7 +69,7 @@ docker-machine create -d virtualbox weave-1
 Once the VM is running, configure your shell environment by running:
 
 ~~~bash
-eval "$(docker-machine config weave-1)"
+eval "$(docker-machine env weave-1)"
 ~~~
 
 Verify that everything installed correctly:
@@ -81,43 +81,26 @@ docker info
 Now launch the Weave network and automatically launch the Docker API proxy:
 
 ~~~bash
-weave launch
+weave launch && weave launch-dns
 ~~~
 
+Running `weave launch` automatically configures your network, and `weave launch-dns` starts {{ weavedns }}, making all your containers discoverable.
 
-Next set up the weave environment for the Docker API proxy:
-
-~~~bash
-eval "$(weave env)"
-~~~
-
-Check to see that the proxy is running properly:
-
-~~~bash
-docker logs weaveproxy
-~~~
-
-Running `weave launch` automatically configures your network. Launch starts {{ weavedns }}, making all your containers discoverable and it also sets up a Docker API proxy on the weave network, so that you can manage your containers using standard Docker commands.
+Next, you will need to set up a Docker API proxy, so that you can manage your containers using standard Docker commands.
 
 Both {{ weavedns }} and {{ weaveproxy }} services can be started and stopped independently, if required.
 See [Docker API Proxy](https://github.com/weaveworks/weave/blob/master/site/proxy.md) for more information about the Docker API.
 
-### Launching {{ weaveproxy }} if You are Running OS X
+### Launching {{ weaveproxy }}
 
-If you are using OS X, you will need to get the TLS settings from the Docker daemon on the host:
+First, you will need to get the TLS settings from the Docker daemon on the host:
 
 ~~~bash
 tlsargs=$(docker-machine ssh weave-1 \
   "cat /proc/\$(pgrep /usr/local/bin/docker)/cmdline | tr '\0' '\n' | grep ^--tls | tr '\n' ' '")
 ~~~
 
-View and copy the settings, if necessary:
-
-~~~bash
-echo $tlsargs
-~~~
-
-then, launch the proxy using the TLS settings you grepped above:
+Launch the proxy using the TLS settings you grepped above:
 
 ~~~bash
 weave launch-proxy $tlsargs
@@ -125,10 +108,10 @@ weave launch-proxy $tlsargs
 
 See [TLS Settings](https://docs.docker.com/articles/https/) for more information about specifying these settings in a production environment.
 
-Next, set up weave's environment properly to use the proxy by running:
+Next, set up Weave's environment properly to use the proxy by running:
 
 ~~~bash
-eval "$(weave env)"
+eval "$(weave proxy-env)"
 ~~~
 
 Check to see that all worked well:
@@ -157,19 +140,13 @@ docker run -d --name=pingme \
 The second containerized app is called `pinger`, and it will be launched interactively using the `-ti` flag, where the container can acccept and run few simple commands.
 
 ~~~bash
-docker run -e 'affinity:container!=pingme' --name=pinger -ti \
+docker run --name=pinger -ti \
         gliderlabs/alpine sh -l
-~~~
-
-Check to see that {{ weavedns }} has registered them:
-
-~~~bash
-weave status
 ~~~
 
 ### Interacting with Containerized Apps
 
-First ping one of the containers using `docker exec` command:
+First ping one of the other container:
 
 ~~~bash
 pinger:/# ping -c3 pingme.weave.local
@@ -186,7 +163,7 @@ PING pingme.weave.local (10.128.0.1): 56 data bytes
 round-trip min/avg/max = 0.100/0.108/0.114 ms
 ~~~
 
-Test if pinger responds on TCP port 4000 as expected:
+Test if the app responds on TCP port 4000 as expected:
 
 ~~~bash
 pinger:/# echo "What's up?" | nc pingme.weave.local 4000
@@ -196,6 +173,12 @@ Returns,
 
 ~~~bash
 Hello, Weave!
+~~~
+
+Exit the container:
+
+~~~bash
+pinger:/# exit
 ~~~
 
 ## Cleanup
