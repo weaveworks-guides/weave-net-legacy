@@ -6,13 +6,23 @@ keywords: weave, docker, containers, networking, software defined networking, do
 permalink: /guides/weave-docker-ubuntu-simple.html
 ---
 
-## What you will build ##
+## What You Will Build ##
 
-Weave allows you to focus on developing your application, rather than your infrastructure.
+Weave provides a software network optimized for visualizing and communicating with applications distributed within Docker containers. Using tools and protocols that are familiar to you, Weave's network topology lets you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
 
-In this example you will be creating a simple application running in a container on one host. Your service provides a JSON message containing hello world and a date - we call this your hello world service. In your second container, running on a seperate host, you use curl to query the hello world service.
+With Weave you focus on developing your application, rather than your infrastructure.  As demonstrated in this tutorial, Weave works seamlessly with other tools such as Vagrant.  Vagrant provides an easy way to provision, and set up your hosts. Once provisioned this example, will deploy both {{ Weave Net }} and {{ Weave Run }} to provide nework connectivity and service discovery using DNS. 
+
+Specifically, in this example:
+
+1. You will create a simple application running in two containers on separate hosts. 
+2. Provide a JSON message and a date, to the '_hello world service_'. 
+3. Use curl to query the hello world service from the second container.
 
 ![Weave and Docker](/guides/images/Simple_Weave.png)
+
+This tutorial uses simple UNIX tools, and it doesn't require any programming skills. 
+
+This example will take about 15 minutes to complete.
 
 ## What you will use ##
 
@@ -20,152 +30,184 @@ In this example you will be creating a simple application running in a container
 * [Docker](http://docker.com)
 * [Ubuntu](http://ubuntu.com)
 
-## What you will need to complete this guide ##
+## What You Need to Complete This Guide ##
 
-This getting started guide is self contained. You will use Weave, Docker and Ubuntu, and we make use of VirtualBox and Vagrant to allow you to run the entire getting started guide on your personal system.
+You will need to install and configure the following separately before proceeding:
 
-* 15 minutes
 * [Git](http://git-scm.com/downloads)
 * [VirtualBox > 4.3.20](https://www.virtualbox.org/wiki/Downloads)
 * [Vagrant > 1.6](https://docs.vagrantup.com/v2/installation/index.html)
 
-## Setting up our hosts ##
+##Let's Go! ##
 
-All of the code for this example is available on github, and you first clone the getting started repository.
+The code for this example is available on github. Clone the getting started repository:
 
-    git clone http://github.com/weaveworks/guides
+~~~bash
+git clone http://github.com/weaveworks/guides
+~~~
 
-You will use vagrant to setup and configure two Ubuntu hosts and install Docker. These hosts will be assigned IP addresses on a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and named `weave-gs-01` and `weave-gs-02`.
+You will use vagrant to setup and configure two Ubuntu hosts and install Docker. These hosts will be assigned IP addresses to a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and named `weave-gs-01` and `weave-gs-02`.
 
-    cd guides/ubuntu-simple
-    vagrant up
+~~~bash
+cd guides/ubuntu-simple
+vagrant up
+~~~
 
-Vagrant will pull down and configure an ubuntu image, this may take a few minutes depending on the speed of your network connection. For more details on Vagrant please refer to the [Vagrant documentation](http://vagrantup.com).
+Vagrant pulls down and configures the ubuntu images. This may take a few minutes depending on the speed of your network connection. For more information on how Vagrant works, please refer to the [Vagrant documentation](http://vagrantup.com).
 
-You may be prompted for a password when `/etc/hosts` is being updated during the Vagrant setup, please just hit return at this point.
+You may be prompted for a password when `/etc/hosts` is being updated during the Vagrant setup. You can bypass this step by pressing return.
 
-Once the setup of the hosts is complete you can check their status with
+Once the hosts are set up, check their status:
 
-    vagrant status
+~~~bash
+vagrant status
+~~~
 
-The IP addresses we use for this demo are
+The IP addresses we use for this demo are:
 
-    172.17.8.101 	weave-gs-01
-    172.17.8.102 	weave-gs-02
+~~~bash
+172.17.8.101 	weave-gs-01
+172.17.8.102 	weave-gs-02
+~~~
 
 ## Installing Weave ##
 
-Now you install Weave on each host.
+Now install Weave on each host:
 
-    vagrant ssh weave-gs-01
-    sudo curl -L git.io/weave -o /usr/local/bin/weave
-    sudo chmod a+x /usr/local/bin/weave
+~~~bash
+vagrant ssh weave-gs-01
+sudo curl -L git.io/weave -o /usr/local/bin/weave
+sudo chmod a+x /usr/local/bin/weave
+~~~
 
-    vagrant ssh weave-gs-02
-    sudo curl -L git.io/weave -o /usr/local/bin/weave
-    sudo chmod a+x /usr/local/bin/weave
+~~~bash
+vagrant ssh weave-gs-02
+sudo curl -L git.io/weave -o /usr/local/bin/weave
+sudo chmod a+x /usr/local/bin/weave
+~~~~
 
-We provide the commands to install Weave as part of this getting started guide, but in practice you would automate this step.
+We provide the commands to install Weave as part of this getting started guide, but in practice you could automate this step for each host.
 
 ## Using Weave ##
 
-Next you start Weave on each host in turn.
+Next start Weave on each host and create a peer connection:
 
 On host `weave-gs-01`
 
-    sudo weave launch
-    sudo weave launch-dns
+~~~bash
+sudo weave launch
+sudo weave launch-dns
+~~~
 
 On host `weave-gs-02`
 
-    sudo weave launch 172.17.8.101
-    sudo weave launch-dns
+~~~bash
+sudo weave launch 172.17.8.101
+sudo weave launch-dns
+~~~
 
-Your two hosts are now connected to each other, and any subsequent containers you launch with Weave will be visible to other containers Weave is aware of.
+Your two hosts are now connected to each other, and any subsequent containers you launch with Weave will be visible to any other containers that the Weave network is aware of.
 
-### What has happened? ###
+### What Just Happened? ###
 
-As this is the first time you have launched Weave you
+Since this is the first time launched Weave you: 
 
-* downloaded a docker image for the Weave router container
-* launched that container
+* downloaded a docker image for the Weave router container and then launched that container
+* downloaded a docker image for `weavedns` and then launched that container
 
-On your first host, `weave-gs-01`, you have launched a Weave router container. On your second host, `weave-gs-02`, you launched another Weave router container with the IP address of your first host. This command tells the Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
+On host, `weave-gs-01`, the Weave router container was launched. On host, `weave-gs-02`, an additional Weave router container with the IP address of your first host was launched. Launching Weave with the IP address of the first container, informs Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
 
-At this point you have a single container running on each host, which you can see from docker. On either host run
+In addition to these 2 weavedns service discovery containers were also launched. 
 
-    sudo docker ps
+At this point you should have 2 Weave containers running on each host. To see them, run the following command from either host:
 
-and you will see something similar to
+~~~bash
+sudo docker ps
+~~~
 
+where you should see something similar to the following:
+
+~~~bash
     CONTAINER ID        IMAGE                       COMMAND                CREATED             STATUS              PORTS                                            NAMES
-    e3fba94a35fc        weaveworks/weavedns:1.0.1   "/home/weave/weavedn   57 seconds ago      Up 56 seconds       10.1.42.1:53->53/udp                             weavedns
-    dd3878af6307        weaveworks/weave:1.0.1      "/home/weave/weaver    16 minutes ago      Up 16 minutes       0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave
+    e3fba94a35fc        weaveworks/weavedns:1.0.2   "/home/weave/weavedn   57 seconds ago      Up 56 seconds       10.1.42.1:53->53/udp                             weavedns
+    dd3878af6307        weaveworks/weave:1.0.2      "/home/weave/weaver    16 minutes ago      Up 16 minutes       0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave
+~~~
 
-You can see your peered network by using `weave status`
+View the peered network by running `weave status`
 
-    sudo weave status
+~~~bash
+sudo weave status
 
-    weave router 1.0.1
-    Our name is b2:6d:8c:74:4a:31(weave-gs-01)
-    Encryption off
-    Peer discovery on
-    Sniffing traffic on &{10 65535 ethwe 36:bd:bd:11:79:43 up|broadcast|multicast}
-    MACs:
-    b6:66:e6:8a:c4:3e -> aa:3c:6c:5f:fa:31(weave-gs-02) (2015-06-23 09:50:46.840569861 +0000 UTC)
-    4e:60:c7:bd:20:0c -> b2:6d:8c:74:4a:31(weave-gs-01) (2015-06-23 09:51:15.181934617 +0000 UTC)
-    2a:c2:80:3e:5c:db -> b2:6d:8c:74:4a:31(weave-gs-01) (2015-06-23 09:48:07.853429348 +0000 UTC)
-    aa:3c:6c:5f:fa:31 -> aa:3c:6c:5f:fa:31(weave-gs-02) (2015-06-23 09:50:46.368725659 +0000 UTC)
-    Peers:
-    b2:6d:8c:74:4a:31(weave-gs-01) (v2) (UID 10617824048609415185)
-       -> aa:3c:6c:5f:fa:31(weave-gs-02) [172.17.8.102:36982]
-    aa:3c:6c:5f:fa:31(weave-gs-02) (v2) (UID 17525028717806349409)
-       -> b2:6d:8c:74:4a:31(weave-gs-01) [172.17.8.101:6783]
-    Routes:
-    unicast:
-    b2:6d:8c:74:4a:31 -> 00:00:00:00:00:00
-    aa:3c:6c:5f:fa:31 -> aa:3c:6c:5f:fa:31
-    broadcast:
-    b2:6d:8c:74:4a:31 -> [aa:3c:6c:5f:fa:31]
-    aa:3c:6c:5f:fa:31 -> []
-    Direct Peers:
-    Reconnects:
+weave router 1.0.2
+Our name is 72:24:c2:00:01:5a(weave-gs-02)
+Encryption off
+Peer discovery on
+Sniffing traffic on &{10 65535 ethwe ee:08:d8:0e:ec:cb up|broadcast|multicast}
+MACs:
+6a:0d:0a:55:3f:a1 -> 72:24:c2:00:01:5a(weave-gs-02) (2015-08-21 20:09:26.761668678 +0000 UTC)
+8a:2b:ec:2a:b7:0f -> a6:e9:63:3e:d2:dd(weave-gs-01) (2015-08-21 20:07:45.075079927 +0000 UTC)
+f2:86:dc:cc:9a:43 -> 72:24:c2:00:01:5a(weave-gs-02) (2015-08-21 20:09:06.151707913 +0000 UTC)
+Peers:
+a6:e9:63:3e:d2:dd(weave-gs-01) (v2) (UID 13063150984085781788)
+   -> 72:24:c2:00:01:5a(weave-gs-02) [172.17.8.102:51443]
+72:24:c2:00:01:5a(weave-gs-02) (v2) (UID 10318206013728323935)
+   -> a6:e9:63:3e:d2:dd(weave-gs-01) [172.17.8.101:6783]
+Routes:
+unicast:
+72:24:c2:00:01:5a -> 00:00:00:00:00:00
+a6:e9:63:3e:d2:dd -> a6:e9:63:3e:d2:dd
+broadcast:
+a6:e9:63:3e:d2:dd -> []
+72:24:c2:00:01:5a -> [a6:e9:63:3e:d2:dd]
+Direct Peers: 172.17.8.101
+Reconnects:
 
-    Allocator range [10.128.0.0-10.192.0.0)
-    Owned Ranges:
-      10.128.0.0 -> b2:6d:8c:74:4a:31 (weave-gs-01) (v3)
-    Allocator default subnet: 10.128.0.0/10
+Allocator range [10.128.0.0-10.192.0.0)
+Owned Ranges:
+  10.128.0.0 -> 72:24:c2:00:01:5a (weave-gs-02) (v5)
+  10.160.0.0 -> a6:e9:63:3e:d2:dd (weave-gs-01) (v2)
+Allocator default subnet: 10.128.0.0/10
 
-    weave DNS 1.0.1
-    Listen address :53
-    Fallback DNS config &{[10.0.2.3] [overplay] 53 1 5 2}
+weave DNS 1.0.2
+Listen address :53
+Fallback DNS config &{[10.0.2.3] [] 53 1 5 2}
 
-    Local domain weave.local.
-    Interface &{18 65535 ethwe 4e:60:c7:bd:20:0c up|broadcast|multicast}
-    Zone database:
+Local domain weave.local.
+Interface &{14 65535 ethwe 6a:0d:0a:55:3f:a1 up|broadcast|multicast}
+Zone database:
 
-## Our Hello World Service ##
+~~~
 
-Next you will use Weave to run a Docker image containing an Apache webserver.  Details on how this container was created using docker are available [here](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/DockerfileREADME.md).
+## Deploying the Hello World Service ##
+
+Next, use Weave to run a Docker image containing an Apache webserver.  Details on how this container was created using docker are available [here](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/DockerfileREADME.md).
 
 On `weave-gs-01` run
 
-    sudo weave run --name=web1 -t -i fintanr/weave-gs-simple-hw
+~~~bash
+sudo weave run --name=web1 -t -i fintanr/weave-gs-simple-hw
+~~~
 
-At this point you have a running Apache server in a Docker container.
+You now have a running Apache server in a Docker container. To view it: 
 
-### What has happened?
+~~~bash
+sudo docker ps
+~~~
 
-Weave has launched a pre-built Docker image containing an Apache
-webserver, given it the name "web1", and assigned it an IP
-address. The Docker image you are using has been downloaded from the
+### What Just Happened?
+
+Weave launched a pre-built Docker image containing an Apache webserver, named it "web1", and assigned it an IP address. The Docker image you are using has been downloaded from the
 [Docker Hub](https://hub.docker.com/).
 
 The container is registered with Weave and is accessible to other containers registered with Weave across multiple hosts.
 
 ### Creating our client container
 
-Next you want to create a container on your second host and connect to the webserver in the container on our first host. We will use another prebuilt container, `fintanr/weave-gs-ubuntu-curl` for this example. Containers return a container ID which you will capture to use further on in this example. On `weave-gs-02` run
+Next you want to create a container on your second host and connect to the webserver in the container on our first host. We will use another prebuilt container, `fintanr/weave-gs-ubuntu-curl` for this example. 
+
+Containers return a container ID which you will capture to use further on in this example. 
+
+On `weave-gs-02` run:
 
     CONTAINER=`sudo weave run -t -i fintanr/weave-gs-ubuntu-curl`
 
@@ -175,18 +217,25 @@ with the addition of curl.
 First attach to your Docker container using the `CONTAINER` value we captured earlier
 
     sudo docker attach $CONTAINER
+    
+You may need to press return a few times to see the container prompt, and when you do enter:
 
     curl http://web1
 
-And you will see a JSON string similar too
+And you will see the JSON string return the following:
 
     {
         "message" : "Hello World",
         "date" : "2015-02-16 15:02:57"
     }
 
-Now you can exit from the container. As you have finished the command that the container was running (in this case `/bin/bash`) the container also exits.
+Exit from the container by typing `exit`. And since you finished the command in which the container was running (in this case `/bin/bash`), the container also exits.
 
 ## Summary ##
 
-You have now used Weave to quickly deploy an application across two hosts using containers.
+In this example, we deployed a simple application, that returns a message from a running Apache Server. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using {{ Weave Run }}, so that applications are able to communicate with one another. 
+
+## Further Reading
+
+ * [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
+ * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)

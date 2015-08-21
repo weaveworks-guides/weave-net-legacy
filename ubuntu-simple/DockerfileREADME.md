@@ -1,9 +1,11 @@
 # Getting started with Weave and Docker on Ubuntu - Dockerfile #
 
-For our getting started with Weave and Docker on Ubuntu guide we created a small docker image, `fintanr/weave-gs-simple-hw`.  We have included the Dockerfile we used for creating this Docker image in our repo. While this is a very simple example it demonstrates how easy it is to create Docker images.
+For this _Getting Started with Weave and Docker on Ubuntu Guide_ we created a small docker image, `fintanr/weave-gs-simple-hw` and also included the Dockerfile that was used to create this Docker image. 
+
+While this is a very simple example, it demonstrates how easy it is to create Docker images.
 
 ```bash
-MAINTAINER    fintan@weave.works
+MAINTAINER    ilya@weave.works
 FROM          ubuntu
 RUN           apt-get -y update
 RUN           apt-get -y install apache2
@@ -22,10 +24,10 @@ A quick explanation of the Dockerfile
 - `ADD` - add a file to the docker image you are creating
 - `CMD` - a command or commands to run when the docker image is launched
 
-As you can see here we are using the Ubuntu Docker image as our basis, updating this image, installing and configuring `apache2` and `php`. We then copy a new default Apache page into place. Finally when a container is launched with this image we start an Apache webserver.
+As you can see, the Ubuntu Docker image is used as our basis, updating this image, installing and configuring `apache2` and `php`. We then copy a new default Apache page into place. Finally when a container is launched with this image we start an Apache webserver.
 
 The Docker documentation provides a lot more detail on [building docker images](https://docs.docker.com/reference/builder/)
 
-If you have worked through the steps in this guide you will find that this Dockerfile has been placed in the `/home/vagrant` directory on each host you created earlier. 
+If you have worked through the steps in this guide you will find the Dockerfile in the `/home/vagrant` directory on each host you created. 
 
-As an experiment you could review the building docker images documentation and create your own Ubuntu docker image with curl similar to the image we installed in the guide.
+Try reviewing the docker images documentation and then create your own Ubuntu docker image using curl, similar to the image we installed in the guide.
