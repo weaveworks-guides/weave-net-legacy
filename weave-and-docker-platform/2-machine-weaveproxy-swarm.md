@@ -1,13 +1,13 @@
 ---
 layout: guides
-title: "Creating Distributed Apps with Weave and Docker"
-permalink: /guides/weave-and-docker-platform/machine-and-swarm-with-weave-proxy.html
-tags: docker, machine, swarm, cli, virtualbox, dns, ipam, proxy, hello-weave-app
+title: "Using Weave with Docker Machine and Swarm"
+permalink: /guides/weave-and-docker-platform/using-weave-with-machine-and-swarm.html
+description: Using weave net and weave run with docker machine and docker swarm
+tags: weave, docker, docker machine, swarm, cli, virtualbox, dns, ipam, weaveproxy
 ---
 
 {% include product-vars %}
 
-### ***Using Weave with Docker Machine and Swarm***
 
 > - Part 1: [Launching Weave Net with Docker Machine][ch1]
 > - **Part 2: Using Weave with Docker Machine and Swarm**
@@ -297,6 +297,6 @@ You can easily adapt these examples and use them as a templates in your own impl
 [step2]: https://github.com/weaveworks/guides/blob/d6c3b28061d40774818734dee915fd829b93e6bf/weave-and-docker-platform/scripts/2-weave-launch.sh
 [step3]: https://github.com/weaveworks/guides/blob/d6c3b28061d40774818734dee915fd829b93e6bf/weave-and-docker-platform/scripts/3-replace-swarm-agents.sh
 
-[ch1]: /guides/weave-and-docker-platform/machine.html
-[ch2]: /guides/weave-and-docker-platform/machine-and-swarm-with-weave-proxy.html
+[ch1]: /guides/weave-and-docker-platform/weavenetwork.html
+[ch2]: /guides/weave-and-docker-platform/using-weave-with-machine-and-swarm.html
 [ch3]: /guides/weave-and-docker-platform/compose-scalable-swarm-cluster-with-weave.html

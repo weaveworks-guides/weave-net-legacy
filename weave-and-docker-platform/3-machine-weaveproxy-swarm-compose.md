@@ -1,13 +1,12 @@
 ---
 layout: guides
-title: "Creating Distributed Apps with Weave and Docker"
+title: "Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave"
 permalink: /guides/weave-and-docker-platform/compose-scalable-swarm-cluster-with-weave.html
-tags: docker, machine, swarm, compose, cli, virtualbox, dns, ipam, proxy, python, flask, redis
+description: creating a multihost docker deployment using weave net and weave run with docker compose and docker swarms
+tags: weave net, docker, machine, swarm, compose, cli, virtualbox, dns, ipam, weaveproxy, python, flask, redis
 ---
 
 {% include product-vars %}
-
-> ### ***Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave***
 
 > - Part 1: [Launching Weave Net with Docker Machine][ch1]
 > - Part 2: [Using Weave with Docker Machine and Swarm][ch2]
@@ -198,6 +197,6 @@ You can easily adapt these examples and use them as a templates in your own impl
   *  [Automatic IP Address Management](https://github.com/weaveworks/weave/blob/master/site/ipam.md)
 
 
-[ch1]: /guides/weave-and-docker-platform/machine.html
-[ch2]: /guides/weave-and-docker-platform/machine-and-swarm-with-weave-proxy.html
+[ch1]: /guides/weave-and-docker-platform/weavenetwork.html
+[ch2]: /guides/weave-and-docker-platform/using-weave-with-machine-and-swarm.html
 [ch3]: /guides/weave-and-docker-platform/compose-scalable-swarm-cluster-with-weave.html

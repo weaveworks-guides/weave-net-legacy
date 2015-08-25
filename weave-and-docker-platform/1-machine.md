@@ -1,13 +1,13 @@
 ---
 layout: guides
-title: "Creating Distributed Apps with Weave and Docker"
-permalink: /guides/weave-and-docker-platform/machine.html
-tags:weave network, docker, docker machine, cli, virtualbox, dns, ipam
+title: "Launching Weave Net with Docker Machine"
+permalink: /guides/weave-and-docker-platform/weavenetwork.html
+description: Launching a weave network to manage your distributed containerized applications
+tags: weave network, docker, docker machine, cli, virtualbox, dns, ipam
 ---
 
 {% include product-vars %}
 
-### ***Launching Weave Net with Docker Machine***
 
 > - **Part 1: Launching Weave Net with Docker Machine**
 > - Part 2: [Using Weave with Docker Machine and Swarm][ch2]
@@ -21,7 +21,7 @@ With Weave you focus on developing your application, rather than your infrastruc
 
 [Docker Machine](https://docs.docker.com/machine/) makes it simple to create Docker hosts (VMs) on your computer, on cloud providers or within your own data center. It creates servers, installs Docker on them, then it configures the Docker client to talk to them.
 
-In this Part 1 of _'Creating Distributed Apps with Weave and Docker'_ you will be introduced to the basics of launching a container network with Weave.
+In this Part 1 of _'Launching Weave Net with Docker Machine'_ you will be introduced to the basics of launching a container network with Weave.
 
 Specifically, you will:
 
@@ -54,7 +54,6 @@ For other operating systems, you will need to install and configure the followin
 ## Let's go!
 
 First, install the `weave` command. Note that if you don't have ownership of the `/usr/local/bin` directory, you may need to preface these commands with `sudo`:
-
 
 ~~~bash
 curl -L git.io/weave -o /usr/local/bin/weave
@@ -215,6 +214,6 @@ You can easily adapt these examples and use them as templates in your own implem
   *  [Docker API](https://github.com/weaveworks/weave/blob/master/site/proxy.md)
   *  [TLS Settings](https://docs.docker.com/articles/https/)
 
-[ch1]: /guides/weave-and-docker-platform/machine.html
-[ch2]: /guides/weave-and-docker-platform/machine-and-swarm-with-weave-proxy.html
+[ch1]: /guides/weave-and-docker-platform/weavenetwork.html
+[ch2]: /guides/weave-and-docker-platform/using-weave-with-machine-and-swarm.html
 [ch3]: /guides/weave-and-docker-platform/compose-scalable-swarm-cluster-with-weave.html
