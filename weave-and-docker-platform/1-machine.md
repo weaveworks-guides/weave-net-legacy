@@ -84,7 +84,6 @@ Now launch the Weave network and automatically launch the Docker API proxy:
 weave launch
 ~~~
 
-
 Next set up the weave environment for the Docker API proxy:
 
 ~~~bash
@@ -102,9 +101,9 @@ Running `weave launch` automatically configures your network. Launch starts {{ w
 Both {{ weavedns }} and {{ weaveproxy }} services can be started and stopped independently, if required.
 See [Docker API Proxy](https://github.com/weaveworks/weave/blob/master/site/proxy.md) for more information about the Docker API.
 
-### Launching {{ weaveproxy }} if You are Running OS X
+### Launching {{ weaveproxy }} if You are Running OSX
 
-If you are using OS X, you will need to get the TLS settings from the Docker daemon on the host:
+If you are using OSX, you will need to get the TLS settings from the Docker daemon on the host:
 
 ~~~bash
 tlsargs=$(docker-machine ssh weave-1 \
@@ -161,15 +160,7 @@ docker run -e 'affinity:container!=pingme' --name=pinger -ti \
         gliderlabs/alpine sh -l
 ~~~
 
-Check to see that {{ weavedns }} has registered them:
-
-~~~bash
-weave status
-~~~
-
-### Interacting with Containerized Apps
-
-First ping one of the containers using `docker exec` command:
+First ping one of the containers:
 
 ~~~bash
 pinger:/# ping -c3 pingme.weave.local
