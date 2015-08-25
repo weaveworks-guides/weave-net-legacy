@@ -5,8 +5,8 @@
 Weave allows you to focus on developing your application, rather than your infrastructure.
 
 In this example we will demonstrate how Weave allows you to quickly deploy a microservice
-based application, developed in Spring with simple service discovery using WeaveRun. No modifications 
-are required to your application. 
+based application, developed in Spring with simple service discovery using WeaveRun. No modifications
+are required to your application.
 
 We have derived this example from the official [_'Spring Boot with Docker'_](https://spring.io/guides/gs/spring-boot-docker/) guide.
 
@@ -22,7 +22,7 @@ We have derived this example from the official [_'Spring Boot with Docker'_](htt
 
 ## What you will need to complete this guide ##
 
-This getting started guide is self contained. You will use Weave, Spring, Docker and Ubuntu, and we make use 
+This getting started guide is self contained. You will use Weave, Spring, Docker and Ubuntu, and we make use
 of VirtualBox and Vagrant to allow you to run this entire getting started guide on your personal system.
 
 * 15 minutes
@@ -34,51 +34,51 @@ of VirtualBox and Vagrant to allow you to run this entire getting started guide 
 You will use Weave to provide service discovery for a simple Spring based application. Your containers
 are all launched using standard docker commands, with no special invocations or code modifications required.
 
-## Configuring and setting up your hosts ## 
+## Configuring and setting up your hosts ##
 
 All of the code for this example is available on [github](http://github.com/weaveworks/buides), and you first clone the getting started repository.
 
-```bash
+~~~bash
 git clone http://github.com/weaveworks/guides
-```
+~~~
 
 You will use Vagrant to setup and configure an Ubuntu host, install Docker and other components needed for this demo. We make use of Vagrant's functionality to download the base docker images we will be using, and we then install Weave. If you would like to work through the installation steps please review our [getting started guide](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/README.md) for a more manual example.
 
-```bash
+~~~bash
 cd guides/spring-boot-weave-service-discovery
 vagrant up
-```
+~~~
 
 Vagrant will pull down and configure an Ubuntu image, this may take a few minutes depending on the speed of your network connection. For more details on Vagrant please refer to the [Vagrant documentation](http://vagrantup.com). If you are thinking about a cup of coffee, now may be a good point to get one.
 
 Once the setup of the host is complete you can check its status with
 
-```bash
+~~~bash
 vagrant status
-```
+~~~
 
 The IP addresses we use for this demo are
 
-```bash
+~~~bash
 172.17.8.101    weave-gs-01
-```
+~~~
 
 ## Introducing WeaveDNS ##
 
-[WeaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html) answers name queries in a Weave network. WeaveDNS provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. 
+[WeaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html) answers name queries in a Weave network. WeaveDNS provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names.
 
 ## Introducting Weave Automatic IP Address Management ##
 
-[Weave Automatic IP Address Management (IPAM)](http://docs.weave.works/weave/latest_release/ipam.html) automatically assigns containers IP addresses that are unique across the network. Weave IPAM allows you to easily add more containers to your network and takes care of ensuring each container has a unique IP so you don't have too.  
+[Weave Automatic IP Address Management (IPAM)](http://docs.weave.works/weave/latest_release/ipam.html) automatically assigns containers IP addresses that are unique across the network. Weave IPAM allows you to easily add more containers to your network and takes care of ensuring each container has a unique IP so you don't have too.
 
 ## Launching Weave for our example ##
 
-In order to start our example we first first lauch Weave on our host. 
+In order to start our example we first first lauch Weave on our host.
 
-```bash
-vagrant ssh weave-gs-01 
+~~~bash
+vagrant ssh weave-gs-01
 weave launch && weave launch-dns && weave launch-proxy
-```
+~~~
 
 ## What has happened ##
 
@@ -86,7 +86,7 @@ At this point you have launched Weave on your host, and created an overlay netwo
 
 Logging into your host and typing `weave status` will give you output similar to below
 
-```bash
+~~~bash
 vagrant@weave-gs-02:~$ weave status
 weave router 1.0.2
 Our name is fe:7f:a5:4f:44:02(weave-gs-02)
@@ -123,53 +123,53 @@ Zone database:
 
 
 weave proxy is running
-```
+~~~
 
 ## Launching our Containers ##
 
 Next we launch our spring container on our host. Our spring container is a very simple Hello World
-application. If you wish to build the container your self please refer to the README in the demo 
-directory. 
+application. If you wish to build the container your self please refer to the README in the demo
+directory.
 
 As we have enabled both WeaveDNS and Weaves Automatic IP Address Management we only need to provide
 the name of our container and the hostname we wish to use. You will notice that we use the same
 hostname on each container. WeaveDNS automatically detects this DNS requests
 
-```bash
+~~~bash
 vagrant ssh weave-gs-01
 eval $(weave proxy-env)
-docker run -d -h spring-hello.weave.local fintanr/sd-weave-spring 
-docker run -d -h spring-hello.weave.local fintanr/sd-weave-spring 
-```
+docker run -d -h spring-hello.weave.local fintanr/sd-weave-spring
+docker run -d -h spring-hello.weave.local fintanr/sd-weave-spring
+~~~
 
 ## What has happened ##
 
 At this point you have launched your microservice, but without needing it to register
 with any service discovery mechanism. Weave takes care of all of this behind the scenes for you
-and your application is now accessible to any port 
+and your application is now accessible to any port
 
 ## Connecting to your application ##
 
 Next we will launch a container with curl on the same network, and from there
 
-```bash
+~~~bash
 vagrant ssh weave-gs-01
 eval $(weave proxy-env)
 CONTAINER=$(docker run -d -ti -h ubuntu.weave.local fintanr/weave-gs-ubuntu-curl)
 docker exec -ti $CONTAINER "/bin/bash"
-``` 
+~~~
 
 In this container lets connect to our endpoint, and make a request to our spring-hello service.
 
-```bash
+~~~bash
 curl spring-hello.weave.local
-```
+~~~
 
 This will give you output such as
 
-```bash
+~~~bash
 Hello, Weave!
-```
+~~~
 
 ## Summary ##
 
