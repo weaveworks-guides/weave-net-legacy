@@ -125,7 +125,7 @@ weave launch-proxy $tlsargs
 
 See [TLS Settings](https://docs.docker.com/articles/https/) for more information about specifying these settings in a production environment.
 
-Next, set up the Weave environment to use the proxy by running:
+Next, set up weave's environment properly to use the proxy by running:
 
 ~~~bash
 eval "$(weave env)"
@@ -169,7 +169,7 @@ weave status
 
 ### Interacting with Containerized Apps
 
-First ping one of the containers:
+First ping one of the containers using `docker exec` command:
 
 ~~~bash
 pinger:/# ping -c3 pingme.weave.local
