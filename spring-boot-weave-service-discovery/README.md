@@ -45,7 +45,7 @@ git clone http://github.com/weaveworks/guides
 You will use Vagrant to setup and configure an Ubuntu host, install Docker and other components needed for this demo. We make use of Vagrant's functionality to download the base docker images we will be using, and we then install Weave. If you would like to work through the installation steps please review our [getting started guide](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/README.md) for a more manual example.
 
 ```bash
-cd guides/weave-servicediscovery-spring
+cd guides/spring-boot-weave-service-discovery
 vagrant up
 ```
 
