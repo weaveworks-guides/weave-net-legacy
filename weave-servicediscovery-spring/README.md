@@ -8,8 +8,7 @@ In this example we will demonstrate how Weave allows you to quickly deploy a mic
 based application, developed in Spring with simple service discovery using WeaveRun. No modifications 
 are required to your application. 
 
-We have derived this example from the [docker demo](https://spring.io/guides/gs/spring-boot-docker/) 
-provided by the team at [spring.io](http://spring.io).
+We have derived this example from the official [_'Spring Boot with Docker'_](https://spring.io/guides/gs/spring-boot-docker/) guide.
 
 ## What you will use ##
 
@@ -19,7 +18,7 @@ provided by the team at [spring.io](http://spring.io).
 * [Vagrant](http://vagrantup.com)
 * [Git](http://git-scm.com/downloads)
 * [Spring](http://spring.io)
-* [Java using the OpenJDK](http://openjdk.java.net/)
+* [Java](http://openjdk.java.net/)
 
 ## What you will need to complete this guide ##
 
@@ -28,8 +27,7 @@ of VirtualBox and Vagrant to allow you to run this entire getting started guide 
 
 * 15 minutes
 * [Git](http://git-scm.com/downloads)
-* [VirtualBox > 4.3.20](https://www.virtualbox.org/wiki/Downloads)
-* [Vagrant > 1.6](https://docs.vagrantup.com/v2/installation/index.html)
+* [Vagrant & VirtualBox](http://weave.works/guides/about/vagrant.html)
 
 ## What you will do ##
 
@@ -79,8 +77,7 @@ In order to start our example we first first lauch Weave on our host.
 
 ```bash
 vagrant ssh weave-gs-01 
-weave launch
-weave launch-dns; weave launch-proxy
+weave launch && weave launch-dns && weave launch-proxy
 ```
 
 ## What has happened ##
@@ -171,7 +168,7 @@ curl spring-hello.weave.local
 This will give you output such as
 
 ```bash
-Hello Weave Spring.io Example
+Hello, Weave!
 ```
 
 ## Summary ##
