@@ -1,14 +1,13 @@
 ---
 layout: guides
 title: Service Discovery and Load Balancing with Weave on Amazon's ECS
-description: Service Discovery and Load Balancing with Weave on Amazon's ECS
-keywords: weave, amazon ECS, service discovery, load balancing, software defined networking
+description: Weave Net & Run provide an easier way to run application on EC2 Container Service
 permalink: /guides/service-discovery-with-weave-aws-ecs.html
 ---
 
 ## What You Will Build
 
-Amazon container service or ECS is a scalable container management service that allows you to manage Docker containers on a cluster of Amazon EC2 instances. Weave provides a software network optimized for visualizing and communicating with apps distributed among Docker containers. Using tools and protocols that are familiar to you, Weave's network topology provides a way for you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
+[Amazon EC2 Container Service](http://aws.amazon.com/ecs/) or ECS is a scalable container management service that allows you to manage Docker containers on a cluster of Amazon EC2 instances. Weave provides a software network optimized for visualizing and communicating with apps distributed among Docker containers. Using tools and protocols that are familiar to you, Weave's network topology provides a way for you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
 
 Without Weave, setting up a containerized network within Amazon’s ECS can be a complex process. Since containers in the ECS ecosystem do not utilize the default ports, you must declare the ports your internal services will be using. Then you need to write code for the client to lookup the environment variables which map host IP addresses and the ports of those internal services. If you are running multiple identical containers on the same container instance, as you can imagine, custom port mapping can get very complex.
 
