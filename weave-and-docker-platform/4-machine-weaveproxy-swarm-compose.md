@@ -2,6 +2,7 @@
 layout: guides
 title: "4. Creating and scaling multi-host Docker deployment with Swarm and Compose using Weave"
 permalink: /guides/weave-and-docker-platform/chapter4/compose-scalable-swarm-cluster-with-weave.html
+description: How to scale and create multi-host docker deployments using Weave and Docker Swarm and Compose.
 tags: docker, machine, swarm, compose, cli, virtualbox, dns, ipam, proxy, python, flask, redis
 ---
 

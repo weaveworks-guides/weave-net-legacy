@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Getting started with Weave and Docker on CentOS
-description: Getting started with Weave and Docker on CentOS
+description: Use Weave on CentOS to communicate with your containerized applications regardless of the host. 
 keywords: weave, docker, containers, networking, software defined networking, dockerfile, centos, apache, php
 permalink: /guides/weave-docker-centos-simple.html
 ---
