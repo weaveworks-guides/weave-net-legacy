@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Using Nginx as a reverse proxy/load balancer with Weave and Docker on Amazon Web Services
-description: Using Nginx as a reverse proxy/load balancer with Weave and Docker on Amazon Web Services
+description: Using Nginx as a reverse proxy/load balancer with Weave Net and Docker on Amazon Web Services
 keywords: weave, docker, containers, networking, software defined networking, amazon web services, aws, ngnix
 permalink: /guides/weave-docker-aws-nginx-ubuntu-simple.html
 ---

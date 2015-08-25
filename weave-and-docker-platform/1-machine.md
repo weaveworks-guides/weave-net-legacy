@@ -2,6 +2,7 @@
 layout: guides
 title: "1. Using Weave with Docker Machine"
 permalink: /guides/weave-and-docker-platform/chapter1/machine.html
+description: How to manage containers with a Weave network across hosts using Docker and Docker Machine.
 tags: docker, machine, cli, virtualbox, dns, ipam, hello-weave-app
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Running a load balanced Ruby on Rails app with Weave, and Docker
-description: "Running a load balanced Ruby on Rails app with Weave, and Docker"
+description: How to use a Weave network with Ruby on Rails and a MySQL database.
 keywords: "weave, docker, containers, networking, software defined networking, ubuntu, ruby, rails, load blancing, microservices, dns, pg, postgres, postgresql"
 markdown: kramdown
 highlighter: pygments

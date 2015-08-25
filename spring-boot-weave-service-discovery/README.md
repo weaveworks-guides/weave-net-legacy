@@ -1,10 +1,9 @@
 ---
 layout: guides
 title: "Service Discovery with Weave for Dockerized Spring Apps"
-description: |
-  In this example we will demonstrate how Weave allows you to quickly deploy a containerised
+description: Use Weave to quickly deploy a containerized
   microservice based Java application, developed in Spring with simple service discovery using
-  Weave Run. No modifications are required to your application.
+  Weave Run.
 tags: weave, docker, cli, vagrant, virtualbox, dns, ipam, spring, java, ubuntu, microservices, http
 permalink: /guides/language/java/framework/spring/index.html
 

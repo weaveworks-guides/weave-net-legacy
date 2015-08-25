@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Using Nginx as a reverse proxy/load balancer with Weave and Docker
-description: Using Nginx as a reverse proxy/load balancer with Weave and Docker
+description: How to use Nginx as a reverse proxy/load balancer with Weave and Docker
 keywords: weave, docker, containers, networking, software defined networking, ubuntu, nginx, load balancing, microservices, dns
 permalink: /guides/weave-docker-nginx-ubuntu-simple.hmtl
 ---

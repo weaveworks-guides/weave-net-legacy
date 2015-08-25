@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Deploying a containerized app with Weave on AWS using Ansible
-description: Deploying a containerized app with Weave on AWS using Ansible
+description: How to deploy a containerized app using Weave on Amazon Web Services using Ansible
 keywords: weave, docker, containers, networking, software defined networking, ansible, haproxy, aws, amazon web services, ubuntu
 permalink: /guides/weave-ansible-docker-haproxy-aws.html
 ---
