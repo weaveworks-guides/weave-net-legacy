@@ -2,7 +2,7 @@
 layout: guides
 title: "Creating Distributed Apps with Weave and Docker"
 permalink: /guides/weave-and-docker-platform/machine.html
-tags: docker, machine, cli, virtualbox, dns, ipam, hello-weave-app
+tags:weave network, docker, docker machine, cli, virtualbox, dns, ipam
 ---
 
 {% include product-vars %}
@@ -54,6 +54,7 @@ For other operating systems, you will need to install and configure the followin
 ## Let's go!
 
 First, install the `weave` command. Note that if you don't have ownership of the `/usr/local/bin` directory, you may need to preface these commands with `sudo`:
+
 
 ~~~bash
 curl -L git.io/weave -o /usr/local/bin/weave
