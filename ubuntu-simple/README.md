@@ -110,16 +110,18 @@ Your two hosts are now connected to each other, and any subsequent containers yo
 
 ### What Just Happened? ###
 
-Since this is the first time launched Weave you: 
+Since this is the first time launching Weave you: 
 
 * downloaded a docker image for the Weave router container and then launched that container
 * downloaded a docker image for `weavedns` and then launched that container
 
 On host, `weave-gs-01`, the Weave router container was launched. On host, `weave-gs-02`, an additional Weave router container with the IP address of your first host was launched. Launching Weave with the IP address of the first container, informs Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
 
-In addition to these 2 weavedns service discovery containers were also launched. 
+In addition to these two weavedns service discovery containers were also launched. 
 
-At this point you should have 2 Weave containers running on each host. To see them, run the following command from either host:
+At this point you should have two Weave containers running on each host. 
+
+To see them, run the following command from either host:
 
 ~~~bash
 sudo docker ps
@@ -185,7 +187,7 @@ Next, use Weave to run a Docker image containing an Apache webserver.  Details o
 On `weave-gs-01` run
 
 ~~~bash
-sudo weave run --name=web1 -t -i fintanr/weave-gs-simple-hw
+sudo docker run --name=web1 -t -i fintanr/weave-gs-simple-hw
 ~~~
 
 You now have a running Apache server in a Docker container. To view it: 
@@ -196,8 +198,7 @@ sudo docker ps
 
 ### What Just Happened?
 
-Weave launched a pre-built Docker image containing an Apache webserver, named it "web1", and assigned it an IP address. The Docker image you are using has been downloaded from the
-[Docker Hub](https://hub.docker.com/).
+Weave launched a pre-built Docker image containing an Apache webserver, named it "web1", and assigned it an IP address. The Docker image you are using has been downloaded from the [Docker Hub](https://hub.docker.com/).
 
 The container is registered with Weave and is accessible to other containers registered with Weave across multiple hosts.
 
@@ -209,25 +210,25 @@ Containers return a container ID which you will capture to use further on in thi
 
 On `weave-gs-02` run:
 
-    CONTAINER=`sudo weave run -t -i fintanr/weave-gs-ubuntu-curl`
+~~~bash
+sudo docker run -t -i fintanr/weave-gs-ubuntu-curl`
+~~~
 
 The Ubuntu Docker image you are using here is the same image that we based our Apache Docker image on,
-with the addition of curl.
+with the addition of curl:
 
-First attach to your Docker container using the `CONTAINER` value we captured earlier
-
-    sudo docker attach $CONTAINER
-    
-You may need to press return a few times to see the container prompt, and when you do enter:
-
-    curl http://web1
+~~~bash
+curl http://web1
+~~~
 
 And you will see the JSON string return the following:
 
-    {
-        "message" : "Hello World",
-        "date" : "2015-02-16 15:02:57"
-    }
+~~~bash
+{
+  "message" : "Hello World",
+  "date" : "2015-02-16 15:02:57"
+}
+~~~
 
 Exit from the container by typing `exit`. And since you finished the command in which the container was running (in this case `/bin/bash`), the container also exits.
 

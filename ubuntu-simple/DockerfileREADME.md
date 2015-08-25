@@ -5,7 +5,7 @@ For this _Getting Started with Weave and Docker on Ubuntu Guide_ we created a sm
 While this is a very simple example, it demonstrates how easy it is to create Docker images.
 
 ```bash
-MAINTAINER    ilya@weave.works
+MAINTAINER    help@weave.works
 FROM          ubuntu
 RUN           apt-get -y update
 RUN           apt-get -y install apache2
