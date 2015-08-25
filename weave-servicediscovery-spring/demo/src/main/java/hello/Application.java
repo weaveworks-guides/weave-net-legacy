@@ -11,7 +11,7 @@ public class Application {
 
 	@RequestMapping("/")
 	public String home() {
-		return "Hello Weave Spring.io Example";
+		return "Hello, Weave!";
 	}
 
 	public static void main(String[] args) {
