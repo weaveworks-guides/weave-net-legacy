@@ -4,6 +4,7 @@ title: "Using Weave with Apache Mesos & Marathon on CentOS"
 description:
   How-to use Weave Net & Weave Run with Apache Mesos & Marathon for DNS service discovery
   and load balancing.
+tags: mesos, marathon, load-balancing, dns, vagrant, centos, systemd
 permalink: /guides/platform/mesos-marathon/os/centos/cloud/vagrant/index.html
 ---
 

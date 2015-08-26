@@ -1,8 +1,8 @@
 ---
 layout: guides
 title: Running a load balanced Ruby on Rails app with Weave, and Docker
-description: How to use a Weave network with Ruby on Rails MySQL database-backed application.
-keywords: "weave, docker, containers, networking, software defined networking, ubuntu, ruby, rails, load blancing, microservices, dns, pg, postgres, postgresql"
+description: How to use a Weave network with Ruby on Rails PostgreSQL database-backed application.
+tags: ubuntu, ruby, rails, load-blancing, microservices, dns, postgres
 markdown: kramdown
 highlighter: pygments
 ---
@@ -14,7 +14,7 @@ Weave allows you to focus on developing your application, rather than
 your infrastructure.
 
 In this example we will set up a simple, containerized deployment of a
-Ruby on Rails application, backed by a standard MySQL database.
+Ruby on Rails application, backed by a standard PostgreSQL database.
 
 We will use
 [WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme)

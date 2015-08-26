@@ -2,7 +2,7 @@
 layout: guides
 title: Deploying a containerized app with Weave on AWS using Ansible
 description: How to deploy a containerized app using Weave on Amazon Web Services using Ansible
-keywords: weave, docker, containers, networking, software defined networking, ansible, haproxy, aws, amazon web services, ubuntu
+tags: ansible, haproxy, aws, ubuntu, php
 permalink: /guides/weave-ansible-docker-haproxy-aws.html
 ---
 
@@ -11,7 +11,7 @@ permalink: /guides/weave-ansible-docker-haproxy-aws.html
 Weave allows you to focus on developing your application, rather than your infrastructure.
 
 In this example we will demonstrate how Weave allows you to quickly and easily deploy HAProxy as
-a load balancer for a simple php application running in containers on multiple nodes in [Amazon
+a load balancer for a simple PHP application running in containers on multiple nodes in [Amazon
 Web Services](http://aws.amazon.com), with no modifications to the application and minimal docker
 knowledge.
 
@@ -48,8 +48,8 @@ It may be helpful to have the [AWS CLI](http://docs.aws.amazon.com/cli/latest/us
 
 You will use Weave and Ansible to
 
-* Launch two ec2 instances with Weave and Docker installed on Ubuntu
-* Start a number of containers on each ec2 instance and place a HAProxy container in front of them
+* Launch two EC2 instances with Weave and Docker installed on Ubuntu
+* Start a number of containers on each EC2 instance and place a HAProxy container in front of them
 
 You will then connect to your public facing HAProxy container.
 
@@ -92,7 +92,7 @@ This ansible playbook will take four to five minutes to complete. When you execu
 ## What has happened ##
 
 You have created a private key for use with AWS and a security group, weavedemo, to run your instances in.
-You have then started two ec2 instances with Ubuntu, updated your image and installed Docker and Weave.
+You have then started two EC2 instances with Ubuntu, updated your image and installed Docker and Weave.
 
 ## Using Ansible and Weave to launch our containerized App ##
 
@@ -109,8 +109,8 @@ This ansible playbook will take a few minutes to complete. When you execute this
 
 ## What has happened ##
 
-You firstly started Weave and WeaveDNS on each ec2 instance, which creates an overlay network between the hosts.
-You then used weave to launch three docker containers on each ec2 instance running our simple php application,
+You firstly started Weave and WeaveDNS on each EC2 instance, which creates an overlay network between the hosts.
+You then used weave to launch three docker containers on each EC2 instance running our simple PHP application,
 followed by launching HAProxy.
 
 ## Connecting to your application ##

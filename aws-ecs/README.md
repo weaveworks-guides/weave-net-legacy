@@ -2,6 +2,7 @@
 layout: guides
 title: Service Discovery and Load Balancing with Weave on Amazon ECS
 description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
+tags: aws, load-balancing, dns, packer, ecs, amazon-linux, microservices
 permalink: /guides/service-discovery-with-weave-aws-ecs.html
 ---
 

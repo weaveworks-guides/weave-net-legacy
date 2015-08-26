@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Load Balancing Using Weave
-keywords: weave, docker, containers, networking, software defined networking, ubuntu, load balancing, microservices, dns
+tags: vagrant, ubuntu, load-balancing, microservices, dns
 permalink: /guides/weave-docker-loadbalancing-simple.html
 ---
 

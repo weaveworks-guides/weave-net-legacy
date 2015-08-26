@@ -2,7 +2,7 @@
 layout: guides
 title: Getting started with Weave and Docker on CentOS
 description: Use Weave on CentOS to communicate with your containerized applications regardless of the host. 
-keywords: weave, docker, containers, networking, software defined networking, dockerfile, centos, apache, php
+tags: vagrant, centos, apache, php
 permalink: /guides/weave-docker-centos-simple.html
 ---
 
@@ -40,7 +40,7 @@ You will use vagrant to setup and configure two CentOS hosts and install Docker.
     cd guides/centos-simple
     vagrant up
 
-Vagrant will pull down and configure an ubuntu image, this may take a few minutes depending on  the speed of your network connection. For more details on Vagrant please refer to the [Vagrant documentation](http://vagrantup.com).
+Vagrant will pull down and configure a CentOS image, this may take a few minutes depending on  the speed of your network connection. For more details on Vagrant please refer to the [Vagrant documentation](http://vagrantup.com).
 
 You may be prompted for a password when `/etc/hosts` is being updated during the Vagrant setup, please just hit return at this point.
 
