@@ -183,5 +183,5 @@ vagrant up mesos-02 mesos-03
 
 ###Conclusion
 
-In this guide, we described how to use Weave with Apache Mesos and its Marathon framework. We configured and installed the infrastructure using Vagrant on CentOS. You can easily adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](help@weave.works) or [Twitter](https://twitter.com/weaveworks).
+In this guide, we described how to use Weave with Apache Mesos and its Marathon framework. We configured and installed the infrastructure using Vagrant on CentOS. You can easily adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](mailto:help@weave.works) or [Twitter](https://twitter.com/weaveworks).
 
