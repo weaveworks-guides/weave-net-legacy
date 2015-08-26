@@ -10,7 +10,7 @@ permalink: /guides/service-discovery-with-weave-aws-ecs.html
 
 [Amazon EC2 container service](http://aws.amazon.com/ecs/) or ECS is a scalable container management service that allows you to manage Docker containers on a cluster of Amazon EC2 instances. Weave provides a software network optimized for visualizing and communicating with apps distributed among Docker containers. Using tools and protocols that are familiar to you, Weave's network provides a way for you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
 
-Weave simplifies setting up a container network within the Amazon EC2 Container Service. Because Weave uses standard ports, for example, you could expose MySQL port 3306 on the Weave network, managing containers is straight forward. . Launching a Weave network requires no custom code. In addition to using standard, default TCP ports, Weave looks up IP addresses in DNS and it works across hosts using only hostnames to find other containers.
+Weave simplifies setting up a container network within the Amazon EC2 Container Service. Because Weave uses standard ports, for example, you could expose MySQL port 3306 on the Weave network, managing containers is straight forward. In addition to using default TCP ports, Weave looks up IP addresses in DNS and works across hosts using only hostnames to find other containers without the need for custom code.
 
 An advantage to using DNS is that when you set a hostname within a config file, you are not required to have a script in place to generate the hostname based on input variables. You can also optionally burn the config file with the hostname right into the container image.
 
