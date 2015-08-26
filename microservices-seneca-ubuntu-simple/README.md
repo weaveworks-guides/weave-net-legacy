@@ -31,8 +31,7 @@ This getting started guide is self contained. You will use Weave, Docker, Node.j
 
 * 15 minutes
 * [Git](http://git-scm.com/downloads)
-* [VirtualBox > 4.3.20](https://www.virtualbox.org/wiki/Downloads)
-* [Vagrant > 1.6](https://docs.vagrantup.com/v2/installation/index.html)
+* [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
 ## A Note on Microservices ##
 

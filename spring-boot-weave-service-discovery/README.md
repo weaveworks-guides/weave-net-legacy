@@ -23,7 +23,7 @@ We have derived this example from the official [_'Spring Boot with Docker'_](htt
 * [Weave](http://weave.works)
 * [Docker](http://docker.com)
 * [Ubuntu](http://ubuntu.com)
-* [Vagrant](http://vagrantup.com)
+* [Vagrant & VirtualBox](/guides/about/vagrant.html)
 * [Git](http://git-scm.com/downloads)
 * [Spring](http://spring.io)
 * [Java](http://openjdk.java.net/)

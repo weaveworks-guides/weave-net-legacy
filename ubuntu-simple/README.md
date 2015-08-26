@@ -35,8 +35,7 @@ This example will take about 15 minutes to complete.
 You will need to install and configure the following separately before proceeding:
 
 * [Git](http://git-scm.com/downloads)
-* [VirtualBox > 4.3.20](https://www.virtualbox.org/wiki/Downloads)
-* [Vagrant > 1.6](https://docs.vagrantup.com/v2/installation/index.html)
+* [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
 ##Let's Go! ##
 

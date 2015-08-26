@@ -23,7 +23,7 @@ to demonstrate our use of round robin DNS.
 * [Weave](http://weave.works)
 * [Docker](http://docker.com)
 * [Ubuntu](http://ubuntu.com)
-* [Vagrant](http://vagrantup.com)
+* [Vagrant & VirtualBox](/guides/about/vagrant.html)
 * [Git](http://git-scm.com/downloads)
 
 ## What you will need to complete this guide ##
