@@ -20,4 +20,4 @@ vagrant ssh weave-gs-03 -c "eval \$(weave proxy-env); docker run -d --name ws6 f
 
 echo "Launching nginx"
 
-vagrant ssh weave-gs-01 -c "eval $(weave proxy-env); docker run -ti --name nginx -d -p 80:80 fintanr/weave-gs-nginx-simple"
+vagrant ssh weave-gs-01 -c "eval \$(weave proxy-env); docker run -ti --name nginx -d -p 80:80 fintanr/weave-gs-nginx-simple"

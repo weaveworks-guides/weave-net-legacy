@@ -20,8 +20,7 @@ This getting started guide is self contained. You will use Weave, Docker and Ubu
 
 * 15 minutes
 * [Git](http://git-scm.com/downloads)
-* [VirtualBox > 4.3.20](https://www.virtualbox.org/wiki/Downloads)
-* [Vagrant > 1.6](https://docs.vagrantup.com/v2/installation/index.html)
+* [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
 You are also provided with a script to setup the demo, if you would like to work through a manual example please
 see our more detailed [getting started guide](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/README.md).

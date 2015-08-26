@@ -1,0 +1,83 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+## The variables bellow can be overriden in `config.rb` file
+$mesos_slaves = 1
+$memory = 1024*2
+$cpus = 2
+$network = [172, 17, 85]
+
+CONFIG = File.join(File.dirname(__FILE__), 'config.rb')
+
+if File.exist?(CONFIG)
+  require CONFIG
+end
+
+Vagrant.configure(2) do |config|
+  config.vm.box = 'chef/centos-7.0'
+
+  vms = (0..$mesos_slaves).map{ |a| 'mesos-%02d' % [a] }
+
+  ips = {}
+
+  vms.each_with_index{ |i, x| ips[i] = ($network + [x+100]).join('.') }
+
+  vms.each_with_index do |i, x|
+
+    config.vm.define vm_name = i do |config|
+
+      config.vm.network :private_network, ip: ips[vm_name]
+
+      config.vm.provision :shell, inline: <<-SHELL
+        hostnamectl set-hostname #{vm_name}
+        echo #{ips[vm_name]} #{vm_name} >> /etc/hosts
+      SHELL
+
+      # Disable automatic box update checking. If you disable this, then
+      # boxes will only be checked for updates when the user runs
+      # `vagrant box outdated`. This is not recommended.
+      # config.vm.box_check_update = false
+
+      # Create a forwarded port mapping which allows access to a specific port
+      # within the machine from a port on the host machine. In the example below,
+      # accessing "localhost:8080" will access port 80 on the guest machine.
+      # config.vm.network "forwarded_port", guest: 80, host: 8080
+
+      config.vm.provider :virtualbox do |vb|
+        vb.gui = false
+        # vb.check_guest_additions = false
+        # vb.functional_vboxsf = false
+
+        vb.memory = $memory
+        vb.cpus = $cpus
+      end
+
+
+      ## Compile a list of IP addresses modulo one for this VM
+      weave_peers = ips.select{|host, addr| addr if host != vm_name}.values
+
+      ## Base provisioning script is like this, it's generally the same an all the nodes,
+      ## accept for the list of Weave peers being defined dynamically
+      do_provisioning = <<-SCRIPT
+        set -e
+        set -x
+        yum -q -y install docker
+        cd /vagrant
+        ./install_weave.sh
+        ./setup_and_launch_weave.sh #{weave_peers.join(' ')}
+        ./install_mesosphere_packages.sh
+      SCRIPT
+
+      ## Below is what's different denpending on the number of the machine
+      if x == 0
+        ## Master is on the head node (mesos-00)
+        do_provisioning << "./launch_mesos_master_services.sh"
+      elsif x > 0
+        ## Slaves are an all remaing nodes
+        do_provisioning << "./setup_and_launch_mesos_slave.sh zk://#{ips['mesos-00']}:2181/mesos"
+      end
+
+      config.vm.provision :shell, inline: do_provisioning
+    end
+  end
+end

@@ -2,6 +2,7 @@
 layout: guides
 title: "4. Creating and scaling multi-host Docker deployment with Swarm and Compose using Weave"
 permalink: /guides/weave-and-docker-platform/chapter4/compose-scalable-swarm-cluster-with-weave.html
+description: How to scale and create multi-host docker deployments using Weave and Docker Swarm and Compose.
 tags: docker, machine, swarm, compose, cli, virtualbox, dns, ipam, proxy, python, flask, redis
 ---
 
@@ -98,7 +99,7 @@ Now, run these 3 scripts
 ### Create
 
 First, we need build the app and make images available on each of the Docker hosts, there is a script which does this for
-you. You should simply change to the `app` direcorty and run it like this
+you. You should simply change to the `app` directory and run it like this
 
     cd ../app
     ./build.sh

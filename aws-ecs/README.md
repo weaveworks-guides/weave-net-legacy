@@ -1,8 +1,8 @@
 ---
 layout: guides
-title: Service Discovery and Load Balancing with Weave on Amazon's ECS
-description: Service Discovery and Load Balancing with Weave on Amazon's ECS
-keywords: weave, amazon ECS, service discovery, load balancing, software defined networking
+title: Service Discovery and Load Balancing with Weave on Amazon ECS
+description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
+tags: aws, load-balancing, dns, packer, ecs, amazon-linux, microservices
 permalink: /guides/service-discovery-with-weave-aws-ecs.html
 ---
 
@@ -14,7 +14,7 @@ Weave simplifies setting up a container network within the Amazon EC2 Container 
 
 An advantage to using DNS is that when you set a hostname within a config file, you are not required to have a script in place to generate the hostname based on input variables. You can also optionally burn the config file with the hostname right into the container image.
 
-With Weave there is no need to deploy extra services to achieve DNS lookup and load balancing. [Weave Run]( http://weave.works/run/) takes care of both automatic service discovery and load balancing. Because these web services are already a part of Weave, there is no need to deploy and provision additional services, therefor reducing both overhead costs and resource complexity. Weave in essence saves you time and money, and lets you focus on app development, rather than your infrastructure design.
+With Weave there is no need to deploy extra services to achieve DNS lookup and load balancing. [Weave Run](http://weave.works/run/) takes care of both automatic service discovery and load balancing. Because these web services are already a part of Weave, there is no need to deploy and provision additional services, therefor reducing both overhead costs and resource complexity. Weave in essence saves you time and money, and lets you focus on app development, rather than your infrastructure design.
 
 
 ###About This Example
@@ -24,7 +24,7 @@ between [containers that have been deployed to Amazon Elastic Cloud (EC2) instan
 
 Two types of containerized microservices are demonstrated in this guide: HTTP Servers and Data Producers.
 
-![overview diagram](img/overview-diagram.svg)
+![overview diagram](/guides/images/aws-ecs/overview-diagram.png)
 
 The HTTP Servers serve data produced from the Data
 Producers. This is a very common pattern in practise, but its implementation requires answers to the following questions:
@@ -71,7 +71,7 @@ cd guides/aws-ecs
 ## AWS-CLI Configuration
 
 Make sure AWS-CLI is set to use a region where Amazon ECS is available
-(`us-east-1`, `us-west-2`, `eu-west-1`, `ap-northeast-1` or `ap-southeast-2` at
+(`us-east-1`, `us-west1`, `us-west-2`, `eu-west-1`, `ap-northeast-1` or `ap-southeast-2` at
 the time of writing this guide). See [Regions & Endpoints documentation at Amazon Web Service](http://docs.aws.amazon.com/general/latest/gr/rande.html) for more information.
 
 View AWS-CLI's configuration with
@@ -85,6 +85,9 @@ and modify it by running:
 ~~~bash
 aws configure
 ~~~
+
+Also, please make sure your AWS account has administrative privileges to be able
+to configure this demonstration.
 
 ## Automatic Setup & Configuration
 
@@ -134,7 +137,7 @@ The three URLs shown above communicates via your browser with the HTTP Server co
 
 This is what you should see:
 
-![httpserver's output](img/httpserver.png)
+![httpserver's output](/guides/images/aws-ecs/httpserver.png)
 
 Reload your browser to force the HTTP Server to refresh its Data Provider address list (generated randomly by `weavedns`), balancing the load between the EC2 instances.
 
@@ -147,7 +150,8 @@ Container `dataproducer`:
 
 ~~~bash
 while true; do
-  echo 'Hi, this is the data producer in' `hostname -i` | nc -q 0 -l -p 4540
+  IP=`hostname -i | awk '{ print $1 }'`
+  echo "Hi, this is the data producer in $IP" | nc -q 0 -l -p 4540
 done
 ~~~
 
@@ -166,7 +170,7 @@ done
 Note the source code shown above has been reformatted for clarity.
 
 
-![ECS and Weave Diagram](img/ecs+weave-diagram.svg)
+![ECS and Weave Diagram](/guides/images/aws-ecs/ecs+weave-diagram.png)
 
 When ECS launches a container, the call to Docker is intercepted by weaveproxy,
 and an address is assigned using weave's automatic IP allocation, then the container is registered with the weavedns service and it is attached to the weave network. Weavedns registers A-records based on the container's name:
@@ -256,6 +260,12 @@ To clean up this demonstration run:
 ./cleanup.sh
 ~~~
 
+This script works even if something goes wrong while configuring the
+demonstration (e.g. if `setup.sh` didn't finish due to missing AWS
+permissions). If that was the case, `cleanup.sh` may output some errors when
+trying to destroy resources which weren't created, you can simply disregard
+them.
+
 ##Manual Setup
 
 To manually reproduce what `./setup.sh` does
@@ -309,11 +319,12 @@ aws iam add-role-to-instance-profile --instance-profile-name weave-ecs-instance-
 
 Choose a Weave ECS AMI depending on your configured region:
 
-* `us-east-1` -> `ami-97b86afc`
-* `us-west-2` -> `ami-69d3de59`
-* `eu-west-1` -> `ami-d26d25a5`
-* `ap-northeast-1` -> `ami-083b8f08`
-* `ap-southeast-2` -> `ami-1d80c627`
+* `us-east-1` -> `ami-df3687b4`
+* `us-west-1` -> `ami-bfec15fb`
+* `us-west-2` -> `ami-cdc1d5fd`
+* `eu-west-1` -> `ami-3ecc9349`
+* `ap-northeast-1` -> `ami-4c2aae4c`
+* `ap-southeast-2` -> `ami-57793b6d`
 
 
 and then execute the command below by replacing `XXXX` with the AMI of your region.
@@ -377,14 +388,7 @@ git clone http://github.com/weaveworks/guides
 cd guides/aws-ecs/packer
 ~~~
 
-First, build special versions `ecs-init` and `weave`. You will need to have
-Docker installed for this to work.
-
-~~~bash
-./build-ecs-init-weave.sh
-~~~
-
-Next, download an SFTP-enabled version of [Packer](https://www.packer.io/) to build
+Download an SFTP-enabled version of [Packer](https://www.packer.io/) to build
 the AMI.
 
 ~~~bash
@@ -417,7 +421,7 @@ ONLY_REGION=us-east-1 AWS_ACCSS_KEY_ID=XXXX AWS_SECRET_ACCESS_KEY=YYYY  ./build-
 You have used Weave out-of-the-box within the Amazon Container Management service or ECS and used Weave for both service discovery and load
 balancing between containers running in Amazon EC2 instances. Weave runs regardless of whether it was executed on the same or on different hosts, and can even run across completely different cloud providers if necessary. 
 
-You can easily adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](support@weave.works) or [Twitter](https://twitter.com/weaveworks).
+You can easily adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](mailto:help@weave.works) or [Twitter](https://twitter.com/weaveworks).
 
 ###Find Out More
 

@@ -1,8 +1,8 @@
 ---
 layout: guides
 title: Running a load balanced Ruby on Rails app with Weave, and Docker
-description: "Running a load balanced Ruby on Rails app with Weave, and Docker"
-keywords: "weave, docker, containers, networking, software defined networking, ubuntu, ruby, rails, load blancing, microservices, dns, pg, postgres, postgresql"
+description: How to use a Weave network with Ruby on Rails PostgreSQL database-backed application.
+tags: ubuntu, ruby, rails, load-blancing, microservices, dns, postgres
 markdown: kramdown
 highlighter: pygments
 ---
@@ -14,7 +14,7 @@ Weave allows you to focus on developing your application, rather than
 your infrastructure.
 
 In this example we will set up a simple, containerized deployment of a
-Ruby on Rails application, backed by a standard MySQL database.
+Ruby on Rails application, backed by a standard PostgreSQL database.
 
 We will use
 [WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme)
@@ -35,15 +35,14 @@ This getting started guide is self contained. You will use Weave, Docker, Rails,
 
 * 20 minutes
 * [Git](http://git-scm.com/downloads)
-* [VirtualBox > 4.3.20](https://www.virtualbox.org/wiki/Downloads)
-* [Vagrant > 1.6](https://docs.vagrantup.com/v2/installation/index.html)
+* [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
 ## Setting up our hosts ##
 
 All of the code for this example is available on github, and you first clone the getting started repository.
 
 ```bash
-$ git clone http://github.com/fintanr/weave-gs
+$ git clone http://github.com/weaveworks/guides
 ```
 
 You will use Vagrant to setup and configure three Ubuntu hosts and
@@ -51,7 +50,7 @@ install Docker. We make use of Vagrant's functionality to download the
 base docker images we will be using, and we then install Weave. If you
 would like to work through the installation steps please review our
 [getting started
-guide](https://github.com/fintanr/weave-gs/blob/master/ubuntu-simple/README.md)
+guide](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/README.md)
 for a more manual example.
 
 ```bash

@@ -3,17 +3,18 @@
 set -euo pipefail
 
 if [ -z "${AWS_ACCESS_KEY_ID+x}" -a -z "${AWS_SECRET_ACCESS_KEY+x}" ]; then
-    echo "error: both AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY need to be set"
+    echo "error: both AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY needs to be set"
     echo "usage: AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY $0"
     exit 1
 fi
 
 # Taken from http://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html
-BASE_AMIS=('us-east-1:ami-8da458e6'
-	   'us-west-2:ami-db0306eb'
-	   'eu-west-1:ami-7948320e'
-	   'ap-northeast-1:ami-fa12b7fa'
-	   'ap-southeast-2:ami-014f353b'
+BASE_AMIS=('us-east-1:ami-b540eade'
+	   'us-west-1:ami-5721df13'
+	   'us-west-2:ami-cb584dfb'
+	   'eu-west-1:ami-2aaef35d'
+	   'ap-northeast-1:ami-8aa61c8a'
+	   'ap-southeast-2:ami-5ddc9f67'
 	  )
 
 # Mimic associative arrays using ":" to compose keys and values,

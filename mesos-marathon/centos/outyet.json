@@ -1,0 +1,16 @@
+{
+  "id": "outyet",
+  "cpus": 0.2,
+  "mem": 20.0,
+  "instances": 4,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "docker.io/goexample/outyet",
+      "network": "BRIDGE",
+      "parameters": [
+        { "key": "hostname", "value": "outyet.weave.local" }
+      ]
+    }
+  }
+}

@@ -2,7 +2,7 @@
 layout: guides
 title: "3. Using Weave with Docker Machine and Swarm"
 permalink: /guides/weave-and-docker-platform/chapter3/machine-and-swarm-with-weave-proxy.html
-
+description: How to use Weave with docker machine and docker swarm to manage containers across hosts.  
 tags: docker, machine, swarm, cli, virtualbox, dns, ipam, proxy, hello-weave-app
 ---
 
@@ -68,7 +68,7 @@ people's laptops and is enough to showcase Weave. Let's give these VMs names tha
 
 ### Setting up Swarm
 
-Having 3 VMs to provision, we will need to chose one that will be our Swarm master first of all, it is natual to pick
+Having 3 VMs to provision, we will need to chose one that will be our Swarm master first of all, it is natural to pick
 `weave-1`, or, as I call it, the head node. So the flow will be like this
 
   1. create `weave-1` as a Swarm master
