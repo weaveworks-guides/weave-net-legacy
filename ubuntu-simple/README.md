@@ -208,9 +208,7 @@ The container is registered with Weave and is accessible to other containers reg
 
 ### Creating our client container
 
-Next you want to create a container on your second host and connect to the webserver in the container on our first host. We will use another prebuilt container, `fintanr/weave-gs-ubuntu-curl` for this example.
-
-Containers return a container ID which you will capture to use further on in this example.
+Next you want to create a container on your second host and connect to the `hello-app` webserver that runs on our first host. We will use a prebuilt container, `weaveworks/guide-tools` for this.
 
 On `weave-gs-02` run:
 
@@ -227,8 +225,6 @@ And you will see the JSON string return the following:
   "date" : "2015-08-21 20:15:02"
 }
 ~~~
-
-Exit from the container by typing `exit`. And since you finished the command in which the container was running (in this case `/bin/bash`), the container also exits.
 
 ## Summary ##
 
