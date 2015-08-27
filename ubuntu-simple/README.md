@@ -15,8 +15,8 @@ With Weave you focus on developing your application, rather than your infrastruc
 Specifically, in this example:
 
 1. You will create a simple application running in two containers on separate hosts.
-2. Provide a JSON message and a date, to the '_hello world service_'.
-3. Use curl to query the hello world service from the second container.
+2. Provide a JSON message and a date, to the _'Hello, World'_ service.
+3. Use curl to query the _'Hello World'_ service from the second container.
 
 ![Weave and Docker](/guides/images/Simple_Weave.png)
 
@@ -179,7 +179,7 @@ Zone database:
 
 ~~~
 
-## Deploying the Hello World Service ##
+## Deploying the _'Hello World'_ Service ##
 
 Next, use Weave to run a Docker image containing an Apache webserver.  Details on how this container was created using docker are available [here](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/DockerfileREADME.md).
 
