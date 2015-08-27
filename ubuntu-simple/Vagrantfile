@@ -10,7 +10,6 @@ Vagrant.require_version ">= 1.6.0"
 
 VAGRANTFILE_API_VERSION = "2"
 CONFIG = File.join(File.dirname(__FILE__), "config.rb")
-SIMPLE_DOCKER_APACHE = File.join(File.dirname(__FILE__), "Dockerfile-simple-apache")
 
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 
@@ -73,10 +72,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         apt-get -qqy update
         apt-get -qqy install lxc-docker
     SHELL
-
-    # for the purposes of our example we create a dockerfile to install apache
-
-    if File.exist?(SIMPLE_DOCKER_APACHE)
-        config.vm.provision "file", :source => "#{SIMPLE_DOCKER_APACHE}", :destination => "/home/vagrant/Dockerfile"
-    end 
 end
