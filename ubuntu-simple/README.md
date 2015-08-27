@@ -186,7 +186,9 @@ Next, use Weave to run a Docker image containing an Apache webserver.  Details o
 On `weave-gs-01` run
 
 ~~~bash
-root@weave-gs-01:~# docker run --name=hello-app -t -i fintanr/weave-gs-simple-hw
+root@weave-gs-01:~# docker build -t php-example /vagrant
+root@weave-gs-01:~# eval $(weave proxy-env)
+root@weave-gs-01:~# docker run -d --name=hello-app php-example
 ~~~
 
 You now have a running Apache server in a Docker container. To view it:
@@ -210,14 +212,8 @@ Containers return a container ID which you will capture to use further on in thi
 On `weave-gs-02` run:
 
 ~~~bash
-root@weave-gs-02:~# docker run -t -i fintanr/weave-gs-ubuntu-curl
-~~~
-
-The Ubuntu Docker image you are using here is the same image that we based our Apache Docker image on,
-with the addition of curl:
-
-~~~bash
-curl http://hello-app
+root@weave-gs-02:~# eval $(weave proxy-env)
+root@weave-gs-02:~# docker run weaveworks/guide-tools curl -s http://hello-app
 ~~~
 
 And you will see the JSON string return the following:
