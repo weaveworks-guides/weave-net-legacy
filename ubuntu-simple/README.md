@@ -186,7 +186,7 @@ Next, use Weave to run a Docker image containing an Apache webserver.  Details o
 On `weave-gs-01` run
 
 ~~~bash
-root@weave-gs-01:~# docker run --name=web1 -t -i fintanr/weave-gs-simple-hw
+root@weave-gs-01:~# docker run --name=hello-app -t -i fintanr/weave-gs-simple-hw
 ~~~
 
 You now have a running Apache server in a Docker container. To view it:
@@ -197,7 +197,7 @@ root@weave-gs-01:~# docker ps
 
 ### What Just Happened?
 
-Weave launched a pre-built Docker image containing an Apache webserver, named it "web1", and assigned it an IP address. The Docker image you are using has been downloaded from the [Docker Hub](https://hub.docker.com/).
+Weave launched a pre-built Docker image containing an Apache webserver, named it `hello-app`, and assigned it an IP address. The Docker image you are using has been downloaded from the [Docker Hub](https://hub.docker.com/).
 
 The container is registered with Weave and is accessible to other containers registered with Weave across multiple hosts.
 
@@ -217,7 +217,7 @@ The Ubuntu Docker image you are using here is the same image that we based our A
 with the addition of curl:
 
 ~~~bash
-curl http://web1
+curl http://hello-app
 ~~~
 
 And you will see the JSON string return the following:
