@@ -210,7 +210,7 @@ Containers return a container ID which you will capture to use further on in thi
 On `weave-gs-02` run:
 
 ~~~bash
-sudo docker run -t -i fintanr/weave-gs-ubuntu-curl`
+sudo docker run -t -i fintanr/weave-gs-ubuntu-curl
 ~~~
 
 The Ubuntu Docker image you are using here is the same image that we based our Apache Docker image on,
