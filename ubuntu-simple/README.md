@@ -52,7 +52,7 @@ cd guides/ubuntu-simple
 vagrant up
 ~~~
 
-Vagrant pulls down and configures the ubuntu images. This may take a few minutes depending on the speed of your network connection. For more information on how Vagrant works, please refer to the [Vagrant documentation](http://vagrantup.com).
+Vagrant pulls down and configures the Ubuntu images. This may take a few minutes depending on the speed of your network connection. For more information on how Vagrant works, please refer to the [Vagrant documentation](http://vagrantup.com).
 
 You may be prompted for a password when `/etc/hosts` is being updated during the Vagrant setup. You can bypass this step by pressing return.
 
