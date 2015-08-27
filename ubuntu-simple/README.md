@@ -71,38 +71,38 @@ The IP addresses we use for this demo are:
 
 ## Installing Weave ##
 
-Now install Weave on each host:
+Now install Weave on each host (you should [use two terminals](http://weave.works/guides/about/vagrant.html#general-usage-pattern) for this):
 
 ~~~bash
 vagrant ssh weave-gs-01
-sudo curl -L git.io/weave -o /usr/local/bin/weave
-sudo chmod a+x /usr/local/bin/weave
+vagrant@weave-gs-01:~$ sudo -s
+root@weave-gs-01:~# curl -L git.io/weave -o /usr/local/bin/weave
+root@weave-gs-01:~# chmod a+x /usr/local/bin/weave
 ~~~
 
 ~~~bash
 vagrant ssh weave-gs-02
-sudo curl -L git.io/weave -o /usr/local/bin/weave
-sudo chmod a+x /usr/local/bin/weave
+vagrant@weave-gs-02:~$ sudo -s
+root@weave-gs-01:~# curl -L git.io/weave -o /usr/local/bin/weave
+root@weave-gs-01:~# chmod a+x /usr/local/bin/weave
 ~~~~
 
 We provide the commands to install Weave as part of this getting started guide, but in practice you could automate this step for each host.
 
 ## Using Weave ##
 
-Next start Weave on each host and create a peer connection:
+Next start Weave on each host and create a peer connection :
 
 On host `weave-gs-01`
 
 ~~~bash
-sudo weave launch
-sudo weave launch-dns
+root@weave-gs-01:~# weave launch 172.17.8.102 && weave launch-dns && weave launch-proxy
 ~~~
 
 On host `weave-gs-02`
 
 ~~~bash
-sudo weave launch 172.17.8.101
-sudo weave launch-dns
+root@weave-gs-02:~# weave launch 172.17.8.101 && weave launch-dns && weave launch-proxy
 ~~~
 
 Your two hosts are now connected to each other, and any subsequent containers you launch with Weave will be visible to any other containers that the Weave network is aware of.
@@ -112,32 +112,32 @@ Your two hosts are now connected to each other, and any subsequent containers yo
 Since this is the first time launching Weave you:
 
 * downloaded a docker image for the Weave router container and then launched that container
-* downloaded a docker image for `weavedns` and then launched that container
+* downloaded a docker image for {{ weavedns }} and then launched that container
 
 On host, `weave-gs-01`, the Weave router container was launched. On host, `weave-gs-02`, an additional Weave router container with the IP address of your first host was launched. Launching Weave with the IP address of the first container, informs Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
 
-In addition to these two weavedns service discovery containers were also launched.
+In addition to these two {{ weavedns }} service discovery containers were also launched.
 
 At this point you should have two Weave containers running on each host.
 
 To see them, run the following command from either host:
 
 ~~~bash
-sudo docker ps
+root@weave-gs-01:~# docker ps
 ~~~
 
 where you should see something similar to the following:
 
 ~~~bash
-    CONTAINER ID        IMAGE                       COMMAND                CREATED             STATUS              PORTS                                            NAMES
-    e3fba94a35fc        weaveworks/weavedns:1.0.2   "/home/weave/weavedn   57 seconds ago      Up 56 seconds       10.1.42.1:53->53/udp                             weavedns
-    dd3878af6307        weaveworks/weave:1.0.2      "/home/weave/weaver    16 minutes ago      Up 16 minutes       0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave
+CONTAINER ID        IMAGE                       COMMAND                CREATED             STATUS              PORTS                                            NAMES
+e3fba94a35fc        weaveworks/weavedns:1.0.2   "/home/weave/weavedn   57 seconds ago      Up 56 seconds       10.1.42.1:53->53/udp                             weavedns
+dd3878af6307        weaveworks/weave:1.0.2      "/home/weave/weaver    59 minutes ago      Up 59 minutes       0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave
 ~~~
 
 View the peered network by running `weave status`
 
 ~~~bash
-sudo weave status
+root@weave-gs-01:~# weave status
 
 weave router 1.0.2
 Our name is 72:24:c2:00:01:5a(weave-gs-02)
@@ -186,13 +186,13 @@ Next, use Weave to run a Docker image containing an Apache webserver.  Details o
 On `weave-gs-01` run
 
 ~~~bash
-sudo docker run --name=web1 -t -i fintanr/weave-gs-simple-hw
+root@weave-gs-01:~# docker run --name=web1 -t -i fintanr/weave-gs-simple-hw
 ~~~
 
 You now have a running Apache server in a Docker container. To view it:
 
 ~~~bash
-sudo docker ps
+root@weave-gs-01:~# docker ps
 ~~~
 
 ### What Just Happened?
@@ -210,7 +210,7 @@ Containers return a container ID which you will capture to use further on in thi
 On `weave-gs-02` run:
 
 ~~~bash
-sudo docker run -t -i fintanr/weave-gs-ubuntu-curl
+root@weave-gs-02:~# docker run -t -i fintanr/weave-gs-ubuntu-curl
 ~~~
 
 The Ubuntu Docker image you are using here is the same image that we based our Apache Docker image on,
