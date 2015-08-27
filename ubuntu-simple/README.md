@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Getting started with Weave and Docker on Ubuntu
-description: How to manage containers with a Weave network across hosts.  
+description: How to manage containers with a Weave network across hosts.
 tags: vagrant, ubuntu, apache, php
 permalink: /guides/weave-docker-ubuntu-simple.html
 ---
@@ -10,17 +10,17 @@ permalink: /guides/weave-docker-ubuntu-simple.html
 
 Weave provides a software network optimized for visualizing and communicating with applications distributed within Docker containers. Using tools and protocols that are familiar to you, Weave's network topology lets you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
 
-With Weave you focus on developing your application, rather than your infrastructure.  As demonstrated in this tutorial, Weave works seamlessly with other tools such as Vagrant.  Vagrant provides an easy way to provision, and set up your hosts. Once provisioned this example, will deploy both Weave Net and Weave Run to provide nework connectivity and service discovery using DNS. 
+With Weave you focus on developing your application, rather than your infrastructure.  As demonstrated in this tutorial, Weave works seamlessly with other tools such as Vagrant.  Vagrant provides an easy way to provision, and set up your hosts. Once provisioned this example, will deploy both Weave Net and Weave Run to provide nework connectivity and service discovery using DNS.
 
 Specifically, in this example:
 
-1. You will create a simple application running in two containers on separate hosts. 
-2. Provide a JSON message and a date, to the '_hello world service_'. 
+1. You will create a simple application running in two containers on separate hosts.
+2. Provide a JSON message and a date, to the '_hello world service_'.
 3. Use curl to query the hello world service from the second container.
 
 ![Weave and Docker](/guides/images/Simple_Weave.png)
 
-This tutorial uses simple UNIX tools, and it doesn't require any programming skills. 
+This tutorial uses simple UNIX tools, and it doesn't require any programming skills.
 
 This example will take about 15 minutes to complete.
 
@@ -109,16 +109,16 @@ Your two hosts are now connected to each other, and any subsequent containers yo
 
 ### What Just Happened? ###
 
-Since this is the first time launching Weave you: 
+Since this is the first time launching Weave you:
 
 * downloaded a docker image for the Weave router container and then launched that container
 * downloaded a docker image for `weavedns` and then launched that container
 
 On host, `weave-gs-01`, the Weave router container was launched. On host, `weave-gs-02`, an additional Weave router container with the IP address of your first host was launched. Launching Weave with the IP address of the first container, informs Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
 
-In addition to these two weavedns service discovery containers were also launched. 
+In addition to these two weavedns service discovery containers were also launched.
 
-At this point you should have two Weave containers running on each host. 
+At this point you should have two Weave containers running on each host.
 
 To see them, run the following command from either host:
 
@@ -189,7 +189,7 @@ On `weave-gs-01` run
 sudo docker run --name=web1 -t -i fintanr/weave-gs-simple-hw
 ~~~
 
-You now have a running Apache server in a Docker container. To view it: 
+You now have a running Apache server in a Docker container. To view it:
 
 ~~~bash
 sudo docker ps
@@ -203,9 +203,9 @@ The container is registered with Weave and is accessible to other containers reg
 
 ### Creating our client container
 
-Next you want to create a container on your second host and connect to the webserver in the container on our first host. We will use another prebuilt container, `fintanr/weave-gs-ubuntu-curl` for this example. 
+Next you want to create a container on your second host and connect to the webserver in the container on our first host. We will use another prebuilt container, `fintanr/weave-gs-ubuntu-curl` for this example.
 
-Containers return a container ID which you will capture to use further on in this example. 
+Containers return a container ID which you will capture to use further on in this example.
 
 On `weave-gs-02` run:
 
@@ -233,7 +233,7 @@ Exit from the container by typing `exit`. And since you finished the command in 
 
 ## Summary ##
 
-In this example, we deployed a simple application, that returns a message from a running Apache Server. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using Weave Run, so that applications are able to communicate with one another. 
+In this example, we deployed a simple application, that returns a message from a running Apache Server. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using Weave Run, so that applications are able to communicate with one another.
 
 ## Further Reading
 
