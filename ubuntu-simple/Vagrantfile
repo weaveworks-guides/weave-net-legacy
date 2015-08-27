@@ -15,7 +15,6 @@ SIMPLE_DOCKER_APACHE = File.join(File.dirname(__FILE__), "Dockerfile-simple-apac
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 
 # Defaults for config options defined in CONFIG
-#
 
 $num_instances = 2
 $instance_name_prefix = "weave-gs"
@@ -45,7 +44,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             config.vm.hostname = vm_name
 
             # just split out the ip
-            #
 
             ip = IPAddr.new($vm_ip)
             $vm_ip = ip.succ.to_s
@@ -62,18 +60,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # install docker packages
     #
     # https://docs.docker.com/installation/ubuntulinux/
-    #
 
     config.vm.provision "shell", privileged: true, inline: <<-SHELL
+        export DEBIAN_FRONTEND=noninteractive
         [ -e /usr/lib/apt/methods/https ] || {
-            apt-get update
-            apt-get install apt-transport-https
+            apt-get -qqy update
+            apt-get -qqy install apt-transport-https
         }
 
         echo deb https://get.docker.com/ubuntu docker main > /etc/apt/sources.list.d/docker.list
         sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
-        apt-get update
-        apt-get install -y lxc-docker
+        apt-get -qqy update
+        apt-get -qqy install lxc-docker
     SHELL
 
     # for the purposes of our example we create a dockerfile to install apache
