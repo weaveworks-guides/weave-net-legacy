@@ -13,7 +13,7 @@ permalink: /guides/weave-docker-ubuntu-simple.html
 
 Weave provides a software network optimized for visualizing and communicating with applications distributed within Docker containers. Using tools and protocols that are familiar to you, Weave's network topology lets you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
 
-With Weave you focus on developing your application, rather than your infrastructure.  As demonstrated in this tutorial, Weave works seamlessly with other tools such as Vagrant.  Vagrant provides an easy way to provision, and set up your hosts. Once provisioned, this example deploys both {{ Weave Net }} and {{ Weave Run }} to provide nework connectivity and service discovery using DNS.
+With Weave you focus on developing your application, rather than your infrastructure.  As demonstrated in this tutorial, Weave works seamlessly with other tools such as Vagrant.  Vagrant provides an easy way to provision, and set up your hosts. Once provisioned, this example deploys both Weave Net and Weave Run to provide nework connectivity and service discovery using DNS.
 
 Specifically, in this example:
 
