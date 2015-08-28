@@ -195,7 +195,23 @@ The HTTP Server works as follows:
 
 ## What's Happening in the Hosts?
 
-If you are curious about what's happening in the ECS instances, you can access
+All host are equipped with Weave Scope, providing an intuitive visualization of
+all your containers and how the communicate with each other. Scope has a
+webserver listening on port `4040` so, to access it, just open your browser and
+paste the URL of any of your instances:
+
+      http://foo.region.compute.amazonaws.com:4040
+      http://bar.region.compute.amazonaws.com:4040
+      http://baz.region.compute.amazonaws.com:4040
+
+This is what you should see:
+
+![Scope visualization](/guides/images/aws-ecs/scope.png)
+
+You can get more insights by selecting different views: *Applications (by
+name)*, *Containers by image* and *Hosts*.
+
+If you want to dive even deeper on what's happening in the ECS instances, you can access
 them through ssh:
 
 ~~~bash
@@ -294,12 +310,15 @@ Add inbound rules to the group to allow:
 * Public SSH access.
 * Public HTTP access.
 * Private Weave access between instances.
+* Public and private access to Weave Scope between instances.
 
 ~~~bash
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 22 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 80 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 4040 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 6783 --source-group weave-ecs-demo
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol udp --port 6783 --source-group weave-ecs-demo
+aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 4040 --source-group weave-ecs-demo
 ~~~
 
 Next create a key pair which allows us to access any EC2 instances that are associated with this security group.
@@ -323,12 +342,12 @@ aws iam add-role-to-instance-profile --instance-profile-name weave-ecs-instance-
 
 Choose a Weave ECS AMI depending on your configured region:
 
-* `us-east-1` -> `ami-df3687b4`
-* `us-west-1` -> `ami-bfec15fb`
-* `us-west-2` -> `ami-cdc1d5fd`
-* `eu-west-1` -> `ami-3ecc9349`
-* `ap-northeast-1` -> `ami-4c2aae4c`
-* `ap-southeast-2` -> `ami-57793b6d`
+* `us-east-1` -> `ami-c3c47ea8`
+* `us-west-1` -> `ami-3b5ba37f`
+* `us-west-2` -> `ami-d9bdace9`
+* `eu-west-1` -> `ami-63aef414`
+* `ap-northeast-1` -> `ami-5e77f55e`
+* `ap-southeast-2` -> `ami-3bcc8101`
 
 
 and then execute the command below by replacing `XXXX` with the AMI of your region.

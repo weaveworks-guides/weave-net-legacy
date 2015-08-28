@@ -1,10 +1,10 @@
 #!/bin/bash
 
-WEAVE_ECS_AMIS=('us-east-1:ami-df3687b4'
-		'us-west-1:ami-bfec15fb'
-		'us-west-2:ami-cdc1d5fd'
-		'eu-west-1:ami-3ecc9349'
-		'ap-northeast-1:ami-4c2aae4c'
+WEAVE_ECS_AMIS=('us-east-1:ami-c3c47ea8'
+		'us-west-1:ami-3b5ba37f'
+		'us-west-2:ami-d9bdace9'
+		'eu-west-1:ami-63aef414'
+		'ap-northeast-1:ami-5e77f55e'
 		'ap-southeast-2:ami-57793b6d'
 	       )
 
@@ -69,8 +69,12 @@ SECURITY_GROUP=$(aws ec2 create-security-group --group-name weave-ecs-demo --des
 
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 22 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 80 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 4040 --cidr 0.0.0.0/0
+# Weave
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 6783 --source-group weave-ecs-demo
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol udp --port 6783 --source-group weave-ecs-demo
+# Scope
+aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 4040 --source-group weave-ecs-demo
 echo "Done"
 
 # Key pair
