@@ -184,7 +184,7 @@ Zone database:
 
 ## Deploying the _'Hello, Weave!'_ Service ##
 
-Next, use Weave to run a Docker image containing an Apache webserver.  Details on how this container was created using docker are available in the [DockerfileREADME.md](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/DockerfileREADME.md).
+Next, build an Apache webserver container images and use Weave to run  it.
 
 On `weave-gs-01` run
 
@@ -194,7 +194,7 @@ root@weave-gs-01:~# eval $(weave proxy-env)
 root@weave-gs-01:~# docker run -d --name=hello-app php-example
 ~~~
 
-You now have a running Apache server in a Docker container. 
+You now have a running Apache server in a Docker container. It will get a DNS record in {{ weavedns }} automatically by the given name `hello-app`.
 
 To view it:
 
