@@ -184,7 +184,7 @@ Zone database:
 
 ## Deploying the _'Hello, Weave!'_ Service ##
 
-Next, build an Apache webserver container images and use Weave to run  it.
+Next, build an Apache webserver container image and use Weave to run it.
 
 On `weave-gs-01` run
 
