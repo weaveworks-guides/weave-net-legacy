@@ -208,9 +208,9 @@ Weave launched a pre-built Docker image containing an Apache webserver, named it
 
 The container is registered with Weave and is accessible to other containers registered with Weave across multiple hosts.
 
-### Creating our client container
+### Creating the Client Container
 
-Next you want to create a container on your second host and connect to the `hello-app` webserver that runs on our first host. We will use a prebuilt container, `weaveworks/guide-tools` for this.
+Next we will deploy a container to `weave-gs-02` and make it available to the `hello-app` webserver that is running on the first host.  A docker container at `weaveworks/guide-tools` will be launched to illustrate this.
 
 On `weave-gs-02` run:
 
@@ -219,7 +219,7 @@ root@weave-gs-02:~# eval $(weave proxy-env)
 root@weave-gs-02:~# docker run weaveworks/guide-tools curl -s http://hello-app
 ~~~
 
-And you will see the JSON string return:
+JSON returns:
 
 ~~~bash
 {
@@ -230,7 +230,7 @@ And you will see the JSON string return:
 
 ## Summary ##
 
-In this example, we deployed a simple application, that returns a message from a running Apache Server. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using Weave Run, so that applications are able to communicate with one another. 
+In this example, we deployed a simple application, that returns a message from a running Apache webserver. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using Weave Run, so that applications within containers can communicate with one another. 
 
 You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](mailto:help@weave.works) or [Twitter](https://twitter.com/weaveworks)
 
