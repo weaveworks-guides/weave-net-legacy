@@ -62,7 +62,9 @@ cd guides/spring-boot-weave-service-discovery
 vagrant up
 ~~~
 
-Vagrant downloads and configures the components used in this example. This may take a few minutes depending on the speed of your network connection. For more information about Vagrant, refer to the [Vagrant documentation](http://vagrantup.com).
+Vagrant downloads and configures the components used in this example. This may take a few minutes depending on the speed of your network connection. If you are thinking about a cup of coffee, now may be a good time to get one.
+
+For more information about Vagrant, refer to the [Vagrant documentation](http://vagrantup.com).
 
 Once the setup of the host is complete, check its status:
 
@@ -78,7 +80,7 @@ The IP addresses used for this demo are as follows:
 
 ## Weave and DNS
 
-The [Weavedns](http://docs.weave.works/weave/latest_release/weavedns.html) service answers name queries on a Weave network. {{ Weavedns }} provides a simple way for containers to find each other by giving them hostnames and telling the other containers to connect to those names.
+The [Weavedns](http://docs.weave.works/weave/latest_release/weavedns.html) service answers name queries on a Weave network. `weavedns` provides a simple way for containers to find each other by giving them hostnames and telling the other containers to connect to those names.
 
 ## Weave and Automatic IP Address Management
 
@@ -149,11 +151,9 @@ weave proxy is running
 
 ## Deploying the Docker Containers
 
-Now you are ready to deploy the spring application into a docker container on the host. The spring application is a simple `Hello World`
-application. The docker container is pre-built for this example, but if you would like to build your own container, refer to the `README` file located in  in the demo sub-directory of this guide. 
+Now you are ready to deploy the spring application into a docker container on the host. The spring application is a simple `Hello Weave!` application. The docker container is pre-built for this example, but if you would like to build your own container, refer to the `README` file located in  in the demo sub-directory of this guide. 
 
-Since both {{ weavedns }} and Automatic IP Address Management are launched as a part of the Weave Network, you only need to provide
-the name of the container and the hostname you wish to use. Notice that the same hostname is used for each container. {{ Weavedns }} automatically detects any DNS requests and it adds them to the Weave Network.
+Since both {{ weavedns }} and Automatic IP Address Management are launched as a part of the Weave Network, you only need to provide the name of the container and the hostname you wish to use. Notice that the same hostname is used for each container. {{ weavedns }} automatically detects any DNS requests and it adds them to the Weave Network.
 
 ~~~bash
 vagrant ssh weave-gs-01
