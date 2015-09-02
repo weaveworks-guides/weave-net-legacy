@@ -44,7 +44,12 @@
       
       "sudo mkdir /etc/weave",
       "sudo mv /home/ec2-user/peers.sh /etc/weave/peers.sh",
-      "sudo chmod +x /etc/weave/peers.sh"
+      "sudo chmod +x /etc/weave/peers.sh",
+
+      "# Remove all ECS execution traces added while running packer",
+      "sudo stop ecs",
+      "sudo docker rm ecs-agent",
+      "sudo rm -rf /var/log/ecs/* /var/lib/ecs/data/*"
     ]
   }]
 
