@@ -38,6 +38,7 @@ if [ -z "$(which packer)" ]; then
 fi
 
 function invoke_packer() {
+    echo Building image for region $1 based on AMI $2
     packer build -var "aws_access_key=${AWS_ACCESS_KEY_ID}" -var "aws_secret_key=${AWS_SECRET_ACCESS_KEY}" -var "aws_region=$1" -var "source_ami=$2" template.json
 }
 
@@ -52,7 +53,6 @@ if [ -n "${ONLY_REGION+x}" ]; then
 	echo "error: ONLY_REGION set to '$ONLY_REGION', which doesn't offer ECS yet, please set it to one from: ${REGIONS}"
 	exit 1
     fi
-    echo "${ONLY_REGION}" "${AMI}"
     invoke_packer "${ONLY_REGION}" "${AMI}"
 else
     for I in ${BASE_AMIS[@]}; do
