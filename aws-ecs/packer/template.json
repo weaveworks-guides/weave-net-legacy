@@ -48,7 +48,7 @@
 
       "# Remove all ECS execution traces added while running packer",
       "sudo stop ecs",
-      "sudo docker rm ecs-agent",
+      "sudo docker rm ecs-agent 2> /dev/null || true",
       "sudo rm -rf /var/log/ecs/* /var/lib/ecs/data/*"
     ]
   }]
