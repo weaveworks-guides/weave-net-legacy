@@ -1,9 +1,12 @@
 ---
 layout: guides
+shorttitle: Weave and Amazon ECS
 title: Using Nginx as a reverse proxy/load balancer with Weave and Docker on Amazon Web Services
 description: Using Nginx as a reverse proxy/load balancer with Weave Net and Docker on Amazon Web Services
 tags: ubuntu, aws, ngnix, microservices, dns
 permalink: /guides/weave-docker-aws-nginx-ubuntu-simple.html
+sidebarpath: /start/aws/awsecs
+sidebarweight: 50
 
 ---
 
