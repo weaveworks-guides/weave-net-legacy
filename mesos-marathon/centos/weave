@@ -3,7 +3,7 @@ set -e
 
 [ -n "$WEAVE_DEBUG" ] && set -x
 
-SCRIPT_VERSION="1.0.2"
+SCRIPT_VERSION="1.0.3"
 if [ "$SCRIPT_VERSION" = "(unreleased version)" ] ; then
     IMAGE_VERSION=latest
 else
@@ -1079,7 +1079,7 @@ case "$COMMAND" in
         # additional parameters, such as resource limits, to docker
         # when launching the weave container.
         DNS_CONTAINER=$(docker run --privileged -d --name=$DNS_CONTAINER_NAME \
-            -p $DOCKER_BRIDGE_IP:53:53/udp \
+            -p $DOCKER_BRIDGE_IP:53:53/udp -p $DOCKER_BRIDGE_IP:53:53/tcp \
             -e WEAVE_CIDR=none \
             -v /var/run/docker.sock:/var/run/docker.sock \
             $WEAVEDNS_DOCKER_ARGS $DNS_IMAGE -iface $CONTAINER_IFNAME -httpiface "$DNS_HTTP_IFNAME" "$@")
@@ -1300,7 +1300,7 @@ case "$COMMAND" in
         conntrack -D -p udp --dport $PORT >/dev/null 2>&1 || true
         destroy_bridge
         for LOCAL_IFNAME in $(ip link show | grep v${CONTAINER_IFNAME}pl | cut -d ' ' -f 2 | tr -d ':') ; do
-            ip link del $LOCAL_IFNAME
+            ip link del $LOCAL_IFNAME >/dev/null 2>&1 || true
         done
         ;;
     rmpeer)
