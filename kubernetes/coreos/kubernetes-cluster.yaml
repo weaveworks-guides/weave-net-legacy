@@ -1,26 +1,29 @@
 #cloud-config
 
 write_files:
+  - path: /etc/weave.env
+    permissions: '0644'
+    owner: root
+    content: |
+      VERSION="git-32a82f2d0e83"
+
   - path: /etc/weave.kube-01.env
     permissions: '0644'
     owner: root
     content: |
       WEAVE_PEERS="172.17.8.102 172.17.8.103"
-      VERSION="latest"
 
   - path: /etc/weave.kube-02.env
     permissions: '0644'
     owner: root
     content: |
       WEAVE_PEERS="172.17.8.101 172.17.8.103"
-      VERSION="latest"
 
   - path: /etc/weave.kube-03.env
     permissions: '0644'
     owner: root
     content: |
       WEAVE_PEERS="172.17.8.101 172.17.8.102"
-      VERSION="latest"
 
 coreos:
   update:
@@ -121,7 +124,7 @@ coreos:
         ExecStartPre=/usr/bin/curl \
           --silent \
           --location \
-          https://github.com/weaveworks/weave/releases/download/latest_release/weave \
+          https://raw.github.com/weaveworks/weave/master/weave \
           --output /opt/bin/weave
         ExecStartPre=/usr/bin/chmod +x /opt/bin/weave
         ExecStartPre=/bin/bash -c 'test ! -f /tmp/weave.tar || docker load -i /tmp/weave.tar'
@@ -207,7 +210,7 @@ coreos:
         Documentation=http://kubernetes.io/
         Requires=network-online.target
         [Service]
-        Environment=KUBE_RELEASE_TARBALL=https://github.com/GoogleCloudPlatform/kubernetes/releases/download/v1.0.1/kubernetes.tar.gz
+        Environment=KUBE_RELEASE_TARBALL=https://github.com/GoogleCloudPlatform/kubernetes/releases/download/v1.0.5/kubernetes.tar.gz
         ExecStartPre=/bin/mkdir -p /opt/
         ExecStart=/bin/bash -c "curl --silent --location $KUBE_RELEASE_TARBALL | tar xzv -C /tmp/"
         ExecStart=/bin/tar xzvf /tmp/kubernetes/server/kubernetes-server-linux-amd64.tar.gz -C /opt
