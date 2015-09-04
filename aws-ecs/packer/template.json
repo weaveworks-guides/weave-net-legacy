@@ -3,7 +3,8 @@
     "aws_access_key": "",
     "aws_secret_key": "",
     "aws_region": "",
-    "source_ami": ""
+    "source_ami": "",
+    "ami_groups": ""
   },
   "builders": [{
     "type": "amazon-ebs",
@@ -14,6 +15,7 @@
     "instance_type": "t2.micro",
     "ssh_username": "ec2-user",
     "ami_name": "Weaveworks ECS Image ({{isotime \"2006-01-02\"}})",
+    "ami_groups": "{{user `ami_groups`}}",
     "communicator": "ssh",
     "ssh_pty": true
   }],
