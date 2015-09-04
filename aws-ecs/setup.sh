@@ -8,6 +8,15 @@ WEAVE_ECS_AMIS=('us-east-1:ami-c3c47ea8'
 		'ap-southeast-2:ami-57793b6d'
 	       )
 
+SCOPE_AAS_PROBE_TOKEN="$1"
+
+function usage(){
+    echo "usage: $(basename $0) [scope-aas-probe-token]"
+    echo "  where [scope-aas-probe-token] is an optional Scope as a Service probe token."
+    echo "  When provided, the Scope probes in your ECS instances will report to your app"
+    echo "  at http://scope.weave.works/"
+}
+
 # Mimic associative arrays using ":" to compose keys and values,
 # to make them work in bash v3
 function key(){
@@ -24,6 +33,11 @@ for I in ${WEAVE_ECS_AMIS[@]}; do
 done
 
 # Check that we have everything we need
+
+if [ \( "$#" -gt 1 \) -o  \( "$1" = "--help" \) ]; then
+    usage
+    exit 1
+fi
 
 if [ -z "$(which aws)" ]; then
     echo "error: Cannot find AWS-CLI, please make sure it's installed"
@@ -51,7 +65,7 @@ fi
 # Check that setup wasn't already run
 CLUSTER_STATUS=$(aws ecs describe-clusters --clusters weave-ecs-demo-cluster --query 'clusters[0].status' --output text)
 if [ "$CLUSTER_STATUS" != "None" -a "$CLUSTER_STATUS" != "INACTIVE" ]; then
-    echo "error: ECS cluster weave-ecs-demo-cluster is active, run cleaup.sh first"
+    echo "error: ECS cluster weave-ecs-demo-cluster is active, run cleanup.sh first"
     exit 1
 fi    
 
@@ -98,7 +112,13 @@ echo -n "Creating Launch Configuration (weave-ecs-launch-configuration) .. "
 # Wait for the role to be ready, otherwise we get:
 # A client error (ValidationError) occurred when calling the CreateLaunchConfiguration operation: You are not authorized to perform this operation.
 sleep 8
-aws autoscaling create-launch-configuration --image-id ${AMI} --launch-configuration-name weave-ecs-launch-configuration --key-name weave-ecs-demo-key --security-groups ${SECURITY_GROUP} --instance-type t2.micro --user-data file://data/set-ecs-cluster-name.sh  --iam-instance-profile weave-ecs-instance-profile --associate-public-ip-address --instance-monitoring Enabled=false
+TMP_USER_DATA_FILE=$(mktemp /tmp/weave-ecs-demo-user-data-XXXX)
+cp data/set-ecs-cluster-name.sh $TMP_USER_DATA_FILE
+if [ -n "$SCOPE_AAS_PROBE_TOKEN" ]; then
+    echo "echo SERVICE_TOKEN=$SCOPE_AAS_PROBE_TOKEN >> /etc/weave/scope.config" >> $TMP_USER_DATA_FILE
+fi
+aws autoscaling create-launch-configuration --image-id ${AMI} --launch-configuration-name weave-ecs-launch-configuration --key-name weave-ecs-demo-key --security-groups ${SECURITY_GROUP} --instance-type t2.micro --user-data file://$TMP_USER_DATA_FILE  --iam-instance-profile weave-ecs-instance-profile --associate-public-ip-address --instance-monitoring Enabled=false
+rm -f $TMP_USER_DATA_FILE
 echo "done"
 
 # Auto Scaling Group
