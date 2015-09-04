@@ -1,21 +1,21 @@
 #cloud-config
 
 write_files:
-  - path: /etc/weave.core-01.env
+  - path: /etc/weave.kube-01.env
     permissions: '0644'
     owner: root
     content: |
       WEAVE_PEERS="172.17.8.102 172.17.8.103"
       VERSION="latest"
 
-  - path: /etc/weave.core-02.env
+  - path: /etc/weave.kube-02.env
     permissions: '0644'
     owner: root
     content: |
       WEAVE_PEERS="172.17.8.101 172.17.8.103"
       VERSION="latest"
 
-  - path: /etc/weave.core-03.env
+  - path: /etc/weave.kube-03.env
     permissions: '0644'
     owner: root
     content: |
@@ -72,7 +72,7 @@ coreos:
         RefuseManualStart=no
         After=weave-network.target
         Requires=weave-network.target
-        ConditionHost=core-01
+        ConditionHost=kube-01
         Wants=kube-apiserver.service
         Wants=kube-scheduler.service
         Wants=kube-controller-manager.service
@@ -90,7 +90,7 @@ coreos:
         RefuseManualStart=no
         After=weave-network.target
         Requires=weave-network.target
-        ConditionHost=!core-01
+        ConditionHost=!kube-01
         Wants=kube-proxy.service
         Wants=kubelet.service
         [Install]
@@ -236,7 +236,7 @@ coreos:
         Documentation=http://kubernetes.io/
         Wants=etcd2.service
         Wants=install-kubernetes.service
-        ConditionHost=core-01
+        ConditionHost=kube-01
         [Service]
         ExecStart=/opt/kubernetes/server/bin/kube-apiserver \
             --insecure-bind-address=0.0.0.0 \
@@ -261,7 +261,7 @@ coreos:
         Description=Kubernetes Scheduler
         Documentation=http://kubernetes.io/
         Wants=kube-apiserver.service
-        ConditionHost=core-01
+        ConditionHost=kube-01
         [Service]
         ExecStart=/opt/kubernetes/server/bin/kube-scheduler \
             --logtostderr=true \
@@ -284,7 +284,7 @@ coreos:
         Wants=kube-apiserver.service
         Wants=etcd2.service
         Wants=install-kubernetes.service
-        ConditionHost=core-01
+        ConditionHost=kube-01
         [Service]
         ExecStart=/opt/kubernetes/server/bin/kube-controller-manager \
             --cloud_provider=vagrant \
@@ -306,7 +306,7 @@ coreos:
         Documentation=http://kubernetes.io/
         Wants=etcd2.service
         Wants=install-kubernetes.service
-        ConditionHost=!core-01
+        ConditionHost=!kube-01
         [Service]
         ExecStartPre=/bin/mkdir -p /etc/kubernetes/manifests/
         ExecStart=/opt/kubernetes/server/bin/kubelet \
@@ -352,7 +352,7 @@ coreos:
         After=install-kubernetes.service
         ConditionFileIsExecutable=/opt/kubernetes/server/bin/kubectl
         ConditionPathIsDirectory=/etc/kubernetes/addons/
-        ConditionHost=core-01
+        ConditionHost=kube-01
         Description=Kubernetes Addons
         Documentation=http://kubernetes.io/
         Wants=install-kubernetes.service

@@ -52,6 +52,7 @@ if File.exists?('kubernetes-cluster.yaml') && ARGV[0].eql?('up')
   end
 end
 
+$instance_name_prefix = 'kube'
 $num_instances=3
 $vb_memory = 2048
 $vb_cpus = 2
