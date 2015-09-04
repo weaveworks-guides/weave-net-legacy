@@ -431,9 +431,8 @@ requirements.
 AWS_ACCSS_KEY_ID=XXXX AWS_SECRET_ACCESS_KEY=YYYY  ./build-all-amis.sh
 ~~~
 
-This can be a lengthy process, so if you want to build an image
-for a specific region, set the environment variable `ONLY_REGION` to the
-region for which you you want to build the image:
+If you only want to build an AMI for a particular region, set `ONLY_REGION` to
+that region when invoking the script:
 
 ~~~bash
 ONLY_REGION=us-east-1 AWS_ACCSS_KEY_ID=XXXX AWS_SECRET_ACCESS_KEY=YYYY  ./build-all-amis.sh

@@ -27,6 +27,18 @@ function value(){
     echo  ${1#*:}
 }
 
+# Access is O(N) but .. we are mimicking maps with arrays
+function get(){
+    KEY=$1
+    shift
+    for I in $@; do
+	if [ $(key $I) = "$KEY" ]; then
+	    echo $(value $I)
+	    return
+	fi
+    done
+}
+
 REGIONS=""
 for I in ${WEAVE_ECS_AMIS[@]}; do
     REGIONS="$REGIONS $(key $I)"
@@ -50,13 +62,7 @@ if [ -z "$REGION" ]; then
     exit 1
 fi
 
-AMI=""
-for I in ${WEAVE_ECS_AMIS[@]}; do
-    if [ "$(key $I)" = "$REGION" ]; then
-	AMI=$(value $I)
-    fi
-done
-
+AMI="$(get $REGION ${WEAVE_ECS_AMIS[@]})"
 if [ -z "$AMI" ]; then
     echo "error: AWS-CLI is using '$REGION', which doesn't offer ECS yet, please set it to one from: ${REGIONS}"
     exit 1
