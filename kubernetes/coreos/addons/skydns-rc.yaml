@@ -22,10 +22,10 @@ spec:
       containers:
       - name: etcd
         image: gcr.io/google_containers/etcd:2.0.9
-        resources:
-          limits:
-            cpu: 100m
-            memory: 50Mi
+        #resources:
+        #  limits:
+        #    cpu: 100m
+        #    memory: 50Mi
         command:
         - /usr/local/bin/etcd
         - -data-dir
@@ -41,20 +41,20 @@ spec:
           mountPath: /var/etcd/data
       - name: kube2sky
         image: gcr.io/google_containers/kube2sky:1.11
-        resources:
-          limits:
-            cpu: 100m
-            memory: 50Mi
+        #resources:
+        #  limits:
+        #    cpu: 100m
+        #    memory: 50Mi
         args:
         # command = "/kube2sky"
         - -domain=kube.local
         - -kube_master_url=http://172.17.8.101:8080
       - name: skydns
         image: gcr.io/google_containers/skydns:2015-03-11-001
-        resources:
-          limits:
-            cpu: 100m
-            memory: 50Mi
+        #resources:
+        #  limits:
+        #    cpu: 100m
+        #    memory: 50Mi
         args:
         # command = "/skydns"
         - -machines=http://localhost:4001
@@ -76,10 +76,10 @@ spec:
           timeoutSeconds: 5
       - name: healthz
         image: gcr.io/google_containers/exechealthz:1.0
-        resources:
-          limits:
-            cpu: 10m
-            memory: 20Mi
+        #resources:
+        #  limits:
+        #    cpu: 10m
+        #    memory: 20Mi
         args:
         - -cmd=nslookup kubernetes.default.svc.kube.local localhost >/dev/null
         - -port=8080
