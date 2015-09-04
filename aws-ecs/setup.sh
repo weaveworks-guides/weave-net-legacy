@@ -1,11 +1,11 @@
 #!/bin/bash
 
-WEAVE_ECS_AMIS=('us-east-1:ami-c3c47ea8'
-		'us-west-1:ami-3b5ba37f'
-		'us-west-2:ami-d9bdace9'
-		'eu-west-1:ami-63aef414'
-		'ap-northeast-1:ami-5e77f55e'
-		'ap-southeast-2:ami-57793b6d'
+WEAVE_ECS_AMIS=('us-east-1:ami-792a491c'
+		'us-west-1:ami-6d5ba029'
+		'us-west-2:ami-4da3b07d'
+		'eu-west-1:ami-67be9910'
+		'ap-northeast-1:ami-f242ccf2'
+		'ap-southeast-2:ami-218ac61b'
 	       )
 
 SCOPE_AAS_PROBE_TOKEN="$1"

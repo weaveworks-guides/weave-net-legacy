@@ -342,11 +342,11 @@ aws iam add-role-to-instance-profile --instance-profile-name weave-ecs-instance-
 
 Choose a Weave ECS AMI depending on your configured region:
 
-* `us-east-1` -> `ami-c3c47ea8`
-* `us-west-1` -> `ami-3b5ba37f`
-* `us-west-2` -> `ami-d9bdace9`
-* `eu-west-1` -> `ami-63aef414`
-* `ap-northeast-1` -> `ami-5e77f55e`
+* `us-east-1` -> `ami-792a491c`
+* `us-west-1` -> `ami-6d5ba029`
+* `us-west-2` -> `ami-4da3b07d`
+* `eu-west-1` -> `ami-67be9910`
+* `ap-northeast-1` -> `ami-f242ccf2`
 * `ap-southeast-2` -> `ami-3bcc8101`
 
 
