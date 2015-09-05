@@ -4,6 +4,9 @@ title: Microservices with Weave, Docker and Node.js on Ubuntu
 description: How to use a Weave network to manage microservices such as Node.js and Seneca on Ubuntu.
 tags: vagrant, javascript, node, ubuntu, microservices, dns
 permalink: /guides/weave-microservices-docker-nodejs.html
+shorttitle: Using Weave & Node.js on Ubuntu
+sidebarpath: /start/micro/nodeubuntu
+sidebarweight: 50
 ---
 
 ## What you will build ##

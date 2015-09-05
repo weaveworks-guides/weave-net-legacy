@@ -4,7 +4,9 @@ title: "Automatic Service Discovery with Weave Run for Dockerized Spring Apps"
 description: Deploy a Java microservice application developed with Spring to a Docker Container and then use Weave Run to automatically discover its service.
 tags: vagrant, dns, spring, java, ubuntu, microservices
 permalink: /guides/language/java/framework/spring/index.html
-
+shorttitle: Weave Run & Dockerized Spring Apps
+sidebarpath: /start/micro/dockerspring
+sidebarweight: 45
 ---
 
 
