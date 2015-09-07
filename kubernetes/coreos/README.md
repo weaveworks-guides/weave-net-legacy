@@ -18,7 +18,7 @@ In this example, we will demonstrate how you can use a Weave network with Kubern
 
 This is a reworked version of our old Kubernetes guide. Many new features have been added to Weave since the time of writing. Both Weave and Kubernetes have become much more mature as they've gone beyond 1.0 releases.
 
-With the [Weave 1.1 release](https://github.com/weaveworks/weave/releases), users can utilise Docker API proxy and IP address allocation with Kubernetes, thereby removing the need to configure the Docker daemon with statically allocated subnets for each host.
+With the [Weave 1.1 release](https://github.com/weaveworks/weave/releases) users can utilise a Docker API proxy and IP address allocation with Kubernetes, thereby removing the need to configure the Docker daemon with statically allocated subnets for each host.
 
 In this example we will: 
 
@@ -50,7 +50,7 @@ First, clone the guides repository:
 git clone https://github.com/weaveworks/guides
 ~~~
 
-Change to the `kubernetes/coreos` directory and run Vagrant. Vagrant in this case sets up all 3 virtual machines with CoreOS images, and Docker. 
+Change to the `kubernetes/coreos` directory and run Vagrant. Vagrant in this case sets up all 3 virtual machines with the CoreOS images, and with Docker. 
 
 For more info about what Vagrant is doing in this example, look at `coreos\Vagrantfile`:
 
@@ -59,7 +59,7 @@ cd kubernetes/coreos
 vagrant up
 ~~~
 
-Next, launch the Weave network onto the clusters by ssh'ing onto each of the VMs and running `weave setup`: 
+Next, launch the Weave network onto the clusters by ssh'ing onto each of the VMs and then running `weave setup`: 
 
 ~~~bash
 > vagrant ssh kube-01
@@ -68,7 +68,7 @@ kube-01 > weave setup
 ~~~
 
 
-All three CoreOS instances should now be running in a cluster. To check the health of the cluster, and to check that everything set up correctly run: 
+All three CoreOS instances should now be running in a cluster. To check the health of the cluster, and to check that everything set up correctly: 
 
 ~~~bash
 kube-01 > etcdctl cluster-health
@@ -114,7 +114,7 @@ kube-system   kube-dns-v8-ofmjo   4/4       Running   1         1m
 
 ~~~
 
-You can also check that the nodes have registered with the master.  In this example, kube-01 at address: `172.17.8.101` is the master, leaving the other 2 VMs as the nodes, shown below: 
+Check that the nodes have registered with the master.  In this example, kube-01 at address: `172.17.8.101` is the master, leaving the other 2 VMs as the nodes, shown below: 
 
 ~~~bash
 kube-01 > kubectl get nodes
@@ -128,9 +128,9 @@ NAME           LABELS                                STATUS
 ##Deploying the Guestbook App
 
 
-Now, you are ready to deploy the guestbook app onto the master node. 
+Now you are ready to deploy the guestbook app on to the master node. 
 
-The guestbook php app consists of two replication controllers: one redis database master and another redis database slave. It also deploys a front-end Service, which you will be able to load into your browser: 
+The guestbook php app consists of two replication controllers: one redis database master and another redis database slave. It also deploys a front-end service, which you will be able to load into your browser: 
 
 ~~~bash
 kube-01 > kubectl create -f guestbook-example
@@ -152,12 +152,12 @@ redis-slave-kyi7u    1/1       Running   0          1h
 redis-slave-ncdc3    1/1       Running   0          1h
 ~~~
 
-Now you will be able to load the app into your browser with `172.17.8.101` and using the port number that was returned when you ran the `kubectl create -f guestbook-example` above.
+Now you will be able to load the app into your browser using this IP address `172.17.8.101` and the port number that was returned when you ran `kubectl create -f guestbook-example` above.
 
 ![Guestbook front-end](/guides/kubernetes/coreos/guestbook.png)
 
 
-Other useful commands for troubleshooting:
+Here are a few other useful commands for troubleshooting:
 
 ~~~bash
 etcdctl cluster-health
