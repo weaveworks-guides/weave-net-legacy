@@ -12,7 +12,7 @@ permalink: /guides/platform/mesos-marathon/os/centos/cloud/vagrant/index.html
 
 Weave provides a software network that is optimized for visualizing and communicating with apps scattered within Docker containers. Using tools and protocols that are familiar to you, Weave provides the network topology that allows you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
 
-This example describes how to setup a Weave Network on a cluster manager, specifically, within the Apache Mesos & Marathon environment. For more details on the Apache Mesos and its application manager, Marathon, see the [Apache Mesos Docs](http://mesos.apache.org/documentation/latest/) and the [Marathon Docs](https://mesosphere.github.io/marathon/).
+This example describes how to setup a Weave Network using a cluster manager, specifically, within the Apache Mesos & Marathon environment. For more details on the Apache Mesos and its application manager, Marathon, see the [Apache Mesos Docs](http://mesos.apache.org/documentation/latest/) and the [Marathon Docs](https://mesosphere.github.io/marathon/).
 
 In particular, read about load-balancing in [Weave Run](/run) and the usage of the [Docker API proxy](http://docs.weave.works/weave/latest_release/proxy.html) with Mesos.
 
@@ -30,7 +30,7 @@ Before you begin, please ensure the following are installed:
 * [Git](http://git-scm.com/downloads)
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
-First, clone the repo and run the vagrant script:
+First, clone the repo and then run the vagrant script:
 
 ~~~ bash
 git clone https://github.com/weaveworks/guides
@@ -38,7 +38,7 @@ cd mesos-marathon/centos
 vagrant up
 ~~~
 
-The Vagrant script installed the Virtual Machines `mesos-00` and `mesos-01`. It also configured a single Apache Zookeeper instance that manages `mesos-00` as master, and `mesos-01` as slave within the Marathon framework.
+Vagrant installed the Virtual Machines `mesos-00` and `mesos-01`. It also configured a single Apache Zookeeper instance that manages `mesos-00` as master, and `mesos-01` as slave within the Marathon framework.
 
 Once `vagrant up` has exited, access the Marathon admin UI through your browser at: `http://172.17.85.100:8080`.
 
@@ -95,7 +95,7 @@ Back in your local shell, run:
 
 Where a simple "Hello, World" web app is deployed, as shown in [Marathon tutorial](http://open.mesosphere.com/intro-course/ex17.html).  In this case, 4 instances of the web app are deployed.
 
-This example demonstrates the use of Weave Run, a transparent, DNS-based, load-balancer. It also shows how Weave Net eliminates the need for port remapping and instead uses a default container port.
+This example demonstrates the use of `Weave Run`, a transparent, DNS-based, load-balancer. It also shows how `Weave Net` eliminates the need for port remapping and instead uses a default container port.
 
 <div class="alert alert-warning">
 If you are looking to deploy your own app instead of this example, make sure to <a href="https://github.com/weaveworks/guides/blob/0b10b27f0559b8852c12b81b94034823c3816777/mesos-marathon/centos/outyet.json#L12">set the <code>hostname</code> parameter</a>, otherwise your containers will fail to launch.
@@ -106,23 +106,25 @@ Marathon, which can be accessed at `http://172.17.85.100:8080` shows the app dep
 ![Marathon Apps](/guides/images/mesos-marathon/centos/marathon-1.png)
 ![Marathon Apps - outyet](/guides/images/mesos-marathon/centos/marathon-2.png)
 
-Log on to `mesos-01`, become root and set the environment variable for the Docker API proxy
+Log on to `mesos-01`, become root and set the environment variable for the Docker API proxy:
 
 ~~~ bash
 vagrant ssh mesos-01
+
 [vagrant@mesos-01 ~]$ sudo -s
 [root@mesos-01 vagrant]# eval $(weave env)
 ~~~
 
-List the container processes to confirm that there 4 instances of the app
+List the container processes to confirm that there 4 instances of the app:
 
     [root@mesos-01 vagrant]# docker ps | grep outyet
+    
     666a8c7f344e     docker.io/goexample/outyet:latest   "/w/w go-wrapper run   5 minutes ago   Up 5 minutes     8080/tcp     mesos-20150803-095152-1683296684-5050-15616-S0.bceb4f07-0ff9-4555-b9f0-99dadc9392fa
     8e708c45d0a9     docker.io/goexample/outyet:latest   "/w/w go-wrapper run   6 minutes ago   Up 6 minutes     8080/tcp     mesos-20150803-095152-1683296684-5050-15616-S0.a9db0ff5-f666-40be-bc99-b8ee7dac170d
     819a8c3a4f78     docker.io/goexample/outyet:latest   "/w/w go-wrapper run   6 minutes ago   Up 6 minutes     8080/tcp     mesos-20150803-095152-1683296684-5050-15616-S0.05f07ff3-0115-4d4b-b6e7-ce1c9532370e
     d9046f7e63cc     docker.io/goexample/outyet:latest   "/w/w go-wrapper run   6 minutes ago   Up 6 minutes     8080/tcp     mesos-20150803-095152-1683296684-5050-15616-S0.374e679d-edee-47ed-a3e2-69abf017a3f3
 
-Next, test the app's functionality by creating an interactive container on Weave
+You can now test the app's functionality by creating an interactive container on Weave:
 
 ~~~ bash
 [root@mesos-01 vagrant]# docker run -ti centos:7
@@ -139,9 +141,9 @@ You should see output similar to this:
     </center></body></html>
 
 
-Run `curl -v outyet:8080` a few times to confirm that Weave Run has accomplished the load-balancing. You will notice that the IP address for `outyet` is not always the same and instead has been randomized by Weave Run as it balances the load amoungst containers.
+Run `curl -v outyet:8080` a few times to confirm that Weave Run has accomplished the load-balancing. You will notice that the IP address for `outyet` is not always the same and instead has been randomized by `Weave Run` as it balances the load amoungst containers. For more information on `weaveDNS` see [Automatic Discovery with WeaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html).
 
-### How does this work?
+## How Does This Work?
 
 [Weave Net](/net) connects containers on an isolated overlay network, while [Weave Run](/run) provides the DNS and IP address allocation.
 
@@ -155,9 +157,9 @@ The following diagram shows how Weave interacts with Docker and Mesos.
 
 ![Weave Details](/guides/images/mesos-marathon/centos/diagram-2.png)
 
-### How is this setup?
+### How is This Setup?
 
-During the provisioning phase (`vagrant up`), a set of shell scripts run on Vagrant where they install and configure both Weave and any necessary RPM packages from the Mesosphere repository. Open the [Vagrantfile](https://github.com/weaveworks/guides/blob/0b10b27f0559b8852c12b81b94034823c3816777/mesos-marathon/centos/Vagrantfile#L59-L82), to see the logic of how, where and when those scripts are executed.
+During the provisioning phase (`vagrant up`), several shell scripts run on Vagrant that install and configure both Weave and any necessary RPM packages from the Mesosphere repository. Open the [Vagrantfile](https://github.com/weaveworks/guides/blob/0b10b27f0559b8852c12b81b94034823c3816777/mesos-marathon/centos/Vagrantfile#L59-L82), to see the logic of how, where and when those scripts are executed.
 
 ### Overriding Default Configuration Variables
 
@@ -171,16 +173,25 @@ $network = [172, 17, 85]
 ~~~
 
 
-Override any of these by creating a `config.rb` file with the desired variables and saving the file in the same directory.
+Override any of these by creating a `config.rb` file with the desired variables and then saving the file to the same directory.
 
-For example, you can grow the cluster by running
+For example, grow the cluster by running:
 
 ~~~ bash
 echo '$mesos_slaves = 3' > config.rb
 vagrant up mesos-02 mesos-03
 ~~~
 
-###Conclusion
+##Conclusions
 
-In this guide, we described how to use Weave with Apache Mesos and its Marathon framework. We configured and installed the infrastructure using Vagrant on CentOS. You can easily adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](mailto:help@weave.works) or [Twitter](https://twitter.com/weaveworks).
+In this guide, we described how to use Weave with Apache Mesos and its Marathon framework. We configured and installed the infrastructure using Vagrant on CentOS. 
+
+You can easily adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](mailto:help@weave.works) or [Twitter](https://twitter.com/weaveworks).
+
+## Further Reading
+
+ * [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
+ * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
+ * [Docker API proxy](http://docs.weave.works/weave/latest_release/proxy.html)
+
 
