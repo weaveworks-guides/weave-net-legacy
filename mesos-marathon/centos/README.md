@@ -66,7 +66,7 @@ View Weave status:
 or see a more detailed status of weave:
 
 ~~~ bash
-[root@mesos-00 vagrant]# systemctl status weave weavedns weaveproxy
+[root@mesos-00 vagrant]# systemctl status weave
 ~~~
 
 and then view three Docker containers and Weave:
@@ -79,7 +79,6 @@ Where you should see something similar to this:
 
     CONTAINER ID    IMAGE                        COMMAND                CREATED         STATUS         PORTS                                            NAMES
     b9c179b2303d    weaveworks/weaveexec:1.0.1   "/home/weave/weavepr   4 minutes ago   Up 3 minutes                                                    weaveproxy
-    71a7716f50cc    weaveworks/weavedns:1.0.1    "/home/weave/weavedn   4 minutes ago   Up 3 minutes   10.1.42.1:53->53/udp                             weavedns
     3ca6d9c9dd0d    weaveworks/weave:1.0.1       "/home/weave/weaver    4 minutes ago   Up 3 minutes   0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave
 
 There is not much else to do on `mesos-00`, so you can exit:
@@ -112,7 +111,7 @@ Log on to `mesos-01`, become root and set the environment variable for the Docke
 ~~~ bash
 vagrant ssh mesos-01
 [vagrant@mesos-01 ~]$ sudo -s
-[root@mesos-01 vagrant]# eval $(weave proxy-env)
+[root@mesos-01 vagrant]# eval $(weave env)
 ~~~
 
 List the container processes to confirm that there 4 instances of the app
