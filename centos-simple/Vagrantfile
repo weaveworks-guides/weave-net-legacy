@@ -32,7 +32,7 @@ end
 $vm_ip = $vm_starting_ip
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    config.vm.box = "chef/centos-7.0"
+    config.vm.box = "bento/centos-7.1"
     config.ssh.insert_key = true
 
     if Vagrant.has_plugin?("vagrant-cachier")
