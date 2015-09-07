@@ -18,17 +18,17 @@ In this example, we will demonstrate how you can use a Weave network with Kubern
 
 This is a reworked version of our old Kubernetes guide. Many new features have been added to Weave since the time of writing. Both Weave and Kubernetes have become much more mature as they've gone beyond 1.0 releases.
 
-With the Weave 1.1 release, users can utilise Docker API proxy and IP address allocation with Kubernetes, thereby removing the need to configure the Docker daemon with statically allocated subnets for each host.
+With the [Weave 1.1 release](https://github.com/weaveworks/weave/releases), users can utilise Docker API proxy and IP address allocation with Kubernetes, thereby removing the need to configure the Docker daemon with statically allocated subnets for each host.
 
 In this example we will: 
 
-1. Provision three Virtual Machines with CoreOS, Docke. 
-2. Install the coreOS container cluster onto the VMs. 
-3. Setup the Weave network onto the cluster.
+1. Provision three Virtual Machines with CoreOS, Docker. 
+2. Install the CoreOS container cluster on to the VMs. 
+3. Set up the Weave network onto the cluster.
 3. Launch Kubernetes on top of the cluster
 4. Deploy the guestbook-example PHP app across the cluster
 
-## What you will use ##
+## What You Will Use ##
 
 * [Weave](http://weave.works)
 * [CoreOS](https://coreos.com/)
