@@ -12,7 +12,7 @@ sidebarweight: 60
 
 ## What You Will Build
 
-Kubernetes is an open source container cluster manager built by Google. It allows you to manage multiple clusters spread across multiple machines. With Kubernetes there is the concept of the pod, which represents a collection of containers deployed as a single logical unit. For more information see the [Kubernetes Overview](http://kubernetes.io/v1.0/docs/whatisk8s.html)
+Kubernetes is an open source container cluster manager built by Google. It allows you to manage multiple clusters spread across multiple machines. With Kubernetes there is the concept of the pod, which represents a collection of containers deployed as a single logical unit. For more information see the [Kubernetes Overview](http://kubernetes.io/v1.0/docs/user-guide/overview.html)
 
 In this example, we will demonstrate how you can use a Weave network with Kubernetes on a CoreOS cluster. Although, there are other network fabric solutions such as [Flannel](https://coreos.com/flannel/docs/latest/flannel-config.html) and [Calico](http://www.projectcalico.org/), only Weave provides simple to deploy [encryption](http://docs.weave.works/weave/latest_release/features.html#security) and automatic unique IP assigment using [IPAM](http://docs.weave.works/weave/latest_release/features.html#addressing). Weave furthermore, is one of the few solutions that can monitor any uncontainerized services that you may have, such as legacy databases, on a container network. 
 
