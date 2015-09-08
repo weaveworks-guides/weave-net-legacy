@@ -406,10 +406,6 @@ aws ecs run-task --cluster weave-ecs-demo-cluster --task-definition weave-ecs-de
 
 * Auto Scaling Groups are required for ECS to work with Weave. If you create individual
   instances, they won't work be able to see each other due to how Weave finds peers in ECS.
-* Due to the way ECS mangles container names at launch, Weave's service discovery
-  only supports container names with alphanumeric characters
-  (e.g. `httpserver` would be OK but `http-server` won't work due to the hyphen)
-
 
 ## For the advanced user: Build your own Weave ECS AMI
 
