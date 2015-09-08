@@ -3,7 +3,7 @@ set -e
 
 [ -n "$WEAVE_DEBUG" ] && set -x
 
-SCRIPT_VERSION="git-32a82f2d0e83"
+SCRIPT_VERSION="git-f782fb569fd7"
 if [ "$SCRIPT_VERSION" = "(unreleased version)" ] ; then
     IMAGE_VERSION=latest
 else
