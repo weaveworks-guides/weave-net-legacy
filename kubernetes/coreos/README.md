@@ -59,12 +59,12 @@ cd kubernetes/coreos
 vagrant up
 ~~~
 
-Next, launch the Weave network onto the clusters by ssh'ing onto each of the VMs and then running `weave setup`: 
+Next, check that the Weave network has launched successfully onto the clusters by ssh'ing onto each of the VMs and then running `weave status`: 
 
 ~~~bash
 > vagrant ssh kube-01
 
-kube-01 > weave setup
+kube-01 > weave status
 ~~~
 
 
@@ -84,7 +84,6 @@ Watch for the Kubernetes binaries to install here:
 ~~~bash
 kube-01 > journalctl -f -u install-kubernetes 
 
-journalctl -f -u install-kubernetes
 -- Logs begin at Mon 2015-09-07 14:46:39 UTC. --
 Sep 07 14:47:49 kube-01 tar[2454]: kubernetes/server/bin/kube-apiserver.docker_tag
 Sep 07 14:47:49 kube-01 tar[2454]: kubernetes/server/bin/kube-scheduler
