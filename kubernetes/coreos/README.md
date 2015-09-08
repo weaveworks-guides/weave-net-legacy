@@ -22,11 +22,11 @@ With the [Weave 1.1 release](https://github.com/weaveworks/weave/releases) users
 
 In this example we will: 
 
-1. Provision three Virtual Machines with CoreOS, Docker. 
+1. Provision three Virtual Machines with CoreOS, and Docker. 
 2. Install the CoreOS container cluster on to the VMs. 
-3. Set up the Weave network onto the cluster.
-3. Launch Kubernetes on top of the cluster
-4. Deploy the guestbook-example PHP app across the cluster
+3. Set up the Weave network.
+3. Launch Kubernetes to schedule and manage the cluster.
+4. Deploy the guestbook-example PHP app.
 
 ## What You Will Use ##
 
