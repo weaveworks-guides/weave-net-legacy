@@ -79,13 +79,29 @@ member 6ae27f9fa2984b1d is healthy
 member ff32f4b39b9c47bd is healthy
 ~~~
 
-Wait for the Kubernetes binaries to download and install onto the coreOS cluster. 
+Watch for the Kubernetes binaries to install here:  
 
 ~~~bash
 kube-01 > journalctl -f -u install-kubernetes 
+
+journalctl -f -u install-kubernetes
+-- Logs begin at Mon 2015-09-07 14:46:39 UTC. --
+Sep 07 14:47:49 kube-01 tar[2454]: kubernetes/server/bin/kube-apiserver.docker_tag
+Sep 07 14:47:49 kube-01 tar[2454]: kubernetes/server/bin/kube-scheduler
+Sep 07 14:47:49 kube-01 tar[2454]: kubernetes/server/bin/hyperkube
+Sep 07 14:47:50 kube-01 tar[2454]: kubernetes/server/bin/kube-controller-manager.docker_tag
+Sep 07 14:47:50 kube-01 tar[2454]: kubernetes/server/bin/kube-controller-manager
+Sep 07 14:47:50 kube-01 tar[2454]: kubernetes/server/bin/kubernetes
+Sep 07 14:47:50 kube-01 tar[2454]: kubernetes/server/bin/kube-scheduler.docker_tag
+Sep 07 14:47:50 kube-01 tar[2454]: kubernetes/server/bin/kubectl
+Sep 07 14:47:50 kube-01 tar[2454]: kubernetes/server/bin/kube-apiserver
+Sep 07 14:47:51 kube-01 systemd[1]: Started Download Kubernetes Binaries.
+
 ~~~
 
-Once the Kubernetes binaries are fully installed, you can discover all of the pods by deploying the DNS addon: 
+Once the Kubernetes binaries are downloaded and installed onto the coreOS cluster, `ctl-c` out of this mode.
+
+With the Kubernetes binaries fully installed, you can now discover all of the pods by deploying the DNS addon: 
 
 ~~~bash
 kube-01 > kubectl create -f /etc/kubernetes/addons
