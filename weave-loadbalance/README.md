@@ -1,8 +1,13 @@
 ---
 layout: guides
-title: Load Balancing Using Weave
+title: Load Balancing Using Weave Run
 tags: vagrant, ubuntu, load-balancing, microservices, dns
 permalink: /guides/weave-docker-loadbalancing-simple.html
+
+shorttitle: Load Balancing with Weave Run
+sidebarpath: /start/load/run
+sidebarweight: 18
+
 ---
 
 ## What you will build ##

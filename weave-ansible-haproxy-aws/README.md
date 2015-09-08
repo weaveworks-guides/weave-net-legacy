@@ -6,7 +6,7 @@ description: How to deploy a containerized app using Weave on Amazon Web Service
 tags: ansible, haproxy, aws, ubuntu, php
 permalink: /guides/weave-ansible-docker-haproxy-aws.html
 sidebarpath: /start/aws/awsans
-sidebarweight: 40
+sidebarweight: 30
 ---
 
 ## What you will build ##

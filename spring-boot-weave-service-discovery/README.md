@@ -6,7 +6,7 @@ tags: vagrant, dns, spring, java, ubuntu, microservices
 permalink: /guides/language/java/framework/spring/index.html
 shorttitle: Weave Run & Dockerized Spring Apps
 sidebarpath: /start/micro/dockerspring
-sidebarweight: 45
+sidebarweight: 20
 ---
 
 

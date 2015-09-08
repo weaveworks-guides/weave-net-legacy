@@ -6,7 +6,7 @@ description: Launching a weave network to manage your distributed containerized 
 tags: weave network, docker, docker machine, cli, virtualbox, dns, ipam
 
 shorttitle: Using Weave & Docker Machine
-sidebarpath: /start/starting/weavedocmach
+sidebarpath: /start/wd/dist/weavedocmach
 sidebarweight: 15
 ---
 
