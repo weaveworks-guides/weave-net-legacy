@@ -6,6 +6,8 @@ write_files:
     owner: root
     content: |
       WEAVE_PEERS="172.17.8.101 172.17.8.102 172.17.8.103"
+      # Uncomment and make it more secure
+      # WEAVE_PASSWORD="aVeryLongString"
 
 coreos:
   update:
