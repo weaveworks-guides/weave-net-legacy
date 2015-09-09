@@ -102,6 +102,7 @@ coreos:
         Documentation=http://docs.weave.works/
         Requires=network-online.target
         [Service]
+        EnvironmentFile=-/etc/weave.%H.env
         EnvironmentFile=-/etc/weave.env
         Type=oneshot
         RemainAfterExit=yes
@@ -129,6 +130,7 @@ coreos:
         Requires=docker.service
         Requires=install-weave.service
         [Service]
+        EnvironmentFile=-/etc/weave.%H.env
         EnvironmentFile=-/etc/weave.env
         ExecStartPre=/opt/bin/weave launch-proxy --rewrite-inspect --without-dns
         ExecStart=/usr/bin/docker attach weaveproxy
@@ -149,8 +151,8 @@ coreos:
         Requires=install-weave.service
         [Service]
         TimeoutStartSec=0
+        EnvironmentFile=-/etc/weave.%H.env
         EnvironmentFile=-/etc/weave.env
-        EnvironmentFile=/etc/weave.%H.env
         ExecStartPre=/opt/bin/weave launch-router $WEAVE_PEERS
         ExecStart=/usr/bin/docker attach weave
         Restart=on-failure
@@ -173,6 +175,7 @@ coreos:
         Type=oneshot
         RemainAfterExit=yes
         TimeoutStartSec=0
+        EnvironmentFile=-/etc/weave.%H.env
         EnvironmentFile=-/etc/weave.env
         ExecStart=/opt/bin/weave expose
         ExecStop=/opt/bin/weave hide
