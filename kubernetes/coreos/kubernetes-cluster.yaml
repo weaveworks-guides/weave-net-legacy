@@ -182,7 +182,6 @@ coreos:
         After=install-weave.service
         After=weave.service
         After=docker.service
-        Description=Weave Network Router
         Documentation=http://docs.weave.works/
         Requires=docker.service
         Requires=install-weave.service
