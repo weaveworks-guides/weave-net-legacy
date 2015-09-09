@@ -62,14 +62,14 @@ Next, check that the Weave network has launched successfully onto the clusters b
 ~~~bash
 > vagrant ssh kube-01
 
-kube-01 > weave status
+core@kube-01 ~ $ weave status
 ~~~
 
 
 All three CoreOS instances should now be running in a cluster. To check the health of the cluster, and to check that everything set up correctly: 
 
 ~~~bash
-kube-01 > etcdctl cluster-health
+core@kube-01 ~ $ etcdctl cluster-health
 
 cluster is healthy
 member 25d6ce33763c5524 is healthy
@@ -80,7 +80,7 @@ member ff32f4b39b9c47bd is healthy
 Watch for the Kubernetes binaries to install here:  
 
 ~~~bash
-kube-01 > journalctl -f -u install-kubernetes 
+core@kube-01 ~ $ journalctl -f -u install-kubernetes 
 
 -- Logs begin at Mon 2015-09-07 14:46:39 UTC. --
 Sep 07 14:47:49 kube-01 tar[2454]: kubernetes/server/bin/kube-apiserver.docker_tag
@@ -101,7 +101,7 @@ Once the Kubernetes binaries are downloaded and installed onto the coreOS cluste
 With the Kubernetes binaries fully installed, you can now discover all of the pods by deploying the DNS addon: 
 
 ~~~bash
-kube-01 > kubectl create -f /etc/kubernetes/addons
+core@kube-01 ~ $ kubectl create -f /etc/kubernetes/addons
 
 replicationcontrollers/kube-dns-v8
 services/kube-dns
@@ -110,7 +110,7 @@ services/kube-dns
 And then, wait for the DNS to discover the pods: 
 
 ~~~bash
-kube-01 > kubectl get pods -w --all-namespaces
+core@kube-01 ~ $ kubectl get pods -w --all-namespaces
 
 NAMESPACE     NAME                READY     STATUS    RESTARTS   AGE
 kube-system   kube-dns-v8-hmofb   0/4       Pending   0          17s
@@ -130,7 +130,7 @@ kube-system   kube-dns-v8-ofmjo   4/4       Running   1         1m
 Check that the nodes have registered with the master.  In this example, kube-01 at address: `172.17.8.101` is the master, leaving the other 2 VMs as the nodes, shown below: 
 
 ~~~bash
-kube-01 > kubectl get nodes
+core@kube-01 ~ $ kubectl get nodes
 
 NAME           LABELS                                STATUS
 172.17.8.102   kubernetes.io/hostname=172.17.8.102   Ready
@@ -146,7 +146,7 @@ Now you are ready to deploy the guestbook app on to the master node.
 The guestbook php app consists of two replication controllers: one redis database master and another redis database slave. It also deploys a front-end service, which you will be able to load into your browser: 
 
 ~~~bash
-kube-01 > kubectl create -f guestbook-example
+core@kube-01 ~ $ kubectl create -f guestbook-example
 ~~~
 
 >>Make a note of the port number returned after launching the guestbook app. 
@@ -154,7 +154,7 @@ kube-01 > kubectl create -f guestbook-example
 Let’s take a look at the state of our Kubernetes cluster, we should see the three pods that we have just deployed. This should match the number of replication controllers as well as the front-end service. When you run this command, the pods will go from `Pending` to `Running` as shown below: 
 
 ~~~bash
-kube-01 > kubectl get pods -w
+core@kube-01 ~ $ kubectl get pods -w
 
 NAME                 READY     STATUS    RESTARTS   AGE
 frontend-oba5w       1/1       Running   0          1h
@@ -172,7 +172,7 @@ Now you will be able to load the app into your browser using IP address of eithe
 You can obtain the port programatically by calling:
 
 ~~~bash
-kube-01 > kubectl get services \
+core@kube-01 ~ $ kubectl get services \
   --selector="name=frontend" \
   --output="template" \
   --template="{{(index (index .items 0).spec.ports 0).nodePort}}"
