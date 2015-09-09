@@ -6,7 +6,7 @@ description: Using Weave with docker containers, a three part tutorial
 tags: docker, machine, cli, virtualbox, dns, ipam, hello-weave-app, swarm, compose, proxy, python, flask, redis
 
 shorttitle: Weave & the Docker Platform
-sidebarpath: /start/starting
+sidebarpath: /start/wd/dist
 sidebarweight: 10
 ---
 

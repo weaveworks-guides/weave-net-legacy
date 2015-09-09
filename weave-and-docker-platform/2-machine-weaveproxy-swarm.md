@@ -6,7 +6,7 @@ description: Using weave net and weave run with docker machine and docker swarm
 tags: weave, docker, docker machine, swarm, cli, virtualbox, dns, ipam, weaveproxy
 
 shorttitle: Using Weave & Docker via weaveproxy
-sidebarpath: /start/starting/weaveproxy
+sidebarpath: /start/wd/dist/weaveproxy
 sidebarweight: 20
 ---
 

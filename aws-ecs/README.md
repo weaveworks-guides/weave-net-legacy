@@ -7,7 +7,7 @@ description: Weave Net & Weave Run provides a simpler way to run applications on
 tags: aws, load-balancing, dns, packer, ecs, amazon-linux, microservices
 permalink: /guides/service-discovery-with-weave-aws-ecs.html
 sidebarpath: /start/aws/awssd
-sidebarweight: 60
+sidebarweight: 25
 ---
 
 ## What You Will Build

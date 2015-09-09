@@ -5,6 +5,12 @@ description: How to use a Weave network with Ruby on Rails PostgreSQL database-b
 tags: ubuntu, ruby, rails, load-blancing, microservices, dns, postgres
 markdown: kramdown
 highlighter: pygments
+
+permalink: /guides/language/ruby/ruby-on-rails-index.html
+
+shorttitle: Ruby on Rails app with Weave & Docker
+sidebarpath: /start/micro/ruby
+sidebarweight: 45
 ---
 
 
@@ -41,9 +47,9 @@ This getting started guide is self contained. You will use Weave, Docker, Rails,
 
 All of the code for this example is available on github, and you first clone the getting started repository.
 
-```bash
+~~~bash
 $ git clone http://github.com/weaveworks/guides
-```
+~~~
 
 You will use Vagrant to setup and configure three Ubuntu hosts and
 install Docker. We make use of Vagrant's functionality to download the
@@ -53,10 +59,11 @@ would like to work through the installation steps please review our
 guide](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/README.md)
 for a more manual example.
 
-```bash
+~~~bash
 $ cd weave-gs/rails-ubuntu-simple
 $ vagrant up
-```
+~~~
+
 
 Vagrant will pull down and configure an Ubuntu image, this may take a
 few minutes depending on the speed of your network connection. For
@@ -68,15 +75,15 @@ during the Vagrant setup, please just hit return at this point.
 
 Once the setup of the host is complete you can check its status with
 
-```bash
+~~~bash
 $ vagrant status
-```
+~~~
 
 The IP address we use for this is
 
-```bash
+~~~bash
 172.17.8.101 	weave-rails-01
-```
+~~~
 
 Our Vagrantfile also configures weave-rails-01 to pass traffic from
 port 3000 to localhost port 3000, which we will use later when we
@@ -92,28 +99,28 @@ vagrant machine. If you want to run the commands from your client, you
 will need weave installed on your client, and your
 DOCKER_HOST environment variable set.
 
-```bash
+~~~bash
 $ vagrant ssh
-```
+~~~
 
 First, let's bootstrap our new Rails app. The rails setup process is
 taken from the documentation of the [official dockerhub rails
 image](https://registry.hub.docker.com/_/rails/).
 
-```bash
+~~~bash
 $ docker run -it --rm \
     --user "$(id -u):$(id -g)" \
     -v "$PWD":/usr/src/app \
     -w /usr/src/app rails \
     rails new webapp --database=postgresql --skip-bundle
 $ cd webapp
-```
+~~~
 
 Next, we use the docker ruby image to generate the project's Gemfile.lock.
 
-```bash
+~~~bash
 $ docker run --rm -v "$PWD":/usr/src/app -w /usr/src/app ruby:2.2 bundle install
-```
+~~~
 
 When we boot it, the database container will be registered with
 weaveDNS at db.weave.local. By default, containers launched through
@@ -127,7 +134,7 @@ hosts.
 We need to tell rails where to find its database. To do this, we edit
 the config/database.yml to look like the following.
 
-```yaml
+~~~yaml
 development: &default
   adapter: postgresql
   encoding: unicode
@@ -140,7 +147,7 @@ development: &default
 test:
   <<: *default
   database: webapp_test
-```
+~~~
 
 To boot our app as a docker container, we add a Dockerfile into our
 project directory. The rails image from dockerhub provides a
@@ -148,18 +155,18 @@ convenient base image to build from. The ruby postgres client gem
 depends on libpq-dev being installed, so we'll also to install that as
 part of our Dockerfile.
 
-```
+~~~
 FROM rails:onbuild
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
-```
+~~~
 
 With our Dockerfile configured, we are ready to build the container
 image. As usual with a docker container, if you change your project
 you will need to re-build the image before running your container.
 
-```bash
+~~~bash
 $ docker build -t webapp .
-```
+~~~
 
 For more information about dockerizing rails applications, see [the
 rails docker image
@@ -173,9 +180,9 @@ network connection and routing between our containers.
 will provide service-discovery between the app, and the database
 container.
 
-```bash
+~~~bash
 $ weave launch && weave launch-dns
-```
+~~~
 
 In this guide we'll configure our docker client to use the [weave
 proxy](http://docs.weave.works/weave/latest_release/proxy.html). This
@@ -183,10 +190,10 @@ lets us use the official docker client, and will attach any booted
 containers to the weave network. We'll launch the proxy and then use
 the proxy-env utility to configure our DOCKER_HOST.
 
-```bash
+~~~bash
 $ weave launch-proxy
 $ eval $(weave proxy-env)
-```
+~~~
 
 ## Launching PostgreSQL ##
 
@@ -194,9 +201,9 @@ Now, launching a PostgreSQL instance with DNS service discovery can be
 done with one command. For convenience, we'll use the official
 [postgres image from dockerhub](https://registry.hub.docker.com/_/postgres/).
 
-```bash
+~~~bash
 $ docker run --name db -e POSTGRES_PASSWORD=mysecretpassword -d postgres
-```
+~~~
 
 By setting the container name, our postgres instance will be
 registered with weaveDNS as db.weave.local. This will be in the local
@@ -213,17 +220,17 @@ good enough to preserve data across container restarts.
 With our database running, we can create and migrate our rails
 database using rake.
 
-```bash
+~~~bash
 $ docker run -it --rm -w /usr/src/app webapp rake db:create
-```
+~~~
 
 ## Launching Rails ##
 
 Run the first server container for our webapp:
 
-```bash
+~~~bash
 $ docker run --name webapp-1 -p 3000:3000 -d webapp
-```
+~~~
 
 By giving the webapp container a unique name, it will be registered with
 weaveDNS at webapp-1.weave.local. If we wished to do advanced

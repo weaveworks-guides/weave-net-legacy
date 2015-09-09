@@ -6,6 +6,10 @@ description:
   and load balancing.
 tags: mesos, marathon, load-balancing, dns, vagrant, centos, systemd
 permalink: /guides/platform/mesos-marathon/os/centos/cloud/vagrant/index.html
+
+shorttitle: Using Weave with Apache Mesos & Marathon
+sidebarpath: /start/mesos
+sidebarweight: 45
 ---
 
 ## What You Will Build

@@ -6,7 +6,7 @@ description: creating a multihost docker deployment using weave net and weave ru
 tags: weave net, docker, machine, swarm, compose, cli, virtualbox, dns, ipam, weaveproxy, python, flask, redis
 
 shorttitle: Using Weave & Docker Machine & Swarm
-sidebarpath: /start/starting/weaveswarm
+sidebarpath: /start/wd/dist/weaveswarm
 sidebarweight: 25
 ---
 
