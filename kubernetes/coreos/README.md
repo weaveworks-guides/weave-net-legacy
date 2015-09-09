@@ -172,13 +172,8 @@ Now you will be able to load the app into your browser using this IP address `17
 
 Here are a few other useful commands for troubleshooting:
 
-~~~bash
-etcdctl cluster-health
-systemctl status kube-*
-kubectl get nodes
-journalctl # to see installation log
-~~~
-
+  - to list status of all Kubernetes master components: `systemctl status kube-*`
+  - to see installation log: `journalctl`
 
 ##Conclusions
 
