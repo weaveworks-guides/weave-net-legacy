@@ -149,7 +149,19 @@ The guestbook php app consists of two replication controllers: one redis databas
 core@kube-01 ~ $ kubectl create -f guestbook-example
 ~~~
 
->>Make a note of the port number returned after launching the guestbook app.
+{% assign template_to_escape = '{{(index (index .items 0).spec.ports 0).nodePort}}' %}
+
+> You can make a note of the port number returned after launching the guestbook app.
+>
+> You can also obtain it programatically later by calling:
+> <br><br>
+>
+> ~~~bash
+> core@kube-01 ~ $ kubectl get services \
+>   --selector="name=frontend" \
+>   --output="template" \
+>   --template="{{template_to_escape}}"
+> ~~~
 
 Let’s take a look at the state of our Kubernetes cluster, we should see the three pods that we have just deployed. This should match the number of replication controllers as well as the front-end service. When you run this command, the pods will go from `Pending` to `Running` as shown below:
 
@@ -169,14 +181,6 @@ Now you will be able to load the app into your browser using IP address of eithe
 
 ![Guestbook front-end](/guides/images/kubernetes/coreos/guestbook.png)
 
-You can obtain the port programatically by calling:
-
-~~~bash
-core@kube-01 ~ $ kubectl get services \
-  --selector="name=frontend" \
-  --output="template" \
-  --template="{{(index (index .items 0).spec.ports 0).nodePort}}"
-~~~
 
 Here are a few other useful commands for troubleshooting:
 
