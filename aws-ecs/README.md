@@ -195,18 +195,27 @@ The HTTP Server works as follows:
 
 ## What's Happening in the Hosts?
 
-All host are equipped with Weave Scope, providing an intuitive visualization of
-all your containers and how the communicate with each other. Scope has a
-webserver listening on port `4040` so, to access it, just open your browser and
-paste the URL of any of your instances:
+All the ECS instances are equipped with
+[Weave Scope](http://weave.works/scope/), providing an intuitive real-time
+visualization of all your containers and how the communicate with each
+other. Scope has a webserver listening on port `4040` so, to access it, just
+open your browser and paste the URL of any of your instances:
 
       http://foo.region.compute.amazonaws.com:4040
       http://bar.region.compute.amazonaws.com:4040
       http://baz.region.compute.amazonaws.com:4040
 
-This is what you should see:
+This is what you should see when accessing one of the HTTP Servers multiple
+times (i.e. reloading `http://foo.region.compute.amazonaws.com` in your browser
+multiple times).
 
 ![Scope visualization](/guides/images/aws-ecs/scope.png)
+
+You should click on the `httpserver` container to display its details.
+
+Note the edges between one of the `httpserver` containers (the one
+accessed from your browser) and the three `dataproducer` containers, reflecting
+the load balancing scheme we built with weaveDNS.
 
 You can get more insights by selecting different views: *Applications (by
 name)*, *Containers by image* and *Hosts*.
@@ -230,27 +239,29 @@ For example, to list the active running containers in the instance:
 
 Where you will see something similar to this:
 
+    CONTAINER ID        IMAGE                            COMMAND                CREATED            STATUS           PORTS                                                                                            NAMES
+    a67655146b5b        2opremio/weaveecsdemo:latest     "\"/w/w bash -c 'set   7 minutes ago      Up 7 minutes     0.0.0.0:80->80/tcp                                                                               ecs-weave-ecs-demo-task-1-httpserver-a2bad7f8f792f185f901
+    eeb53274c26b        2opremio/weaveecsdemo:latest     "/w/w sh -c 'while t   7 minutes ago      Up 7 minutes                                                                                                      ecs-weave-ecs-demo-task-1-dataproducer-dec2b39a92e0edb1aa01
+    8af86be1dd18        amazon/amazon-ecs-agent:latest   "/w/w /agent"          8 minutes ago      Up 8 minutes     127.0.0.1:51678->51678/tcp                                                                       ecs-agent
+    693ef5ae00cb        weaveworks/weaveexec:v1.1.0      "/home/weave/weavepr   8 minutes ago      Up 8 minutes                                                                                                      weaveproxy
+    86b6019c3995        weaveworks/weave:v1.1.0          "/home/weave/weaver    8 minutes ago      Up 8 minutes     0.0.0.0:6783->6783/udp, 0.0.0.0:6783->6783/tcp, 172.17.42.1:53->53/tcp, 172.17.42.1:53->53/udp   weave
+    190afc5cd56b        weaveworks/scope:latest          "/home/weave/entrypo   8 minutes ago      Up 8 minutes                                                                                                      weavescope
 
-    CONTAINER ID        IMAGE                            COMMAND                CREATED             STATUS              PORTS                                                                                            NAMES
-    e2fe07ab4768        2opremio/weaveecsdemo:latest     "\"/w/w bash -c 'sle   7 minutes ago       Up 7 minutes        0.0.0.0:80->80/tcp                                                                               ecs-weave-ecs-demo-task-1-httpserver-9682f3b0cd868cd60d00
-    42658f9eaef5        2opremio/weaveecsdemo:latest     "/w/w sh -c 'while t   7 minutes ago       Up 7 minutes                                                                                                         ecs-weave-ecs-demo-task-1-dataproducer-b8ecddb78a8fecfc3900
-    18db610b28f7        amazon/amazon-ecs-agent:latest   "/w/w /agent"          8 minutes ago       Up 8 minutes        127.0.0.1:51678->51678/tcp                                                                       ecs-agent
-    4221747c81e3        weaveworks/weaveexec:latest      "/home/weave/weavepr   8 minutes ago       Up 8 minutes                                                                                                         weaveproxy
-    9457fff981b8        weaveworks/weave:latest          "/home/weave/weaver    8 minutes ago       Up 8 minutes        0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp, 172.17.42.1:53->53/tcp, 172.17.42.1:53->53/udp   weave
 
-
-* Container `ecs-weave-ecs-demo-task-1-httpserver-9682f3b0cd868cd60d00` is the
+* Container `ecs-weave-ecs-demo-task-1-httpserver-a2bad7f8f792f185f901` is the
   HTTP Server of this host, producing the output you saw in your browser.  Note
   how container names are mangled by ECS: 
   `ecs-${TASK_FAMILY_NAME}-${TASK_FAMILY_VERSION}-${STRIPPED_CONTAINER_NAME}-${UUID}`.
 
-* Container `ecs-weave-ecs-demo-task-8-dataproducer-b8ecddb78a8fecfc3900` is the
+* Container `ecs-weave-ecs-demo-task-1-dataproducer-dec2b39a92e0edb1aa01` is the
   Data Producer of this host.
 
 * Containers `weaveproxy` and `weave` are responsible for running
   Weave within each ECS instance. For illustration purposes, the proxy was shown out
   of Docker in the previous section's diagram, but in actual fact weaveproxy runs
   inside of Docker.
+
+* Container `weavescope` are responsible for run Weave Scope and monitor each instance.
 
 * Container `ecs-agent` corresponds to
   [Amazon's ECS Agent](https://github.com/aws/amazon-ecs-agent), which runs on
