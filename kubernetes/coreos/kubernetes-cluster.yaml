@@ -2,28 +2,10 @@
 
 write_files:
   - path: /etc/weave.env
-    permissions: '0644'
+    permissions: '0600'
     owner: root
     content: |
-      VERSION="git-32a82f2d0e83"
-
-  - path: /etc/weave.kube-01.env
-    permissions: '0644'
-    owner: root
-    content: |
-      WEAVE_PEERS="172.17.8.102 172.17.8.103"
-
-  - path: /etc/weave.kube-02.env
-    permissions: '0644'
-    owner: root
-    content: |
-      WEAVE_PEERS="172.17.8.101 172.17.8.103"
-
-  - path: /etc/weave.kube-03.env
-    permissions: '0644'
-    owner: root
-    content: |
-      WEAVE_PEERS="172.17.8.101 172.17.8.102"
+      WEAVE_PEERS="172.17.8.101 172.17.8.102 172.17.8.103"
 
 coreos:
   update:
