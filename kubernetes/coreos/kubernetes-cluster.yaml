@@ -167,7 +167,6 @@ coreos:
         TimeoutStartSec=0
         EnvironmentFile=-/etc/weave.env
         EnvironmentFile=/etc/weave.%H.env
-        ExecStartPre=/opt/bin/weave setup
         ExecStartPre=/opt/bin/weave launch-router $WEAVE_PEERS
         ExecStart=/usr/bin/docker attach weave
         Restart=on-failure
