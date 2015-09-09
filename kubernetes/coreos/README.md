@@ -165,10 +165,18 @@ redis-slave-kyi7u    1/1       Running   0          1h
 redis-slave-ncdc3    1/1       Running   0          1h
 ~~~
 
-Now you will be able to load the app into your browser using this IP address `172.17.8.101` and the port number that was returned when you ran `kubectl create -f guestbook-example` above.
+Now you will be able to load the app into your browser using IP address of either of the nodes (`172.17.8.101`, `172.17.8.102`, `172.17.8.103`) and the port number that was returned when you ran `kubectl create -f guestbook-example` above.
 
 ![Guestbook front-end](/guides/images/kubernetes/coreos/guestbook.png)
 
+You can obtain the port programatically by calling:
+
+~~~bash
+kube-01 > kubectl get services \
+  --selector="name=frontend" \
+  --output="template" \
+  --template="{{(index (index .items 0).spec.ports 0).nodePort}}"
+~~~
 
 Here are a few other useful commands for troubleshooting:
 
