@@ -211,16 +211,16 @@ multiple times).
 
 ![Scope visualization](/guides/images/aws-ecs/scope.png)
 
-You should click on the `httpserver` container to display its details.
+Click on the `httpserver` container to display its details.
 
 Note the edges between one of the `httpserver` containers (the one
 accessed from your browser) and the three `dataproducer` containers, reflecting
 the load balancing scheme we built with weaveDNS.
 
-You can get more insights by selecting different views: *Applications (by
+More insights can be gained by selecting different views: *Applications (by
 name)*, *Containers by image* and *Hosts*.
 
-If you want to dive even deeper on what's happening in the ECS instances, you can access
+If you want to dive even deeper on what's happening in the ECS instances, access
 them through ssh:
 
 ~~~bash
@@ -265,8 +265,7 @@ Where you will see something similar to this:
 
 * Container `ecs-agent` corresponds to
   [Amazon's ECS Agent](https://github.com/aws/amazon-ecs-agent), which runs on
-  all of the EC2 instances and is responsible for starting containers on behalf of Amazon ECS. Again, for
-  simplification, the ECS Agent was represented out of Docker in the previous
+  all of the EC2 instances and is responsible for starting containers on behalf of Amazon ECS.   For simplification, the ECS Agent was represented out of Docker in the previous
   section's diagram.
 
 View the IP addresses of the HTTP Servers and the Data Producers by running:
@@ -281,7 +280,7 @@ View the IP addresses of the HTTP Servers and the Data Producers by running:
     10.32.0.2
     10.40.0.1
 
-Re-running the commands listed above will vary the IP addresses. This is the weavedns service transparently balancing the load by randomizing the IP addresses, as the HTTP servers are connecting to Data Producers.
+Re-running these commands vary the IP addresses. This is the weavedns service transparently balancing the load by randomizing the IP addresses, as the HTTP servers are connecting to Data Producers.
 
 ###Cleanup
 
@@ -407,7 +406,7 @@ aws ecs run-task --cluster weave-ecs-demo-cluster --task-definition weave-ecs-de
 * Auto Scaling Groups are required for ECS to work with Weave. If you create individual
   instances, they won't work be able to see each other due to how Weave finds peers in ECS.
 
-## For the advanced user: Build your own Weave ECS AMI
+## For the Advanced User: Build Your Own Weave ECS AMI
 
 
 Clone the guides repository if you haven't done so yet and go to the `packer`
@@ -447,8 +446,7 @@ ONLY_REGION=us-east-1 AWS_ACCSS_KEY_ID=XXXX AWS_SECRET_ACCESS_KEY=YYYY  ./build-
 
 ##Conclusions
 
-You have used Weave out-of-the-box within the Amazon Container Management service or ECS and used Weave for both service discovery and load
-balancing between containers running in Amazon EC2 instances. Weave runs regardless of whether it was executed on the same or on different hosts, and can even run across completely different cloud providers if necessary. 
+You have used Weave out-of-the-box within the Amazon Container Management service or ECS and used Weave for both service discovery and load balancing between containers running in Amazon EC2 instances. Weave runs regardless of whether it was executed on the same or on different hosts, and can even run across completely different cloud providers if necessary. 
 
 You can easily adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](mailto:help@weave.works) or [Twitter](https://twitter.com/weaveworks).
 
