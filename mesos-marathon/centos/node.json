@@ -1,0 +1,16 @@
+{
+  "id": "outyet",
+  "cpus": 0.2,
+  "mem": 20.0,
+  "instances": 4,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "docker.io/errordeveloper/hello-weave-node",
+      "network": "BRIDGE",
+      "parameters": [
+        { "key": "hostname", "value": "hello.weave.local" }
+      ]
+    }
+  }
+}
