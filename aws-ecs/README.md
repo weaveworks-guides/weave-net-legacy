@@ -446,7 +446,7 @@ ONLY_REGION=us-east-1 AWS_ACCSS_KEY_ID=XXXX AWS_SECRET_ACCESS_KEY=YYYY  ./build-
 
 ##Conclusions
 
-You have used Weave out-of-the-box within the Amazon Container Management service or ECS and used Weave for both service discovery and load balancing between containers running in Amazon EC2 instances. Weave runs regardless of whether it was executed on the same or on different hosts, and can even run across completely different cloud providers if necessary. 
+You have used Weave out-of-the-box within the Amazon Container Management service or ECS and used Weave for both service discovery and load balancing between containers running in Amazon EC2 instances. Weave runs regardless of whether it was executed on the same or on different hosts, and can even run across completely different cloud providers if necessary.
 
 You can easily adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](mailto:help@weave.works) or [Twitter](https://twitter.com/weaveworks).
 
