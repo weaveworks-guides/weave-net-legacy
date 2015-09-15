@@ -3,8 +3,7 @@
     "aws_access_key": "",
     "aws_secret_key": "",
     "aws_region": "",
-    "source_ami": "",
-    "ami_groups": ""
+    "source_ami": ""
   },
   "builders": [{
     "type": "amazon-ebs",
@@ -15,7 +14,6 @@
     "instance_type": "t2.micro",
     "ssh_username": "ec2-user",
     "ami_name": "Weaveworks ECS Image ({{isotime \"2006-01-02\"}})",
-    "ami_groups": "{{user `ami_groups`}}",
     "communicator": "ssh",
     "ssh_pty": true
   }],
@@ -30,10 +28,6 @@
     "destination": "/home/ec2-user/weave.conf"
   }, {
     "type": "file",
-    "source": "to-upload/scope.conf",
-    "destination": "/home/ec2-user/scope.conf"
-  }, {
-    "type": "file",
     "source": "to-upload/peers.sh",
     "destination": "/home/ec2-user/peers.sh"
   }, {
@@ -42,17 +36,12 @@
       "sudo yum -y install python-pip jq",
       "sudo python-pip install awscli",
 
-      "sudo curl -L http://git.io/weave -o /usr/local/bin/weave",
+      "sudo curl -L https://raw.githubusercontent.com/weaveworks/weave/master/weave -o /usr/local/bin/weave",
       "sudo chmod +x /usr/local/bin/weave",
-      "sudo /usr/local/bin/weave setup",
-
-      "sudo curl -L https://raw.githubusercontent.com/weaveworks/scope/master/scope -o /usr/local/bin/scope",
-      "sudo chmod +x /usr/local/bin/scope",
 
       "sudo mv /home/ec2-user/weave.conf /etc/init/weave.conf",
-      "sudo mv /home/ec2-user/scope.conf /etc/init/scope.conf",
       "sudo mv /home/ec2-user/ecs.conf /etc/init/ecs.conf",
-
+      
       "sudo mkdir /etc/weave",
       "sudo mv /home/ec2-user/peers.sh /etc/weave/peers.sh",
       "sudo chmod +x /etc/weave/peers.sh",
