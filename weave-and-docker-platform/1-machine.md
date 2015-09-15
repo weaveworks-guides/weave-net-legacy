@@ -84,7 +84,7 @@ docker info
 
 Now launch the Weave network and automatically launch the Docker API proxy:
 
-  >>Note: if you are using OS X, see "Launching Weave on OS X" below
+  >>Note: if you are using OS X, see ["Launching Weave on OS X"](#launching-weave-on-osx)
 
 ~~~bash
 weave launch
