@@ -150,7 +150,7 @@ docker run -d --name=pingme \
         gliderlabs/alpine nc -p 4000 -l -e echo 'Hello, Weave!'
 ~~~
 
-The second containerized app is called `pinger`, and it will be launched interactively using the `-ti` flag, where the container can acccept and run few simple commands.
+The second containerized app is called `pinger`, and it will be launched interactively using the `-ti` flag, where the container can accept and run few simple commands.
 
 ~~~bash
 docker run -e 'affinity:container!=pingme' --name=pinger -ti \
