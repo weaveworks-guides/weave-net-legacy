@@ -1,0 +1,151 @@
+#cloud-config
+write_files:
+- path: /etc/weave.env
+  permissions: '0600'
+  owner: root
+  content: |
+    WEAVE_PEERS="172.17.8.101 172.17.8.102"
+    # Uncomment and make it more secure
+    # WEAVE_PASSWORD="aVeryLongString"
+- path: /etc/rkt/net.d/10-weave-core-01.conf
+  permissions: '0600'
+  owner: root
+  content: |
+    {
+      "name": "core-01",
+      "type": "bridge",
+      "bridge": "weave",
+      "isGateway": true,
+      "ipMasq": true,
+      "ipam": {
+        "type": "host-local",
+        "subnet": "10.22.0.0/16",
+        "rangeStart": "10.22.1.1",
+        "rangeEnd": "10.22.1.250",
+        "gateway": "10.22.0.1",
+        "routes": [
+          { "dst": "0.0.0.0/0" }
+        ]
+      }
+    }
+
+- path: /etc/rkt/net.d/10-weave-core-02.conf
+  permissions: '0600'
+  owner: root
+  content: |
+    {
+      "name": "core-02",
+      "type": "bridge",
+      "bridge": "weave",
+      "isGateway": true,
+      "ipMasq": true,
+      "ipam": {
+        "type": "host-local",
+        "subnet": "10.22.0.0/16",
+        "rangeStart": "10.22.2.1",
+        "rangeEnd": "10.22.2.250",
+        "gateway": "10.22.0.2",
+        "routes": [
+          { "dst": "0.0.0.0/0" }
+        ]
+      }
+    }
+
+coreos:
+  update:
+    #group: stable
+    reboot-strategy: 'off'
+  units:
+  - name: systemd-networkd-wait-online.service
+    drop-ins:
+    - name: 50-check-github-is-reachable.conf
+      content: |
+        [Service]
+        ExecStart=/bin/sh -x -c \
+          'until curl --silent --fail https://status.github.com/api/status.json | grep -q \"good\"; do sleep 2; done'
+  - name: weave-network.target
+    enable: true
+    command: start
+    content: |
+      [Unit]
+      Description=Weave Network Setup Complete
+      Documentation=man:systemd.special(7)
+      RefuseManualStart=no
+      After=network-online.target
+      Requires=weave.service weaveproxy.service
+      [Install]
+      WantedBy=multi-user.target
+  - name: 10-weave.network
+    runtime: false
+    content: |
+      [Match]
+      Type=bridge
+      Name=weave*
+      [Network]
+  - name: install-weave.service
+    enable: true
+    content: |
+      [Unit]
+      After=network-online.target
+      After=docker.service
+      Before=weave.service
+      Description=Install Weave
+      Documentation=http://docs.weave.works/
+      Requires=network-online.target
+      [Service]
+      EnvironmentFile=-/etc/weave.%H.env
+      EnvironmentFile=-/etc/weave.env
+      Type=oneshot
+      RemainAfterExit=yes
+      TimeoutStartSec=0
+      ExecStartPre=/bin/mkdir -p /opt/bin/
+      ExecStartPre=/usr/bin/curl \
+        --silent \
+        --location \
+        git.io/weave-snapshot \
+        --output /opt/bin/weave
+      ExecStartPre=/usr/bin/chmod +x /opt/bin/weave
+      ExecStart=/opt/bin/weave setup
+      [Install]
+      WantedBy=weave-network.target
+      WantedBy=weave.service
+      WantedBy=weaveproxy.service
+  - name: weaveproxy.service
+    enable: true
+    content: |
+      [Unit]
+      After=install-weave.service
+      After=docker.service
+      Description=Weave proxy for Docker API
+      Documentation=http://docs.weave.works/
+      Requires=docker.service
+      Requires=install-weave.service
+      [Service]
+      EnvironmentFile=-/etc/weave.%H.env
+      EnvironmentFile=-/etc/weave.env
+      ExecStartPre=/opt/bin/weave launch-proxy
+      ExecStart=/usr/bin/docker attach weaveproxy
+      Restart=on-failure
+      ExecStop=/opt/bin/weave stop-proxy
+      [Install]
+      WantedBy=weave-network.target
+  - name: weave.service
+    enable: true
+    content: |
+      [Unit]
+      After=install-weave.service
+      After=docker.service
+      Description=Weave Network Router
+      Documentation=http://docs.weave.works/
+      Requires=docker.service
+      Requires=install-weave.service
+      [Service]
+      TimeoutStartSec=0
+      EnvironmentFile=-/etc/weave.%H.env
+      EnvironmentFile=-/etc/weave.env
+      ExecStartPre=/opt/bin/weave launch-router $WEAVE_PEERS
+      ExecStart=/usr/bin/docker attach weave
+      Restart=on-failure
+      ExecStop=/opt/bin/weave stop-router
+      [Install]
+      WantedBy=weave-network.target
