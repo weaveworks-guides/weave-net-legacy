@@ -60,7 +60,7 @@ _If you completed [Part one of this tutorial][ch1], you should have all of these
 
 ## Let's go!
 
-Note that the first two sections of this guide describes how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave in action right away, then refer to [Putting It All Together](#Putting) below, where several helpful shell scripts are provided, which automate the whole process.
+Note that the first two sections of this guide describes how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave in action right away, then refer to [Putting It All Together](#putting-it-all-together) below, where several helpful shell scripts are provided, which automate the whole process.
 
 First, select the number of VMs to provision. This example limits the number of VMs to 3 to demonstrate Weave in a cluster environment, while at the same time can still run comfortably on most laptops. In a production setting however, you can have any number of hosts in a  Docker Swarm and connect them using Weave.
 
@@ -111,17 +111,17 @@ On each host, except for `weave-1` you will need to:
 On `weave-1` run:
 
 ~~~bash
-weave launch
+weave launch-router
 ~~~
 
-Specify the TLS settings if asked:
+Obtain the TLS settings:
 
 ~~~bash
 tlsargs=$(docker-machine ssh weave-12 \
   "cat /proc/\$(pgrep /usr/local/bin/docker)/cmdline | tr '\0' '\n' | grep ^--tls | tr '\n' ' '")
 ~~~
 
-launch the proxy using the TLS settings you grepped above:
+Now you can launch the proxy passing the `$tlsargs` you grepped above:
 
 ~~~bash
 weave launch-proxy $tlsargs
@@ -130,13 +130,7 @@ weave launch-proxy $tlsargs
 and finally, set the weave environment variable for `weave-1`
 
 ~~~bash
-eval "$(weave env)"
-~~~
-
-Set the weave env for `weave-1`
-
-~~~bash
-eval "$(weave env)"
+eval $(weave env)
 ~~~
 
 Launch weave on `weave-2` with `--init-peer-count set to 3`:
@@ -161,7 +155,7 @@ weave launch-proxy $tlsargs
 and finally, set the weave environment variable for `weave-2`
 
 ~~~bash
-eval "$(weave env)"
+eval $(weave env)
 ~~~
 
 Next on `weave-2` connect the cluster to our bootstrap node, `weave-1`:
@@ -207,7 +201,7 @@ Once done, check that everything is running properly:
     weave-2            virtualbox   Running   tcp://192.168.99.130:2376   weave-1
     weave-3   *        virtualbox   Running   tcp://192.168.99.131:2376   weave-1
 
-As you can see the 3 virtual machines are running. Check that they are in a Swarm:
+As you can see, there are 3 virtual machines running. Check that they are in a Swarm:
 
     > docker `docker-machine config --swarm weave-1` info
     Containers: 13
@@ -227,7 +221,7 @@ As you can see the 3 virtual machines are running. Check that they are in a Swar
       └ Reserved CPUs: 0 / 8
       └ Reserved Memory: 0 B / 1.025 GiB
 
-Now that everything is setup correctly, we can run a few containers.
+Now that everything is set up correctly, we can run a few containers.
 
 ## Deploy
 
