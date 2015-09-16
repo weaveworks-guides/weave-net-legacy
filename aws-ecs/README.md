@@ -195,7 +195,32 @@ The HTTP Server works as follows:
 
 ## What's Happening in the Hosts?
 
-If you are curious about what's happening in the ECS instances, you can access
+All the ECS instances are equipped with
+[Weave Scope](http://weave.works/scope/), providing an intuitive real-time
+visualization of all your containers and how the communicate with each
+other. Scope has a webserver listening on port `4040` so, to access it, just
+open your browser and paste the URL of any of your instances:
+
+      http://foo.region.compute.amazonaws.com:4040
+      http://bar.region.compute.amazonaws.com:4040
+      http://baz.region.compute.amazonaws.com:4040
+
+This is what you should see when accessing one of the HTTP Servers multiple
+times (i.e. reloading `http://foo.region.compute.amazonaws.com` in your browser
+multiple times).
+
+![Scope visualization](/guides/images/aws-ecs/scope.png)
+
+Click on the `httpserver` container to display its details.
+
+Note the edges between one of the `httpserver` containers (the one
+accessed from your browser) and the three `dataproducer` containers, reflecting
+the load balancing scheme we built with weaveDNS.
+
+More insights can be gained by selecting different views: *Applications (by
+name)*, *Containers by image* and *Hosts*.
+
+If you want to dive even deeper on what's happening in the ECS instances, access
 them through ssh:
 
 ~~~bash
@@ -214,21 +239,21 @@ For example, to list the active running containers in the instance:
 
 Where you will see something similar to this:
 
+    CONTAINER ID        IMAGE                            COMMAND                CREATED            STATUS           PORTS                                                                                            NAMES
+    a67655146b5b        2opremio/weaveecsdemo:latest     "\"/w/w bash -c 'set   7 minutes ago      Up 7 minutes     0.0.0.0:80->80/tcp                                                                               ecs-weave-ecs-demo-task-1-httpserver-a2bad7f8f792f185f901
+    eeb53274c26b        2opremio/weaveecsdemo:latest     "/w/w sh -c 'while t   7 minutes ago      Up 7 minutes                                                                                                      ecs-weave-ecs-demo-task-1-dataproducer-dec2b39a92e0edb1aa01
+    8af86be1dd18        amazon/amazon-ecs-agent:latest   "/w/w /agent"          8 minutes ago      Up 8 minutes     127.0.0.1:51678->51678/tcp                                                                       ecs-agent
+    693ef5ae00cb        weaveworks/weaveexec:v1.1.0      "/home/weave/weavepr   8 minutes ago      Up 8 minutes                                                                                                      weaveproxy
+    86b6019c3995        weaveworks/weave:v1.1.0          "/home/weave/weaver    8 minutes ago      Up 8 minutes     0.0.0.0:6783->6783/udp, 0.0.0.0:6783->6783/tcp, 172.17.42.1:53->53/tcp, 172.17.42.1:53->53/udp   weave
+    190afc5cd56b        weaveworks/scope:latest          "/home/weave/entrypo   8 minutes ago      Up 8 minutes                                                                                                      weavescope
 
-    CONTAINER ID        IMAGE                            COMMAND                CREATED             STATUS              PORTS                                                                                            NAMES
-    e2fe07ab4768        2opremio/weaveecsdemo:latest     "\"/w/w bash -c 'sle   7 minutes ago       Up 7 minutes        0.0.0.0:80->80/tcp                                                                               ecs-weave-ecs-demo-task-1-httpserver-9682f3b0cd868cd60d00
-    42658f9eaef5        2opremio/weaveecsdemo:latest     "/w/w sh -c 'while t   7 minutes ago       Up 7 minutes                                                                                                         ecs-weave-ecs-demo-task-1-dataproducer-b8ecddb78a8fecfc3900
-    18db610b28f7        amazon/amazon-ecs-agent:latest   "/w/w /agent"          8 minutes ago       Up 8 minutes        127.0.0.1:51678->51678/tcp                                                                       ecs-agent
-    4221747c81e3        weaveworks/weaveexec:latest      "/home/weave/weavepr   8 minutes ago       Up 8 minutes                                                                                                         weaveproxy
-    9457fff981b8        weaveworks/weave:latest          "/home/weave/weaver    8 minutes ago       Up 8 minutes        0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp, 172.17.42.1:53->53/tcp, 172.17.42.1:53->53/udp   weave
 
-
-* Container `ecs-weave-ecs-demo-task-1-httpserver-9682f3b0cd868cd60d00` is the
+* Container `ecs-weave-ecs-demo-task-1-httpserver-a2bad7f8f792f185f901` is the
   HTTP Server of this host, producing the output you saw in your browser.  Note
   how container names are mangled by ECS: 
   `ecs-${TASK_FAMILY_NAME}-${TASK_FAMILY_VERSION}-${STRIPPED_CONTAINER_NAME}-${UUID}`.
 
-* Container `ecs-weave-ecs-demo-task-8-dataproducer-b8ecddb78a8fecfc3900` is the
+* Container `ecs-weave-ecs-demo-task-1-dataproducer-dec2b39a92e0edb1aa01` is the
   Data Producer of this host.
 
 * Containers `weaveproxy` and `weave` are responsible for running
@@ -236,10 +261,11 @@ Where you will see something similar to this:
   of Docker in the previous section's diagram, but in actual fact weaveproxy runs
   inside of Docker.
 
+* Container `weavescope` are responsible for run Weave Scope and monitor each instance.
+
 * Container `ecs-agent` corresponds to
   [Amazon's ECS Agent](https://github.com/aws/amazon-ecs-agent), which runs on
-  all of the EC2 instances and is responsible for starting containers on behalf of Amazon ECS. Again, for
-  simplification, the ECS Agent was represented out of Docker in the previous
+  all of the EC2 instances and is responsible for starting containers on behalf of Amazon ECS.   For simplification, the ECS Agent was represented out of Docker in the previous
   section's diagram.
 
 View the IP addresses of the HTTP Servers and the Data Producers by running:
@@ -254,7 +280,7 @@ View the IP addresses of the HTTP Servers and the Data Producers by running:
     10.32.0.2
     10.40.0.1
 
-Re-running the commands listed above will vary the IP addresses. This is the weavedns service transparently balancing the load by randomizing the IP addresses, as the HTTP servers are connecting to Data Producers.
+Re-running these commands vary the IP addresses. This is the weavedns service transparently balancing the load by randomizing the IP addresses, as the HTTP servers are connecting to Data Producers.
 
 ###Cleanup
 
@@ -294,12 +320,15 @@ Add inbound rules to the group to allow:
 * Public SSH access.
 * Public HTTP access.
 * Private Weave access between instances.
+* Public and private access to Weave Scope between instances.
 
 ~~~bash
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 22 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 80 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 4040 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 6783 --source-group weave-ecs-demo
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol udp --port 6783 --source-group weave-ecs-demo
+aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 4040 --source-group weave-ecs-demo
 ~~~
 
 Next create a key pair which allows us to access any EC2 instances that are associated with this security group.
@@ -323,12 +352,12 @@ aws iam add-role-to-instance-profile --instance-profile-name weave-ecs-instance-
 
 Choose a Weave ECS AMI depending on your configured region:
 
-* `us-east-1` -> `ami-df3687b4`
-* `us-west-1` -> `ami-bfec15fb`
-* `us-west-2` -> `ami-cdc1d5fd`
-* `eu-west-1` -> `ami-3ecc9349`
-* `ap-northeast-1` -> `ami-4c2aae4c`
-* `ap-southeast-2` -> `ami-57793b6d`
+* `us-east-1` -> `ami-5f8ce33a`
+* `us-west-1` -> `ami-81c53fc5`
+* `us-west-2` -> `ami-13766b23`
+* `eu-west-1` -> `ami-1b9abb6c`
+* `ap-northeast-1` -> `ami-dee863de`
+* `ap-southeast-2` -> `ami-cf1e51f5`
 
 
 and then execute the command below by replacing `XXXX` with the AMI of your region.
@@ -376,12 +405,8 @@ aws ecs run-task --cluster weave-ecs-demo-cluster --task-definition weave-ecs-de
 
 * Auto Scaling Groups are required for ECS to work with Weave. If you create individual
   instances, they won't work be able to see each other due to how Weave finds peers in ECS.
-* Due to the way ECS mangles container names at launch, Weave's service discovery
-  only supports container names with alphanumeric characters
-  (e.g. `httpserver` would be OK but `http-server` won't work due to the hyphen)
 
-
-## For the advanced user: Build your own Weave ECS AMI
+## For the Advanced User: Build Your Own Weave ECS AMI
 
 
 Clone the guides repository if you haven't done so yet and go to the `packer`
@@ -412,9 +437,8 @@ requirements.
 AWS_ACCSS_KEY_ID=XXXX AWS_SECRET_ACCESS_KEY=YYYY  ./build-all-amis.sh
 ~~~
 
-This can be a lengthy process, so if you want to build an image
-for a specific region, set the environment variable `ONLY_REGION` to the
-region for which you you want to build the image:
+If you only want to build an AMI for a particular region, set `ONLY_REGION` to
+that region when invoking the script:
 
 ~~~bash
 ONLY_REGION=us-east-1 AWS_ACCSS_KEY_ID=XXXX AWS_SECRET_ACCESS_KEY=YYYY  ./build-all-amis.sh
@@ -422,8 +446,7 @@ ONLY_REGION=us-east-1 AWS_ACCSS_KEY_ID=XXXX AWS_SECRET_ACCESS_KEY=YYYY  ./build-
 
 ##Conclusions
 
-You have used Weave out-of-the-box within the Amazon Container Management service or ECS and used Weave for both service discovery and load
-balancing between containers running in Amazon EC2 instances. Weave runs regardless of whether it was executed on the same or on different hosts, and can even run across completely different cloud providers if necessary. 
+You have used Weave out-of-the-box within the Amazon Container Management service or ECS and used Weave for both service discovery and load balancing between containers running in Amazon EC2 instances. Weave runs regardless of whether it was executed on the same or on different hosts, and can even run across completely different cloud providers if necessary.
 
 You can easily adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](mailto:help@weave.works) or [Twitter](https://twitter.com/weaveworks).
 
