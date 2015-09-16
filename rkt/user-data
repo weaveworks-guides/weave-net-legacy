@@ -7,12 +7,12 @@ write_files:
     WEAVE_PEERS="172.17.8.101 172.17.8.102"
     # Uncomment and make it more secure
     # WEAVE_PASSWORD="aVeryLongString"
-- path: /etc/rkt/net.d/10-weave-core-01.conf
+- path: /etc/rkt/weave/core-01.conf
   permissions: '0600'
   owner: root
   content: |
     {
-      "name": "core-01",
+      "name": "default",
       "type": "bridge",
       "bridge": "weave",
       "isGateway": true,
@@ -29,12 +29,12 @@ write_files:
       }
     }
 
-- path: /etc/rkt/net.d/10-weave-core-02.conf
+- path: /etc/rkt/weave/core-02.conf
   permissions: '0600'
   owner: root
   content: |
     {
-      "name": "core-02",
+      "name": "default",
       "type": "bridge",
       "bridge": "weave",
       "isGateway": true,
@@ -105,6 +105,8 @@ coreos:
         git.io/weave-snapshot \
         --output /opt/bin/weave
       ExecStartPre=/usr/bin/chmod +x /opt/bin/weave
+      ExecStartPre=/usr/bin/mkdir -p /etc/rkt/net.d/
+      ExecStartPre=/usr/bin/ln -s /etc/rkt/weave/%H.conf /etc/rkt/net.d/10-weave.conf
       ExecStart=/opt/bin/weave setup
       [Install]
       WantedBy=weave-network.target
