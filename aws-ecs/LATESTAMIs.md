@@ -1,6 +1,6 @@
 So that [Weave Net](http://weave.works/net), [Weave Run](http://weave.works/run)
 and [Weave Scope](http://weave.works/scope) can be used *out of the box* in
-[Amazon's ECS](docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html),
+[Amazon's ECS](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html),
 we provide a set of AMIs which are fully compatible with the
 [ECS-Optimized Amazon Linux AMI](https://aws.amazon.com/marketplace/pp/B00U6QTYI2).
 
