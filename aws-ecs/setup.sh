@@ -1,12 +1,7 @@
 #!/bin/bash
 
-WEAVE_ECS_AMIS=('us-east-1:ami-5f8ce33a'
-		'us-west-1:ami-81c53fc5'
-		'us-west-2:ami-13766b23'
-		'eu-west-1:ami-1b9abb6c'
-		'ap-northeast-1:ami-dee863de'
-		'ap-southeast-2:ami-cf1e51f5'
-	       )
+# Load the latest WEAVE AMIS from LATESTAMIs.md
+WEAVE_ECS_AMIS=( $(sed -n -e 's/^| *\([^| ]*\) *| *\(ami-[^| ]*\) *|$/\1:\2/p' < `dirname $0`/LATESTAMIs.md) )
 
 SCOPE_AAS_PROBE_TOKEN="$1"
 
