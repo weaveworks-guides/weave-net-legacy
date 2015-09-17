@@ -350,9 +350,10 @@ aws iam add-role-to-instance-profile --instance-profile-name weave-ecs-instance-
 
 **4. Create a launch configuration**
 
-Check [Weave's latest ECS AMIs](LATESTAMIs.md) and choose an AMI depending on your
-configured region. Then, execute the command below by replacing `XXXX` with the
-AMI of your region.
+Check
+[Weave's latest ECS AMIs](https://github.com/weaveworks/guides/blob/master/aws-ecs/LATESTAMIs.md)
+and choose an AMI depending on your configured region. Then, execute the command
+below by replacing `XXXX` with the AMI of your region.
 
 ~~~bash
 AMI=XXXX aws autoscaling create-launch-configuration --image-id ${AMI} --launch-configuration-name weave-ecs-launch-configuration --key-name weave-ecs-demo-key --security-groups ${SECURITY_GROUP} --instance-type t2.micro --user-data file://data/set-ecs-cluster-name.sh  --iam-instance-profile weave-ecs-instance-profile --associate-public-ip-address --instance-monitoring Enabled=false
