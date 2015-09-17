@@ -6,6 +6,8 @@ we provide a set of AMIs which are fully compatible with the
 
 The following are the latest supported Weave AMIs for each region:
 
+<!--- This table is machine-parsed by setup.sh , please respect the format! -->
+
 | Region         | AMI          |
 |----------------|--------------|
 | us-east-1      | ami-5f8ce33a |
