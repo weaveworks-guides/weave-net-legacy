@@ -103,8 +103,10 @@ echo -n "Creating IAM role (weave-ecs-role) .. "
 aws iam create-role --role-name weave-ecs-role --assume-role-policy-document file://data/weave-ecs-role.json > /dev/null
 aws iam put-role-policy --role-name weave-ecs-role --policy-name weave-ecs-policy --policy-document file://data/weave-ecs-policy.json
 aws iam create-instance-profile --instance-profile-name weave-ecs-instance-profile > /dev/null
-# Wait for the instance to be ready, otherwise we get an error
-sleep 15
+# Wait for the instance profile to be ready, otherwise we get an error when trying to use it
+while ! aws iam get-instance-profile --instance-profile-name weave-ecs-instance-profile  2>&1 > /dev/null; do
+    sleep 2
+done
 aws iam add-role-to-instance-profile --instance-profile-name weave-ecs-instance-profile --role-name weave-ecs-role
 echo "done"
 
@@ -112,7 +114,12 @@ echo "done"
 echo -n "Creating Launch Configuration (weave-ecs-launch-configuration) .. "
 # Wait for the role to be ready, otherwise we get:
 # A client error (ValidationError) occurred when calling the CreateLaunchConfiguration operation: You are not authorized to perform this operation.
+# Unfortunately even if you can list the profile, "aws autoscaling create-launch-configuration" barks about it not existing so lets sleep instead
+# while [ "$(aws iam list-instance-profiles-for-role --role-name weave-ecs-role --query 'InstanceProfiles[?InstanceProfileName==`weave-ecs-instance-profile`].InstanceProfileName' --output text 2>/dev/null || true)" !=  weave-ecs-instance-profile ]; do
+#    sleep 2
+# done
 sleep 15
+
 TMP_USER_DATA_FILE=$(mktemp /tmp/weave-ecs-demo-user-data-XXXX)
 cp data/set-ecs-cluster-name.sh $TMP_USER_DATA_FILE
 if [ -n "$SCOPE_AAS_PROBE_TOKEN" ]; then
