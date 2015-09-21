@@ -12,7 +12,6 @@ sidebarweight: 18
 
 {% include product-vars %}
 
-
 ## What you will build ##
 
 Weave allows you to focus on developing your application, rather than your infrastructure.
