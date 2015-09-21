@@ -12,13 +12,11 @@ write_files:
   owner: root
   content: |
     WEAVEDNS_SUBNET="10.22.1.251/16"
-    WEAVEDNS_STATIC_RECORD="10.22.1.1 weave -h rkt-test-1.weave.local"
 - path: /etc/weave.core-02.env
   permissions: '0600'
   owner: root
   content: |
     WEAVEDNS_SUBNET="10.22.2.251/16"
-    WEAVEDNS_STATIC_RECORD="10.22.2.1 weave -h rkt-test-2.weave.local"
 - path: /etc/rkt/weave/core-01.conf
   permissions: '0600'
   owner: root
@@ -63,6 +61,15 @@ write_files:
       }
     }
 
+- path: /opt/bin/weave-rkt-dns-add
+  permissions: '0755'
+  owner: root
+  content: |
+    #!/bin/bash
+    expr=$(printf '{ if ( $2 == "%s" && $4 == "running" ) { split($5, a, "=") ; print a[2] } }' $1)
+    ip=$(sudo rkt list | awk "${expr}")
+    /opt/bin/weave dns-add $ip weave -h "${1}.weave.local"
+
 coreos:
   update:
     #group: stable
@@ -84,7 +91,8 @@ coreos:
       Documentation=man:systemd.special(7)
       RefuseManualStart=no
       After=network-online.target
-      Requires=weave.service weaveproxy.service
+      Requires=weave.service
+      #Requires=weaveproxy.service
       [Install]
       WantedBy=multi-user.target
   - name: 10-weave.network
@@ -123,9 +131,9 @@ coreos:
       [Install]
       WantedBy=weave-network.target
       WantedBy=weave.service
-      WantedBy=weaveproxy.service
+      #WantedBy=weaveproxy.service
   - name: weaveproxy.service
-    enable: true
+    enable: false
     content: |
       [Unit]
       After=install-weave.service
@@ -160,7 +168,23 @@ coreos:
       ExecStartPre=/opt/bin/weave launch-router $WEAVE_PEERS $WEAVE_HOST_ARGS
       ExecStart=/usr/bin/docker attach weave
       ExecStartPost=/opt/bin/weave attach $WEAVEDNS_SUBNET weave
-      ExecStartPost=/opt/bin/weave dns-add $WEAVEDNS_STATIC_RECORD
+      Restart=on-failure
+      ExecStop=/opt/bin/weave stop-router
+      [Install]
+      WantedBy=weave-network.target
+  - name: redis.service
+    enable: true
+    content: |
+      [Unit]
+      After=weave-network.target
+      Description=Redis
+      Requires=weave-network.target
+      ConditionHost=core-02
+      [Service]
+      TimeoutStartSec=0
+      ExecStartPre=/bin/mkdir /tmp/redis
+      ExecStart=/usr/bin/rkt run --insecure-skip-verify=true --mds-register=false --private-net --volume volume-data,kind=host,source=/tmp/redis docker://redis
+      #TODO: ExecStartPost=/opt/bin/weave-rkt-dns-add redis
       Restart=on-failure
       ExecStop=/opt/bin/weave stop-router
       [Install]
