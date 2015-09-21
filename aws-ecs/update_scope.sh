@@ -10,7 +10,7 @@ KEY=/tmp/weave-ecs-demo-key.pem
 ssh_to_instance() {
     HOST=$1
     shift
-    ssh -i $KEY ec2-user@$HOST $@
+    ssh -o "StrictHostKeyChecking no" -i $KEY ec2-user@$HOST $@
 }
 
 SCOPE_IMAGE_FILE=$(mktemp /tmp/scope-update-image-tar-XXXX)
@@ -25,6 +25,7 @@ echo Updating Scope in $INSTANCE_HOSTNAMES:
 echo
 
 for HOST in $INSTANCE_HOSTNAMES; do
+    echo
     echo Updating $HOST;
     echo Current scope image:
     ssh_to_instance $HOST docker images weaveworks/scope
