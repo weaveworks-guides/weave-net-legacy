@@ -12,14 +12,12 @@ sidebarweight: 18
 
 {% include product-vars %}
 
-
 ## What you will build ##
 
 Weave allows you to focus on developing your application, rather than your infrastructure.
 
-In this example we will demonstrate how Weave allows you to quickly and easily deploy a
-simple load balancing solution using {{Weave Net}} and {{Weave Run}}, with no modifications to your
-application and minimal docker knowledge.
+This example demonstrates how Weave allows you to quickly and easily deploy a
+simple load balancing solution using {{ Weave Net }} and {{ Weave Run }}, and requiring no modifications to your application's code and with minimal docker knowledge.
 
 We will run a very simple go-based rest server that displays the IP address of each container
 to demonstrate our use of round robin DNS.
