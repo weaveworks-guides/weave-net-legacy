@@ -7,6 +7,18 @@ write_files:
     WEAVE_PEERS="172.17.8.101 172.17.8.102"
     # Uncomment and make it more secure
     # WEAVE_PASSWORD="aVeryLongString"
+- path: /etc/weave.core-01.env
+  permissions: '0600'
+  owner: root
+  content: |
+    WEAVEDNS_SUBNET="10.22.1.251/16"
+    WEAVEDNS_STATIC_RECORD="10.22.1.1 weave -h rkt-test-1.weave.local"
+- path: /etc/weave.core-02.env
+  permissions: '0600'
+  owner: root
+  content: |
+    WEAVEDNS_SUBNET="10.22.2.251/16"
+    WEAVEDNS_STATIC_RECORD="10.22.2.1 weave -h rkt-test-2.weave.local"
 - path: /etc/rkt/weave/core-01.conf
   permissions: '0600'
   owner: root
@@ -145,8 +157,10 @@ coreos:
       TimeoutStartSec=0
       EnvironmentFile=-/etc/weave.%H.env
       EnvironmentFile=-/etc/weave.env
-      ExecStartPre=/opt/bin/weave launch-router $WEAVE_PEERS
+      ExecStartPre=/opt/bin/weave launch-router $WEAVE_PEERS $WEAVE_HOST_ARGS
       ExecStart=/usr/bin/docker attach weave
+      ExecStartPost=/opt/bin/weave attach $WEAVEDNS_SUBNET weave
+      ExecStartPost=/opt/bin/weave dns-add $WEAVEDNS_STATIC_RECORD
       Restart=on-failure
       ExecStop=/opt/bin/weave stop-router
       [Install]
