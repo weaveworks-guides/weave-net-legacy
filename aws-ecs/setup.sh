@@ -150,7 +150,7 @@ echo "done"
 # Launch tasks
 echo -n "Launching (3) tasks .. "
 FAILURES="$(aws ecs run-task --cluster weave-ecs-demo-cluster --task-definition weave-ecs-demo-task --count 3 --query failures)"
-if [ -n "$FAILURES" ]; then
+if [ \( -n "$FAILURES" \) -a \( "$FAILURES" != "[]" \) ]; then
     echo "failed:"
     echo "$FAILURES"
     exit 1
