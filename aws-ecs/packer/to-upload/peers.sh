@@ -7,7 +7,7 @@ aws=/usr/local/bin/aws
 export AWS_DEFAULT_REGION=$(curl -s curl http://169.254.169.254/latest/dynamic/instance-identity/document | \
                             jq -r .region)
 current_instance_id=$(curl -s curl http://169.254.169.254/latest/meta-data/instance-id)
-current_autoscaling_group=$(aws autoscaling describe-auto-scaling-instances | \
+current_autoscaling_group=$($aws autoscaling describe-auto-scaling-instances | \
                             jq -r ".AutoScalingInstances[] | select(.InstanceId == \"$current_instance_id\") | .AutoScalingGroupName")
 
 if [ -z "$current_autoscaling_group" ]; then
