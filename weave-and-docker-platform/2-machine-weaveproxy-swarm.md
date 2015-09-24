@@ -117,7 +117,7 @@ weave launch-router
 Obtain the TLS settings:
 
 ~~~bash
-tlsargs=$(docker-machine ssh weave-12 \
+tlsargs=$(docker-machine ssh weave-1 \
   "cat /proc/\$(pgrep /usr/local/bin/docker)/cmdline | tr '\0' '\n' | grep ^--tls | tr '\n' ' '")
 ~~~
 
@@ -142,7 +142,7 @@ weave launch-router --init-peer-count 3
 Specify the TLS settings if asked:
 
 ~~~bash
-tlsargs=$(docker-machine ssh weave-12 \
+tlsargs=$(docker-machine ssh weave-2 \
   "cat /proc/\$(pgrep /usr/local/bin/docker)/cmdline | tr '\0' '\n' | grep ^--tls | tr '\n' ' '")
 ~~~
 
