@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Load the latest WEAVE AMIS from LATESTAMIs.md
-WEAVE_ECS_AMIS=( $(sed -n -e 's/^| *\([^| ]*\) *| *\(ami-[^| ]*\) *|$/\1:\2/p' < `dirname $0`/LATESTAMIs.md) )
+WEAVE_ECS_AMIS=( $(curl -L -s https://raw.githubusercontent.com/weaveworks/integrations/master/aws/ecs/README.md | sed -n -e 's/^| *\([^| ]*\) *| *\(ami-[^| ]*\) *|$/\1:\2/p' ) )
 
 SCOPE_AAS_PROBE_TOKEN="$1"
 

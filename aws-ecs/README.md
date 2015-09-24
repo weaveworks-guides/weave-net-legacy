@@ -351,7 +351,7 @@ aws iam add-role-to-instance-profile --instance-profile-name weave-ecs-instance-
 **4. Create a launch configuration**
 
 Check
-[Weave's latest ECS AMIs](https://github.com/weaveworks/guides/blob/master/aws-ecs/LATESTAMIs.md)
+[Weave's latest ECS AMIs](https://github.com/weaveworks/integrations/tree/master/aws/ecs#weaves-ecs-amis)
 and choose an AMI depending on your configured region. Then, execute the command
 below by replacing `XXXX` with the AMI of your region.
 
@@ -401,41 +401,8 @@ aws ecs run-task --cluster weave-ecs-demo-cluster --task-definition weave-ecs-de
 
 ## For the Advanced User: Build Your Own Weave ECS AMI
 
+If you need to incorporate changes to the Weave AMI, you can do so by following [these steps](https://github.com/weaveworks/integrations/tree/master/aws/ecs#build-your-own-weave-ecs-ami).
 
-Clone the guides repository if you haven't done so yet and go to the `packer`
-directory.
-
-~~~bash
-git clone http://github.com/weaveworks/guides
-cd guides/aws-ecs/packer
-~~~
-
-Download an SFTP-enabled version of [Packer](https://www.packer.io/) to build
-the AMI.
-
-~~~bash
-wget https://dl.bintray.com/2opremio/generic/packer-sftp_0.8.1_linux_amd64.zip
-unzip packer-sftp_0.8.1_linux_amd64.zip -d ~/bin
-~~~
-
-Finally, invoke `./build-all-amis.sh` to build `Weave ECS` images for all
-regions. This step installs (in the image) the version of ecs-init we just
-built, AWS-CLI, jq, Weave/master, init scripts for Weave and it also updates the ECS
-agent to use weaveproxy.
-
-Customize the image by modifying `template.json` to match your
-requirements.
-
-~~~bash
-AWS_ACCSS_KEY_ID=XXXX AWS_SECRET_ACCESS_KEY=YYYY  ./build-all-amis.sh
-~~~
-
-If you only want to build an AMI for a particular region, set `ONLY_REGION` to
-that region when invoking the script:
-
-~~~bash
-ONLY_REGION=us-east-1 AWS_ACCSS_KEY_ID=XXXX AWS_SECRET_ACCESS_KEY=YYYY  ./build-all-amis.sh
-~~~
 
 ##Conclusions
 
