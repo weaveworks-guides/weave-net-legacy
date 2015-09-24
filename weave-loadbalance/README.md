@@ -164,7 +164,7 @@ Weave IPAM assigns each container a unique IP, WeaveDNS then detects them, and a
 
 You can also use this script `launch-demo-containers.sh` to launch all six containers.
 
-To check the status of your containers, run `docker ps`  Also, you may want to run `weave status` to ensure that entries for the containers have been added by weaveDNS.
+To check the status of your containers, run `docker ps`  Also, you may want to run `weave status dns` to ensure that the containers have been discovered by weaveDNS.
 
 ## What Just Happened
 
