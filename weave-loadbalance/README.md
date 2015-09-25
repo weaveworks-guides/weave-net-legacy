@@ -105,7 +105,7 @@ See [Automatic Discovery with WeaveDNS](http://docs.weave.works/weave/latest_rel
 
 [Weave Automatic IP Address Management (IPAM)](http://docs.weave.works/weave/latest_release/ipam.html) automatically assigns any new containers a unique IP address across the network. With Weave IPAM you can easily add more containers to your network, without having to worry about manually assigning each a unique IP.
 
-### What Just Happened
+###Checking the Weave Network
 
 At this point, the Weave network connected the two hosts as peers. Also WeaveDNS and Weave IPAM,  both of which were launched with the weave router are standing by to discover and assign IPs to any running containers on the network.
 
