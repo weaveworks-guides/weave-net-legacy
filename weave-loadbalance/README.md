@@ -105,7 +105,7 @@ See [Automatic Discovery with WeaveDNS](http://docs.weave.works/weave/latest_rel
 
 [Weave Automatic IP Address Management (IPAM)](http://docs.weave.works/weave/latest_release/ipam.html) automatically assigns any new containers a unique IP address across the network. With Weave IPAM you can easily add more containers to your network, without having to worry about manually assigning each a unique IP.
 
-###Checking the Weave Network
+####Checking the Weave Network
 
 At this point, the Weave network connected the two hosts as peers. Also WeaveDNS and Weave IPAM,  both of which were launched with the weave router are standing by to discover and assign IPs to any running containers on the network.
 
@@ -140,9 +140,9 @@ Log on to either one of the hosts and type `weave status` to view the Weave comp
 
 ## Launching The Containers
 
-Now you are ready to launch a containerized simple REST webservice. The REST server listens for IP addresses of any other containers on the Weave network. 
+Now you are ready to launch a containerized simple REST webservice. The REST server listens for the IP addresses of any other containers on the Weave network. 
 
-With both WeaveDNS and Weave IPAM enabled, only the name of container along with the hostname that you want to use is needed. In this instance, the same hostname is used for each container. 
+With both WeaveDNS and Weave IPAM enabled, only the name of the container along with the hostname that you want to use is needed. In this instance, the same hostname is used for each container. 
 
 Weave IPAM assigns each container a unique IP, WeaveDNS then detects them, and adds an entry for each: 
 
@@ -173,7 +173,7 @@ been allocated IP addresses and appear to other applications as a single endpoin
 
 ## Connecting to Your Application
 
-Now we can run a container with `curl` on the same network, and from there query the myip service: 
+Next run a container with `curl` to query the myip service: 
 
 ~~~bash
     vagrant ssh weave-gs-01
@@ -182,7 +182,7 @@ Now we can run a container with `curl` on the same network, and from there query
     docker exec -ti $CONTAINER "/bin/bash"
 ~~~
 
-With the interactive container, you can connect to the endpoint, and make a request to the myip service.
+From the interactive container, connect to the endpoint, and then make a request to the myip service.
 
 
 ~~~bash
