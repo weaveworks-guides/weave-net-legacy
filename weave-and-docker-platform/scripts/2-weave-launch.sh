@@ -12,8 +12,7 @@ for i in $(seq 3) ; do
   ## We are going to use IPAM, hence we supply estimated cluster size
   ./weave launch --init-peer-count 3
   ## Proxy will use TLS arguments we just obtained from Docker
-  ## daemon and should have DNS enabled too
-  ./weave launch-proxy --with-dns ${tlsargs}
+  ./weave launch-proxy ${tlsargs}
 
   ## Let's connect-up the Weave cluster by telling
   ## each of the nodes about the head node (weave-1)
