@@ -10,7 +10,7 @@ for i in $(seq 3) ; do
   tlsargs=$(docker-machine ssh "weave-${i}" "${find_tls_args}")
 
   ## We are going to use IPAM, hence we supply estimated cluster size
-  ./weave launch --init-peer-count 3
+  ./weave launch-router --init-peer-count 3
   ## Proxy will use TLS arguments we just obtained from Docker
   ./weave launch-proxy ${tlsargs}
 
