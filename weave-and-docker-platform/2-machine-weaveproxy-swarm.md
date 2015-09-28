@@ -86,7 +86,7 @@ The workflow, then is as follows:
 
   >>*Note:* In Weave there is no notion of master/slave or any other roles of the nodes. Here we simply
   >>picked `weave-1` as a sort of bootstrap node, but we could also pass all IPs or DNS names to `weave launch`
-  >>and thereby also avoid having to set <code>-initpeercount</code> explicitly. However, with Docker Machine on VirtualBox
+  >>and thereby also avoid having to set <code>--init-peer-count</code> explicitly. However, with Docker Machine on VirtualBox
   >>we do not know the IP addresses and don't have DNS. You should be able to use DNS with one of the cloud drivers, such as
   >>Microsoft Azure or Google Compute Engine.
 
