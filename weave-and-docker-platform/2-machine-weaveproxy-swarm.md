@@ -52,7 +52,7 @@ If you are using OS X or Windows, you can install [Docker Toolbox](https://www.d
 For all other operating systems, install and configure the following separately before proceeding:
 
   - [`docker-machine`](http://docs.docker.com/machine/#installation) binary (_`>= 0.2.0`_)
-  - [`docker`](https://docs.docker.com/installation/#installation) binary, at lest the client (_`>= v1.6.x`_)
+  - [`docker`](https://docs.docker.com/installation/#installation) binary, at least the client (_`>= v1.6.x`_)
   - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (_`>= 4.3.x`_)
   - `curl` (_any version_)
 
