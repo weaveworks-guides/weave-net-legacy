@@ -147,7 +147,7 @@ The first app to be deployed is called `pingme`. It consists of a simple netcat 
 
 ~~~bash
 docker run -d --name=pingme \
-        gliderlabs/alpine nc -p 4000 -l -e echo 'Hello, Weave!'
+        gliderlabs/alpine nc -p 4000 -ll -e echo 'Hello, Weave!'
 ~~~
 
 The second containerized app is called `pinger`, and it will be launched interactively using the `-ti` flag, where the container can accept and run few simple commands.

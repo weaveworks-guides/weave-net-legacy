@@ -209,7 +209,7 @@ Now that everything is set up correctly, we can run a few containers.
 First, deploy the _"Hello, Weave!"_ container like we did in the previous example:
 
     > docker `docker-machine config --swarm weave-1` run -d --name=pingme \
-        gliderlabs/alpine nc -p 4000 -l -e echo 'Hello, Weave!'
+        gliderlabs/alpine nc -p 4000 -ll -e echo 'Hello, Weave!'
     df8bb89d048abce4f9ed25259072ac6c177ebdae708222662325603ef4ec4a78
 
 Confirm that there is a transparent multi-host setup, and then check that the test container `pinger`
