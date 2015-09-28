@@ -9,15 +9,10 @@ for i in $(seq 3) ; do
 
   tlsargs=$(docker-machine ssh "weave-${i}" "${find_tls_args}")
 
-  ## We are going to use IPAM, hence estimated cluster size
-  ## (`-initpeercount`) needs to be supplied,
-  ## as we don't pass any peer addresses yet
-  ./weave launch -initpeercount 3
-  ## Launch WeaveDNS on 10.53.1.0/24 subnet
-  ./weave launch-dns "10.53.1.${i}/24"
+  ## We are going to use IPAM, hence we supply estimated cluster size
+  ./weave launch-router --init-peer-count 3
   ## Proxy will use TLS arguments we just obtained from Docker
-  ## daemon and should have DNS enabled too
-  ./weave launch-proxy --with-dns ${tlsargs}
+  ./weave launch-proxy ${tlsargs}
 
   ## Let's connect-up the Weave cluster by telling
   ## each of the nodes about the head node (weave-1)

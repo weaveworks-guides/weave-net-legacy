@@ -7,7 +7,7 @@ DOCKER_SWARM_CREATE=${DOCKER_SWARM_CREATE:-"curl -s -XPOST https://discovery-sta
 ## it will need a new token as the registration on Docker Hub stores
 ## an array of `<host>:<port>` pairs and the clean-up method doesn't
 ## seem to be documented
-swarm_dicovery_token="$(${DOCKER_SWARM_CREATE})"
+swarm_discovery_token="$(${DOCKER_SWARM_CREATE})"
 
 for i in $(seq 3 | sort -r) ; do
   ## We are not really using Weave script anymore, hence
@@ -25,7 +25,7 @@ for i in $(seq 3 | sort -r) ; do
     --name=swarm-agent \
     swarm join \
     --addr "${weave_proxy_endpoint}" \
-    "token://${swarm_dicovery_token}"
+    "token://${swarm_discovery_token}"
 
   if [ ${i} = 1 ] ; then
     ## On the head node (weave-1) we will also restart the master
@@ -43,7 +43,7 @@ for i in $(seq 3 | sort -r) ; do
     swarm_master_args=$(docker ${DOCKER_CLIENT_ARGS} inspect \
         --format="${swarm_master_args_fmt}" \
         swarm-agent-master \
-        | sed "s|\(token://\)[[:alnum:]]*|\1${swarm_dicovery_token}|")
+        | sed "s|\(token://\)[[:alnum:]]*|\1${swarm_discovery_token}|")
 
     docker ${DOCKER_CLIENT_ARGS} rm -f swarm-agent-master
     docker ${DOCKER_CLIENT_ARGS} run ${swarm_master_args}

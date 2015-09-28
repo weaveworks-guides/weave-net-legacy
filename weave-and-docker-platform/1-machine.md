@@ -5,7 +5,7 @@ permalink: /guides/weave-and-docker-platform/weavenetwork.html
 description: Launching a weave network to manage your distributed containerized applications
 tags: weave network, docker, docker machine, cli, virtualbox, dns, ipam
 
-shorttitle: Using Weave & Docker Machine
+shorttitle: Launching Weave Net With Docker Machine
 sidebarpath: /start/wd/dist/weavedocmach
 sidebarweight: 15
 ---
@@ -23,45 +23,50 @@ Weave provides a software network optimized for visualizing and communicating wi
 
 With Weave you focus on developing your application, rather than your infrastructure. As demonstrated in this tutorial, Weave works seamlessly with other tools such as [Docker Machine](https://docs.docker.com/machine/).
 
-[Docker Machine](https://docs.docker.com/machine/) makes it simple to create Docker hosts (VMs) on your computer, on cloud providers or within your own data center. It creates servers, installs Docker on them, then it configures the Docker client to talk to them.
+[Docker Machine](https://docs.docker.com/machine/) makes it simple to create Docker hosts (VMs) on your computer, on cloud providers or within your own data center. It creates servers, installs Docker on them, and then it configures the Docker client to talk to them.
 
 In this Part 1 of _'Launching Weave Net with Docker Machine'_ you will be introduced to the basics of launching a container network with Weave.
 
 Specifically, you will:
 
   1. Install Docker Machine and Weave
-  2. Setup Weave onto a single VM on VirtualBox
+  2. Launch Weave on to a single VM on VirtualBox
   3. Deploy a basic _"Hello, Weave!"_ application
   4. Enable {{ weavedns }} to discover the Weave-attached Docker containers on the network
   5. Communicate with your app and send a message from one container to another using shell commands
 
-This tutorial uses very simple UNIX tools, and it doesn't require any programming skills.
+This example uses very simple UNIX tools, and doesn't require any programming skills.
 
-This tutorial will take about 10 minutes to complete.
+This will take about 10 minutes to complete.
 
-## What you will use
+## What You Will Use
 
   - [Weave](http://weave.works)
   - [Docker & Docker Machine](https://docs.docker.com)
 
 ## What You Need to Complete Part 1
 
-If you are using OS X or Windows, you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides all the tools you will need.
+If you are using OS X or Windows, you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides all of the tools you need to complete this guide.
 
-For other operating systems, you will need to install and configure the following separately before proceeding:
+For other operating systems, please install and configure the following separately before proceeding:
 
   - [`docker-machine`](http://docs.docker.com/machine/#installation) binary (_`>= 0.2.0`_)
   - [`docker`](https://docs.docker.com/installation/#installation) binary, at lest the client (_`>= v1.6.x`_)
   - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (_`>= 4.3.x`_)
   - `curl` (_any version_)
 
-## Let's go!
+## Installing Weave
 
-First, install the `weave` command. Note that if you don't have ownership of the `/usr/local/bin` directory, you may need to preface these commands with `sudo`:
+First get the latest version of `weave`and clone the guides directory. If you do not have ownership of the `/usr/local/bin` directory, you may need to preface these commands with `sudo`:
 
 ~~~bash
 curl -L git.io/weave -o /usr/local/bin/weave
 chmod a+x /usr/local/bin/weave
+~~~
+
+~~~bash
+git clone http://github.com/weaveworks/guides
+cd guides/weave-and-docker-platform
 ~~~
 
 Next create a Virtual Machine (VM) on the VirtualBox, called `weave-1`, by running:
@@ -70,26 +75,27 @@ Next create a Virtual Machine (VM) on the VirtualBox, called `weave-1`, by runni
 docker-machine create -d virtualbox weave-1
 ~~~
 
-Once the VM is running, configure your shell environment by running:
+With the VM running, configure your shell environment by typing:
 
 ~~~bash
 eval $(docker-machine config weave-1)
 ~~~
 
-Verify that everything installed correctly:
+and then, verify that everything installed correctly:
 
 ~~~bash
 docker info
 ~~~
 
-Now launch the Weave network and automatically launch the Docker API proxy:
+Now you are ready to launch the Weave network:
 
-  >>Note: if you are using OS X, see ["Launching Weave on OS X"](#launching-weave-on-osx)
 
 ~~~bash
 weave launch
 ~~~
 
+ >>Note: if you are asked for TLS settings, please see ["Launching Weave with TLS"](#launching-weave-with-TLS)
+ 
 Next set up the weave environment for the Docker API proxy:
 
 ~~~bash
@@ -102,7 +108,7 @@ Check to see that all components of the Weave network are running:
 weave status
 ~~~
 
-Running `weave launch` automatically configures your network. Launch starts the weave router, which launches the {{ weavedns }} service, making all your containers discoverable and it also sets up a Docker API proxy on the weave network, so that you can manage your containers using standard Docker commands.
+Running `weave launch` automatically configures your network. Launch starts the weave router, which launches the {{ weavedns }} service. It also sets up a Docker API proxy on the weave network, so that you can manage your containers using standard Docker commands.
 
 Both {{ weavedns }} and {{ weaveproxy }} services can also be started independently, if required.
 
@@ -110,19 +116,19 @@ See [Docker API Proxy](https://github.com/weaveworks/weave/blob/master/site/prox
 
 Now you are ready to deploy containers and also use DNS so that the containers can discover each other.
 
-### Launching Weave on OSX
+### Launching Weave with TLS
 
-If you are using OSX, you will need to get the TLS settings from the Docker daemon on the host:
+If `weave launch` fails and asks you for the TLS settings from the Docker daemon on the host, then please follow these instructions to launch weave:
 
 ~~~bash
 tlsargs=$(docker-machine ssh weave-1 \
   "cat /proc/\$(pgrep /usr/local/bin/docker)/cmdline | tr '\0' '\n' | grep ^--tls | tr '\n' ' '")
 ~~~
 
-then, launch the weave router, weavedns and the Docker API proxy passing the TLS settings you obtained above:
+Next launch the weave router, weavedns and the weave Docker API proxy by passing the TLS arguments obtained above:
 
 ~~~bash
-weave launch-router && weave launch-proxy $tlsargs
+weave launch $tlsargs
 ~~~
 
 See [TLS Settings](https://docs.docker.com/articles/https/) for more information about specifying these settings in a production environment.
@@ -147,17 +153,17 @@ The first app to be deployed is called `pingme`. It consists of a simple netcat 
 
 ~~~bash
 docker run -d --name=pingme \
-        gliderlabs/alpine nc -p 4000 -l -e echo 'Hello, Weave!'
+        gliderlabs/alpine nc -p 4000 -ll -e echo 'Hello, Weave!'
 ~~~
 
-The second containerized app is called `pinger`, and it will be launched interactively using the `-ti` flag, where the container can accept and run few simple commands.
+The second containerized app is called `pinger`, and it will be launched in interactive mode using the `-ti` flag, so that the container can accept and run few simple commands.
 
 ~~~bash
 docker run -e 'affinity:container!=pingme' --name=pinger -ti \
         gliderlabs/alpine sh -l
 ~~~
 
-First ping one of the containers:
+Ping one of the containers:
 
 ~~~bash
 pinger:/# ping -c3 pingme.weave.local
@@ -198,11 +204,11 @@ This completes Part 1 of this tutorial. To remove the containers used in this ex
 
 This tutorial demonstrated how to launch a Weave network using Docker Machine. A simple  _"Hello, Weave!"_ service was deployed to a container that listens on TCP port 4000 for any connections from other containers.
 
-Most importantly, you should be familiar with the commands you need to use in order to create Virtual Machines and create and start containers on them using the seamlessly integrated Docker API {{ weaveproxy }}.
+You should now be familiar with the commands you need to use in order to create Virtual Machines and also those used to create and start containers on them through the Docker API {{ weaveproxy }}.
 
-Proceed to Part 2, where we will look at how to set up multiple Virtual Machines, using Docker Swarm to schedule containers, and most importantly use [Weave Net](/net) to provide transparent connectivity across multiple Docker hosts and [Weave Run](/run) to enable service discovery via DNS.
+Proceed to Part 2, where we will set up multiple Virtual Machines, using Docker Swarm to schedule containers, use [Weave Net](/net) to provide transparent connectivity across multiple Docker hosts and use [Weave Run](/run) to enable service discovery via DNS.
 
-You can easily adapt these examples and use them as templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [email](help@weave.works) or [Twitter](https://twitter.com/weaveworks).
+You can easily adapt these examples and use them as templates in your own implementation.  We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 
 ## Further Reading
 

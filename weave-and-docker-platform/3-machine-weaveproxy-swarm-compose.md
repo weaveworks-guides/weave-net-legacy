@@ -5,7 +5,7 @@ permalink: /guides/weave-and-docker-platform/compose-scalable-swarm-cluster-with
 description: creating a multihost docker deployment using weave net and weave run with docker compose and docker swarms
 tags: weave net, docker, machine, swarm, compose, cli, virtualbox, dns, ipam, weaveproxy, python, flask, redis
 
-shorttitle: Using Weave & Docker Machine & Swarm
+shorttitle: Using Weave, Docker Machine with Swarm & Compose
 sidebarpath: /start/wd/dist/weaveswarm
 sidebarweight: 25
 ---
@@ -74,11 +74,11 @@ The only new tool introduced here is **`Docker Compose`**.
   >>Note: [Docker Compose](http://docs.docker.com/machine/#installation) is not supported on Windows.
 
 
-## Let's go!
+## Provisioning the VMs
 
 ### Setup
 
-If you didn't continue from [Part 2][ch2], you can run the following commands to create the 3 VMs with a Weave network. You should run through these, if you chose to destroy all the VMs in Part 2.
+If you didn't continue from [Part 2][ch2], you can run the following commands to create the 3 VMs with a Weave network. If you chose to destroy all the VMs in Part 2, then you'll need to run through these commands again.
 
 First, clone the repository
 
@@ -93,7 +93,7 @@ Run the following 3 scripts
 
 ### Create
 
-First, we must build the app and make the images available on each of the Docker hosts.  To save some time, there is a script which does this for you. 
+Build the app and then make the images available to each of the Docker hosts.  To save some time, there is a script which does this for you. 
 
 Change to the `app` directory and run it like this:
 
@@ -116,7 +116,7 @@ Run `docker-compose ps` to show the two deployed containers:
     app_redis_1   /w/w /entrypoint.sh redis- ...   Up      6379/tcp
     app_web_1     /w/w python app.py               Up      192.168.99.131:32768->5000/tcp
 
-Test the containers with `curl` using IP/port listed above:
+Test the containers with `curl` using the IP/port listed above:
 
     > curl 192.168.99.131:32768
     Hello World! I have been seen 1 times.
@@ -157,7 +157,7 @@ We have just deployed and scaled-up our simple app using Weave, Swarm and Compos
 
 ## Next Steps
 
-You can deploy a cluster to public cloud by setting the
+You can deploy a cluster to the public cloud by setting the
 `DOCKER_MACHINE_DRIVER` and also by specifying a few provider-specific environment variables prior to running `./1-machine-create.sh`. 
 But before you do so, make sure to [remove the VirtualBox VMs first](#cleanup).
 
@@ -191,13 +191,13 @@ at utilising all 3 great components of the Docker platform (Machine, Swarm & Com
 all that's required in setting up a scalable cluster of Docker hosts using Weave tools and then deploying your application to it with
 ease. You may choose to automate somewhat differently, hence we've split this guide into three parts, each part describing the concepts that you need to know in order to understand how Weave can help you to deploy your applications. 
 
-You can easily adapt these examples and use them as a templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [email](help@weave.works) or [Twitter](https://twitter.com/weaveworks).
+You can easily adapt these examples and use them as a templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 
 ##Further Reading
 
   *  [Weave -- weaving containers into applications](https://github.com/weaveworks/weave#readme)
   *  [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
-  *  [Automatic IP Address Management](https://github.com/weaveworks/weave/blob/master/site/ipam.md)
+  *  [Automatic IP Address Management](http://docs.weave.works/weave/latest_release/features.html#addressing)
 
 
 [ch1]: /guides/weave-and-docker-platform/weavenetwork.html
