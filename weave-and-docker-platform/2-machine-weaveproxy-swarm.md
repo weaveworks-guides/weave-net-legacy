@@ -5,7 +5,7 @@ permalink: /guides/weave-and-docker-platform/using-weave-with-machine-and-swarm.
 description: Using weave net and weave run with docker machine and docker swarm
 tags: weave, docker, docker machine, swarm, cli, virtualbox, dns, ipam, weaveproxy
 
-shorttitle: Using Weave & Docker via weaveproxy
+shorttitle: Using Weave with Docker Machine & Swarm
 sidebarpath: /start/wd/dist/weaveproxy
 sidebarweight: 20
 ---
@@ -29,7 +29,7 @@ Weave’s standard container network enables simple DNS-based container discover
 [ambassador]: https://docs.docker.com/articles/ambassador_pattern_linking/
 
 
-Part 2 of this guide describes how to configure a basic Docker Swarm cluster, and how to deploy Weave Net to it, to make its contents easily discoverable. In [Part 3][ch3] we discuss a more advanced setup that uses Docker Compose.
+Part 2 of this guide describes how to configure a basic Docker Swarm cluster, and how to deploy Weave Net to it, and make its contents easily discoverable. In [Part 3][ch3] we discuss a more advanced setup that uses Docker Compose.
 
 Specifically in this tutorial, you will:
 
@@ -59,11 +59,11 @@ For all other operating systems, install and configure the following separately 
 
 _If you completed [Part one of this tutorial][ch1], you should have all of these dependencies installed._
 
-##About Part 2
+##About Part 2 of This Guide
 
-The Part 1 of this guide described how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave in action, then refer to [Putting It All Together](#putting-it-all-together) below, where several helpful shell scripts are provided that automate the process.
+Part 1 of this guide described how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave in action, then refer to [Putting It All Together](#putting-it-all-together) below, where several helpful shell scripts are provided that automate this process.
 
-Select the number of VMs to provision. This example limits the number of VMs to 3 to demonstrate Weave in a cluster environment, and which can still be run comfortably on most laptops. In a production setting however, you can have any number of hosts in a  Docker Swarm and connect them using Weave.
+To demonstrate Weave in a cluster environment, and still be able to run comfortably on a laptop,  this example limits the number of VMs to 3. In a production setting however, you can have any number of hosts in a  Docker Swarm and connect them using Weave.
 
 Throughout this guide the VMs are referred to as:
 
@@ -82,7 +82,7 @@ The workflow, then is as follows:
   3. create `weave-3` as a Swarm agent
   4. Generate a Discovery Swarm token. 
   
-  The Discovery token is a unique cluster id. For more information see the [Docker Swarm Documentation](https://docs.docker.com/swarm/install-w-machine/)
+  The Discovery Swarm token is a unique cluster id. For more information see the [Docker Swarm Documentation](https://docs.docker.com/swarm/install-w-machine/)
 
 
   >>*Note:* In Weave there is no notion of master/slave or any other roles of the nodes. Here we simply
@@ -103,7 +103,7 @@ The IP addresses of all the peers are not known ahead of time, so you will need 
 On each host you will need to:
 
   1. launch the Weave router with `--init-peer-count 3`
-  3. launch proxy with a copy of TLS flags from Docker daemon
+  3. launch proxy, and if asked, provide a copy of TLS flags from Docker daemon
   4. Connect the host to `weave-1`
 
 To start weave on `weave-1` run:
@@ -113,14 +113,20 @@ eval "$(docker-machine env weave-1)"
 weave launch-router --init-peer-count 3
 ~~~
 
-Obtain the TLS settings:
+Next, launch the Docker API proxy: 
+
+~~~bash
+weave launch-proxy
+~~~
+
+If asked for TLS settings, run:
 
 ~~~bash
 tlsargs=$(docker-machine ssh weave-1 \
   "cat /proc/\$(pgrep /usr/local/bin/docker)/cmdline | tr '\0' '\n' | grep ^--tls | tr '\n' ' '")
 ~~~
 
-Now you can launch the proxy passing the `$tlsargs` you grepped above:
+And launch the proxy passing `$tlsargs`:
 
 ~~~bash
 weave launch-proxy $tlsargs
@@ -133,7 +139,7 @@ eval "$(docker-machine env weave-2)"
 weave launch-router --init-peer-count 3
 ~~~
 
-then, launch the proxy using the TLS settings:
+then, launch the proxy and optionally use the TLS settings if the docker daemon asks for them:
 
 ~~~bash
 weave launch-proxy $tlsargs
@@ -167,7 +173,7 @@ Change to the scripts directory:
 
     cd ./weaveworks-guides/weave-and-docker-platform/scripts
 
-Now that we understand how this is provisioned, you can automate the whole process by running these 3 scripts:
+Now that you understand how this is provisioned, the whole process can be automated by running these 3 scripts:
 
     ./1-machine-create.sh
     ./2-weave-launch.sh
@@ -230,6 +236,8 @@ Now repeat the test using the `ping` and `nc` commands:.
     --- pingme.weave.local ping statistics ---
     3 packets transmitted, 3 packets received, 0% packet loss
     round-trip min/avg/max = 3.284/9.585/17.572 ms
+
+
     pinger:/# echo "What's up?" | nc pingme.weave.local 4000
     Hello, Weave!
     pinger:/#
