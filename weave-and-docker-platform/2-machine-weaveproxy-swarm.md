@@ -100,18 +100,17 @@ Next launch Weave onto each of the virtual machines.
 The IP addresses of all the peers are not known ahead of time, so you will need to pass `--init-peer-count 3` to `weave launch`.
 `--init-peer-count` is set to 3, as we are specifying a cluster of 3 VMs.
 
-In this setup, `weave-1` is the bootstrap node, and so its target should be 0. Only `weave-2` and `weave-3` need to have  `--init-peer-count` set to 3 at launch.
-
-On each host, except for `weave-1` you will need to:
+On each host you will need to:
 
   1. launch Weave router with `--init-peer-count 3`
   3. launch proxy with a copy of TLS flags from Docker daemon
   4. Connect the host to `weave-1`
 
-On `weave-1` run:
+To start weave on `weave-1` run:
 
 ~~~bash
-weave launch-router
+eval "$(docker-machine env weave-1)"
+weave launch-router --init-peer-count 3
 ~~~
 
 Obtain the TLS settings:
@@ -127,35 +126,17 @@ Now you can launch the proxy passing the `$tlsargs` you grepped above:
 weave launch-proxy $tlsargs
 ~~~
 
-and finally, set the weave environment variable for `weave-1`
+Launch weave on `weave-2`:
 
 ~~~bash
-eval $(weave env)
-~~~
-
-Launch weave on `weave-2` with `--init-peer-count set to 3`:
-
-~~~bash
+eval "$(docker-machine env weave-2)"
 weave launch-router --init-peer-count 3
-~~~
-
-Specify the TLS settings if asked:
-
-~~~bash
-tlsargs=$(docker-machine ssh weave-2 \
-  "cat /proc/\$(pgrep /usr/local/bin/docker)/cmdline | tr '\0' '\n' | grep ^--tls | tr '\n' ' '")
 ~~~
 
 then, launch the proxy using the TLS settings you grepped above:
 
 ~~~bash
 weave launch-proxy $tlsargs
-~~~
-
-and finally, set the weave environment variable for `weave-2`
-
-~~~bash
-eval $(weave env)
 ~~~
 
 Next on `weave-2` connect the cluster to our bootstrap node, `weave-1`:
