@@ -13,8 +13,6 @@ sidebarweight: 18
 
 ## What You Will Build ##
 
-Weave provides a software network optimized for visualizing and communicating with apps distributed among Docker containers. Using tools and protocols that are familiar to you, Weave's network provides a way for you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
-
 In this example, we demonstrate how you can use {{Weave Net}} and {{Weave Run}} to load balance an application without doing any modifications to the application's code. We will deploy a simple go-based REST server that listens for and then outputs the IP address of each container on the weave network. In addition to this, we show how Weave implements load balancing using [round robin DNS](https://en.wikipedia.org/wiki/Round-robin_DNS).
 
 Specifically, you will:
