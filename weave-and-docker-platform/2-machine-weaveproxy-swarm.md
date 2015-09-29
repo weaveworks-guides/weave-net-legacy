@@ -281,9 +281,9 @@ You can easily adapt these examples and use them as a templates in your own impl
   *  [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
   *  [Automatic IP Address Management](https://github.com/weaveworks/weave/blob/master/site/ipam.md)
 
-[step1]: https://github.com/weaveworks/guides/blob/dd2c79aa47373a34ca1285bf7ac4457ecbf71ca3/weave-and-docker-platform/scripts/1-machine-create.sh
-[step2]: https://github.com/weaveworks/guides/blob/dd2c79aa47373a34ca1285bf7ac4457ecbf71ca3/weave-and-docker-platform/scripts/2-weave-launch.sh
-[step3]: https://github.com/weaveworks/guides/blob/dd2c79aa47373a34ca1285bf7ac4457ecbf71ca3/weave-and-docker-platform/scripts/3-replace-swarm-agents.sh
+[step1]: https://github.com/weaveworks/guides/blob/30afe999265ad18494f3a88064f70cac1edc9607/weave-and-docker-platform/scripts/1-machine-create.sh
+[step2]: https://github.com/weaveworks/guides/blob/30afe999265ad18494f3a88064f70cac1edc9607/weave-and-docker-platform/scripts/2-weave-launch.sh
+[step3]: https://github.com/weaveworks/guides/blob/30afe999265ad18494f3a88064f70cac1edc9607/weave-and-docker-platform/scripts/3-replace-swarm-agents.sh
 
 [ch1]: /guides/weave-and-docker-platform/weavenetwork.html
 [ch2]: /guides/weave-and-docker-platform/using-weave-with-machine-and-swarm.html
