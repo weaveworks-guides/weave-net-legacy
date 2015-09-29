@@ -44,18 +44,18 @@ Install and configure the following separately before proceeding:
 * [Git](http://git-scm.com/downloads)
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
-##Let's Go! ##
+##Setting Up The Hosts##
 
 The code for this example is available on github. Clone the getting started repository:
 
 ~~~bash
-git clone http://github.com/weaveworks/guides
+git clone https://github.com/weaveworks/guides
 ~~~
 
-This example uses vagrant to setup and configure two Ubuntu hosts and install Docker. These hosts are assigned IP addresses to a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and named `weave-gs-01` and `weave-gs-02`.
+This example uses vagrant to setup and configure two Ubuntu hosts and install Docker. These hosts are assigned IP addresses to a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and are named `weave-gs-01` and `weave-gs-02`.
 
 ~~~bash
-cd guides/ubuntu-simple
+cd ./guides/ubuntu-simple
 vagrant up
 ~~~
 
@@ -98,21 +98,23 @@ The commands to install Weave are provided as part of this getting started guide
 
 ## Using Weave ##
 
- Now you can start Weave on each host and create a peer connection :
+ Now start Weave on each host to create a peer connection:
 
 On host `weave-gs-01`
 
 ~~~bash
-root@weave-gs-01:~# weave launch 172.17.8.102 && weave launch-dns && weave launch-proxy
+root@weave-gs-01:~# weave launch
 ~~~
 
 On host `weave-gs-02`
 
 ~~~bash
-root@weave-gs-02:~# weave launch 172.17.8.101 && weave launch-dns && weave launch-proxy
+root@weave-gs-02:~# weave launch
 ~~~
 
 Your two hosts are now connected to each other, and any subsequent containers you launch with Weave are visible to any other containers that the Weave network is aware of.
+
+To view all running weave components and their peers:
 
 ### What Just Happened? ###
 
@@ -136,54 +138,39 @@ root@weave-gs-01:~# docker ps
 where you should see something similar to the following:
 
 ~~~bash
-CONTAINER ID        IMAGE                       COMMAND                CREATED             STATUS              PORTS                                            NAMES
-e3fba94a35fc        weaveworks/weavedns:1.0.2   "/home/weave/weavedn   57 seconds ago      Up 56 seconds       10.1.42.1:53->53/udp                             weavedns
-dd3878af6307        weaveworks/weave:1.0.2      "/home/weave/weaver    59 minutes ago      Up 59 minutes       0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave
+3f09ad57ee8e        weaveworks/weaveexec:v1.1.0   "/home/weave/weavepr   3 minutes ago       Up 3 minutes                                                                                                     weaveproxy          
+78476d7404c5        weaveworks/weave:v1.1.0       "/home/weave/weaver    3 minutes ago       Up 3 minutes        10.1.42.1:53->53/tcp, 10.1.42.1:53->53/udp, 0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave      
 ~~~
 
 View the peered network by running `weave status`
 
 ~~~bash
-root@weave-gs-01:~# weave status
 
-weave router 1.0.2
-Our name is 72:24:c2:00:01:5a(weave-gs-02)
-Encryption off
-Peer discovery on
-Sniffing traffic on &{10 65535 ethwe ee:08:d8:0e:ec:cb up|broadcast|multicast}
-MACs:
-6a:0d:0a:55:3f:a1 -> 72:24:c2:00:01:5a(weave-gs-02) (2015-08-21 20:09:26.761668678 +0000 UTC)
-8a:2b:ec:2a:b7:0f -> a6:e9:63:3e:d2:dd(weave-gs-01) (2015-08-21 20:07:45.075079927 +0000 UTC)
-f2:86:dc:cc:9a:43 -> 72:24:c2:00:01:5a(weave-gs-02) (2015-08-21 20:09:06.151707913 +0000 UTC)
-Peers:
-a6:e9:63:3e:d2:dd(weave-gs-01) (v2) (UID 13063150984085781788)
-   -> 72:24:c2:00:01:5a(weave-gs-02) [172.17.8.102:51443]
-72:24:c2:00:01:5a(weave-gs-02) (v2) (UID 10318206013728323935)
-   -> a6:e9:63:3e:d2:dd(weave-gs-01) [172.17.8.101:6783]
-Routes:
-unicast:
-72:24:c2:00:01:5a -> 00:00:00:00:00:00
-a6:e9:63:3e:d2:dd -> a6:e9:63:3e:d2:dd
-broadcast:
-a6:e9:63:3e:d2:dd -> []
-72:24:c2:00:01:5a -> [a6:e9:63:3e:d2:dd]
-Direct Peers: 172.17.8.101
-Reconnects:
+root@weave-gs-02:~# weave status
 
-Allocator range [10.128.0.0-10.192.0.0)
-Owned Ranges:
-  10.128.0.0 -> 72:24:c2:00:01:5a (weave-gs-02) (v5)
-  10.160.0.0 -> a6:e9:63:3e:d2:dd (weave-gs-01) (v2)
-Allocator default subnet: 10.128.0.0/10
+       Version: v1.1.0
 
-weave DNS 1.0.2
-Listen address :53
-Fallback DNS config &{[10.0.2.3] [] 53 1 5 2}
+       Service: router
+      Protocol: weave 1..2
+          Name: ca:7a:67:55:3c:8b(weave-gs-02)
+    Encryption: disabled
+ PeerDiscovery: enabled
+       Targets: 0
+   Connections: 0
+         Peers: 1
 
-Local domain weave.local.
-Interface &{14 65535 ethwe 6a:0d:0a:55:3f:a1 up|broadcast|multicast}
-Zone database:
+       Service: ipam
+     Consensus: deferred
+         Range: [10.32.0.0-10.48.0.0)
+ DefaultSubnet: 10.32.0.0/12
 
+       Service: dns
+        Domain: weave.local.
+           TTL: 1
+       Entries: 0
+
+       Service: proxy
+       Address: unix:///var/run/weave.sock
 ~~~
 
 ## Deploying the _'Hello, Weave!'_ Service ##
@@ -194,11 +181,11 @@ On `weave-gs-01` run
 
 ~~~bash
 root@weave-gs-01:~# docker build -t php-example /vagrant
-root@weave-gs-01:~# eval $(weave proxy-env)
+root@weave-gs-01:~# eval "$(weave env)"
 root@weave-gs-01:~# docker run -d --name=hello-app php-example
 ~~~
 
-You now have a running Apache server in a Docker container. It will get a DNS record in {{ weavedns }} automatically by the given name `hello-app`.
+You now have a running Apache server in a Docker container. It will receive a DNS record in {{ weavedns }} will automatically be the given name `hello-app`.
 
 To view it:
 
@@ -219,7 +206,7 @@ Next we will deploy a container to `weave-gs-02` and make it available to the `h
 On `weave-gs-02` run:
 
 ~~~bash
-root@weave-gs-02:~# eval $(weave proxy-env)
+root@weave-gs-02:~# eval "$(weave env)"
 root@weave-gs-02:~# docker run weaveworks/guide-tools curl -s http://hello-app
 ~~~
 
@@ -232,11 +219,19 @@ JSON returns:
 }
 ~~~
 
-## Summary ##
+### Cleaning Up The VMs
+
+To remove the VMs you just created: 
+
+~~~bash
+Vagrant destroy
+~~~
+
+## Summary
 
 In this example, we deployed a simple application, that returns a message from a running Apache webserver. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using Weave Run, so that applications within containers can communicate with one another. 
 
-You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](mailto:help@weave.works) or [Twitter](https://twitter.com/weaveworks)
+You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 
 
 ## Further Reading
