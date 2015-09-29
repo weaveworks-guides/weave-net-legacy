@@ -76,14 +76,14 @@ The only new tool introduced here is **`Docker Compose`**.
 
 ## Provisioning the VMs
 
-### Setup
+### Set up
 
 If you didn't continue from [Part 2][ch2], you can run the following commands to create the 3 VMs with a Weave network. If you chose to destroy all the VMs in Part 2, then you'll need to run through these commands again.
 
 First, clone the repository
 
-    git clone https://github.com/weaveworks/guides weaveworks/guides
-    cd ./weaveworks-guides/weave-and-docker-platform/scripts
+    git clone https://github.com/weaveworks/guides
+    cd ./guides/weave-and-docker-platform/scripts
 
 Run the following 3 scripts
 
@@ -102,7 +102,7 @@ Change to the `app` directory and run it like this:
 
 Next set up the environment variable to enable Compose to communicate with the Swarm endpoint:
 
-    eval $(docker-machine env --swarm weave-1)
+    eval "$(docker-machine env --swarm weave-1)"
 
 And finally, deploy the stack by running:
 

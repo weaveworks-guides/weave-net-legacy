@@ -61,9 +61,9 @@ _If you completed [Part one of this tutorial][ch1], you should have all of these
 
 ##About Part 2 of This Guide
 
-Part 1 of this guide described how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave in action, then refer to [Putting It All Together](#putting-it-all-together) below, where several helpful shell scripts are provided that automate this process.
+Part 1 of this guide described how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave in action, then refer to [Putting It All Together](#putting-it-all-together) below, where several helpful shell scripts are provided to automate this process.
 
-To demonstrate Weave in a cluster environment, and still be able to run comfortably on a laptop,  this example limits the number of VMs to 3. In a production setting however, you can have any number of hosts in a  Docker Swarm and connect them using Weave.
+To demonstrate Weave in a cluster environment, and still be able to run comfortably on a laptop,  this example limits the number of VMs to 3. In a production setting however, you can have any number of hosts in a  Docker Swarm and connect them together using Weave.
 
 Throughout this guide the VMs are referred to as:
 
@@ -87,9 +87,7 @@ The workflow, then is as follows:
 
   >>*Note:* In Weave there is no notion of master/slave or any other roles of the nodes. Here we simply
   >>picked `weave-1` as a sort of bootstrap node. You could also pass all of the IPs or DNS names to `weave launch`
-  >>and avoid having to set the <code>--init-peer-count</code> explicitly. In this example, we are using Docker Machine on VirtualBox
-  >>and therefor we do not know the IP addresses and do not have DNS. You should be able to use DNS with one of the cloud drivers,   >>such as Microsoft Azure or Google Compute Engine.
-
+  >>and avoid having to set the <code>--init-peer-count</code> explicitly. In this example, we are using Docker Machine on VirtualBox and therefor do not know the IP addresses and do not have DNS. You should be able to use DNS with one of the cloud drivers, such as Microsoft Azure or Google Compute Engine.
 
   >>To obtain the discovery swarm token, and to automatically create the VMs, a sample implementation script is provided: [`scripts/1-machine-create.sh`][step1].
 
@@ -171,7 +169,7 @@ This next step is a necessary work-around to a reported Docker Machine issue, wh
 
 Change to the scripts directory:
 
-    cd ./weaveworks-guides/weave-and-docker-platform/scripts
+    cd ./guides/weave-and-docker-platform/scripts
 
 Now that you understand how this is provisioned, the whole process can be automated by running these 3 scripts:
 
