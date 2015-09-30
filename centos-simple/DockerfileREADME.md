@@ -1,9 +1,9 @@
 # Getting started with Weave and Docker on CentOS - Dockerfile #
 
-For our getting started with Weave and Docker on Ubuntu guide we created a small docker image, `fintanr/weave-gs-centos-hw`.  We have included the Dockerfile we used for creating this Docker image in our repo. While this is a very simple example it demonstrates how easy it is to create Docker images.
+For our getting started with Weave and Docker on Ubuntu, we created a small docker image, `weaveworks/weave-gs-centos-hw`.  We have included the Dockerfile we used for creating this Docker image in our repo. While this is a very simple example it demonstrates how easy it is to create Docker images.
 
 ```bash
-MAINTAINER    fintan@weave.works
+MAINTAINER    ilya@weave.works
 FROM          centos
 RUN           yum install -y httpd
 RUN           yum install -y php

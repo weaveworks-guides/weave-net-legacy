@@ -1,5 +1,5 @@
 FROM    centos
-MAINTAINER      fintan@weave.works
+MAINTAINER      ilya@weave.works
 RUN     yum install -y httpd
 RUN     yum install -y php
 ADD     example/index.php /var/www/html/

@@ -1,8 +1,8 @@
 ---
 layout: guides
 title: Getting started with Weave and Docker on CoreOS
-description: How to use a Weave network  on CoreOS to communicate with your containerized applications regardless of the host. 
-tags: vagrant, coreos, apache, dns
+description: How to use a Weave network on CoreOS to communicate with your containerized applications regardless of the host. 
+tags: vagrant, coreOS, apache, dns
 permalink: /guides/weave-docker-coreos-simple.html
 
 shorttitle: Using Weave & Docker on CoreOS
@@ -10,51 +10,60 @@ sidebarpath: /start/wd/coreos
 sidebarweight: 15
 ---
 
-## What you will build ##
+## What You Will Build ##
 
-Weave allows you to focus on developing your application, rather than your infrastructure.
+In this example you will create a simple web service that runs in a container on a single host. The service provides a JSON message containing a hello world message and a date. In a second container, running on a separate host, we use curl to query the hello world service.
 
-In this example you will be creating a simple application running in a container on one host. Your service provides a JSON message containing hello world and a date - we call this your hello world service. In your second container, running on a seperate host, you use curl to query the hello world service.
+With Weave you focus on developing your application, rather than your infrastructure.  As demonstrated in this tutorial, Weave works seamlessly with other tools such as Vagrant.  Vagrant provides an easy way to provision, and set up your hosts. Once provisioned, this example deploys both {{ Weave Net }} and {{ Weave Run }} to provide nework connectivity and service discovery using DNS.
+
+Specifically, in this example:
+
+1. You will create a simple containerized web service that runs in on weave-gs-01.
+2. On weave-gs-02, we will deploy a second container that enables you to query the web service on weave-gs-01.
+3. Run curl to query the _'Hello, Weave!'_ service from the second container.
 
 ![Weave and Docker](/guides/images/Simple_Weave.png)
 
-## What you will use ##
+This tutorial uses simple UNIX tools, and it doesn't require any programming skills.
+
+This example will take about 15 minutes to complete.
+
+
+## What You Will Use
 
 * [Weave](http://weave.works)
 * [Docker](http://docker.com)
 * [CoreOS](http://coreos.com)
 
-## What you will need to complete this guide ##
+##Before You Begin
 
-This getting started guide is self contained. You will use Weave, Docker and CoreOS, and we make use of VirtualBox and Vagrant to allow you to run the entire getting started guide on your personal system.
+Install and configure the following separately before proceeding:
 
-* 15 minutes
 * [Git](http://git-scm.com/downloads)
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
 
 ## A Note on CoreOS ##
 
-CoreOS is one of a new breed of Linux distributions, primarily aimed at running container solutions such as 
-[Docker](http://docker.com) and [Rocket](https://github.com/coreos/rocket). Emerging distributions in this space include
-[Snappy](https://developer.ubuntu.com/en/snappy/) from [Canonical](http://canonical.com), [Project Atomic](http://www.projectatomic.io/) from [Redhat](http://redhat.com) and others.
+CoreOS is a new breed of Linux distributions, which is primarily aimed at running container solutions such as 
+[Docker](http://docker.com) and [Rocket](https://github.com/coreos/rocket). Emerging distributions in this space include [Snappy](https://developer.ubuntu.com/en/snappy/) from [Canonical](http://canonical.com), [Project Atomic](http://www.projectatomic.io/) from [Redhat](http://redhat.com) and others.
 
 CoreOS is not a general purpose operating system, and may feel somewhat alien if you are more accustomed to 
 one of the more established distributions. If you feel more comfortable with a general purpose operating system 
 you may prefer to follow our getting started guides on [Ubuntu](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/README.md) or [CentOS](https://github.com/weaveworks/guides/blob/master/centos-simple/README.md).
 
-## Setting up your hosts ##
+## Setting Up The Hosts ##
 
 All of the code for this example is available on github, and you first clone the getting started repository.
 
-    git clone http://github.com/weaveworks/guides
+    git clone https://github.com/weaveworks/guides
 
-You will use vagrant to setup and configure two CoreOS hosts and install Weave. These hosts will be assigned IP addresses on a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and named `weave-gs-01` and `weave-gs-02`.
+You will use vagrant to setup and configure two CoreOS hosts and to install Weave. These hosts will be assigned IP addresses on a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and named `weave-gs-01` and `weave-gs-02`.
 
-    cd guides/coreos-simple
+    cd ./guides/coreos-simple
     vagrant up
 
-Vagrant will pull down and configure a CoreOS image, this may take a few minutes depending on  the speed of your network connection. For more details on Vagrant please refer to the [Vagrant documentation](http://vagrantup.com).
+Vagrant pulls down and configures a CoreOS image. This may take a few minutes depending on  the speed of your network connection. For more details on Vagrant please refer to the [Vagrant documentation](http://vagrantup.com).
 
 You may be prompted for a password when `/etc/hosts` is being updated during the Vagrant setup, please just hit return at this point.
 
@@ -78,7 +87,7 @@ To install Weave we use a feature of the CoreOS cloud config files called "units
 installs weave. You can review the cloud-config file we used [here](https://github.com/weaveworks/guides/blob/master/coreos-simple/user-data). Systemd is outside the scope of this document, for more information please review [Getting Started With
 systemd](https://coreos.com/docs/launching-containers/launching/getting-started-with-systemd/).     
  
-## Using Weave ##
+##Launching Weave ##
 
 Next you start Weave on each host in turn.
 
@@ -92,7 +101,7 @@ On host `weave-gs-02`
 
 Your two hosts are now connected to each other, and any subsequent containers you launch with Weave will be visible to other containers Weave is aware of.
 
-### What has happened? ###
+###What Just Happened?
 
 As this is the first time you have launched Weave you
 
@@ -105,10 +114,13 @@ At this point you have a single container running on each host, which you can se
 
     sudo docker ps
 
-and you will see something similar to
+and you will see something similar to:
 
-    CONTAINER ID        IMAGE                     COMMAND                CREATED             STATUS              PORTS                                            NAMES
-    fb36f1bd4fbe        weaveworks/weave:0.10.0   "/home/weave/weaver    14 seconds ago      Up 14 seconds       0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave   
+~~~bash
+CONTAINER ID        IMAGE                         COMMAND                CREATED              STATUS              PORTS                                                                                        NAMES
+c99b3df707b2        weaveworks/weaveexec:v1.1.0   "/home/weave/weavepr   About a minute ago   Up About a minute                                                                                                weaveproxy          
+c546d3c88d70        weaveworks/weave:v1.1.0       "/home/weave/weaver    About a minute ago   Up About a minute   0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp, 10.1.42.1:53->53/tcp, 10.1.42.1:53->53/udp   weave               
+~~~
 
 You can see your peered network by using `weave status`
 
@@ -134,30 +146,30 @@ You can see your peered network by using `weave status`
     62:03:57:2c:fd:5b -> []
     Reconnects:
 
-## Our Hello World Service ##
+##Deploying the _'Hello, Weave!'_ Service
 
 Next you will use Weave to run a Docker image containing an Apache webserver. The container you will use
 in this example was built for our [Getting started with Weave and Docker on Ubuntu guide](), and is derived 
-from an Ubuntu container. If you would like  
+from an Ubuntu container.
 
 On `weave-gs-01` run
 
-    sudo weave run 10.0.1.1/24 -t -i fintanr/weave-gs-simple-hw
+    sudo weave run 10.0.1.1/24 -t -i weaveworks/weave-gs-simple-hw
 
 At this point you have a running Apache server in a Docker container based on Ubuntu.
 
-### What has happened?
+###About Container Deployment
 
 Weave has launched a pre-built Docker container containing an Apache webserver, and assigned it an address of `10.0.1.1`. The Docker image you are using has been downloaded from the [Docker Hub](https://hub.docker.com/).
 
 The container is registered with Weave and is accessible to other containers registered with Weave across multiple hosts.
 
-### Creating our client container
+##Deploying The Client Container
 
 You now want to create a container on your second host and connect to the webserver in the container on our first host. 
 We will use a container we created for our [Getting startedi with Weave and Docker on CentOS guide](). Containers return a container ID which you will capture to use further on in this example. On `weave-gs-02` run
 
-    CONTAINER=`sudo weave run 10.0.1.2/24 -t -i fintanr/weave-gs-centos-bash`
+    CONTAINER=`sudo weave run 10.0.1.2/24 -t -i weaveworks/weave-gs-centos-bash`
 
 Now you attach to your docker container using the `CONTAINER` value we captured earlier, and run a curl command to connect to your hello world service.
 
@@ -174,10 +186,13 @@ And you will see a JSON string similar too
 
 Now you can exit from the container. As you have finished the command that the container was running (in this case `/bin/bash`) the container also exits.
 
-## Summary ##
+## Conclusions ##
 
-You have now used Weave to quickly deploy an application across two hosts using containers on CoreOS.
+In this example, we deployed a simple application, that returns a message from a running Apache webserver. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using {{ Weave Run }}, so that applications within containers can communicate with one another. 
 
-## Credits ##
+You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 
-This example is derived in part from the [basic weave example](https://github.com/errordeveloper/weave-demos/tree/master/basic-weave-example) by [Ilya Dmitrichenko](http://github.com/errordeveloper).
+##Further Reading
+
+ * [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
+ * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
