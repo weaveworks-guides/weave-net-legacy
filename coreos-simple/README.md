@@ -10,6 +10,8 @@ sidebarpath: /start/wd/coreos
 sidebarweight: 15
 ---
 
+{% include product-vars %}
+
 ## What You Will Build ##
 
 In this example you will create a simple web service that runs in a container on a single host. The service provides a JSON message containing a hello world message and a date. In a second container, running on a separate host, we use curl to query the hello world service.
