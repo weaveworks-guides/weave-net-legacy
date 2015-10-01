@@ -20,7 +20,7 @@ With Weave you focus on developing your application, rather than your infrastruc
 
 Specifically, in this example:
 
-1. You will create a simple containerized web service that runs in on weave-gs-01.
+1. You will create a simple containerized web service that runs on weave-gs-01.
 2. On weave-gs-02, we will deploy a second container that enables you to query the web service on weave-gs-01.
 3. Use curl to query the _'Hello, Weave!'_ service from the second container.
 
@@ -51,7 +51,7 @@ The code for this example is available on github. Clone the getting started repo
 git clone https://github.com/weaveworks/guides
 ~~~
 
-This example uses vagrant to setup and configure two Ubuntu hosts and install Docker. These hosts are assigned IP addresses to a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and are named `weave-gs-01` and `weave-gs-02`.
+This example uses Vagrant to set up and configure two Ubuntu hosts and install Docker. These hosts are assigned IP addresses to a [private network](http://en.wikipedia.org/wiki/Private%5Fnetwork), and are named `weave-gs-01` and `weave-gs-02`.
 
 ~~~bash
 cd ./guides/ubuntu-simple

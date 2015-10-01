@@ -14,14 +14,13 @@ sidebarweight: 15
 
 ## What you will build ##
 
-
 In this example you will create a simple web service that runs in a container on a single host. The service provides a JSON message containing a hello world message and a date. In a second container, running on a separate host, we use curl to query the hello world service.
 
 With Weave you focus on developing your application, rather than your infrastructure.  As demonstrated in this tutorial, Weave works seamlessly with other tools such as Vagrant.  Vagrant provides an easy way to provision, and set up your hosts. Once provisioned, this example deploys both {{ Weave Net }} and {{ Weave Run }} to provide nework connectivity and service discovery using DNS.
 
 Specifically, in this example:
 
-1. You will create a simple containerized web service that runs in on weave-gs-01.
+1. You will create a simple containerized web service that runs on weave-gs-01.
 2. On weave-gs-02, we will deploy a second container that enables you to query the web service on weave-gs-01.
 3. Run curl to query the _'Hello, Weave!'_ service from the second container.
 
@@ -99,7 +98,7 @@ We provide the commands to install Weave as part of this getting started guide, 
 
 ## Launching Weave
 
-Next you start Weave on each host in turn.
+Next start Weave on each host:
 
 On host `weave-gs-01`
 
@@ -118,9 +117,9 @@ Since this is the first time launching Weave you have:
 * downloaded a docker image containing all three Weave components: Weave Router, WeaveDNS, and the Weave Docker API Proxy
 * launched them into 2 containers (Weave Router and WeaveDNS are launched together)
 
-On the first host, `weave-gs-01`, you launched a Weave. On the second host, `weave-gs-02`, you launched another Weave router container using the IP address of your first host. This command tells the Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
+On the first host, `weave-gs-01`, you launched a Weave router container. On the second host, `weave-gs-02`, you launched another Weave router container using the IP address of your first host. This command tells the Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
 
-At this point you have a single container running on each host, which you can see from docker. On either host run to view the Weave containers:
+At this point you have two containers running on each host, which you can see from docker. On either host run to view the Weave containers:
 
     docker ps
 
@@ -170,7 +169,7 @@ On `weave-gs-01` run
 
     weave run 10.0.1.1/24 -t -i weaveworks/weave-gs-centos-hw
 
-At this point you have a running Apache server in a Docker container.
+You should now have an Apache server running in a Docker container.
 
 ###About Container Deployment
 
@@ -180,11 +179,13 @@ The container is registered with `WeaveDNS` and is accessible to other container
 
 ##Deploying The Client Container
 
-Next, create a container on your second host and connect to the webserver in the container on our first host. Containers return a container ID which you will capture to use further on in this example. On `weave-gs-02` run
+Next, create a container on your second host and connect to the webserver in the container on our first host. 
+
+On `weave-gs-02` run:
 
     CONTAINER=`weave run 10.0.1.2/24 -t -i weaveworks/weave-gs-centos-bash`
 
-Now you attach to your docker container using the `CONTAINER` value we captured earlier, and run a curl command to connect to your hello world service.
+Attach to the docker container using the `CONTAINER` value we captured earlier, and then run a curl command to connect to your hello world service.
 
     docker attach $CONTAINER
     
@@ -201,7 +202,7 @@ And you will see the following JSON message returned:
     }
 ~~~
 
-Now you can exit from the container. Since you finished the command in which the container was running (in this case `/bin/bash`), the container also exits.
+You can now exit from the container and since you finished the command in which the container was running (in this case `/bin/bash`), the container also exits.
 
 ##Cleaning Up The VMs
 
