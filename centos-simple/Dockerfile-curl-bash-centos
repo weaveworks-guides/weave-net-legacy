@@ -1,4 +1,4 @@
 FROM	centos
-MAINTAINER	fintan@weave.works
+MAINTAINER	ilya@weave.works
 CMD 	yum install -y curl
 CMD     ["/bin/bash"] 
