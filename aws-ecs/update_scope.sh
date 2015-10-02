@@ -34,6 +34,8 @@ for HOST in $INSTANCE_HOSTNAMES; do
     echo done
     echo New Scope image:
     ssh_to_instance $HOST docker images weaveworks/scope
+    echo Updating scope script:
+    ssh_to_instance $HOST -t sudo curl https://raw.githubusercontent.com/weaveworks/scope/master/scope -o /usr/local/bin/scope \; sudo chmod +x /usr/local/bin/scope
     echo Restarting Scope:
     ssh_to_instance $HOST -t sudo stop scope \; sudo start scope
 done
