@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Getting Started With Weave & Docker
-shorttitle: Gettig Started with Weave & Docker
+shorttitle: Getting Started with Weave & Docker
 description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
 tags: load-balancing, dns, ubuntu, swarm, compose
 permalink: /guides/weave-docker-index.html
