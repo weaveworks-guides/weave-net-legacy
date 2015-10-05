@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Using Weave with Amazon Cloud Services
-shorttitle: Weave and Amazon Cloud Services
+shorttitle: Using Weave with Amazon Cloud Services
 description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
 tags: aws, load-balancing, dns, packer, ecs, amazon-linux, microservices
 permalink: /guides/aws-weave-index.html

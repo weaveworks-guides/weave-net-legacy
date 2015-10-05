@@ -2,7 +2,7 @@
 permalink: /guides/vagrant.html
 title: How We Use Vagrant In These Guides
 layout: guides
-shorttitle: Vagrant & These Guides
+shorttitle: About These Guides
 description: Using Vagrant and Weave.
 sidebarpath: /start/vagrant
 sidebarweight: 5
