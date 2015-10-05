@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Using Weave with Kubernetes on a CoreOS Cluster
-description: Using a weave network with Kubernetes on CoreOS
+description: Using Weave with Kubernetes on CoreOS Cluster
 tags: kubernetes, php, ipam, coreos
 permalink: /guides/platform/kubernetes/os/coreos/cloud/vagrant/index.html
 

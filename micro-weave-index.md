@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Weave & Microservices
-shorttitle: Weave and Microservices
+shorttitle: Connecting Microservices with Weave
 description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
 tags: aws, load-balancing, dns, packer, ecs, amazon-linux, microservices
 permalink: /guides/microservices-weave-index.html

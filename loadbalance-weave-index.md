@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Weave & Load Balancing
-shorttitle: Weave and Load Balancing
+shorttitle: Load Balancing Using Weave
 description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
 tags: aws, load-balancing, dns, packer, ecs, amazon-linux, microservices
 permalink: /guides/loadbalancing-weave-index.html
