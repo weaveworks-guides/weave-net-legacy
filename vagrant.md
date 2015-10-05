@@ -1,5 +1,5 @@
 ---
-permalink: /guides/vagrant.html
+permalink: /guides/about/vagrant.html
 title: How We Use Vagrant In These Guides
 layout: guides
 shorttitle: About These Guides
