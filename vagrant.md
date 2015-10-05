@@ -22,7 +22,7 @@ For information on how and where you can use Vagrant, see [Why Vagrant?](https:/
 
 ## General Usage Pattern
 
-Most of our Vagrant-based guides begin by cloning the [`weaveworks/guides`](https://github.cim/weaveworks/guides) repository, and then changing to a subdirectory:
+Most of our Vagrant-based guides begin by cloning the [`weaveworks/guides`](https://github.com/weaveworks/guides) repository, and then changing to a subdirectory:
 
     cd guides/<title>
 
