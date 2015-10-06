@@ -19,8 +19,7 @@ echo -n 'Saving current Scope image .. '
 docker save weaveworks/scope > $SCOPE_IMAGE_FILE
 echo done
 
-INSTANCE_IDS=$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names weave-ecs-demo-group --query 'AutoScalingGroups[0].Instances[*].InstanceId' --output text)
-INSTANCE_HOSTNAMES=$(aws ec2 describe-instances --instance-ids ${INSTANCE_IDS} --query 'Reservations[0].Instances[*].PublicDnsName' --output text)
+INSTANCE_HOSTNAMES=$(`dirname "$0"`/echo_instances.sh)
 echo Updating Scope in $INSTANCE_HOSTNAMES:
 echo
 
