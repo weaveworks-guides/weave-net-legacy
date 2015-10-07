@@ -79,4 +79,4 @@ echo "done"
 # Cluster
 echo -n "Deleting ECS cluster (weave-ecs-demo-cluster) .. "
 aws ecs delete-cluster --cluster weave-ecs-demo-cluster > /dev/null
-echo "Done"
+echo "done"

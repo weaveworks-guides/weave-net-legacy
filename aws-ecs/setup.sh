@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Load the latest WEAVE AMIS from LATESTAMIs.md
+# Load the latest WEAVE AMIs
 WEAVE_ECS_AMIS=( $(curl -L -s https://raw.githubusercontent.com/weaveworks/integrations/master/aws/ecs/README.md | sed -n -e 's/^| *\([^| ]*\) *| *\(ami-[^| ]*\) *|$/\1:\2/p' ) )
 
 SCOPE_AAS_PROBE_TOKEN="$1"
@@ -90,7 +90,7 @@ aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol 
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol udp --port 6783 --source-group weave-ecs-demo
 # Scope
 aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 4040 --source-group weave-ecs-demo
-echo "Done"
+echo "done"
 
 # Key pair
 echo -n "Creating Key Pair (weave-ecs-demo, file weave-ecs-demo-key.pem) .. "
