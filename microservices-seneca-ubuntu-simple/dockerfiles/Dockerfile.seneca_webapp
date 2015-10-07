@@ -1,5 +1,5 @@
 FROM    ubuntu
-MAINTAINER      fintan@weave.works
+MAINTAINER      ilya@weave.works
 
 RUN     apt-get -y update 
 RUN     apt-get -y install nodejs

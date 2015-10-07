@@ -35,7 +35,7 @@ without changing any code.
 * [PostgreSQL](http://www.postgresql.org)
 * [Ubuntu](http://ubuntu.com)
 
-## What you will need to complete this guide ##
+## Before You Begin ##
 
 This getting started guide is self contained. You will use Weave, Docker, Rails, and Ubuntu. We make use of VirtualBox and Vagrant to allow you to run this entire getting started guide on your personal system.
 
@@ -43,7 +43,7 @@ This getting started guide is self contained. You will use Weave, Docker, Rails,
 * [Git](http://git-scm.com/downloads)
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
-## Setting up our hosts ##
+## Setting The Hosts ##
 
 All of the code for this example is available on github, and you first clone the getting started repository.
 
