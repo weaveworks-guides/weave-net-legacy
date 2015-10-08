@@ -97,7 +97,7 @@ The commands to install Weave are provided as part of this getting started guide
 
 ##Launching Weave
 
- Now start Weave on each host to create a peer connection:
+Now start Weave on each host to create a peer connection:
 
 On host `weave-gs-01`
 
@@ -183,7 +183,7 @@ root@weave-gs-01:~# eval "$(weave env)"
 root@weave-gs-01:~# docker run -d --name=hello-app php-example
 ~~~
 
-You now have a running Apache server in a Docker container. It will receive a DNS record in weavedns and will automatically be the given name `hello-app`.
+You now have a running Apache server in a Docker container. It will receive a DNS record in `weaveDNS` and will automatically be the given name `hello-app`.
 
 To view it:
 
