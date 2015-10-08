@@ -116,13 +116,13 @@ weave launch --ipalloc-range 10.2.1.1/24
 Where `--ipalloc-range` specifies the IP address range to use on the network. 
 
 ~~~bash
-    vagrant ssh weave-gs-02
-    weave launch 172.17.8.101 --ipalloc-range 10.2.1.2/24
+vagrant ssh weave-gs-02
+weave launch 172.17.8.101 --ipalloc-range 10.2.1.2/24
 ~~~
 
 On the second host, weave is launched by passing the IP address of `weave-gs-01`, to create a peered network. 
 
-To view all running weave components and their peers:
+To view all weave components and the peered hosts:
 
 ~~~bash
 vagrant@weave-gs-02:~$ weave status
@@ -157,7 +157,7 @@ vagrant@weave-gs-02:~$ weave status
 
 [WeaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html) answers name queries on a Weave network. It provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', WeaveDNS requires no code changes and it also works across hosts.
 
-In this example the seneca example code was modified to refer to hostnames. Each container is given a hostname and uses `weaveDNS` to find the correct container for a request.
+The seneca code was modified in this example to refer to hostnames. Each container was given a hostname and then uses `weaveDNS` to find the correct container for a request.
 
 ###2. Start the Node.js application 
 
@@ -181,7 +181,7 @@ On the first host, `weave-gs-01`, the Weave containers were launched. On the sec
 
 The Node.js application was then launched.
 
-You should have now have multiple containers running on each host, which you can see by running `docker ps` on either host:
+You should now have multiple containers running on each host, which you can see by running `docker ps` on either host:
 
 ~~~bash
 
@@ -192,7 +192,6 @@ CONTAINER ID        IMAGE                        COMMAND                CREATED 
 bf9414255fc6        weaveworks/weave:1.1.1       "/home/weave/weaver    7 minutes ago       Up 7 minutes        10.1.42.1:53->53/tcp, 10.1.42.1:53->53/udp, 0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave               
 
 ~~~
-
 
 
 ## Microservices Example With Seneca ##

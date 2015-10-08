@@ -25,3 +25,4 @@ module.exports = function( options ) {
 
   return {name:plugin};
 }
+

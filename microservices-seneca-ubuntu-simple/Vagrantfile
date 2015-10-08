@@ -65,7 +65,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
     
     config.vm.provision "shell", privileged: true, inline: <<-SHELL
-        sudo curl -L git.io/weave -o /usr/local/bin/weave
+        sudo -s curl -L git.io/weave -o /usr/local/bin/weave
         sudo chmod a+x /usr/local/bin/weave
     SHELL
 end
