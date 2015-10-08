@@ -14,15 +14,15 @@ sidebarweight: 50
 
 This example demonstrates how to create a containerized set of microservices built with [Node.js](http://nodejs.org), and the microservices toolkit for Node.js, [Seneca](http://senecajs.org/).
 
-The example is derived from the Seneca microservices example which is available on 
+The example is derived from the Seneca microservices example and is available on 
 [github](https://github.com/rjrodger/seneca-examples/tree/master/micro-services).
 
 Specifically, you will: 
 
-1. Provision two VMs with Ubuntu on a VirtualBox using Vagrant. 
+1. Provision two VMs with Ubuntu on VirtualBox using Vagrant. 
 2. Install and launch the Weave Network.
-3. Deploy three containers each with its own microservice: a web client, a log in and out service and a product offering service (depending on whether the user is logged in or not) between the two VMs.
-4. Log into web service to test that containers are communicating.
+3. Deploy three containers each with its own microservice between the two VMs: a web client, a log-in and log-out service and a product offering service (depending on whether the user is logged in or not).
+4. Test that the containers are communicating by logging into the webapp.
 
 The example does not require any programming and it will take 15 minutes to complete. 
 
@@ -43,9 +43,9 @@ Ensure that the following are installed before you begin this tutorial:
 * [Git](http://git-scm.com/downloads)
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
-## A Note on Microservices ##
+## A Note On Microservices ##
 
-Microservices have emerged as a development pattern in recent times, with companies such as Netfilx, Hubspot and OpenTable adopting the approach. 
+Microservices have emerged as a development pattern in recent times, with companies such as Netflix, Hubspot and OpenTable adopting the approach. 
 
 But what exactly are Microservices anyway?
 
@@ -59,7 +59,7 @@ A common thread throughout all of these definitions is that of small simple serv
 
 A discussion on why you should use Microservices is beyond the scope of this guide. For more information see the
 articles and presentations by [Martin Fowler and James Lewis](http://martinfowler.com/articles/microservices.html), [Adrian Cockcroft](http://www.slideshare.net/adriancockcroft/dockercon-state-of-the-art-in-microservices) and in the book [Building Microservices](http://shop.oreilly.com/product/0636920033158.do) by Sam Newman.
-  
+
 ## Setting Up The Hosts ##
 
 The code used for this example is available on [github](http://github.com/weaveworks/guides/microservices-seneca-ubuntu-simple). To begin, please clone the getting started repository.
@@ -102,25 +102,23 @@ root@weave-gs-01:~# curl -L git.io/weave -o /usr/local/bin/weave
 root@weave-gs-01:~# chmod a+x /usr/local/bin/weave
 ~~~~
 
-The commands to install Weave are provided as part of this getting started guide, but in practice you would automate this step for each host.
+The commands to install and launch Weave are provided as part of this getting started guide, but in practice you would automate this step for each host.
 
-If you prefer to see the demo right away, refer to [Launching the Demo Application](launching-the-demo-application) where a script is provided that automates the whole process. 
+If you prefer to see the demo right away, refer to [Launching the Demo Application](#launching-the-demo-application) where a script is provided to automate the whole process. 
 
 ###1. Launch Weave on Each Host
 
 ~~~bash
 vagrant ssh weave-gs-01
-weave launch --ipalloc-range 10.2.1.1/24
+weave launch 172.17.8.102
 ~~~
-
-Where `--ipalloc-range` specifies the IP address range to use on the network. 
 
 ~~~bash
 vagrant ssh weave-gs-02
-weave launch 172.17.8.101 --ipalloc-range 10.2.1.2/24
+weave launch 172.17.8.101
 ~~~
 
-On the second host, weave is launched by passing the IP address of `weave-gs-01`, to create a peered network. 
+Weave is launched by passing the IP address of the other host to create a peered network. 
 
 To view all weave components and the peered hosts:
 
@@ -164,20 +162,19 @@ The seneca code was modified in this example to refer to hostnames. Each contain
 On weave-gs-02: 
 
 ~~~bash
-root@weave-gs-02:~# eval "$(weave env)"
-root@weave-gs-02:weave run --with-dns 10.3.1.2/24 -h user.weave.local weaveworks/seneca_user
+root@weave-gs-02: docker $(weave config) run -d --name=user-ms weaveworks/seneca_user
 ~~~
 
 On weave-gs-01:
+
 ~~~bash
-root@weave-gs-01:~# eval "$(weave env)"
-root@weave-gs-01:weave run --with-dns 10.3.1.1/24 -h offer.weave.local weaveworks/seneca_offer
-root@weave-gs-01:weave run --with-dns 10.3.1.3/24 -p 80:80 -h web.weave.local weaveworks/seneca_webapp
+root@weave-gs-01:docker $(weave config) run -d --name=offer-ms weaveworks/seneca_offer
+root@weave-gs-01: docker $(weave config) run -d --name=web -p 80:80 weaveworks/seneca_webapp
 ~~~
 
 ### What Just Happened? ###
 
-On the first host, `weave-gs-01`, the Weave containers were launched. On the second host, `weave-gs-02`, another two Weave containers were launched using the IP address of your first host. Passing the IP address of the first host to the second host instructs Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
+On the first host, `weave-gs-01`, the Weave containers were launched and the IP of the second host was passed to it. On the second host, `weave-gs-02`, another two Weave containers were launched using the IP address of your first host. Passing the IP address of the first host to the second host instructs Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
 
 The Node.js application was then launched.
 
@@ -196,24 +193,31 @@ bf9414255fc6        weaveworks/weave:1.1.1       "/home/weave/weaver    7 minute
 
 ## Microservices Example With Seneca ##
 
-The example is running three different microservices in three different containers, spread across the hosts. To test that all of the services are running properly, point your browser to [http://localhost:8080](http://localhost:8080), where you are presented with a login screen. Login with the username and password u1/U1.
+The example is running three different microservices in three different containers, spread across the two hosts. To test that all of the services are running properly, point your browser to [http://localhost:8080](http://localhost:8080), where you are presented with a login screen. Login with the username: u1 and password u1.
 
 This example is a very simple demonstration of how to use the Seneca framework, the discussion of which is beyond the scope of this guide. For more details refer to the [Seneca website](http://senecajs.org/).
 
-Seneca is written in Javascript using the Node.js libraries. The Dockerfiles used for building the containers in this guide are also included in the [github repo](https://github.com/weaveworks/guides/tree/master/microservices-seneca-ubuntu-simple). 
+Seneca is written in Javascript using the Node.js libraries. The Dockerfiles used for building the containers in this guide are included in the [github repo](https://github.com/weaveworks/guides/tree/master/microservices-seneca-ubuntu-simple). 
 
 ##Launching The Demo Application ##
 
-The following script is provided which automates deploying the application into the containers. 
+The following script is provided that automates the launching the Weave network and also deploying the application into the containers. 
 
-    ./launch-senca-demo.sh
+~~~bash
+./launch-senca-demo.sh
+~~~
 
 ## Conclusions ##
 
 You have now used Weave to quickly deploy a simple Node.js microservices application using Docker containers.
 
+You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
+
 
 ##Further Reading
+
+ * [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
+ * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
 
 
 ## Credits ##
