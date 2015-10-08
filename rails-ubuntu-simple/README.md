@@ -35,7 +35,7 @@ without changing any code.
 * [PostgreSQL](http://www.postgresql.org)
 * [Ubuntu](http://ubuntu.com)
 
-## What you will need to complete this guide ##
+## Before You Begin ##
 
 This getting started guide is self contained. You will use Weave, Docker, Rails, and Ubuntu. We make use of VirtualBox and Vagrant to allow you to run this entire getting started guide on your personal system.
 
@@ -43,20 +43,19 @@ This getting started guide is self contained. You will use Weave, Docker, Rails,
 * [Git](http://git-scm.com/downloads)
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
-## Setting up our hosts ##
+## Setting Up The Hosts ##
 
 All of the code for this example is available on github, and you first clone the getting started repository.
 
 ~~~bash
-$ git clone http://github.com/weaveworks/guides
+$ git clone https://github.com/weaveworks/guides
 ~~~
 
 You will use Vagrant to setup and configure three Ubuntu hosts and
 install Docker. We make use of Vagrant's functionality to download the
 base docker images we will be using, and we then install Weave. If you
 would like to work through the installation steps please review our
-[getting started
-guide](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/README.md)
+[getting started guide](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/README.md)
 for a more manual example.
 
 ~~~bash
@@ -65,7 +64,7 @@ $ vagrant up
 ~~~
 
 
-Vagrant will pull down and configure an Ubuntu image, this may take a
+Vagrant pulls down and configures an Ubuntu image. This may take a
 few minutes depending on the speed of your network connection. For
 more details on Vagrant please refer to the [Vagrant
 documentation](http://vagrantup.com).
@@ -73,7 +72,7 @@ documentation](http://vagrantup.com).
 You may be prompted for a password when `/etc/hosts` is being updated
 during the Vagrant setup, please just hit return at this point.
 
-Once the setup of the host is complete you can check its status with
+Once the setup of the host is complete, check its status with:
 
 ~~~bash
 $ vagrant status
@@ -124,14 +123,14 @@ $ docker run --rm -v "$PWD":/usr/src/app -w /usr/src/app ruby:2.2 bundle install
 
 When we boot it, the database container will be registered with
 weaveDNS at db.weave.local. By default, containers launched through
-weave will be registered based with their container name or their
-hostname (if set). Containers will resolve dns addresses within the
-.weave.local domain. This will let our rails webapp container resolve
-db to db.weave.local, finding our postgres container. This will work
+weave will be registered based on either their container name or their
+hostname, if this was set. Containers resolve DNS addresses within the
+.weave.local domain. This allows the rails webapp container to resolve
+db to db.weave.local, finding our postgres container. This works
 transparently even when rails and postgres are running on different
 hosts.
 
-We need to tell rails where to find its database. To do this, we edit
+You will also need to tell rails where to find its database. To do this, edit
 the config/database.yml to look like the following.
 
 ~~~yaml
@@ -149,10 +148,10 @@ test:
   database: webapp_test
 ~~~
 
-To boot our app as a docker container, we add a Dockerfile into our
+To boot our app as a docker container, a Dockerfile was added into the
 project directory. The rails image from dockerhub provides a
 convenient base image to build from. The ruby postgres client gem
-depends on libpq-dev being installed, so we'll also to install that as
+depends upon libpq-dev being installed, therefore this will also be installed as a
 part of our Dockerfile.
 
 ~~~
@@ -160,7 +159,7 @@ FROM rails:onbuild
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
 ~~~
 
-With our Dockerfile configured, we are ready to build the container
+With the Dockerfile configured, you are now ready to build the container
 image. As usual with a docker container, if you change your project
 you will need to re-build the image before running your container.
 
