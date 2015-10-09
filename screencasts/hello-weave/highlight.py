@@ -32,8 +32,10 @@ highlight = {
     'launch-proxy': ['black', 'bold'],
     'launch-proxy': ['black', 'bold'],
     'proxy-env': ['black', 'bold'],
+    'env': ['black', 'bold'],
     '$(weave': ['black', 'bold'],
     'proxy-env)': ['black', 'bold'],
+    'env)': ['black', 'bold'],
 }
 
 def get_colour(k):
