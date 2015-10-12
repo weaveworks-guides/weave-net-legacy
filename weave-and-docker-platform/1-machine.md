@@ -64,11 +64,6 @@ curl -L git.io/weave -o /usr/local/bin/weave
 chmod a+x /usr/local/bin/weave
 ~~~
 
-~~~bash
-git clone https://github.com/weaveworks/guides
-cd ./guides/weave-and-docker-platform
-~~~
-
 Next create a Virtual Machine (VM) on the VirtualBox, called `weave-1`, by running:
 
 ~~~bash
@@ -78,7 +73,7 @@ docker-machine create -d virtualbox weave-1
 With the VM running, configure your shell environment by typing:
 
 ~~~bash
-eval "$(docker-machine config weave-1)"
+eval "$(docker-machine env weave-1)"
 ~~~
 
 and then, verify that everything installed correctly:
