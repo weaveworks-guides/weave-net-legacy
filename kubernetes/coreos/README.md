@@ -98,35 +98,6 @@ Sep 07 14:47:51 kube-01 systemd[1]: Started Download Kubernetes Binaries.
 
 Once the Kubernetes binaries are downloaded and installed onto the coreOS cluster, `ctl-c` out of this mode.
 
-With the Kubernetes binaries fully installed, you can now discover all of the pods by deploying the DNS addon:
-
-~~~bash
-core@kube-01 ~ $ kubectl create -f /etc/kubernetes/addons
-
-replicationcontrollers/kube-dns-v8
-services/kube-dns
-~~~
-
-And then, wait for the DNS to discover the pods:
-
-~~~bash
-core@kube-01 ~ $ kubectl get pods -w --all-namespaces
-
-NAMESPACE     NAME                READY     STATUS    RESTARTS   AGE
-kube-system   kube-dns-v8-hmofb   0/4       Pending   0          17s
-kube-system   kube-dns-v8-ofmjo   0/4       Pending   0          17s
-kube-system   kube-dns-v8-sooal   0/4       Pending   0          17s
-NAMESPACE     NAME                READY     STATUS    RESTARTS   AGE
-kube-system   kube-dns-v8-sooal   0/4       Running   0          57s
-kube-system   kube-dns-v8-hmofb   0/4       Running   0         57s
-kube-system   kube-dns-v8-sooal   4/4       Running   0         58s
-kube-system   kube-dns-v8-hmofb   4/4       Running   0         59s
-kube-system   kube-dns-v8-ofmjo   0/4       Running   0         1m
-kube-system   kube-dns-v8-ofmjo   3/4       Running   1         1m
-kube-system   kube-dns-v8-ofmjo   4/4       Running   1         1m
-
-~~~
-
 Check that the nodes have registered with the master.  In this example, kube-01 at address: `172.17.8.101` is the master, leaving the other 2 VMs as the nodes, shown below:
 
 ~~~bash

@@ -332,3 +332,23 @@ coreos:
         [Install]
         WantedBy=kubernetes-master.target
         WantedBy=kubernetes-node.target
+
+    - name: kube-create-addons.service
+      enable: true
+      content: |
+        [Unit]
+        After=install-kubernetes.service
+        ConditionFileIsExecutable=/opt/kubernetes/server/bin/kubectl
+        ConditionPathIsDirectory=/etc/kubernetes/addons/
+        ConditionHost=kube-01
+        Description=Kubernetes Addons
+        Documentation=http://kubernetes.io/
+        Wants=install-kubernetes.service
+        Wants=kube-apiserver.service
+        [Service]
+        Type=oneshot
+        RemainAfterExit=no
+        ExecStart=/bin/bash -c 'until /opt/kubernetes/server/bin/kubectl create -f /etc/kubernetes/addons/; do sleep 2; done'
+        SuccessExitStatus=1
+        [Install]
+        WantedBy=kubernetes-master.target
