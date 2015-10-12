@@ -1,1 +1,1 @@
-../../imports/coreos-vagrant/Vagrantfile
+eval(File.open(File.join('..', '..', 'imports', 'coreos-vagrant', 'Vagrantfile')).read)
