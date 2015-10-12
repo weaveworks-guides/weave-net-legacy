@@ -38,7 +38,7 @@ First, clone the repo and then run the vagrant script:
 
 ~~~ bash
 git clone https://github.com/weaveworks/guides
-cd mesos-marathon/centos
+cd guides/mesos-marathon/centos
 vagrant up
 ~~~
 

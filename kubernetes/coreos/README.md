@@ -53,7 +53,7 @@ git clone https://github.com/weaveworks/guides
 Change to the `kubernetes/coreos` directory and run Vagrant. Vagrant in this case sets up all 3 virtual machines with the CoreOS images, and with Docker.
 
 ~~~bash
-cd kubernetes/coreos
+cd guides/kubernetes/coreos
 vagrant up
 ~~~
 
