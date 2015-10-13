@@ -215,10 +215,11 @@ Type 'exit' to exit the `pinger` container.
 
 ## Cleanup
 
-This completes Part 1 of this tutorial. To remove the containers used in this example:
+This completes Part 1 of this tutorial. To remove the containers and the VM used in this example:
 
 ~~~bash
 > docker rm -f pingme pinger
+> docker-machine rm -f weave-1
 ~~~
 
 ## Summary
