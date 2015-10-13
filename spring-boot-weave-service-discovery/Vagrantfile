@@ -67,8 +67,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         d.pull_images "weaveworks/weave"
         d.pull_images "gliderlabs/alpine:edge"
         d.pull_images "gliderlabs/alpine:latest"
-        d.pull_images "weaveworks/scope"
-        d.pull_images "weaveworks/sd-weave-spring"
+        d.pull_images "weaveworks/gs-spring-boot-docker"
     end
     
     config.vm.provision "shell", privileged: true, inline: <<-SHELL
