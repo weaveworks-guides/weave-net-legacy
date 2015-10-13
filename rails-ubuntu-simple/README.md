@@ -153,10 +153,9 @@ test:
   database: webapp_test
 ~~~
 
-Next, we will create a docker container image with the Rails app. To make this simple, a Dockerfile was provided. The rails image from dockerhub provides a
-convenient base image on which to build. 
+Next create a docker container image with the Rails app. To make this simpler, a Dockerfile has been provided. The rails image from dockerhub provides a convenient base image on which to build. 
 
-The ruby PostgreSQL client gem depends upon `libpq-dev`, which is also be installed as a
+The ruby PostgreSQL client gem depends upon `libpq-dev`, which is also installed as a
 part of our docker container image.
 
 The contents of the Dockerfile is as follows: 
@@ -193,7 +192,7 @@ network connection and also any routing between containers.
 provides service-discovery between the app, and the database
 container.
 
-On the host, launch weave and also set up its environment:
+On the host, launch weave and then set up its environment:
 
 ~~~bash
 $ weave launch
@@ -203,30 +202,26 @@ $ weave launch
 $ eval "$(weave env)"
 ~~~
 
->>>Note: In this guide we have been running commands on directly on the host, but you can run commands from your machine on the remote host by configure the docker client to use the [Weave Docker API
-Proxy](http://docs.weave.works/weave/latest_release/proxy.html). The Weave Docker API Proxy allows you to use the official docker client, and will attach any booted
-containers to the weave network. To enable the proxy, first install Weave on to your local machine, run `weave launch` and then set the environment `eval "$(weave env)"`
+>>>Note: In this guide commands were run directly on the host, but you can also run docker commands from your machine on the remote host by configuring the docker client to use the [Weave Docker API
+Proxy](http://docs.weave.works/weave/latest_release/proxy.html). The Weave Docker API Proxy allows you to use the official docker client, and it will also attach any booted
+containers to the weave network. To enable the proxy, first install Weave on to your local machine, run `weave launch` and then set the environment by running `eval "$(weave env)"`
 
 
 ##Launching PostgreSQL
 
-Now, launching a PostgreSQL instance with DNS service discovery can be
-done with one command. For convenience, we'll use the official
-[PostgreSQL image from dockerhub](https://registry.hub.docker.com/_/postgres/).
+For convenience, the official [PostgreSQL image from dockerhub](https://registry.hub.docker.com/_/postgres/) is used.
 
 ~~~bash
 $ docker run --name db -e POSTGRES_PASSWORD=mysecretpassword -d postgres
 ~~~
 
-By setting the container name, our PostgreSQL instance will be
-registered with weaveDNS as db.weave.local. This will be in the local
-domain of our webapp. When rails connects to the database, `weaveDNS` will take
+By setting the container name, the PostgreSQL instance is
+registered with weaveDNS as db.weave.local. This is in the local
+domain of our webapp. When rails connects to the database, `weaveDNS` takes
 care of resolving that address to our PostgreSQL container.
 
-Keep in mind, that in this example, we're not concerned about
-preserving our data with backups. However, the PostgreSQL container
-we're using will store its data at `/var/lib/postgresql/data`, which is
-good enough to preserve data across container restarts.
+Keep in mind, that this example is not concerned about
+preserving data with backups. However, the PostgreSQL container does store its data at `/var/lib/postgresql/data`, which is enough to preserve data across container restarts.
 
 ##Run Database Migrations
 
@@ -239,13 +234,13 @@ $ docker run -it --rm -w /usr/src/app webapp rake db:create
 
 ##Launching Rails
 
-Run the first server container for our webapp:
+Run the server container for the webapp:
 
 ~~~bash
 $ docker run --name webapp-1 -p 3000:3000 -d webapp
 ~~~
 
-Check weave status, where you can see that there have been 2 containers discovered, as shown by 2 entries logged in `WeaveDNS`: 
+Check `weave status`, where you can see that there have been 2 containers discovered, as shown by 2 entries logged in `WeaveDNS`: 
 
 ~~~bash
 Version: 1.1.1
@@ -273,10 +268,11 @@ Version: 1.1.1
        Address: unix:///var/run/weave/weave.sock
 ~~~
 
-To view the running containers, run: 
+and then view the all of the running containers: 
 
 ~~~bash
-docker ps
+$ docker ps
+
 CONTAINER ID        IMAGE                        COMMAND                CREATED             STATUS              PORTS                                                                                        NAMES
 bddeda16d611        webapp                       "/w/w rails server -   25 minutes ago      Up 25 minutes       0.0.0.0:3000->3000/tcp                                                                       webapp-1            
 c291c3d9dde7        postgres                     "/w/w /docker-entryp   26 minutes ago      Up 26 minutes       5432/tcp                                                                                     db                  
@@ -285,10 +281,12 @@ c291c3d9dde7        postgres                     "/w/w /docker-entryp   26 minut
 ~~~
 
 
-By giving the webapp container a unique name, it will be registered with `weaveDNS` at `webapp-1.weave.local`. If advanced
-load-balancing with HAProxy or nginx was required, you could use those dns entries to route the traffic. In the simple case, we could use weaveDNS for load-balancing between our rails containers. However, both of those are outside the scope of this guide.
+By giving the webapp container a unique name, it is registered with `weaveDNS` at `webapp-1.weave.local`. 
 
 Your app will now be running on port 3000 on your vagrant host and is available by pointing your browser at: [http://172.17.8.101:3000](http://172.17.8.101:3000)
+
+If advanced load-balancing with HAProxy or nginx is required, you could use those DNS entries to route the traffic. In the simple case, weaveDNS can be used for load-balancing between our rails containers. However, both of those are outside the scope of this guide.
+
 
 ##Conclusions
 
