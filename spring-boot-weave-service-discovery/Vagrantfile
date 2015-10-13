@@ -62,13 +62,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision "docker" do |d|
         d.pull_images "ubuntu"
         d.pull_images "java:8"
-        d.pull_images "fintanr/myip-scratch"
-        d.pull_images "fintanr/weave-gs-ubuntu-curl"
+        d.pull_images "weaveworks/myip-scratch"
+        d.pull_images "weaveworks/weave-gs-ubuntu-curl"
         d.pull_images "weaveworks/weave"
         d.pull_images "gliderlabs/alpine:edge"
         d.pull_images "gliderlabs/alpine:latest"
         d.pull_images "weaveworks/scope"
-        d.pull_images "fintanr/sd-weave-spring"
+        d.pull_images "weaveworks/sd-weave-spring"
     end
     
     config.vm.provision "shell", privileged: true, inline: <<-SHELL

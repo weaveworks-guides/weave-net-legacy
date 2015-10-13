@@ -56,7 +56,7 @@ $ cd ./guides/rails-ubuntu-simple
 Vagrant configures the Ubuntu host, installs Docker and also pulls down Weave from Dockerhub. 
 
 If you prefer to work through the installation steps manually then please see,
-[Getting Started with Weave and Docker on Ubuntu](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/README.md).
+[Getting Started with Weave and Docker on Ubuntu](http://weave.works/guides/weave-docker-ubuntu-simple.html).
 
 ~~~bash
 $ cd weave-gs/rails-ubuntu-simple
@@ -151,12 +151,12 @@ test:
   database: webapp_test
 ~~~
 
-Next create a docker container image with the Rails app. To make this simpler, a Dockerfile has been provided. The rails image from dockerhub provides a convenient base image on which to build. 
+Next create a docker container image of the Rails app. To make this simpler, a Dockerfile has been provided. The rails image from dockerhub provides a convenient base image on which to build. 
 
 The ruby PostgreSQL client gem depends upon `libpq-dev`, which is also installed as a
 part of our docker container image.
 
-The contents of the Dockerfile is as follows: 
+The contents of the Dockerfile are as follows: 
 
 ~~~bash
 FROM rails:onbuild
@@ -200,7 +200,7 @@ $ weave launch
 $ eval "$(weave env)"
 ~~~
 
->>>Note: In this guide commands were run directly on the host, but you can also run docker commands from your machine on the remote host by configuring the docker client to use the [Weave Docker API
+>>>Note: In this guide commands were run directly on the host, but you can also run docker commands from your local machine on the remote host by configuring the docker client to use the [Weave Docker API
 Proxy](http://docs.weave.works/weave/latest_release/proxy.html). The Weave Docker API Proxy allows you to use the official docker client, and it will also attach any booted
 containers to the weave network. To enable the proxy, first install Weave on to your local machine, run `weave launch` and then set the environment by running `eval "$(weave env)"`
 
@@ -266,7 +266,7 @@ Version: 1.1.1
        Address: unix:///var/run/weave/weave.sock
 ~~~
 
-and then view the all of the running containers: 
+and then view the running containers: 
 
 ~~~bash
 $ docker ps
@@ -278,13 +278,19 @@ c291c3d9dde7        postgres                     "/w/w /docker-entryp   26 minut
 129f749d40d8        weaveworks/weave:1.1.1       "/home/weave/weaver    35 minutes ago      Up 34 minutes       10.1.42.1:53->53/tcp, 10.1.42.1:53->53/udp, 0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave               
 ~~~
 
-
 By giving the webapp container a unique name, it is registered with `weaveDNS` at `webapp-1.weave.local`. 
 
 Your app will now be running on port 3000 on your vagrant host and is available by pointing your browser at: [http://172.17.8.101:3000](http://172.17.8.101:3000)
 
-If advanced load-balancing with HAProxy or nginx is required, you could use those DNS entries to route the traffic. In the simple case, weaveDNS can be used for load-balancing between our rails containers. However, both of those are outside the scope of this guide.
+If advanced load-balancing with HAProxy or nginx is required, you could use those DNS entries to route the traffic. In the simplest case, weaveDNS can be used for load-balancing between the rails containers. However, both of those scenarios are outside the scope of this guide.
 
+##Cleaning Up the VMs
+
+To clean up the VMs run: 
+
+~~~bash
+vagrant destroy
+~~~
 
 ##Conclusions
 
