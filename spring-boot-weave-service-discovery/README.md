@@ -151,8 +151,7 @@ Since both {{ weavedns }} and Automatic IP Address Management are launched as a 
 vagrant ssh weave-gs-01
 eval "$(weave env)"
 
-docker run -d -h spring-hello.weave.local weaveworks/spring-microservices-example 
-docker run -d -h spring-hello.weave.local weaveworks/spring-microservices-example 
+docker run -d -h spring-hello.weave.local weaveworks/gs-spring-boot-docker
 ~~~
 
 You just launched the microservice into a two different docker containers and have made them available on the Weave Network on any port.
@@ -163,8 +162,7 @@ Running `docker ps` should show output similar to this:
 $docker ps
 
 CONTAINER ID        IMAGE                        COMMAND                CREATED             STATUS              PORTS                                                                                        NAMES
-eaf0501aef7c        weaveworks/sd-weave-spring   "/w/w java -Djava.se   2 minutes ago       Up 2 minutes                                                                                                     trusting_thompson   
-0c747bc4e083        weaveworks/sd-weave-spring   "/w/w java -Djava.se   2 minutes ago       Up 2 minutes                                                                                                     goofy_bell          
+0c747bc4e083        weaveworks/gs-spring-boot-   "/w/w java -Djava.se   2 minutes ago       Up 2 minutes                                                                                                     goofy_bell          
 fdf6b3d4ce4a        weaveworks/weaveexec:1.1.1   "/home/weave/weavepr   17 minutes ago      Up 17 minutes                                                                                                    weaveproxy          
 1d9fe3a94df8        weaveworks/weave:1.1.1       "/home/weave/weaver    17 minutes ago      Up 17 minutes       10.1.42.1:53->53/tcp, 10.1.42.1:53->53/udp, 0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave               
 ~~~
@@ -184,7 +182,7 @@ docker exec -ti $CONTAINER "/bin/bash"
 Press return to see the prompt for this container.  From this container, you can connect to the endpoint, and make a request to the spring-hello service by entering:
 
 ~~~bash
-curl spring-hello.weave.local
+curl http://spring-hello.weave.local:8080/
 ~~~
 
 This returns the following:
