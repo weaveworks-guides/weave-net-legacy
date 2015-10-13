@@ -45,7 +45,7 @@ Ensure that you have the following installed before beginning this example:
 
 ## Setting Up The Hosts ##
 
-All of the code for this example is available on github, and you first clone the getting started repository and then change to the .
+All of the code for this example is available on github. Clone the getting started repository and then change to the `rails-ubuntu-simple` directory:
 
 ~~~bash
 $ git clone https://github.com/weaveworks/guides
@@ -53,8 +53,7 @@ $ git clone https://github.com/weaveworks/guides
 $ cd ./guides/rails-ubuntu-simple
 ~~~
 
-Vagrant sets up and configures the Ubuntu host and also
-installs Docker. Once, these have been installed, Vagrant also installs Weave. 
+Vagrant configures the Ubuntu host, installs Docker and also pulls down Weave from Dockerhub. 
 
 If you prefer to work through the installation steps manually then please see,
 [Getting Started with Weave and Docker on Ubuntu](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/README.md).
@@ -65,8 +64,7 @@ $ vagrant up
 ~~~
 
 
-Vagrant pulls down and configures an Ubuntu image. This may take a
-few minutes depending on the speed of your network connection. For
+Setting up Ubuntu may take a few minutes depending on the speed of your network connection. For
 more details on Vagrant please refer to the [Vagrant
 documentation](http://vagrantup.com).
 
