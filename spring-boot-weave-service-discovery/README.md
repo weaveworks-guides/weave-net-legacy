@@ -12,17 +12,18 @@ sidebarweight: 20
 
 ## What You Will Build ##
 
-This example demonstrates how to use [Weave Run](http://weave.works/run/index.html) to automatically find services deployed to the Weave network.  You will deploy a docker container with a microservice created with Spring  and then discover that microservice through DNS without requiring any code modifications to the application.
+This example demonstrates how to use [Weave Run](http://weave.works/run/index.html) to automatically find services on a Weave container network.  You will deploy a docker container with a Spring-based microservice and then discover that microservice using `weaveDNS` without requiring any modifications to the application.
 
 Specifically, in this tutorial you will: 
 
 1. Use Vagrant to set up the Unbuntu host and install docker
-1. Launch a microservice created with Spring into Docker containers.
-2. Use `Weave Run` to provide automatic service discovery for a simple Spring based application. 
+2. Launch a microservice, consisting of a Tom Cat application server and a Java Servlet, created with the Spring Framework into a Docker container.
+3. Use `weaveDNS` to discover the container on the Weave Network.
+4. Return `Hello Weave!` from the microservice using curl.
 
 This tutorial requires no progamming, but it does require some UNIX skills. This example should take about 15 minutes to complete. 
 
-Note: This example is derived from the official [_'Spring Boot with Docker'_](https://spring.io/guides/gs/spring-boot-docker/) guide.
+>Note: This example is derived from the official [_'Spring Boot with Docker'_](https://spring.io/guides/gs/spring-boot-docker/) guide.
 
 ## What You Will Use
 
@@ -49,13 +50,14 @@ To begin, clone the Weaveworks/Guides repository:
 git clone https://github.com/weaveworks/guides
 ~~~
 
-This example uses Vagrant to provision and setup your host, it:  
+This example uses Vagrant to provision and set up your host, it:  
 
- * sets up and configures the Ubuntu image on Virtualbox.
+ * downloads and configures the Ubuntu image on Virtualbox.
  * downloads and installs Docker.
- * downloads and installs the Spring-based microservice.
+ * downloads the Spring-based microservice.
+ * downloads Weave from DockerHub.
  
-If you would like to see a more manual set up of a Virtualbox host with Weave, please review [Getting Started with Weave and Docker on Ubuntu](http://http://weave.works/guides/weave-docker-ubuntu-simple.html).
+If you would like to see a more manual set up of a Virtualbox host with Weave, see [Getting Started with Weave and Docker on Ubuntu](http://http://weave.works/guides/weave-docker-ubuntu-simple.html).
 
 ~~~bash
 cd guides/spring-boot-weave-service-discovery
@@ -84,14 +86,14 @@ The [Weavedns](http://docs.weave.works/weave/latest_release/weavedns.html) servi
 
 ###Weave and Automatic IP Address Management
 
-[Weave Automatic IP Address Management (IPAM)](http://docs.weave.works/weave/latest_release/ipam.html) automatically assigns containers IP addresses that are unique across the network. With Weave IPAM you can easily add more containers to your network, ensuring that each container has a unique IP.
+[Weave Automatic IP Address Management (IPAM)](http://docs.weave.works/weave/latest_release/ipam.html) automatically assigns containers IP addresses that are unique across the network. With Weave IPAM you can easily add more containers to your network, ensuring that each container receives a unique IP.
 
 ## Launching Weave
 
 To begin the example, ssh on to the host, and then launch the Weave Network:
 
 ~~~bash
-vagrant ssh weave-gs-01
+vagrant ssh
 weave launch
 ~~~
 
@@ -103,13 +105,27 @@ Next, set up Weave's environment:
 eval "$(weave env)"
 ~~~
 
->>>Note: In this guide commands were run directly on the host, but you can also run docker commands from your local machine on the remote host by configuring the docker client to use the [Weave Docker API
+To install and launch Weave manually on the host:
+
+~~~bash
+
+ vagrant ssh
+ $ sudo -s
+ # curl -L git.io/weave -o /usr/local/bin/weave
+ # chmod a+x /usr/local/bin/weave
+ # weave launch
+ # eval "$(weave env)"
+
+~~~ 
+
+
+>Note: In this guide commands were run directly on the host, but you can also run docker commands from your local machine on the remote host by configuring the docker client to use the [Weave Docker API
 Proxy](http://docs.weave.works/weave/latest_release/proxy.html). The Weave Docker API Proxy allows you to use the official docker client, and it will also attach any booted
 containers to the weave network. To enable the proxy, first install Weave on to your local machine, run `weave launch` and then set the environment by running `eval "$(weave env)"`
 
 ## What Just Happened
 
-The Weave network launched on your host, and is ready to discover containers. 
+The Weave Network is now launched on to your host, and ready to discover any containers deployed to it.  
 
 Type `weave status` to see that all of Weave's componenets are running:
 
@@ -143,9 +159,11 @@ $ weave status
 
 ## Deploying Docker Containers
 
-Now you are ready to deploy the spring application into a docker container on the host. The spring application is a simple `Hello Weave!` application. The docker container is pre-built for this example, but if you would like to build your own container, refer to the `README` file located in  in the demo sub-directory of this guide. 
+Now you are ready to deploy the spring application into a docker container and run it on the Weave Network. The spring application is a simple `Hello Weave!` application. The docker container is pre-built for this example, but if you would like to build your own container, please refer to the `README` file located in the demo sub-directory. 
 
-Since both {{ weavedns }} and Automatic IP Address Management are launched as a part of the Weave Network, you only need to provide the name of the container and the hostname you wish to use. Notice that the same hostname is used for each container. {{ weavedns }} automatically detects any DNS requests and adds them to the Weave Network without your intervention.
+Since both `weavedns` and Automatic IP Address Management are launched as a part of the Weave Network, you only need to provide the name of the container and the hostname you wish to use. The `weaveDNS` service automatically detects any DNS requests and adds them to the Weave Network without your intervention.
+
+Next deploy the container with the Tomcat application server and the hello world java application:
 
 ~~~bash
 vagrant ssh weave-gs-01
@@ -154,7 +172,7 @@ eval "$(weave env)"
 docker run -d -h spring-hello.weave.local weaveworks/gs-spring-boot-docker
 ~~~
 
-You just launched the microservice into a two different docker containers and have made them available on the Weave Network on any port.
+The microservices are launched into a docker container and is available on the Weave Network. 
 
 Running `docker ps` should show output similar to this: 
 
@@ -170,7 +188,7 @@ fdf6b3d4ce4a        weaveworks/weaveexec:1.1.1   "/home/weave/weavepr   17 minut
 
 ## Connecting To Your Application
 
-Next launch a containerized curl command on the same network:
+Launch a containerized curl command onto the network. Curl will return a message from the Tomcat application server that is listening on Port 8080:
 
 ~~~bash
 vagrant ssh weave-gs-01
