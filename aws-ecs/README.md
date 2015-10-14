@@ -10,6 +10,11 @@ sidebarpath: /start/aws/awssd
 sidebarweight: 25
 ---
 
+*Note: this guide does not yet apply to the hosted version of Weave Scope. It
+will provide a step-by-step guide to getting up and running on ECS, and
+familiarize readers with Weave functionality. To request an invitation to the
+Early Access Program, go [here](http://scope.weave.works/).*
+
 ## What You Will Build
 
 [Amazon EC2 container service](http://aws.amazon.com/ecs/) or ECS is a scalable container management service that allows you to manage Docker containers on a cluster of Amazon EC2 instances. Weave provides a software network optimized for visualizing and communicating with apps distributed among Docker containers. Using tools and protocols that are familiar to you, Weave's network provides a way for you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
