@@ -50,7 +50,7 @@ To begin, clone the Weaveworks/Guides repository:
 git clone https://github.com/weaveworks/guides
 ~~~
 
-This example uses Vagrant to provision and set up your host, it:  
+This example uses Vagrant to provision and set up your host it:  
 
  * downloads and configures the Ubuntu image on Virtualbox.
  * downloads and installs Docker.
@@ -80,11 +80,11 @@ The IP addresses used for this demo are as follows:
 172.17.8.101    weave-gs-01
 ~~~
 
-###Weave and DNS
+####Weave and DNS
 
 The [Weavedns](http://docs.weave.works/weave/latest_release/weavedns.html) service answers name queries on a Weave network. `weavedns` provides a simple way for containers to find each other by giving them hostnames and telling the other containers to connect to those names.
 
-###Weave and Automatic IP Address Management
+####Weave and Automatic IP Address Management
 
 [Weave Automatic IP Address Management (IPAM)](http://docs.weave.works/weave/latest_release/ipam.html) automatically assigns containers IP addresses that are unique across the network. With Weave IPAM you can easily add more containers to your network, ensuring that each container receives a unique IP.
 
