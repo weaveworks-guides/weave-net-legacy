@@ -3,10 +3,10 @@ layout: guides
 title: "Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave"
 permalink: /guides/weave-and-docker-platform/compose-scalable-swarm-cluster-with-weave.html
 description: creating a multihost docker deployment using weave net and weave run with docker compose and docker swarms
-tags: weave net, docker, machine, swarm, compose, cli, virtualbox, dns, ipam, weaveproxy, python, flask, redis
+tags: weave network, docker compose, scaling containers, getting started
 
 shorttitle: Using Weave, Docker Machine with Swarm & Compose
-sidebarpath: /start/wd/dist/weaveswarm
+sidebarpath: /start/dist/swarm
 sidebarweight: 25
 ---
 
@@ -19,9 +19,8 @@ sidebarweight: 25
 
 ## What You Will Build
 
-In this example, we show how Weave works seamlessly with tools like [Docker Machine](https://docs.docker.com/machine/) and [Docker Swarm](https://docs.docker.com/swarm/).
 
-This Part 3 introduces Weave, Swarm and Compose. Upon completion, you will be familiar with all of the tooling necessary to get Weave working for you so that you can spend your time fine tuning your application rather than on infrastructure planning.
+In this Part 3 of the guide you will be introduced to using Weave with Docker Swarm and Docker Compose. 
 
 [Docker Machine](https://docs.docker.com/machine/) makes it really easy to create Docker hosts (VMs) on your computer, on cloud providers and inside your own data center. It creates servers, installs Docker on them, then it configures the Docker client to talk to them.
 
@@ -30,11 +29,7 @@ This Part 3 introduces Weave, Swarm and Compose. Upon completion, you will be fa
 With [Docker Compose](https://docs.docker.com/compose/) you can define and run complex applications with Docker.
 Compose is an extra layer that allows you to combine a multi-container application into a single file and then launch your application with a single command.
 
-Weave's standard container network enables simple DNS-based container discovery, so that you can easily manage your distributed containerized apps without the need to deploy any additional services or software. It also boosts the swarm cluster scalability, and provides true portability whether deployed to a public cloud or to an in-house datacenter. Weave furthermore, eliminates the need for an [ambassador pattern][ambassador], or any other approach that might involve some combination of distributed configuration store and a proxy.
-
-[ambassador]: https://docs.docker.com/articles/ambassador_pattern_linking/
-
-Specifically, in this tutorial you will: 
+In Part 3 of this tutorial you will: 
 
   1. Work with a cluster of 3 Swarm-enabled VirtualBox VMs which were setup in [Part 2 of this tutorial][ch2]
   2. Use Compose to create a simple 2-tier application stack using Python Flask for the front-end and Redis as its
@@ -71,7 +66,7 @@ For all other operating systems, install and configure the following separately 
 If you have followed through [Part 3 of this tutorial][ch3], then you will have **most** of these dependencies installed.
 The only new tool introduced here is **`Docker Compose`**.
 
-  >>Note: [Docker Compose](http://docs.docker.com/machine/#installation) is not supported on Windows.
+>Note: [Docker Compose](http://docs.docker.com/machine/#installation) is not supported on Windows.
 
 
 ## Provisioning the VMs
@@ -158,23 +153,22 @@ We have just deployed and scaled-up our simple app using Weave, Swarm and Compos
 ## Next Steps
 
 You can deploy a cluster to the public cloud by setting the
-`DOCKER_MACHINE_DRIVER` and also by specifying a few provider-specific environment variables prior to running `./1-machine-create.sh`. 
-But before you do so, make sure to [remove the VirtualBox VMs first](#cleanup).
+`DOCKER_MACHINE_DRIVER` variable and also by specifying the required provider-specific environment variables before running the `./1-machine-create.sh` shell script.  But before you do so, make sure that you [remove the VirtualBox VMs first](#cleanup).
 
-For example, with Microsoft Azure set the following:
+For example, if you are using Microsoft Azure, then set the following:
 
     export DOCKER_MACHINE_DRIVER="azure"
     export AZURE_SUBSCRIPTION_CERT="/path/to/mycert.pem"
     export AZURE_SUBSCRIPTION_ID="MySubscriptionID"
 
-Or Google Compute Engine:
+Or for Google Compute Engine:
 
     export DOCKER_MACHINE_DRIVER="google"
     export GOOGLE_PROJECT="my-awesome-project-1"
     export GOOGLE_AUTH_TOKEN="MyAuthToken"
 
 
-  >>Note that this guide is open-source, and if you would
+>Note that this guide is open-source, and if you would
 like to expand this guide to cover other clould providers in detail, please feel free to submit a pull-request to our [guides
 repository](https://github.com/weaveworks/guides).
 
@@ -186,10 +180,10 @@ You can tear-down the VMs you have deployed:
 
 ## Summary
 
-In this final Part 3 of _"Creating distributed applications with Weave and the Docker platform"_ guide we have looked
-at utilising all 3 great components of the Docker platform (Machine, Swarm & Compose). You should now be able to understand
-all that's required in setting up a scalable cluster of Docker hosts using Weave tools and then deploying your application to it with
-ease. You may choose to automate somewhat differently, hence we've split this guide into three parts, each part describing the concepts that you need to know in order to understand how Weave can help you to deploy your applications. 
+In this final Part 3 of _"Creating distributed applications with Weave and the Docker platform"_ tutorial we have looked
+at how Weave works with all three components of the Docker platform (Machine, Swarm & Compose). You should now be able to understand all that's required in setting up a scalable cluster of Docker hosts using Weave tools and then deploying your application to it with ease. 
+
+You may automate your deployment somewhat differently, and so this guide is split into three parts, each describing the concepts necessary to that you can understand how Weave will help you to deploy and manage your applications. 
 
 You can easily adapt these examples and use them as a templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 

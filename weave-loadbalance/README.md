@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Load Balancing With Weave Run
-tags: vagrant, ubuntu, load-balancing, microservices, dns
+tags: vagrant, ubuntu, load balancing, REST, round robin DNS
 permalink: /guides/weave-docker-loadbalancing-simple.html
 
 shorttitle: Load Balancing with Weave Run

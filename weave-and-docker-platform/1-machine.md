@@ -6,7 +6,7 @@ description: Launching a weave network to manage your distributed containerized 
 tags: weave network, docker, docker machine, cli, virtualbox, dns, ipam
 
 shorttitle: Launching Weave Net With Docker Machine
-sidebarpath: /start/wd/dist/weavedocmach
+sidebarpath: /start/dist/weavedocmach
 sidebarweight: 15
 ---
 
@@ -19,15 +19,12 @@ sidebarweight: 15
 
 ## What You Will Build
 
-Weave provides a software network optimized for visualizing and communicating with apps distributed within Docker containers. Using tools and protocols that are familiar to you, Weave's network topology lets you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
 
-With Weave you focus on developing your application, rather than your infrastructure. As demonstrated in this tutorial, Weave works seamlessly with other tools such as [Docker Machine](https://docs.docker.com/machine/).
+ In this Part 1 of _'Launching Weave Net with Docker Machine'_ you will be introduced to the basics of launching a container network with Weave.
 
 [Docker Machine](https://docs.docker.com/machine/) makes it simple to create Docker hosts (VMs) on your computer, on cloud providers or within your own data center. It creates servers, installs Docker on them, and then it configures the Docker client to talk to them.
 
-In this Part 1 of _'Launching Weave Net with Docker Machine'_ you will be introduced to the basics of launching a container network with Weave.
-
-Specifically, you will:
+In Part 1 of this tutorial, you will:
 
   1. Install Docker Machine and Weave
   2. Launch Weave on to a single VM on VirtualBox
@@ -89,7 +86,7 @@ Now you are ready to launch the Weave network:
 weave launch
 ~~~
 
- >>Note: If after launching Weave you are asked for TLS settings, please see ["Launching Weave with TLS"](#launching-weave-with-tls)
+>Note: If after launching Weave you are asked for TLS settings, please see ["Launching Weave with TLS"](#launching-weave-with-tls)
  
 Next set up the weave environment for the Docker API proxy:
 
@@ -102,7 +99,7 @@ Check to see that all components of the Weave network are running:
 ~~~bash
 weave status
 
-Version: v1.1.0
+Version: v1.1.1
 
        Service: router
       Protocol: weave 1..2
