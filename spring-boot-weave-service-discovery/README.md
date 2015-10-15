@@ -219,7 +219,7 @@ vagrant destroy
 
 ##Conclusions
 
-You have used Weave and Docker to provide service discovery for a Spring based application. You can easily adapt this example and use it as a template for your own implementation. 
+You have used Weave and Docker to provide service discovery for a Spring based application.
 
 You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 
