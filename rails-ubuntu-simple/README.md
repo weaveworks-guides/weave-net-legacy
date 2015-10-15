@@ -23,8 +23,8 @@ Specifically, you will:
 
 1. Launch the Weave Network. 
 2. Build a Docker container image with a Ruby on Rail application.
-2. Deploy a PostgreSQL database-backed Ruby on Rails application into three different containers. 
-3. Use Weave to discover those containers.
+3. Deploy a PostgreSQL database-backed Ruby on Rails application into three different containers. 
+4. Use Weave to discover those containers.
 
 The tutorial will take about 20 minutes to complete, and does not require any programming. 
 
@@ -200,9 +200,8 @@ $ weave launch
 $ eval "$(weave env)"
 ~~~
 
->>>Note: In this guide commands were run directly on the host, but you can also run docker commands from your local machine on the remote host by configuring the docker client to use the [Weave Docker API
-Proxy](http://docs.weave.works/weave/latest_release/proxy.html). The Weave Docker API Proxy allows you to use the official docker client, and it will also attach any booted
-containers to the weave network. To enable the proxy, first install Weave on to your local machine, run `weave launch` and then set the environment by running `eval "$(weave env)"`
+>Note: In this guide commands were run directly on the host, but you can also run docker commands from your local machine on the remote host by configuring the docker client to use the [Weave Docker API
+Proxy](http://docs.weave.works/weave/latest_release/proxy.html). The Weave Docker API Proxy allows you to use the official docker client, and it will also attach any booted containers to the weave network. To enable the proxy, first install Weave on to your local machine, run `weave launch` and then set the environment by running `eval "$(weave env)"`
 
 
 ##Launching PostgreSQL
