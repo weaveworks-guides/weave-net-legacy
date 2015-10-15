@@ -10,9 +10,9 @@ sidebarpath: /start/aws/awssd
 sidebarweight: 25
 ---
 
-*Note: This guide does not describe how to use the hosted version of Weave Scope. It does however provide step-by-step instructions on how to use Weave with Amazon’s EC2 container service. 
+*Note: This guide does not describe how to use the hosted version of Weave Scope. It does however provide step-by-step instructions on how to use Weave with Amazon’s EC2 container service.*
 
-To request an invitation to the Scope Early Access Program, please see the [Weave Scope as a service website](http://scope.weave.works/).*
+*To request an invitation to the Scope Early Access Program, please see the [Weave Scope as a service website](http://scope.weave.works/).*
 
 
 ## What You Will Build
