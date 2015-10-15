@@ -11,14 +11,12 @@ sidebarweight: 15
 
 ---
 
-{% include product-vars %}
 
 ## What You Will Build ##
 
+This example uses [Weave Run](http://weave.works/run/index.html) to automatically discover services on a Weave container network.
 
-With Weave you focus on developing your application, rather than your infrastructure.  As demonstrated in this tutorial, Weave works seamlessly with other tools such as Vagrant.  Vagrant provides an easy way to provision, and set up your hosts. Once provisioned, this example deploys both {{ Weave Net }} and {{ Weave Run }} to provide nework connectivity and service discovery using DNS.
-
-Specifically, in this example:
+In this example:
 
 1. You will create a simple containerized web service that runs on weave-gs-01.
 2. On weave-gs-02, we will deploy a second container that enables you to query the web service on weave-gs-01.

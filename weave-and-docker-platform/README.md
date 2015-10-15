@@ -2,17 +2,16 @@
 layout: guides
 title: "Creating Distributed Apps with Weave and Docker"
 permalink: /guides/weave-and-docker-platform/index.html
-description: Using Weave with docker containers, a three part tutorial
-tags: docker, machine, cli, virtualbox, dns, ipam, hello-weave-app, swarm, compose, proxy, python, flask, redis
+description: Using Weave with the docker platform, a three part tutorial
+tags: docker machine, docker compose, docker swarm, weave network, weaveworks, tutorial, getting started guide
 
 shorttitle: Creating Distributed Apps with Weave & Docker
-sidebarpath: /start/wd/dist
-sidebarweight: 10
+sidebarpath: /start/dist
+sidebarweight: 6
 ---
 
 This three part tutorial is an introduction to using Weave with the Docker platform. 
-Specifically, it describes how to launch a Weave network using three major components of the Docker platform: Machine, Swarm &amp; Compose. After completing all three parts
-you will understand the basics of using weave so that you can easily deploy and communicate with your apps within a scalable cluster of Docker hosts. 
+It describes how to launch a Weave network using the three major components of the Docker: Machine, Swarm &amp; Compose. After completing all three you should understand the basics of using Weave so that you can easily deploy and communicate with your apps within a scalable cluster of Docker hosts. 
 
 
   *  Part 1: [Launching Weave Net with Docker Machine][ch1]

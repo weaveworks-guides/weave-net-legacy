@@ -2,20 +2,19 @@
 layout: guides
 title: Getting Started With Weave & Docker
 shorttitle: Getting Started with Weave & Docker
-description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
-tags: load-balancing, dns, ubuntu, swarm, compose
+description: Installing and launching a Weave network by operating system.
+tags: ubuntu, CentOS, CoreOS, MacOS
 permalink: /guides/weave-docker-index.html
 sidebarpath: /start/wd
 sidebarweight: 7
 ---
 
 
-Weave provides a software network optimized for visualizing and communicating with apps distributed among Docker containers. Using tools and protocols that are familiar to you, Weave's network provides a way for you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
- 
- To get up and running using a Weave Network with your docker containers, see the following Getting Started Guides: 
+To begin using a Weave network and discover containers, see the following guides which describe how to launch and install Weave for a particular operating system: 
 
-* [Creating Distributed Apps with Weave and Docker](/guides/weave-and-docker-platform/index.html)
-* [Getting started with Weave and Docker on Ubuntu](/guides/weave-docker-ubuntu-simple.html)
+* [Getting started with Weave and Docker on CentOS](/guides/weave-docker-centos-simple.html)
 * [Getting started with Weave and Docker on CoreOS](/guides/weave-docker-coreos-simple.html)
+* [Getting started with Weave and Docker on Ubuntu](/guides/weave-docker-ubuntu-simple.html)
+
 
  

@@ -2,13 +2,13 @@
 layout: guides
 title: "Automatic Service Discovery with Weave Run for Dockerized Spring Apps"
 description: Deploy a Java microservice application developed with Spring to a Docker Container and then use Weave Run to automatically discover its service.
-tags: vagrant, dns, spring, java, ubuntu, microservices
+tags: vagrant, spring, java, ubuntu, microservices
 permalink: /guides/language/java/framework/spring/index.html
 shorttitle: Weave Run & Dockerized Spring Apps
 sidebarpath: /start/micro/dockerspring
 sidebarweight: 20
 ---
-
+{% include product-vars %}
 
 ## What You Will Build ##
 
@@ -17,7 +17,7 @@ This example demonstrates how to use [Weave Run](http://weave.works/run/index.ht
 Specifically, in this tutorial you will: 
 
 1. Use Vagrant to set up the Unbuntu host and install docker
-2. Launch a microservice, consisting of a Tom Cat application server and a Java Servlet, created with the Spring Framework into a Docker container.
+2. Launch a microservice, consisting of a Tomcat application server and a Java Servlet, created with the Spring Framework into a Docker container.
 3. Use `weaveDNS` to discover the container on the Weave Network.
 4. Return `Hello Weave!` from the microservice using curl.
 

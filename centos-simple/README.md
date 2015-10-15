@@ -2,7 +2,7 @@
 layout: guides
 title: Getting Started with Weave and Docker on CentOS
 description: Use Weave on CentOS to communicate with your containerized applications regardless of the host. 
-tags: vagrant, centos, apache, php
+tags: vagrant, centos, apache, php, weave network, weave run
 permalink: /guides/weave-docker-centos-simple.html
 
 shorttitle: Getting Started with Weave & Docker on CentOS
@@ -14,11 +14,9 @@ sidebarweight: 15
 
 ## What you will build ##
 
-In this example you will create a simple web service that runs in a container on a single host. The service provides a JSON message containing a hello world message and a date. In a second container, running on a separate host, we use curl to query the hello world service.
+This example demonstrates how to deploy `Weave Net` and then use `Weave Run` to discover containers on your network. 
 
-With Weave you focus on developing your application, rather than your infrastructure.  As demonstrated in this tutorial, Weave works seamlessly with other tools such as Vagrant.  Vagrant provides an easy way to provision, and set up your hosts. Once provisioned, this example deploys both {{ Weave Net }} and {{ Weave Run }} to provide nework connectivity and service discovery using DNS.
-
-Specifically, in this example:
+In this example:
 
 1. You will create a simple containerized web service that runs on weave-gs-01.
 2. On weave-gs-02, we will deploy a second container that enables you to query the web service on weave-gs-01.
@@ -214,7 +212,7 @@ Vagrant destroy
 
 ## Conclusions ##
 
-In this example, we deployed a simple application, that returns a message from a running Apache webserver. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using {{ Weave Run }}, so that applications within containers can communicate with one another. 
+In this example, we deployed a simple application, that returns a message from a running Apache webserver. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using `Weave Run`, so that applications within containers can communicate with one another. 
 
 You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 
