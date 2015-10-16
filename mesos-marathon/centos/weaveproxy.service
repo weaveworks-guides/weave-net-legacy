@@ -1,16 +1,15 @@
 [Unit]
-Description=Weave Net
+Description=Weave Docker API proxy
 Documentation=http://docs.weave.works/
 After=docker.service
-Before=weaveproxy.service
 Requires=docker.service
 [Service]
 TimeoutStartSec=0
 EnvironmentFile=-/etc/weave.env
 EnvironmentFile=-/etc/weave.%H.env
-ExecStartPre=/usr/bin/weave launch-router $WEAVE_PEERS
-ExecStart=/usr/bin/docker attach weave
+ExecStartPre=/usr/bin/weave launch-proxy
+ExecStart=/usr/bin/docker attach weaveproxy
 Restart=on-failure
-ExecStop=/usr/bin/weave stop-router
+ExecStop=/usr/bin/weave stop-proxy
 [Install]
 WantedBy=weave.target
