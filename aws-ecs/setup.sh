@@ -78,18 +78,45 @@ echo -n "Creating ECS cluster (weave-ecs-demo-cluster) .. "
 aws ecs create-cluster --cluster-name weave-ecs-demo-cluster > /dev/null
 echo "done"
 
+# VPC
+echo -n "Creating VPC (weave-ecs-demo-vpc) .. "
+VPC_ID=$(aws ec2 create-vpc --cidr-block 172.31.0.0/28 --query 'Vpc.VpcId' --output text)
+aws ec2 modify-vpc-attribute --vpc-id $VPC_ID --enable-dns-support
+aws ec2 modify-vpc-attribute --vpc-id $VPC_ID --enable-dns-hostnames
+# tag it for later deletion
+aws ec2 create-tags --resources $VPC_ID --tag Key=Name,Value=weave-ecs-demo-vpc
+echo "done"
+
+# Subnet
+echo -n "Creating Subnet (weave-ecs-demo-subnet) .. "
+SUBNET_ID=$(aws ec2 create-subnet --vpc-id $VPC_ID --cidr-block 172.31.0.0/28 --query 'Subnet.SubnetId' --output text)
+# tag it for later deletion
+aws ec2 create-tags --resources $SUBNET_ID --tag Key=Name,Value=weave-ecs-demo-subnet
+echo "done"
+
+# Internet Gateway
+echo -n "Creating Internet Gateway (weave-ecs-demo) .. "
+GW_ID=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' --output text)
+# tag it for later deletion
+aws ec2 create-tags --resources $GW_ID --tag Key=Name,Value=weave-ecs-demo
+aws ec2 attach-internet-gateway --internet-gateway-id $GW_ID --vpc-id $VPC_ID
+TABLE_ID=$(aws ec2 describe-route-tables --query 'RouteTables[?VpcId==`'$VPC_ID'`].RouteTableId' --output text)
+aws ec2 create-route --route-table-id $TABLE_ID --destination-cidr-block 0.0.0.0/0 --gateway-id $GW_ID > /dev/null
+echo "done"
+
 # Security group
 echo -n "Creating Security Group (weave-ecs-demo) .. "
-SECURITY_GROUP=$(aws ec2 create-security-group --group-name weave-ecs-demo --description 'Weave ECS Demo' --query 'GroupId' --output text)
-
-aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 22 --cidr 0.0.0.0/0
-aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 80 --cidr 0.0.0.0/0
-aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 4040 --cidr 0.0.0.0/0
+SECURITY_GROUP_ID=$(aws ec2 create-security-group --group-name weave-ecs-demo --vpc-id $VPC_ID --description 'Weave ECS Demo' --query 'GroupId' --output text)
+# Wait for the group to get associated with the VPC
+sleep 5
+aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 22 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 80 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 4040 --cidr 0.0.0.0/0
 # Weave
-aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 6783 --source-group weave-ecs-demo
-aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol udp --port 6783 --source-group weave-ecs-demo
+aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 6783 --source-group $SECURITY_GROUP_ID
+aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol udp --port 6783 --source-group $SECURITY_GROUP_ID
 # Scope
-aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 4040 --source-group weave-ecs-demo
+aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 4040 --source-group $SECURITY_GROUP_ID
 echo "done"
 
 # Key pair
@@ -126,13 +153,12 @@ cp data/set-ecs-cluster-name.sh $TMP_USER_DATA_FILE
 if [ -n "$SCOPE_AAS_PROBE_TOKEN" ]; then
     echo "echo SERVICE_TOKEN=$SCOPE_AAS_PROBE_TOKEN >> /etc/weave/scope.config" >> $TMP_USER_DATA_FILE
 fi
-aws autoscaling create-launch-configuration --image-id ${AMI} --launch-configuration-name weave-ecs-launch-configuration --key-name weave-ecs-demo-key --security-groups ${SECURITY_GROUP} --instance-type t2.micro --user-data file://$TMP_USER_DATA_FILE  --iam-instance-profile weave-ecs-instance-profile --associate-public-ip-address --instance-monitoring Enabled=false
+aws autoscaling create-launch-configuration --image-id $AMI --launch-configuration-name weave-ecs-launch-configuration --key-name weave-ecs-demo-key --security-groups $SECURITY_GROUP_ID --instance-type t2.micro --user-data file://$TMP_USER_DATA_FILE  --iam-instance-profile weave-ecs-instance-profile --associate-public-ip-address --instance-monitoring Enabled=false
 echo "done"
 
 # Auto Scaling Group
 echo -n "Creating Auto Scaling Group (weave-ecs-demo-group) with 3 instances .. "
-SUBNET=$(aws ec2 describe-subnets --query 'Subnets[0].SubnetId' --output text)
-aws autoscaling create-auto-scaling-group --auto-scaling-group-name weave-ecs-demo-group --launch-configuration-name weave-ecs-launch-configuration --min-size 3 --max-size 3 --desired-capacity 3 --vpc-zone-identifier ${SUBNET}
+aws autoscaling create-auto-scaling-group --auto-scaling-group-name weave-ecs-demo-group --launch-configuration-name weave-ecs-launch-configuration --min-size 3 --max-size 3 --desired-capacity 3 --vpc-zone-identifier $SUBNET_ID
 echo "done"
 
 # Wait for instances to join the cluster
@@ -162,7 +188,7 @@ echo "done"
 
 # Print out the public hostnames of the instances we created
 INSTANCE_IDS=$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names weave-ecs-demo-group --query 'AutoScalingGroups[0].Instances[*].InstanceId' --output text)
-DNS_NAMES=$(aws ec2 describe-instances --instance-ids ${INSTANCE_IDS} --query 'Reservations[0].Instances[*].PublicDnsName' --output text)
+DNS_NAMES=$(aws ec2 describe-instances --instance-ids $INSTANCE_IDS --query 'Reservations[0].Instances[*].PublicDnsName' --output text)
 
 echo "Setup is ready!"
 echo "Open your browser and go to any of these URLs:"
