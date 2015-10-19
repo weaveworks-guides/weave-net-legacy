@@ -107,6 +107,9 @@ To configure the demonstration, run the following command:
 You will see output similar to the following:
 
     Creating ECS cluster (weave-ecs-demo-cluster) .. done
+    Creating VPC (weave-ecs-demo-vpc) .. done
+    Creating Subnet (weave-ecs-demo-subnet) .. done
+    Creating Internet Gateway (weave-ecs-demo) .. done
     Creating Security Group (weave-ecs-demo) .. done
     Creating Key Pair (weave-ecs-demo, file weave-ecs-demo-key.pem) .. done
     Creating IAM role (weave-ecs-role) .. done
@@ -310,12 +313,69 @@ automatically:
 aws ecs create-cluster --cluster-name weave-ecs-demo-cluster
 ~~~
 
-**2. Create the security group and key pair**
+**2. Create a Virtual Private Cloud**
 
-Create the security group `weave-ecs-demo`
+Create a VPC, which is necessary for creating `t2.micro` instances.
 
 ~~~bash
-SECURITY_GROUP=$(aws ec2 create-security-group --group-name weave-ecs-demo --description 'Weave ECS Demo' --query 'GroupId' --output text)
+VPC_ID=$(aws ec2 create-vpc --cidr-block 172.31.0.0/28 --query 'Vpc.VpcId' --output text)
+~~~
+
+Enable DNS to get nice FQDNs for your instances.
+
+~~~bash
+aws ec2 modify-vpc-attribute --vpc-id $VPC_ID --enable-dns-support
+aws ec2 modify-vpc-attribute --vpc-id $VPC_ID --enable-dns-hostnames
+~~~
+
+Tag the VPC to enable automatic deletion with the `cleanup.sh`.
+
+~~~bash
+aws ec2 create-tags --resources $VPC_ID --tag Key=Name,Value=weave-ecs-demo-vpc
+~~~
+
+**3. Create a Subnet**
+
+Create a Subnet to enable networking in your instances.
+
+~~~bash
+SUBNET_ID=$(aws ec2 create-subnet --vpc-id $VPC_ID --cidr-block 172.31.0.0/28 --query 'Subnet.SubnetId' --output text)
+~~~
+
+Tag the Subnet to enable automatic deletion with the `cleanup.sh`.
+
+~~~bash
+aws ec2 create-tags --resources $SUBNET_ID --tag Key=Name,Value=weave-ecs-demo-subnet
+~~~
+
+**4. Create an Internet Gateway**
+
+Create an Internet Gateway to be able to access your EC2 instances externally.
+
+~~~bash
+GW_ID=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' --output text)
+~~~
+
+Make sure to attach the gateway to the VPC and ensure that the gateway is used as the destination of the default route.
+
+~~~bash
+aws ec2 attach-internet-gateway --internet-gateway-id $GW_ID --vpc-id $VPC_ID
+TABLE_ID=$(aws ec2 describe-route-tables --query 'RouteTables[?VpcId==`'$VPC_ID'`].RouteTableId' --output text)
+aws ec2 create-route --route-table-id $TABLE_ID --destination-cidr-block 0.0.0.0/0 --gateway-id $GW_ID
+~~~
+
+Tag the Gateway to enable automatic deletion with the `cleanup.sh`.
+
+~~~bash
+aws ec2 create-tags --resources $GW_ID --tag Key=Name,Value=weave-ecs-demo
+~~~
+
+**5. Create the security group and key pair**
+
+Create the security group `weave-ecs-demo` in the VPC we created a few steps above.
+
+~~~bash
+SECURITY_GROUP_ID=$(aws ec2 create-security-group --group-name weave-ecs-demo --vpc-id $VPC_ID --description 'Weave ECS Demo' --query 'GroupId' --output text)
 ~~~
 
 Add inbound rules to the group to allow:
@@ -326,12 +386,12 @@ Add inbound rules to the group to allow:
 * Public and private access to Weave Scope between instances.
 
 ~~~bash
-aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 22 --cidr 0.0.0.0/0
-aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 80 --cidr 0.0.0.0/0
-aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 4040 --cidr 0.0.0.0/0
-aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 6783 --source-group weave-ecs-demo
-aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol udp --port 6783 --source-group weave-ecs-demo
-aws ec2 authorize-security-group-ingress --group-name weave-ecs-demo --protocol tcp --port 4040 --source-group weave-ecs-demo
+aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 22 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 80 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 4040 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 6783 --source-group $SECURITY_GROUP_ID
+aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol udp --port 6783 --source-group $SECURITY_GROUP_ID
+aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 4040 --source-group $SECURITY_GROUP_ID
 ~~~
 
 Next create a key pair which allows us to access any EC2 instances that are associated with this security group.
@@ -340,9 +400,9 @@ Next create a key pair which allows us to access any EC2 instances that are asso
 aws ec2 create-key-pair --key-name weave-ecs-demo-key --query 'KeyMaterial' --output text > weave-ecs-demo-key.pem
 ~~~
 
-**3. Create the IAM role**
+**6. Create the IAM role**
 
-Create an IAM role for the Weave ECS instances 
+Create an IAM role for the Weave ECS instances.
 
 ~~~bash
 aws iam create-role --role-name weave-ecs-role --assume-role-policy-document file://data/weave-ecs-role.json
@@ -351,33 +411,33 @@ aws iam create-instance-profile --instance-profile-name weave-ecs-instance-profi
 aws iam add-role-to-instance-profile --instance-profile-name weave-ecs-instance-profile --role-name weave-ecs-role
 ~~~
 
-**4. Create a launch configuration**
+**7. Create a launch configuration**
 
 Check
 [Weave's latest ECS AMIs](https://github.com/weaveworks/integrations/tree/master/aws/ecs#weaves-ecs-amis)
-and choose an AMI depending on your configured region. Then, execute the command
+and choose an AMI depending on your configured region. Then, execute the commands
 below by replacing `XXXX` with the AMI of your region.
 
 ~~~bash
-AMI=XXXX aws autoscaling create-launch-configuration --image-id ${AMI} --launch-configuration-name weave-ecs-launch-configuration --key-name weave-ecs-demo-key --security-groups ${SECURITY_GROUP} --instance-type t2.micro --user-data file://data/set-ecs-cluster-name.sh  --iam-instance-profile weave-ecs-instance-profile --associate-public-ip-address --instance-monitoring Enabled=false
+AMI=XXXX
+aws autoscaling create-launch-configuration --image-id $AMI --launch-configuration-name weave-ecs-launch-configuration --key-name weave-ecs-demo-key --security-groups $SECURITY_GROUP_ID --instance-type t2.micro --user-data file://data/set-ecs-cluster-name.sh  --iam-instance-profile weave-ecs-instance-profile --associate-public-ip-address --instance-monitoring Enabled=false
 ~~~
 
-**5. Create an auto scaling group**
+**8. Create an auto scaling group**
 
 Create an Auto Scaling Group with 3 instances in the first subnet available in your region.
 
 ~~~bash
-SUBNET=$(aws ec2 describe-subnets --query 'Subnets[0].SubnetId' --output text)
-aws autoscaling create-auto-scaling-group --auto-scaling-group-name weave-ecs-demo-group --launch-configuration-name weave-ecs-launch-configuration --min-size 3 --max-size 3 --desired-capacity 3 --vpc-zone-identifier ${SUBNET}
+aws autoscaling create-auto-scaling-group --auto-scaling-group-name weave-ecs-demo-group --launch-configuration-name weave-ecs-launch-configuration --min-size 3 --max-size 3 --desired-capacity 3 --vpc-zone-identifier $SUBNET_ID
 ~~~
 
-**6. Register the task definition**
+**9. Register the task definition**
 
 ~~~bash
 aws ecs register-task-definition --family weave-ecs-demo-task --container-definitions "$(cat data/weave-ecs-demo-containers.json)"
 ~~~
 
-**7. Create the demo service**
+**10. Create the demo service**
 
 Before launching the demo task, confirm that 3 instances from the Auto
 Scaling Group have joined the cluster. This should should occur shortly after
