@@ -377,7 +377,7 @@ aws autoscaling create-auto-scaling-group --auto-scaling-group-name weave-ecs-de
 aws ecs register-task-definition --family weave-ecs-demo-task --container-definitions "$(cat data/weave-ecs-demo-containers.json)"
 ~~~
 
-**7. Launch the demo tasks**
+**7. Create the demo service**
 
 Before launching the demo task, confirm that 3 instances from the Auto
 Scaling Group have joined the cluster. This should should occur shortly after
@@ -389,11 +389,11 @@ To confirm it, run the following command. Its output should show a `3` once all 
 aws ecs describe-clusters --clusters weave-ecs-demo-cluster --query 'clusters[0].registeredContainerInstancesCount' --output text
 ~~~
 
-You will launch 3 task instances, one per EC2
+You will create an ECS Service with 3 tasks, one per EC2
 instance in the Auto Scaling Group.
 
 ~~~bash
-aws ecs run-task --cluster weave-ecs-demo-cluster --task-definition weave-ecs-demo-task --count 3
+aws ecs create-service --cluster weave-ecs-demo-cluster --service-name  weave-ecs-demo-service --task-definition weave-ecs-demo-task --desired-count 3
 ~~~
 
 
