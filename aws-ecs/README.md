@@ -107,14 +107,14 @@ To configure the demonstration, run the following command:
 You will see output similar to the following:
 
     Creating ECS cluster (weave-ecs-demo-cluster) .. done
-    Creating Security Group (weave-ecs-demo) .. Done
+    Creating Security Group (weave-ecs-demo) .. done
     Creating Key Pair (weave-ecs-demo, file weave-ecs-demo-key.pem) .. done
     Creating IAM role (weave-ecs-role) .. done
     Creating Launch Configuration (weave-ecs-launch-configuration) .. done
     Creating Auto Scaling Group (weave-ecs-demo-group) with 3 instances .. done
     Waiting for instances to join the cluster (this may take a few minutes) .. done
     Registering ECS Task Definition (weave-ecs-demo-task) .. done
-    Launching (3) tasks .. done
+    Creating ECS Service with 3 tasks (weave-ecs-demo-service) .. done
     Waiting for tasks to start running .. done
     Setup is ready!
     Open your browser and go to any of these URLs:

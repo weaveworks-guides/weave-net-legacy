@@ -147,14 +147,9 @@ echo -n "Registering ECS Task Definition (weave-ecs-demo-task) .. "
 aws ecs register-task-definition --family weave-ecs-demo-task --container-definitions "$(cat data/weave-ecs-demo-containers.json)" > /dev/null
 echo "done"
 
-# Launch tasks
-echo -n "Launching (3) tasks .. "
-FAILURES="$(aws ecs run-task --cluster weave-ecs-demo-cluster --task-definition weave-ecs-demo-task --count 3 --query failures)"
-if [ \( -n "$FAILURES" \) -a \( "$FAILURES" != "[]" \) ]; then
-    echo "failed:"
-    echo "$FAILURES"
-    exit 1
-fi
+# Service
+echo -n "Creating ECS Service with 3 tasks (weave-ecs-demo-service) .. "
+aws ecs create-service --cluster weave-ecs-demo-cluster --service-name  weave-ecs-demo-service --task-definition weave-ecs-demo-task --desired-count 3 > /dev/null
 echo "done"
 
 # Wait for tasks to start running
