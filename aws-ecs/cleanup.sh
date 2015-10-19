@@ -19,12 +19,10 @@ if [ -n "$(aws ecs describe-clusters --clusters weave-ecs-demo-cluster --query '
     exit 1
 fi
 
-# Stop tasks
-echo -n "Stopping tasks .. "
-TASKS=$(aws ecs list-tasks --cluster weave-ecs-demo-cluster --query 'taskArns' --output text)
-for I in $TASKS; do
-    aws ecs stop-task --cluster weave-ecs-demo-cluster --task $I > /dev/null
-done
+# Delete service
+echo -n "Deleting ECS Service (weave-ecs-demo-service) .. "
+aws ecs update-service --cluster weave-ecs-demo-cluster --service  weave-ecs-demo-service --desired-count 0 > /dev/null
+aws ecs delete-service --cluster weave-ecs-demo-cluster --service  weave-ecs-demo-service > /dev/null
 echo "done"
 
 # Task definition
