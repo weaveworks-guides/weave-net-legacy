@@ -10,9 +10,6 @@ sidebarpath: /start/aws/awssd
 sidebarweight: 25
 ---
 
->>**Note:** This guide does not describe how to use the hosted version of Weave Scope. It does however provide step-by-step instructions on how to use Weave with Amazon’s EC2 container service. To request an invitation to the Weave Scope early access program, please see the [Weave Scope as a service website](http://scope.weave.works/).
-
-
 ## What You Will Build
 
 [Amazon EC2 container service](http://aws.amazon.com/ecs/) or ECS is a scalable container management service that allows you to manage Docker containers on a cluster of Amazon EC2 instances. Weave provides a software network optimized for visualizing and communicating with apps distributed among Docker containers. Using tools and protocols that are familiar to you, Weave's network provides a way for you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
@@ -96,13 +93,38 @@ aws configure
 Also, please make sure your AWS account has administrative privileges to be able
 to configure this demonstration.
 
+## Obtain a Weave Scope 'Cloud' service token (recommendable)
+
+This step is optional but recommendable. In order to visualize this guide's
+result with Weave's hosted visualization solution, Weave Scope 'Cloud', you will
+need to obtain a Scope 'Cloud' service token.
+
+Weave Scope 'Cloud' is still in beta and you will need to enter the Early Access
+program to access it. To do so, go to http://scope.weave.works .
+
+![Scope 'Cloud' early access form](/guides/images/aws-ecs/scope-early-access.png)
+
+We evaluate Early Access program candidates on a case per case basis and it may
+take a few  days until you get access. Sending an email to help@weave.works
+explaining your use-case will accelerate the process.
+
+If you have been already been granted access, you will find your Scope 'Cloud'
+service token in your welcome email, or on your Weave Scope 'Cloud' main page:
+
+![Scope 'Cloud' main page](/guides/images/aws-ecs/scope-cloud-main-page.png)
+
+In the example above, the service token is `3hud3h6ys3jhg9bq66n8xxa4b147dt5z`
+
 ## Automatic Setup & Configuration
 
 To configure the demonstration, run the following command:
 
 ~~~bash
-./setup.sh
+./setup.sh $SCOPE_TOKEN
 ~~~
+
+where `$SCOPE_TOKEN` is an optional argument corresponding to your Weave Scope
+'Cloud' service token.
 
 You will see output similar to the following:
 
@@ -201,17 +223,24 @@ The HTTP Server works as follows:
 
 ## What's Happening in the Hosts?
 
-All the ECS instances are equipped with
-[Weave Scope](http://weave.works/scope/), providing an intuitive real-time
-visualization of all your containers and how the communicate with each
-other. Scope has a webserver listening on port `4040` so, to access it, just
-open your browser and paste the URL of any of your instances:
+[Weave Scope](http://weave.works/scope/) provides an intuitive real-time
+visualization of all your containers and how the communicate with each other.
+
+* If you provided a `$PROBE_TOKEN` to `setup.sh`, simply login to http://scope.weave.works
+* If you didn't, all your ECS instances will be running equipped with a Scope
+  web application listening on port `4040` as a fall-back solution (which has some
+  performance and administration issues compared to the 'Cloud' solution, but
+  which is enough for demonstration purposes).
+
+  To access it, just open your browser and paste the Scope application URL of
+  any of your instances:
 
       http://foo.region.compute.amazonaws.com:4040
       http://bar.region.compute.amazonaws.com:4040
       http://baz.region.compute.amazonaws.com:4040
 
-This is what you should see when accessing one of the HTTP Servers multiple
+
+This is what you should see in Weave Scope when accessing one of the HTTP Servers multiple
 times (i.e. reloading `http://foo.region.compute.amazonaws.com` in your browser
 multiple times).
 
@@ -380,10 +409,10 @@ SECURITY_GROUP_ID=$(aws ec2 create-security-group --group-name weave-ecs-demo --
 
 Add inbound rules to the group to allow:
 
-* Public SSH access.
-* Public HTTP access.
-* Private Weave access between instances.
-* Public and private access to Weave Scope between instances.
+* Public SSH access (tcp port 22).
+* Public HTTP access (tcp port 80).
+* Private Weave access between instances (tcp and udp port 6783).
+* Public and private access to Weave Scope between instances (tcp port 4040) . This is Only needed when not using Scope 'Cloud').
 
 ~~~bash
 aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 22 --cidr 0.0.0.0/0
@@ -415,12 +444,31 @@ aws iam add-role-to-instance-profile --instance-profile-name weave-ecs-instance-
 
 Check
 [Weave's latest ECS AMIs](https://github.com/weaveworks/integrations/tree/master/aws/ecs#weaves-ecs-amis)
-and choose an AMI depending on your configured region. Then, execute the commands
-below by replacing `XXXX` with the AMI of your region.
+and choose an AMI depending on your configured region.
+
+Set the AMI variable, replacing `XXXX` with the AMI of your region.
 
 ~~~bash
 AMI=XXXX
-aws autoscaling create-launch-configuration --image-id $AMI --launch-configuration-name weave-ecs-launch-configuration --key-name weave-ecs-demo-key --security-groups $SECURITY_GROUP_ID --instance-type t2.micro --user-data file://data/set-ecs-cluster-name.sh  --iam-instance-profile weave-ecs-instance-profile --associate-public-ip-address --instance-monitoring Enabled=false
+~~~
+
+Initialize the instance User Data script.
+
+~~~bash
+cp /data/set-ecs-cluster-name.sh ./user-data.sh
+~~~
+
+Optionally (if you would like to use Scope 'Cloud' and are part of the Early
+Access program), add your Scope 'Cloud' service token to the User Data. Run the following
+command, replacing `XXXX` with your Scope 'Cloud' service token.
+
+
+~~~bash
+echo "SCOPE_AAS_PROBE_TOKEN=XXXX" >> ./user-data.sh
+~~~
+
+~~~bash
+aws autoscaling create-launch-configuration --image-id $AMI --launch-configuration-name weave-ecs-launch-configuration --key-name weave-ecs-demo-key --security-groups $SECURITY_GROUP_ID --instance-type t2.micro --user-data file://user-data.sh  --iam-instance-profile weave-ecs-instance-profile --associate-public-ip-address --instance-monitoring Enabled=false
 ~~~
 
 **8. Create an auto scaling group**
