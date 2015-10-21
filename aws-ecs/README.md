@@ -94,7 +94,7 @@ aws configure
 Also, please ensure your AWS account has administrative privileges to be able
 to configure this demonstration.
 
-## Obtain A `Weave Scope` Cloud Service Token (Recommended)
+## Obtain a `Weave Scope` Cloud Service Token (Recommended)
 
 This step is optional but is recommended. To visualize the result of this example with the `Weave Scope` cloud service, you need to obtain a `Weave Scope` cloud service token.
 
@@ -113,7 +113,7 @@ Once received, the token is also accessible from the Weave Scope main page after
 From the example above, the service token is `3hud3h6ys3jhg9bq66n8xxa4b147dt5z`
 
 
-##Automatic Setup & Configuration
+##Automatic Setup and Configuration
 
 To configure this example, run the following command:
 
@@ -124,7 +124,7 @@ To configure this example, run the following command:
 where `$SCOPE_TOKEN` is an optional argument corresponding to your `Weave Scope`
 cloud service token.
 
-You should see output similar to the following:
+You should see something like this:
 
 ~~~bash
     Creating ECS cluster (weave-ecs-demo-cluster) .. done
@@ -158,7 +158,7 @@ The `setup.sh` script automatically:
 * Created an ECS task family definition that describes the HTTP Server and Data Producer containers.
 * Spawned three tasks, one per host, resulting in an HTTP Server and a Data Producer container running on each host.
 
-## Testing The Setup
+## Testing the Setup
 
 The three URLs shown above communicate via your browser with the HTTP Server containers. Pick one of them (or all three, if you like) and open them in your browser:
 
@@ -173,7 +173,7 @@ This is what you should see:
 Reload your browser to force the HTTP Server to refresh its Data Provider address list (generated randomly by `weavedns`), balancing the load between the EC2 instances.
 
 
-## How Does Service Discovery and Load Balancing Work?
+## How Do Service Discovery and Load Balancing Work?
 
 Both the HTTP Server and the Data Producer containers are very simple. They were implemented with a few lines of bash, using mostly Netcat.
 
@@ -220,7 +220,7 @@ The HTTP Server works as follows:
 3. Waits for a browser to connect.
 
 
-## What's Happening In The Hosts?
+## What's Happening in the Hosts?
 
 [`Weave Scope`](http://weave.works/scope/) provides a real-time visualization of the containers running on the Weave network and also an overview of how they communicate with each other.
 
@@ -503,7 +503,7 @@ aws ecs create-service --cluster weave-ecs-demo-cluster --service-name  weave-ec
 ~~~
 
 
-##Known Issues & Limitations
+##Known Issues and Limitations
 
 * Auto Scaling Groups are required for ECS to work with Weave. If you create individual
   instances, they will not work and won't be able to see each other due to how Weave finds peers in ECS.
