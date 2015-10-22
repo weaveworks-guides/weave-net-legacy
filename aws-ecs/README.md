@@ -25,7 +25,7 @@ With Weave there is no need to deploy extra services to achieve DNS lookup and l
 In this example you will use Weave for service discovery and load balancing
 between [containers that have been deployed to Amazon Elastic Cloud (EC2) instances using Amazon Container Service or ECS](http://aws.amazon.com/ecs/). 
 
-This example, also introduces [`Weave Scope`](http://weave.works/scope/index.html), a cloud service that enables you to visualize a Weave container network and to monitor its traffic. 
+This example also introduces [`Weave Scope`](http://weave.works/scope/index.html), which enables you to visualize and understand your container-based applications.
 
 Two types of containerized microservices are demonstrated in this guide: HTTP Servers and Data Producers.
 
