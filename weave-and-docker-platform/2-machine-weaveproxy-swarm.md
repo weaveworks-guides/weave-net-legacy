@@ -1,11 +1,11 @@
 ---
 layout: guides
-title: "Using Weave with Docker Machine and Swarm"
+title: "Part 2: Using Weave with Docker Machine and Swarm"
 permalink: /guides/weave-and-docker-platform/using-weave-with-machine-and-swarm.html
 description: Using weave net and weave run with docker machine and docker swarm
 tags: weave, docker, docker machine, docker swarm, weaveworks, getting started guide
 
-shorttitle: Using Weave with Docker Machine & Swarm
+shorttitle: Part 2 of 3: Using Weave with Docker Machine & Swarm
 sidebarpath: /start/dist/mach
 sidebarweight: 20
 ---
@@ -56,7 +56,7 @@ For all other operating systems, install and configure the following separately 
   - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (_`>= 4.3.x`_)
   - `curl` (_any version_)
 
-_If you completed [Part one of this tutorial][ch1], you should have all of these dependencies installed._
+_If you completed [Part 1 of this tutorial][ch1], you should have all of these dependencies installed._
 
 ###About Part 2 of This Guide
 
@@ -92,54 +92,53 @@ and avoid having to set the <code>--init-peer-count</code> explicitly. In this e
 
 ##Launching Weave
 
-Next launch Weave onto the virtual machines.
+If you are continuting on from Part 1 of this guide, then first stop weave on weave-1: 
+
+~~~bash
+weave stop
+eval "$(weave env --restore)"
+~~~
+
+>Note: Before re-launching Weave, you must restore the Weave Docker API proxy env by running `weave env --restore`
+
+Next open a new terminal for each new VM and create the VMs with docker-machine: 
+
+~~~bash
+docker-machine create -d virtualbox weave-2
+~~~
+
+In a separate terminal window:
+
+~~~bash
+docker-machine create -d virtualbox weave-3
+~~~
+
+###Creating the Cluster with Weave
+
+Now you are ready to launch Weave onto the virtual machines you just created.
 
 The IP addresses of all the peers are not known ahead of time, so you will need to pass `--init-peer-count 3` to `weave launch`.
 `--init-peer-count` is set to 3, as we are specifying a cluster of 3 VMs.
 
 On each host you will need to:
 
-  1. launch the Weave router with `--init-peer-count 3`
-  3. launch proxy, and if asked, provide a copy of TLS flags from Docker daemon
-  4. Connect the host to `weave-1`
+  1. launch Weave by passing  `--init-peer-count 3`
+  2. Connect the host to `weave-1` (our bootstrap node)
 
 To start weave on `weave-1` run:
 
 ~~~bash
 eval "$(docker-machine env weave-1)"
-weave launch-router --init-peer-count 3
-~~~
-
-Next, launch the Docker API proxy: 
-
-~~~bash
-weave launch-proxy
-~~~
-
-If asked for TLS settings, run:
-
-~~~bash
-tlsargs=$(docker-machine ssh weave-1 \
-  "cat /proc/\$(pgrep /usr/local/bin/docker)/cmdline | tr '\0' '\n' | grep ^--tls | tr '\n' ' '")
-~~~
-
-And launch the proxy passing `$tlsargs`:
-
-~~~bash
-weave launch-proxy $tlsargs
+weave launch --init-peer-count 3
+eval $(weave env)
 ~~~
 
 Launch weave on `weave-2`:
 
 ~~~bash
 eval "$(docker-machine env weave-2)"
-weave launch-router --init-peer-count 3
-~~~
-
-then, launch the proxy and optionally use the TLS settings if the docker daemon asks for them:
-
-~~~bash
-weave launch-proxy $tlsargs
+weave launch --init-peer-count 3
+eval "$(weave env)"
 ~~~
 
 Next on `weave-2` connect the cluster to our bootstrap node, `weave-1`:
@@ -155,7 +154,6 @@ weave status
 ~~~
 
 Follow the same steps for `weave-3` as you did for `weave-2` above.
-
 
   >>A useful script that launches weave and sets up the hosts and connects the cluster can be found here: [`scripts/2-weave-launch.sh`][step2].
 
