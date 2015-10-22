@@ -5,7 +5,7 @@ permalink: /guides/weave-and-docker-platform/weavenetwork.html
 description: Launching a weave network to manage your distributed containerized applications
 tags: weave network, docker, docker machine, cli, virtualbox, dns, ipam
 
-shorttitle: Part 1 of 3: Launching Weave Net With Docker Machine
+shorttitle: "Part 1 of 3: Launching Weave Net With Docker Machine"
 sidebarpath: /start/dist/weavedocmach
 sidebarweight: 15
 ---
