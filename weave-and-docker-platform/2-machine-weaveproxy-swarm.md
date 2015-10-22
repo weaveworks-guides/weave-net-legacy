@@ -96,7 +96,7 @@ If you are continuting on from Part 1 of this guide, then first stop weave on we
 
 ~~~bash
 weave stop
-weave env --restore
+eval "$(weave env --restore)"
 ~~~
 
 >Note: Before re-launching Weave, you must restore the Weave Docker API proxy env by running `weave env --restore`
@@ -130,7 +130,7 @@ To start weave on `weave-1` run:
 ~~~bash
 eval "$(docker-machine env weave-1)"
 weave launch --init-peer-count 3
-weave $(weave env)
+eval $(weave env)
 ~~~
 
 Launch weave on `weave-2`:
@@ -138,7 +138,7 @@ Launch weave on `weave-2`:
 ~~~bash
 eval "$(docker-machine env weave-2)"
 weave launch --init-peer-count 3
-weave $(weave env)
+eval "$(weave env)"
 ~~~
 
 Next on `weave-2` connect the cluster to our bootstrap node, `weave-1`:
