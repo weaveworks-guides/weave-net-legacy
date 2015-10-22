@@ -5,7 +5,7 @@ permalink: /guides/weave-and-docker-platform/using-weave-with-machine-and-swarm.
 description: Using weave net and weave run with docker machine and docker swarm
 tags: weave, docker, docker machine, docker swarm, weaveworks, getting started guide
 
-shorttitle: Part 2 of 3: Using Weave with Docker Machine & Swarm
+shorttitle: "Part 2 of 3: Using Weave with Docker Machine & Swarm"
 sidebarpath: /start/dist/mach
 sidebarweight: 20
 ---
