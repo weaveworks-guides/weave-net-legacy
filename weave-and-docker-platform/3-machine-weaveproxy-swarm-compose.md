@@ -1,11 +1,11 @@
 ---
 layout: guides
-title: "Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave"
+title: "Part 3: Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave"
 permalink: /guides/weave-and-docker-platform/compose-scalable-swarm-cluster-with-weave.html
 description: creating a multihost docker deployment using weave net and weave run with docker compose and docker swarms
 tags: weave network, docker compose, scaling containers, getting started
 
-shorttitle: Using Weave, Docker Machine with Swarm & Compose
+shorttitle: Part 3 of 3: Using Weave, Docker Machine with Swarm & Compose
 sidebarpath: /start/dist/swarm
 sidebarweight: 25
 ---
