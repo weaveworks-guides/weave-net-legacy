@@ -273,13 +273,13 @@ For example, to list the active running containers in the instance:
 Where you will see something similar to this:
 
 ~~~bash
-    CONTAINER ID        IMAGE                            COMMAND                CREATED            STATUS           PORTS                                                                                            NAMES
-    a67655146b5b        2opremio/weaveecsdemo:latest     "\"/w/w bash -c 'set   7 minutes ago      Up 7 minutes     0.0.0.0:80->80/tcp                                                                               ecs-weave-ecs-demo-task-1-httpserver-a2bad7f8f792f185f901
-    eeb53274c26b        2opremio/weaveecsdemo:latest     "/w/w sh -c 'while t   7 minutes ago      Up 7 minutes                                                                                                      ecs-weave-ecs-demo-task-1-dataproducer-dec2b39a92e0edb1aa01
-    8af86be1dd18        amazon/amazon-ecs-agent:latest   "/w/w /agent"          8 minutes ago      Up 8 minutes     127.0.0.1:51678->51678/tcp                                                                       ecs-agent
-    693ef5ae00cb        weaveworks/weaveexec:v1.1.0      "/home/weave/weavepr   8 minutes ago      Up 8 minutes                                                                                                      weaveproxy
-    86b6019c3995        weaveworks/weave:v1.1.0          "/home/weave/weaver    8 minutes ago      Up 8 minutes     0.0.0.0:6783->6783/udp, 0.0.0.0:6783->6783/tcp, 172.17.42.1:53->53/tcp, 172.17.42.1:53->53/udp   weave
-    190afc5cd56b        weaveworks/scope:latest          "/home/weave/entrypo   8 minutes ago      Up 8 minutes                                                                                                      weavescope
+    CONTAINER ID     IMAGE                            COMMAND                CREATED           STATUS           PORTS                          NAMES
+    a67655146b5b     2opremio/weaveecsdemo:latest     "\"/w/w bash -c 'set   7 minutes ago     Up 7 minutes     0.0.0.0:80->80/tcp             ecs-weave-ecs-demo-task-1-httpserver-a2bad7f8f792f185f901
+    eeb53274c26b     2opremio/weaveecsdemo:latest     "/w/w sh -c 'while t   7 minutes ago     Up 7 minutes                                    ecs-weave-ecs-demo-task-1-dataproducer-dec2b39a92e0edb1aa01
+    8af86be1dd18     amazon/amazon-ecs-agent:latest   "/w/w /agent"          8 minutes ago     Up 8 minutes     127.0.0.1:51678->51678/tcp     ecs-agent
+    693ef5ae00cb     weaveworks/weaveexec:v1.1.0      "/home/weave/weavepr   8 minutes ago     Up 8 minutes                                    weaveproxy
+    86b6019c3995     weaveworks/weave:v1.1.0          "/home/weave/weaver    8 minutes ago     Up 8 minutes                                    weave
+    190afc5cd56b     weaveworks/scope:latest          "/home/weave/entrypo   8 minutes ago     Up 8 minutes                                    weavescope
 ~~~
 
 * Container `ecs-weave-ecs-demo-task-1-httpserver-a2bad7f8f792f185f901` is the
@@ -410,7 +410,10 @@ Add inbound rules to the group to allow:
 
 * Public SSH access (tcp port 22).
 * Public HTTP access (tcp port 80).
-* Private Weave access between instances (tcp and udp port 6783).
+* Private Weave access between instances:
+    * tcp port 6783 for data.
+    * udp port 6783 for control in sleeve mode.
+    * udp port 6784 for control in [fastdp](http://docs.weave.works/weave/latest_release/features.html#fast-data-path) mode.
 * Public and private access to Weave Scope between instances (tcp port 4040) . This is Only needed when not using Scope 'Cloud').
 
 ~~~bash
@@ -419,6 +422,7 @@ aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protoco
 aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 4040 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 6783 --source-group $SECURITY_GROUP_ID
 aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol udp --port 6783 --source-group $SECURITY_GROUP_ID
+aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol udp --port 6784 --source-group $SECURITY_GROUP_ID
 aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 4040 --source-group $SECURITY_GROUP_ID
 ~~~
 
