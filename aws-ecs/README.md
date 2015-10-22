@@ -4,14 +4,11 @@ layout: guides
 shorttitle: Service Discovery & Load Balancing with Weave
 title: Service Discovery and Load Balancing with Weave on Amazon ECS
 description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
-tags: aws, load-balancing, dns, packer, ecs, amazon-linux, microservices
+tags: aws, load-balancing, dns, packer, ecs, amazon-linux, microservices, weave scope
 permalink: /guides/service-discovery-with-weave-aws-ecs.html
 sidebarpath: /start/aws/awssd
 sidebarweight: 25
 ---
-
->>**Note:** This guide does not describe how to use the hosted version of Weave Scope. It does however provide step-by-step instructions on how to use Weave with Amazon’s EC2 container service. To request an invitation to the Weave Scope early access program, please see the [Weave Scope as a service website](http://scope.weave.works/).
-
 
 ## What You Will Build
 
@@ -23,18 +20,18 @@ An advantage to using DNS is that when you set a hostname within a config file, 
 
 With Weave there is no need to deploy extra services to achieve DNS lookup and load balancing. [Weave Run](http://weave.works/run/) takes care of both automatic service discovery and load balancing. Because these web services are already a part of Weave, there is no need to deploy and provision additional services, therefor reducing both overhead costs and resource complexity. Weave in essence saves you time and money, and lets you focus on app development, rather than your infrastructure design.
 
-
 ###About This Example
 
 In this example you will use Weave for service discovery and load balancing
-between [containers that have been deployed to Amazon Elastic Cloud (EC2) instances using Amazon Container Service or ECS](http://aws.amazon.com/ecs/).
+between [containers that have been deployed to Amazon Elastic Cloud (EC2) instances using Amazon Container Service or ECS](http://aws.amazon.com/ecs/). 
+
+This example also introduces [`Weave Scope`](http://weave.works/scope/index.html), which enables you to visualize and understand your container-based applications.
 
 Two types of containerized microservices are demonstrated in this guide: HTTP Servers and Data Producers.
 
 ![overview diagram](/guides/images/aws-ecs/overview-diagram.png)
 
-The HTTP Servers serve data produced from the Data
-Producers. This is a very common pattern in practise, but its implementation requires answers to the following questions:
+The HTTP Servers serve data produced from the Data Producers. This is a very common pattern in practice, but its implementation requires answers to the following questions:
 
 1. Service discovery: How does an HTTP Server find a Data Producer to connect to?
 2. Load balancing/fault tolerance: How can the HTTP Servers make uniform and efficient use of all the Data Producers available to them?
@@ -49,29 +46,30 @@ their names
 ## What You Will Use
 
 * [Weave](http://weave.works)
+* [Weave Scope](http://weave.works/scope/index.html)
 * [Docker](http://docker.com)
 * [Amazon ECS](http://aws.amazon.com/ecs/)
 
-## What You Will Need to Complete This Guide
+##Before You Begin
 
-This getting started guide is self contained. You will use Weave, Docker and Amazon ECS. We also make use of the [Amazon Web Services (AWS) CLI tool](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) to manage and access AWS.  You will need a valid [Amazon Web Services](http://aws.amazon.com) account, and have the AWS CLI setup and configured before working through this guide. Amazon provides extensive documentation on how to setup the [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html).
+This getting started guide is self contained. You will use Weave, Docker and Amazon ECS. We also make use of the [Amazon Web Services (AWS) CLI tool](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) to manage and access AWS.  You need a valid [Amazon Web Services](http://aws.amazon.com) account, and also have the AWS CLI set up and configured before working through this guide. Amazon provides extensive documentation on how to set up the [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html).
 
 * [Git](http://git-scm.com/downloads)
 * [AWS CLI >= 1.7.35 ](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
 * [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
 * An [SSH client](https://en.wikipedia.org/wiki/Comparison_of_SSH_clients) (optional)
 
-This guide will take approximately 15 minutes to complete.
+This guide takes approximately 15 minutes to complete.
 
 ## Getting the Code
 
 The code for this example is available on GitHub.
 
-Clone the `weaveworks/guides` repository and then move to the `aws-ecs`
+Clone the `weaveworks/guides` repository and then change to the `aws-ecs`
 directory, from which you will be working throughout most of this guide.
 
 ~~~ bash
-git clone http://github.com/weaveworks/guides
+git clone https://github.com/weaveworks/guides
 cd guides/aws-ecs
 ~~~
 
@@ -87,25 +85,48 @@ View AWS-CLI's configuration with
 aws configure list
 ~~~
 
-and modify it by running:
+and then modify it by running:
 
 ~~~bash
 aws configure
 ~~~
 
-Also, please make sure your AWS account has administrative privileges to be able
+Also, please ensure your AWS account has administrative privileges to be able
 to configure this demonstration.
 
-## Automatic Setup & Configuration
+## Obtain a `Weave Scope` Cloud Service Token (Recommended)
 
-To configure the demonstration, run the following command:
+This step is optional but is recommended. To visualize the result of this example with the `Weave Scope` cloud service, you need to obtain a `Weave Scope` cloud service token.
+
+The `Weave Scope` cloud service is still in beta. To gain access, please sign up for the [Early Access Program](http://scope.weave.works) at [http://scope.weave.works](http://scope.weave.works).
+
+![`Weave Scope` early access form](/guides/images/aws-ecs/scope-early-access.png)
+
+Once you've been granted access, an email will be sent to you containing your Weave Scope cloud service token. 
+
+>*Note*: Candidates for the Early Access Program are evaluated on a case per case basis. It may take a few days before you receive a confirmation email. To accelerate the process, please send an email to `help@weave.works` which explains your use-case.
+
+Once received, the token is also accessible from the Weave Scope main page after you've logged in:
+
+![`Weave Scope` main page](/guides/images/aws-ecs/scope-cloud-main-page.png)
+
+From the example above, the service token is `3hud3h6ys3jhg9bq66n8xxa4b147dt5z`
+
+
+##Automatic Setup and Configuration
+
+To configure this example, run the following command:
 
 ~~~bash
-./setup.sh
+./setup.sh $SCOPE_TOKEN
 ~~~
 
-You will see output similar to the following:
+where `$SCOPE_TOKEN` is an optional argument corresponding to your `Weave Scope`
+cloud service token.
 
+You should see something like this:
+
+~~~bash
     Creating ECS cluster (weave-ecs-demo-cluster) .. done
     Creating VPC (weave-ecs-demo-vpc) .. done
     Creating Subnet (weave-ecs-demo-subnet) .. done
@@ -124,7 +145,7 @@ You will see output similar to the following:
       http://foo.region.compute.amazonaws.com
       http://bar.region.compute.amazonaws.com
       http://baz.region.compute.amazonaws.com
-
+~~~
 
 ## What Just Happened?
 
@@ -139,7 +160,7 @@ The `setup.sh` script automatically:
 
 ## Testing the Setup
 
-The three URLs shown above communicates via your browser with the HTTP Server containers. Pick one of them (or all three of them if you like) and open them in your browser:
+The three URLs shown above communicate via your browser with the HTTP Server containers. Pick one of them (or all three, if you like) and open them in your browser:
 
       http://foo.region.compute.amazonaws.com
       http://bar.region.compute.amazonaws.com
@@ -152,7 +173,7 @@ This is what you should see:
 Reload your browser to force the HTTP Server to refresh its Data Provider address list (generated randomly by `weavedns`), balancing the load between the EC2 instances.
 
 
-## How Does Service Discovery and Load Balancing Work?
+## How Do Service Discovery and Load Balancing Work?
 
 Both the HTTP Server and the Data Producer containers are very simple. They were implemented with a few lines of bash, using mostly Netcat.
 
@@ -177,18 +198,18 @@ sleep 7 # Wait for data producers to start
 done
 ~~~
 
-Note the source code shown above has been reformatted for clarity.
+>*Note:* the source code shown above has been reformatted for clarity.
 
 
 ![ECS and Weave Diagram](/guides/images/aws-ecs/ecs+weave-diagram.png)
 
 When ECS launches a container, the call to Docker is intercepted by weaveproxy,
-and an address is assigned using weave's automatic IP allocation, then the container is registered with the weavedns service and it is attached to the weave network. Weavedns registers A-records based on the container's name:
+and an address is assigned using Weave's automatic IP allocator, the container is then registered with the `weavedns` service and attached to the Weave network. `Weavedns` registers A-records based on the container's name:
 
 * A `dataproducer` A-record for all the Data Producer containers.
 * A `httpserver` A-record for all the HTTP Server container.
 
-The Data Producer waits for requests on TCP port 4540 and it responds with a string containing its IP address.
+The Data Producer waits for requests on TCP port 4540 and responds with a string containing its IP address.
 
 The HTTP Server works as follows:
 
@@ -201,32 +222,38 @@ The HTTP Server works as follows:
 
 ## What's Happening in the Hosts?
 
-All the ECS instances are equipped with
-[Weave Scope](http://weave.works/scope/), providing an intuitive real-time
-visualization of all your containers and how the communicate with each
-other. Scope has a webserver listening on port `4040` so, to access it, just
-open your browser and paste the URL of any of your instances:
+[`Weave Scope`](http://weave.works/scope/) provides a real-time visualization of the containers running on the Weave network and also an overview of how they communicate with each other.
 
+* If you provided a `$PROBE_TOKEN` to `setup.sh`, simply login to [http://scope.weave.works](http://scope.weave.works)
+* As an alternative, if you did not provide a token, all of your ECS instances will still be running equipped with a `Weave Scope`
+  web application listening on port `4040` (this solution does have some
+  performance and administration issues compared to the `Weave Scope` cloud service, but
+  is more than sufficient for demonstration purposes).
+
+  To access it,  open your browser and paste the `Weave Scope` application URL from any of your instances:
+
+~~~bash
       http://foo.region.compute.amazonaws.com:4040
       http://bar.region.compute.amazonaws.com:4040
       http://baz.region.compute.amazonaws.com:4040
+~~~
 
-This is what you should see when accessing one of the HTTP Servers multiple
+This is what you should see with `Weave Scope` when accessing one of the HTTP Servers multiple
 times (i.e. reloading `http://foo.region.compute.amazonaws.com` in your browser
 multiple times).
 
 ![Scope visualization](/guides/images/aws-ecs/scope.png)
 
-Click on the `httpserver` container to display its details.
+Click the `httpserver` container to display its details.
 
-Note the edges between one of the `httpserver` containers (the one
-accessed from your browser) and the three `dataproducer` containers, reflecting
-the load balancing scheme we built with weaveDNS.
+Note that the edges between one of the `httpserver` containers (the one
+accessed from your browser) and the three `dataproducer` containers, reflect
+the load balancing scheme that we built using the `weavedns` service.
 
-More insights can be gained by selecting different views: *Applications (by
+More insights into the Weave network can be gleaned by selecting different views: *Applications (by
 name)*, *Containers by image* and *Hosts*.
 
-If you want to dive even deeper on what's happening in the ECS instances, access
+To dig even deeper on what's happening in the ECS instances, access
 them through ssh:
 
 ~~~bash
@@ -245,6 +272,7 @@ For example, to list the active running containers in the instance:
 
 Where you will see something similar to this:
 
+~~~bash
     CONTAINER ID        IMAGE                            COMMAND                CREATED            STATUS           PORTS                                                                                            NAMES
     a67655146b5b        2opremio/weaveecsdemo:latest     "\"/w/w bash -c 'set   7 minutes ago      Up 7 minutes     0.0.0.0:80->80/tcp                                                                               ecs-weave-ecs-demo-task-1-httpserver-a2bad7f8f792f185f901
     eeb53274c26b        2opremio/weaveecsdemo:latest     "/w/w sh -c 'while t   7 minutes ago      Up 7 minutes                                                                                                      ecs-weave-ecs-demo-task-1-dataproducer-dec2b39a92e0edb1aa01
@@ -252,7 +280,7 @@ Where you will see something similar to this:
     693ef5ae00cb        weaveworks/weaveexec:v1.1.0      "/home/weave/weavepr   8 minutes ago      Up 8 minutes                                                                                                      weaveproxy
     86b6019c3995        weaveworks/weave:v1.1.0          "/home/weave/weaver    8 minutes ago      Up 8 minutes     0.0.0.0:6783->6783/udp, 0.0.0.0:6783->6783/tcp, 172.17.42.1:53->53/tcp, 172.17.42.1:53->53/udp   weave
     190afc5cd56b        weaveworks/scope:latest          "/home/weave/entrypo   8 minutes ago      Up 8 minutes                                                                                                      weavescope
-
+~~~
 
 * Container `ecs-weave-ecs-demo-task-1-httpserver-a2bad7f8f792f185f901` is the
   HTTP Server of this host, producing the output you saw in your browser.  Note
@@ -264,10 +292,10 @@ Where you will see something similar to this:
 
 * Containers `weaveproxy` and `weave` are responsible for running
   Weave within each ECS instance. For illustration purposes, the proxy was shown out
-  of Docker in the previous section's diagram, but in actual fact weaveproxy runs
+  of Docker in the previous section's diagram, but in actual fact `weaveproxy` runs
   inside of Docker.
 
-* Container `weavescope` are responsible for run Weave Scope and monitor each instance.
+* Container `weavescope` is responsible for running `Weave Scope` and for monitoring each instance.
 
 * Container `ecs-agent` corresponds to
   [Amazon's ECS Agent](https://github.com/aws/amazon-ecs-agent), which runs on
@@ -276,6 +304,7 @@ Where you will see something similar to this:
 
 View the IP addresses of the HTTP Servers and the Data Producers by running:
 
+~~~bash
     [ec2-user@ip-XXX-XXX-XXX-XXX ~]$ export DOCKER_HOST=unix:///var/run/weave.sock # Use weave-proxy
     [ec2-user@ip-XXX-XXX-XXX-XXX ~]$ docker run 2opremio/weaveecsdemo dig +short httpserver
     10.36.0.3
@@ -285,8 +314,9 @@ View the IP addresses of the HTTP Servers and the Data Producers by running:
     10.36.0.2
     10.32.0.2
     10.40.0.1
+~~~
 
-Re-running these commands vary the IP addresses. This is the weavedns service transparently balancing the load by randomizing the IP addresses, as the HTTP servers are connecting to Data Producers.
+Re-running these commands vary the IP addresses. This is the `weavedns` service transparently balancing the load by randomizing the IP addresses, as the HTTP servers are connecting to Data Producers.
 
 ###Cleanup
 
@@ -296,16 +326,14 @@ To clean up this demonstration run:
 ./cleanup.sh
 ~~~
 
-This script works even if something goes wrong while configuring the
-demonstration (e.g. if `setup.sh` didn't finish due to missing AWS
-permissions). If that was the case, `cleanup.sh` may output some errors when
-trying to destroy resources which weren't created, you can simply disregard
-them.
+This script will work even if something has gone wrong while configuring the
+demonstration (for example, if `setup.sh` didn't finish due to missing AWS
+permissions). If this was the case, `cleanup.sh` may output errors while it is
+trying to destroy resources, which weren't created. Simply disregard them.
 
 ##Manual Setup
 
-To manually reproduce what `./setup.sh` does
-automatically:
+To manually reproduce what `./setup.sh` does automatically:
 
 **1. Create the ECS cluster**
   
@@ -334,15 +362,15 @@ Tag the VPC to enable automatic deletion with the `cleanup.sh`.
 aws ec2 create-tags --resources $VPC_ID --tag Key=Name,Value=weave-ecs-demo-vpc
 ~~~
 
-**3. Create a Subnet**
+**3. Create a subnet**
 
-Create a Subnet to enable networking in your instances.
+Create a subnet to enable networking in your instances.
 
 ~~~bash
 SUBNET_ID=$(aws ec2 create-subnet --vpc-id $VPC_ID --cidr-block 172.31.0.0/28 --query 'Subnet.SubnetId' --output text)
 ~~~
 
-Tag the Subnet to enable automatic deletion with the `cleanup.sh`.
+Tag the subnet to enable automatic deletion with the `cleanup.sh`.
 
 ~~~bash
 aws ec2 create-tags --resources $SUBNET_ID --tag Key=Name,Value=weave-ecs-demo-subnet
@@ -350,13 +378,13 @@ aws ec2 create-tags --resources $SUBNET_ID --tag Key=Name,Value=weave-ecs-demo-s
 
 **4. Create an Internet Gateway**
 
-Create an Internet Gateway to be able to access your EC2 instances externally.
+Create an Internet Gateway so that you can access your EC2 instances externally.
 
 ~~~bash
 GW_ID=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' --output text)
 ~~~
 
-Make sure to attach the gateway to the VPC and ensure that the gateway is used as the destination of the default route.
+Attach the gateway to the VPC and ensure that the gateway is used as the destination of the default route.
 
 ~~~bash
 aws ec2 attach-internet-gateway --internet-gateway-id $GW_ID --vpc-id $VPC_ID
@@ -364,7 +392,7 @@ TABLE_ID=$(aws ec2 describe-route-tables --query 'RouteTables[?VpcId==`'$VPC_ID'
 aws ec2 create-route --route-table-id $TABLE_ID --destination-cidr-block 0.0.0.0/0 --gateway-id $GW_ID
 ~~~
 
-Tag the Gateway to enable automatic deletion with the `cleanup.sh`.
+Tag the gateway to enable automatic deletion with the `cleanup.sh` script.
 
 ~~~bash
 aws ec2 create-tags --resources $GW_ID --tag Key=Name,Value=weave-ecs-demo
@@ -372,7 +400,7 @@ aws ec2 create-tags --resources $GW_ID --tag Key=Name,Value=weave-ecs-demo
 
 **5. Create the security group and key pair**
 
-Create the security group `weave-ecs-demo` in the VPC we created a few steps above.
+Create the security group `weave-ecs-demo` in the VPC as we created a few steps above.
 
 ~~~bash
 SECURITY_GROUP_ID=$(aws ec2 create-security-group --group-name weave-ecs-demo --vpc-id $VPC_ID --description 'Weave ECS Demo' --query 'GroupId' --output text)
@@ -380,10 +408,10 @@ SECURITY_GROUP_ID=$(aws ec2 create-security-group --group-name weave-ecs-demo --
 
 Add inbound rules to the group to allow:
 
-* Public SSH access.
-* Public HTTP access.
-* Private Weave access between instances.
-* Public and private access to Weave Scope between instances.
+* Public SSH access (tcp port 22).
+* Public HTTP access (tcp port 80).
+* Private Weave access between instances (tcp and udp port 6783).
+* Public and private access to Weave Scope between instances (tcp port 4040) . This is Only needed when not using Scope 'Cloud').
 
 ~~~bash
 aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 22 --cidr 0.0.0.0/0
@@ -414,18 +442,36 @@ aws iam add-role-to-instance-profile --instance-profile-name weave-ecs-instance-
 **7. Create a launch configuration**
 
 Check
-[Weave's latest ECS AMIs](https://github.com/weaveworks/integrations/tree/master/aws/ecs#weaves-ecs-amis)
-and choose an AMI depending on your configured region. Then, execute the commands
-below by replacing `XXXX` with the AMI of your region.
+[Weave's latest ECS AMIs](https://github.com/weaveworks/integrations/tree/master/aws/ecs#weaves-ecs-amis) and choose an AMI depending on your configured region.
+
+Set the AMI variable, replacing `XXXX` with the AMI of your region.
 
 ~~~bash
 AMI=XXXX
-aws autoscaling create-launch-configuration --image-id $AMI --launch-configuration-name weave-ecs-launch-configuration --key-name weave-ecs-demo-key --security-groups $SECURITY_GROUP_ID --instance-type t2.micro --user-data file://data/set-ecs-cluster-name.sh  --iam-instance-profile weave-ecs-instance-profile --associate-public-ip-address --instance-monitoring Enabled=false
 ~~~
 
-**8. Create an auto scaling group**
+Initialize the instance User Data script.
 
-Create an Auto Scaling Group with 3 instances in the first subnet available in your region.
+~~~bash
+cp /data/set-ecs-cluster-name.sh ./user-data.sh
+~~~
+
+Optionally (if you would like to use Scope 'Cloud' and you are participating in the Early
+Access program), add your Scope 'Cloud' service token to the User Data. Run the following
+command, replacing `XXXX` with your Scope 'Cloud' service token.
+
+
+~~~bash
+echo "SCOPE_AAS_PROBE_TOKEN=XXXX" >> ./user-data.sh
+~~~
+
+~~~bash
+aws autoscaling create-launch-configuration --image-id $AMI --launch-configuration-name weave-ecs-launch-configuration --key-name weave-ecs-demo-key --security-groups $SECURITY_GROUP_ID --instance-type t2.micro --user-data file://user-data.sh  --iam-instance-profile weave-ecs-instance-profile --associate-public-ip-address --instance-monitoring Enabled=false
+~~~
+
+**8. Create an Auto Scaling Group**
+
+Create an Auto Scaling Group using 3 instances available in the first subnet of your region.
 
 ~~~bash
 aws autoscaling create-auto-scaling-group --auto-scaling-group-name weave-ecs-demo-group --launch-configuration-name weave-ecs-launch-configuration --min-size 3 --max-size 3 --desired-capacity 3 --vpc-zone-identifier $SUBNET_ID
@@ -440,7 +486,7 @@ aws ecs register-task-definition --family weave-ecs-demo-task --container-defini
 **10. Create the demo service**
 
 Before launching the demo task, confirm that 3 instances from the Auto
-Scaling Group have joined the cluster. This should should occur shortly after
+Scaling Group have joined the cluster. This should occur shortly after
 creating the Auto Scaling Group.
 
 To confirm it, run the following command. Its output should show a `3` once all the instances have joined the cluster.
@@ -457,10 +503,10 @@ aws ecs create-service --cluster weave-ecs-demo-cluster --service-name  weave-ec
 ~~~
 
 
-##Known issues & limitations
+##Known Issues and Limitations
 
 * Auto Scaling Groups are required for ECS to work with Weave. If you create individual
-  instances, they won't work be able to see each other due to how Weave finds peers in ECS.
+  instances, they will not work and won't be able to see each other due to how Weave finds peers in ECS.
 
 ## For the Advanced User: Build Your Own Weave ECS AMI
 
@@ -469,11 +515,13 @@ If you need to incorporate changes to the Weave AMI, you can do so by following 
 
 ##Conclusions
 
-You have used Weave out-of-the-box within the Amazon Container Management service or ECS and used Weave for both service discovery and load balancing between containers running in Amazon EC2 instances. Weave runs regardless of whether it was executed on the same or on different hosts, and can even run across completely different cloud providers if necessary.
+You have used Weave out-of-the-box within the Amazon Container Management service or ECS and used Weave for both service discovery and load balancing between containers running in Amazon EC2 instances. In addition to this, you were introduced to the `Weave Scope` cloud service for visualizing and monitoring a Weave container network. 
 
-You can easily adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [email](mailto:help@weave.works) or [Twitter](https://twitter.com/weaveworks).
+Weave runs regardless of whether it was executed on the same or on different hosts, and can even run across completely different cloud providers if necessary.
 
-###Find Out More
+You can easily adapt these examples and use them as a templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
+
+###Further Reading
 
 * [Automatic Discovery with weavedns](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
 * [Weave - Weaving Containers into Applications](https://github.com/weaveworks/weave)
