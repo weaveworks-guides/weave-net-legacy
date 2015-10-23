@@ -130,21 +130,14 @@ To start weave on `weave-1` run:
 ~~~bash
 eval "$(docker-machine env weave-1)"
 weave launch --init-peer-count 3
-eval "$(weave env)"
 ~~~
 
-Launch weave on `weave-2`:
+Launch weave on `weave-2` and connect to the bootstrap node:
 
 ~~~bash
 eval "$(docker-machine env weave-2)"
 weave launch --init-peer-count 3
-eval "$(weave env)"
-~~~
-
-Next on `weave-2` connect the cluster to our bootstrap node, `weave-1`:
-
-~~~bash
-weave connect $(docker-machine ip weave-1)
+weave connect "$(docker-machine ip weave-1)"
 ~~~
 
 check to see that all went well:
