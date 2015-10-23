@@ -130,7 +130,7 @@ To start weave on `weave-1` run:
 ~~~bash
 eval "$(docker-machine env weave-1)"
 weave launch --init-peer-count 3
-eval $(weave env)
+eval "$(weave env)"
 ~~~
 
 Launch weave on `weave-2`:
