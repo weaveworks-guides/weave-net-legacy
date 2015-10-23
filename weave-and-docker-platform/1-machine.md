@@ -142,7 +142,7 @@ docker run -d --name=pingme \
 The second containerized app is called `pinger`, and it will be launched in interactive mode using the `-ti` flag, so that the container can accept and run few simple commands.
 
 ~~~bash
-docker run -e 'affinity:container!=pingme' --name=pinger -ti \
+docker run --name=pinger -ti \
         gliderlabs/alpine sh -l
 ~~~
 
