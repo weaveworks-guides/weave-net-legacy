@@ -1,0 +1,19 @@
+
+$DEPLOYMENT_TEMP = $env:DEPLOYMENT_TEMP
+$MSBUILD_PATH = $env:MSBUILD_PATH
+
+if ($DEPLOYMENT_TEMP -eq $null) {
+  $DEPLOYMENT_TEMP = "$env:temp\___deployTemp$env:random"
+  $CLEAN_LOCAL_DEPLOYMENT_TEMP = $true
+}
+
+if ($CLEAN_LOCAL_DEPLOYMENT_TEMP -eq $true) {
+  if (Test-Path $DEPLOYMENT_TEMP) {
+    rd -Path $DEPLOYMENT_TEMP -Recurse -Force
+  }
+  mkdir "$DEPLOYMENT_TEMP"
+}
+
+if ($MSBUILD_PATH -eq $null) {
+  $MSBUILD_PATH = "$env:ProgramFiles\MSBuild\14.0\Bin\MSBuild.exe"
+}

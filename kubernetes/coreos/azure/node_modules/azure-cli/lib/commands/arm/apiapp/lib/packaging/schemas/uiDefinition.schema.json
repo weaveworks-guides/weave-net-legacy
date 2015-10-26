@@ -1,0 +1,29 @@
+{
+  "id": "http://schema.management.azure.com/schemas/2015-04-15/uiDefinition.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "UIDefinition",
+  "description": "Azure apiapp UIDefinition file",
+  "type": "object",
+  "properties": {
+    "parameters": {
+      "description": "Contains a single set of properties based on package name",
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 1,
+      "additionalProperties": {
+        "description": "The object containing package parameter data",
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#uiParameter"
+        }
+      }
+    },
+    "apiAppName": {
+      "$ref": "#uiParameter"
+    }
+  },
+  "required": [
+    "parameters"
+  ],
+  "additionalProperties": false
+}

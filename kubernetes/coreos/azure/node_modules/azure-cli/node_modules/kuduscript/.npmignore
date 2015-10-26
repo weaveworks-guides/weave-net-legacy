@@ -1,0 +1,14 @@
+# git #
+.git*
+
+# Node #
+node_modules/
+
+lib/*._js
+build.cmd
+*.map
+npmpublish.cmd
+
+deploy.sh
+deploy.cmd
+.deployment
