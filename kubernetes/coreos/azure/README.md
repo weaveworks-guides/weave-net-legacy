@@ -12,32 +12,26 @@ sidebarweight: 7
 
 ##What You Will Build
 
-Kubernetes is an open source container cluster manager built by Google. It allows you to manage multiple clusters of containers spread across multiple hosts. 
+Weave is a software network optimized for visualizing and communicating with apps distributed among Docker containers. Using tools and protocols that are familiar to you, Weave's network enables you to communicate between containerized apps distributed across multiple networks or hosts quickly and efficiently. 
 
-For more information see the [Kubernetes Overview](http://kubernetes.io/v1.0/docs/user-guide/overview.html)
+This example demonstrates how a Weave network integrates with Google Kubernetes clusters on CoreOS in the Microsoft Azure cloud management system.  
 
-This example demonstrates how a Weave network integrates with Google Kubernetes clusters on CoreOS in the Microsoft Azure cloud managment system.  
+[Kubernetes](http://kubernetes.io/v1.0/docs/user-guide/overview.html) is an open source container cluster manager built by Google. It allows you to manage multiple clusters of containers between hosts.
 
-###Kube-proxy Service and the Weave Docker API Proxy
+Without Weave, implementing simple networking for your app across Kubernetes clusters can be involved. Because Docker containers can only communicate with each other if they reside on the same host, individual host subnets must be privately allocated for each node. To ensure that there are no collisions on the network, some ports used by your app may also need to be mapped.
 
-In a Kubernetes cluster individual host subnetting and service availability to external parties is managed by a kube-proxy service that runs on each node. The kube-proxy forwards simple TCP/UDP requests to the correct containers, does basic load balancing, and is also responsible for making sure the networking environment is accessible, yet still isolated. 
+Only after private subnets are allocated and any ports mapped, will the kube-proxy, which runs on each node, be able to forward simple TCP/UDP requests to the correct containers within a pod. 
+And if DNS is required, an extra service must also be configured.
 
-A limitation of the kube-proxy though is that subnets must be privately allocated to each node. Also any ports used by your app may need to be mapped, and made available to the Kubernetes API so that the kube-proxy knows how to forward requests back to containers in the pod.
+With Weave there is no need to deploy or specify any extra services and since Weave listens on standard ports, mapping ports is also not required. Using the [Weave Docker API Proxy](http://docs.weave.works/weave/latest_release/proxy.html), Weave takes care of [IP management with IPAM](http://docs.weave.works/weave/latest_release/ipam.html) and also [Automatic Service Discovery](http://docs.weave.works/weave/latest_release/features.html#naming-and-discovery), with the `weaveDNS` service which removes the requirement of having to directly configure the Docker daemon with statically allocated private subnets for each host or node.
 
-With Weave there is no need for extra port mapping.  You can make use of the [Weave Docker API proxy](http://docs.weave.works/weave/latest_release/proxy.html) as well as [Automatic IP address allocation](http://docs.weave.works/weave/latest_release/ipam.html) to manage nodes and containers on Google Kubernetes. Since Weave takes care of IP management and service discovery, the requirement to directly configure the Docker daemon with statically allocated private subnets for each host or node is also eliminated. 
+In addition to those services, Weave provides a simple to deploy [encryption](http://docs.weave.works/weave/latest_release/features.html#security) and is one of the few solutions that can integrate with uncontainerized services, such as legacy databases, and manage those services together on a container network. 
 
-Weave implements simple and secure container networking across different hosts.
-
-
-XXadd a diagram here XXX
-
-Although there are other network fabric solutions such as [Flannel](https://coreos.com/flannel/docs/latest/flannel-config.html) and [Calico](http://www.projectcalico.org/), only Weave provides simple to deploy [encryption](http://docs.weave.works/weave/latest_release/features.html#security) and automatic IP assigment and service discovery using [IPAM](http://docs.weave.works/weave/latest_release/features.html#addressing) and [weaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html). 
-
-Weave is also one of the few solutions that can integrate with any uncontainerized services that you may have, such as legacy databases, and can manage those services together on a container network.
+Because Weave is an integrated and dedicated container network solution, overhead costs and resource complexity is reduced. Weave in essence saves you time and money, and lets you focus on app development, rather than your infrastructure design.
 
 In this example you will:
 
-1. Provision 2 Virtual Machines with CoreOS, Docker and Weave.
+1. Provision 2 VMs with CoreOS, Docker and Weave.
 2. Deploy a Kubernetes etcd cluster.
 3. Launch the guestbook example app into containers and deploy them to the cluster. 
 4. Automatically scale the app.
