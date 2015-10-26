@@ -16,7 +16,7 @@ Kubernetes is an open source container cluster manager built by Google. It allow
 
 For more information see the [Kubernetes Overview](http://kubernetes.io/v1.0/docs/user-guide/overview.html)
 
-This example demonstrates how a Weave network integrates with Google Kubernetes clusters on CoreOS in the Microsoft Azure cloud managment system.  Weave implements simple and secure container networking across different hosts.
+This example demonstrates how a Weave network integrates with Google Kubernetes clusters on CoreOS in the Microsoft Azure cloud managment system.  
 
 ###Kube-proxy Service and the Weave Docker API Proxy
 
@@ -26,11 +26,14 @@ A limitation of the kube-proxy though is that subnets must be privately allocate
 
 With Weave there is no need for extra port mapping.  You can make use of the [Weave Docker API proxy](http://docs.weave.works/weave/latest_release/proxy.html) as well as [Automatic IP address allocation](http://docs.weave.works/weave/latest_release/ipam.html) to manage nodes and containers on Google Kubernetes. Since Weave takes care of IP management and service discovery, the requirement to directly configure the Docker daemon with statically allocated private subnets for each host or node is also eliminated. 
 
+Weave implements simple and secure container networking across different hosts.
+
+
 XXadd a diagram here XXX
 
-Although there are other network fabric solutions such as [Flannel](https://coreos.com/flannel/docs/latest/flannel-config.html) and [Calico](http://www.projectcalico.org/), only Weave provides simple to deploy [encryption](http://docs.weave.works/weave/latest_release/features.html#security) and automatic unIP assigment and service discovery using [IPAM](http://docs.weave.works/weave/latest_release/features.html#addressing) and [weaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html). 
+Although there are other network fabric solutions such as [Flannel](https://coreos.com/flannel/docs/latest/flannel-config.html) and [Calico](http://www.projectcalico.org/), only Weave provides simple to deploy [encryption](http://docs.weave.works/weave/latest_release/features.html#security) and automatic IP assigment and service discovery using [IPAM](http://docs.weave.works/weave/latest_release/features.html#addressing) and [weaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html). 
 
-Weave is also one of the few solutions that can integrate with any uncontainerized services that you may have, such as legacy databases, and can manage those services on a container network as well.
+Weave is also one of the few solutions that can integrate with any uncontainerized services that you may have, such as legacy databases, and can manage those services together on a container network.
 
 In this example you will:
 
@@ -40,7 +43,7 @@ In this example you will:
 4. Automatically scale the app.
 5. View the Weave network across hosts and pods. 
 
-The example does not require any programming and will take about 15 minutes to build. 
+The example does not require any programming and will take about 15 minutes to complete. 
 
 #What You Will Use
 
