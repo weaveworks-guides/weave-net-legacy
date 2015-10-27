@@ -514,7 +514,7 @@ aws ecs create-service --cluster weave-ecs-demo-cluster --service-name  weave-ec
 
 ## For the Advanced User: Build Your Own Weave ECS AMI
 
-If you need to incorporate changes to the Weave AMI, you can do so by following [these steps](https://github.com/weaveworks/integrations/tree/master/aws/ecs#build-your-own-weave-ecs-ami).
+If you need to incorporate changes to the Weave AMI, you can do so by following [these steps](https://github.com/weaveworks/integrations/tree/master/aws/ecs#creating-your-own-customized-weave-ecs-ami).
 
 
 ##Conclusions
