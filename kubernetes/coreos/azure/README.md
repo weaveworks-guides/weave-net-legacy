@@ -163,7 +163,7 @@ redis-slave-3nbce   1/1       Running   0          4m
 
 With the Kubernetes cluster deployed and running, Weave has found all three nodes. This portion was automated, and weave was installed and launched by the setup script. 
 
-To manually launch weave, all that is required is the following: `weave launch` and `weave connect <ip of host>`. Weave only needs to be directed to one host on the network, any subsequent containers regardless of the host will be discovered through `weaveDNS`.
+To manually launch weave, all that is required is the following: `weave launch`, `weave eval$(weave env)` and `weave connect <ip of host>`.
 
 For more information see ["Weave -- Weaving Containers in Applications"](https://github.com/weaveworks/weave#readme)
 
@@ -372,6 +372,4 @@ The purpose of this guide is to provide an out-of-the-box implementation that ca
 * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
 * [Weave encryption](http://docs.weave.works/weave/latest_release/features.html#security)
 * [Weave IPAM](http://docs.weave.works/weave/latest_release/features.html#addressing)
-
-
 
