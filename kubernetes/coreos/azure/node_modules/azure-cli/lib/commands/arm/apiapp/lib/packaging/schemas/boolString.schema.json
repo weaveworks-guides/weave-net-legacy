@@ -1,0 +1,18 @@
+{
+  "id": "http://schema.management.azure.com/schemas/2015-04-15/uiDefinition.json#boolString",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "boolString",
+  "description": "field that can be true, false, \"true\", or \"false\"",
+  "oneOf": [
+    {
+      "type": "string",
+      "enum": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "type": "boolean"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "id": "http://schema.management.azure.com/schemas/2015-04-15/uiDefinition.json#uiParameter",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "UIParameter",
+  "description": "Metadata for parameters in Azure apiapp UIDefinition file",
+  "type": "object",
+  "properties": {
+    "defaultValue": {
+      "description": "Default value of the input control in the Azure portal create blade",
+      "type": "string"
+    },
+    "displayName": {
+      "description": "Label of the input control in the Azure portal create blade",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of the input control",
+      "type": "string"
+    },
+    "tooltip": {
+      "description": "Tooltip of theinput control in the Azure portal create blade",
+      "type": "string"
+    },
+    "constraints": {
+      "description": "Constraints to check against the parameter",
+      "type": "object",
+      "properties": {
+        "required": {
+          "$ref": "#boolString"
+        },
+        "range": {
+          "type": "object",
+          "properties": {
+            "lowerBound": {
+              "type": "number"
+            },
+            "upperBound": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        },
+        "length": {
+          "type": "object",
+          "properties": {
+            "min": {
+              "type": "integer"
+            },
+            "max": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false
+        },
+        "containsCharacters": {
+          "type": "string"
+        },
+        "notContainsCharacters": {
+          "type": "string"
+        },
+        "hasDigit": {
+          "$ref": "#boolString"
+        },
+        "hasLetter": {
+          "$ref": "#boolString"
+        },
+        "hasLowerCaseLetter": {
+          "$ref": "#boolString"
+        },
+        "hasUpperCaseLetter": {
+          "$ref": "#boolString"
+        },
+        "hasPunctuation": {
+          "$ref": "#boolString"
+        },
+        "numeric": {
+          "$ref": "#boolString"
+        },
+        "custom": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

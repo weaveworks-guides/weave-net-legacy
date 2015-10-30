@@ -1,0 +1,18 @@
+
+##################################################################################################################################
+# Deployment
+# ----------
+
+echo "Handling .NET Web Site deployment."
+
+# 1. Build to the repository path
+& $MSBUILD_PATH {MSBuildArguments}
+exitWithMessageOnError "MSBuild failed"
+
+# 2. KuduSync
+if ($env:IN_PLACE_DEPLOYMENT -ne "1") {
+  & $KUDU_SYNC_CMD -v 50 -f "$DEPLOYMENT_SOURCE{SitePath}" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.ps1"
+  exitWithMessageOnError "Kudu Sync failed"
+}
+
+##################################################################################################################################
