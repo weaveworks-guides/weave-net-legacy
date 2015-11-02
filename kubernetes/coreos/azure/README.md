@@ -10,7 +10,7 @@ sidebarweight: 7
 ---
 
 
-##What You Will Build
+## What You Will Build
 
 Weave is a software network optimized for visualizing and communicating with apps distributed among Docker containers. Using tools and protocols that are familiar to you, Weave's network enables you to communicate between containerized apps distributed across multiple networks or hosts quickly and efficiently. 
 
@@ -39,14 +39,14 @@ In this example you will:
 
 The example does not require any programming and will take about 15 minutes to complete. 
 
-#What You Will Use
+# What You Will Use
 
 * [Weave](http://weave.works)
 * [Docker](http://docker.com)
 * [Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/)
 * [Azure Cloud Services](http://)
 
-##Before You Begin
+## Before You Begin
 
 Ensure the following are installed and configured for your operating system:
 
@@ -56,7 +56,7 @@ Ensure the following are installed and configured for your operating system:
 *A valid [Azure Cloud Services Account](https://azure.microsoft.com/en-us/)
 
 
-##Setting up the Cluster
+## Setting up the Cluster
 
 To get started, first clone the guide directory and then change to the kubernetes/coreos/azure directory:
 
@@ -130,7 +130,7 @@ kube-02   kubernetes.io/hostname=kube-02   Ready
 ~~~
 
 
-## Deploying the Workload
+##  Deploying the Workload
 
 With the cluster provisioned and running, you are ready to deploy the Guestbook App:
 
@@ -159,7 +159,7 @@ redis-slave-12zfd   1/1       Running   0          4m
 redis-slave-3nbce   1/1       Running   0          4m
 ~~~
 
-###Viewing the Weave Network
+## Viewing the Weave Network
 
 With the Kubernetes cluster deployed and running, Weave has found all three nodes. This portion was automated, and weave was installed and launched by the setup script. 
 
@@ -196,7 +196,7 @@ core@kube-00 ~ $ weave status
 ~~~
 
 
-## Scaling the Application
+##  Scaling the Application
 
 Two single-core nodes are certainly not enough for a production system. In this section you will scale the cluster by adding several larger nodes.
 
@@ -317,7 +317,7 @@ frontend-6l36j   1/1       Running   0          22m
 frontend-z9oxo   1/1       Running   0          41s
 ~~~
 
-## Exposing the App to the Outside World
+##  Exposing the App to the Outside World
 
 Keep in mind that there is no native Azure load-balancer support in Kubernetes 1.0. Here, however is how you can expose the Guestbook app to the outside world on the Internet.
 
@@ -349,7 +349,7 @@ info:    vm endpoint show command OK
 You can now access the 'Guestbook App' from anywhere via the Virtual IP displayed from the script's output above for `kube-00`.
 
 
-##Cleaning up the VMs
+## Cleaning up the VMs
 
 If you don't wish care about the Azure bill, you can tear down the cluster. It's easy to redeploy it, as you can see.
 
@@ -361,11 +361,11 @@ If you don't wish care about the Azure bill, you can tear down the cluster. It's
 
 As an aside you can use these scripts to deploy multiple clusters.
 
-##Conclusions
+## Conclusions
 
 The purpose of this guide is to provide an out-of-the-box implementation that can ultimately be taken into production with little change. It demonstrates how to provision a dedicated Kubernetes master and etcd nodes, and then shows how to scale the cluster with ease.
 
-##Further Reading
+## Further Reading
 
 * [Documentation Home Page](http://docs.weave.works/weave/latest_release/)
 * [How Weave Works](https://github.com/weaveworks/weave)
