@@ -253,7 +253,7 @@ Version: 1.1.1
 
        Service: ipam
      Consensus: achieved
-         Range: [10.32.0.0-10.48.0.0)
+         Range: 10.32.0.0-10.47.255.255
  DefaultSubnet: 10.32.0.0/12
 
        Service: dns

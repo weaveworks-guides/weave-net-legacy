@@ -138,7 +138,7 @@ vagrant@weave-gs-02:~$ weave status
 
        Service: ipam
      Consensus: deferred
-         Range: [10.2.1.0-10.2.2.0)
+         Range: 10.2.1.0-10.2.1.255
  DefaultSubnet: 10.2.1.0/24
 
        Service: dns

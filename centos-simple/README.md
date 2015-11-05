@@ -147,7 +147,7 @@ View the peered network by running `weave status`:
 
        Service: ipam
      Consensus: deferred
-         Range: [10.32.0.0-10.48.0.0)
+         Range: 10.32.0.0-10.47.255.255
  DefaultSubnet: 10.32.0.0/12
 
        Service: dns

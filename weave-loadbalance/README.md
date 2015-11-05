@@ -124,7 +124,7 @@ Log on to either one of the hosts and type `weave status` to view the Weave comp
 
        Service: ipam
      Consensus: deferred
-         Range: [10.2.0.0-10.3.0.0)
+         Range: 10.2.0.0-10.2.255.255
  DefaultSubnet: 10.2.0.0/16
 
        Service: dns
