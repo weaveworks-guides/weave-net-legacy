@@ -12,21 +12,19 @@ sidebarweight: 15
 ---
 
 
-## What You Will Build ##
+This example uses [Weave Run](http://weave.works/run/index.html) to automatically discover services on a **Weave** container network.
 
-This example uses [Weave Run](http://weave.works/run/index.html) to automatically discover services on a Weave container network.
+In this example, you will:
 
-In this example:
-
-1. You will create a simple containerized web service that runs on weave-gs-01.
-2. On weave-gs-02, we will deploy a second container that enables you to query the web service on weave-gs-01.
-3. Use curl to query the _'Hello, Weave!'_ service from the second container.
+1. Create a simple containerized web service that runs on weave-gs-01.
+2. Deploy `curl` into a second container on `weave-gs-02`.
+3. Use curl to query the _'Hello, Weave!'_ service from the second container on one host to another host.
 
 ![Weave and Docker](/guides/images/Simple_Weave.png)
 
 This tutorial uses simple UNIX tools, and it doesn't require any programming skills.
 
-This example will take about 15 minutes to complete.
+This example requires no programming skills and will take about 15 minutes to complete.
 
 ## What You Will Use
 
@@ -41,7 +39,7 @@ Install and configure the following separately before proceeding:
 * [Git](http://git-scm.com/downloads)
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
-##Setting Up The Hosts##
+##Setting Up The Hosts
 
 The code for this example is available on github. Clone the getting started repository:
 
@@ -75,7 +73,7 @@ The IP addresses we use for this demo are:
 
 ##Installing Weave
 
-Install Weave on each host [using a separate terminal for each host](http://weave.works/guides/about/vagrant.html#general-usage-pattern):
+Install **Weave** on to each host [using a separate terminal for each host](http://weave.works/guides/about/vagrant.html#general-usage-pattern):
 
 ~~~bash
 vagrant ssh weave-gs-01
@@ -91,11 +89,11 @@ root@weave-gs-01:~# curl -L git.io/weave -o /usr/local/bin/weave
 root@weave-gs-01:~# chmod a+x /usr/local/bin/weave
 ~~~~
 
-The commands to install Weave are provided as part of this getting started guide, but in practice you would automate this step for each host.
+The commands to install **Weave** are provided as part of this getting started guide, but in practice you would automate this step for each host.
 
 ##Launching Weave
 
-Now start Weave on each host to create a peer connection:
+Now start **Weave** on each host to create a peer connection:
 
 On host `weave-gs-01`
 
@@ -109,9 +107,9 @@ On host `weave-gs-02`
 root@weave-gs-02:~# weave launch 172.17.8.101 
 ~~~
 
-Your two hosts are now connected to each other, and any subsequent containers you launch with Weave are visible to any other containers that the Weave network is aware of.
+Your two hosts are now connected to each other, and any subsequent containers you launch with **Weave** are visible to any other containers that the **Weave** network is aware of.
 
-To view all running weave components and their peers:
+To view the running **Weave** components and their peers:
 
 ~~~bash
 root@weave-gs-02:~# weave status
@@ -144,16 +142,16 @@ Version: v1.1.0
 
 ### What Just Happened?
 
-Since this is the first time launching Weave you:
+Since this is the first time that you've launched **Weave**, the following occurred:
 
-* downloaded a docker image containing all three Weave components: Weave Router, WeaveDNS, and the Weave Docker API Proxy
-* launched them into 2 containers (Weave Router and WeaveDNS are launched together)
+* A docker image containing all three **Weave** components: Weave Router, WeaveDNS, and the Weave Docker API Proxy
+* Launched them into 2 containers (Weave Router and WeaveDNS are launched together)
 
-On host, `weave-gs-01`, the Weave router container was launched. On host, `weave-gs-02`, an additional Weave router container using the IP address of your first host was launched. Launching Weave with the IP address of the first container informs Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
+On host, `weave-gs-01`, the **Weave** router container was launched. On host, `weave-gs-02`, an additional **Weave** router container using the IP address of your first host was launched. Launching **Weave** with the IP address of the first container informs **Weave** on `weave-gs-02` to peer with the **Weave** on `weave-gs-01`.
 
-In addition to the weave routers,  two {{ weavedns }} service discovery containers were also launched.
+In addition to the weave routers,  two **weavedns** service discovery containers were also launched.
 
-At this point you should have two Weave containers running on each host. To see them, run the following command from either host:
+At this point two **Weave** containers are running on each host. To see them, run the following command from either host:
 
 ~~~bash
 root@weave-gs-01:~# docker ps
@@ -167,11 +165,11 @@ CONTAINER ID        IMAGE                         COMMAND                CREATED
 78476d7404c5        weaveworks/weave:v1.1.0       "/home/weave/weaver    3 minutes ago       Up 3 minutes        10.1.42.1:53->53/tcp, 10.1.42.1:53->53/udp, 0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave      
 ~~~
 
-Your network should also be peered, which can be viewed by running:  `weave status`
+Your network is peered, and can be viewed by running:  `weave status`
 
 ## Building & Deploying the _'Hello, Weave!'_ Service
 
-Next, build an Apache webserver container image and use Weave to run it.
+Next, build an Apache webserver container image and use **Weave** to run it.
 
 On `weave-gs-01` run
 
@@ -181,7 +179,7 @@ root@weave-gs-01:~# eval "$(weave env)"
 root@weave-gs-01:~# docker run -d --name=hello-app php-example
 ~~~
 
-You now have a running Apache server in a Docker container. It will receive a DNS record in `weaveDNS` and will automatically be the given name `hello-app`.
+You now have a running Apache server in a Docker container. **Weave** records a DNS record and also automatically gives it the name `hello-app`.
 
 To view it:
 
@@ -191,13 +189,13 @@ root@weave-gs-01:~# docker ps
 
 ###About Container Deployment
 
-Weave launched a pre-built Docker image containing an Apache webserver, named it `hello-app`, and then assigned it an IP address. The Docker image you are using has been downloaded from the [Docker Hub](https://hub.docker.com/).
+**Weave** launched a pre-built Docker image containing an Apache webserver, named it `hello-app`, and then assigned it an IP address. The Docker image is downloaded from the [Docker Hub](https://hub.docker.com/).
 
-The container is registered with Weave and is accessible to other containers registered with Weave across multiple hosts.
+The container is registered with **Weave** and is accessible to other containers registered with **Weave** across multiple hosts.
 
 ## Creating the Client Container
 
-Next we will deploy a container to `weave-gs-02` and make it available to the `hello-app` webserver that is running on the first host.  A docker container at `weaveworks/guide-tools` will be launched to illustrate this.
+Next deploy a container to `weave-gs-02` and make it available to the `hello-app` webserver, running on the first host.  A docker container at `weaveworks/guide-tools` is launched to illustrate this.
 
 On `weave-gs-02` run:
 
@@ -225,7 +223,7 @@ Vagrant destroy
 
 ##Conclusions
 
-In this example, we deployed a simple application, that returns a message from a running Apache webserver. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using {{ Weave Run }}, so that applications within containers can communicate with one another. 
+In this example, we deployed a simple application, that returns a message from a running Apache webserver. With **Weave**, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using **Weave Run**, so that applications within containers can communicate with one another. 
 
 You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 

@@ -1,7 +1,7 @@
 ---
 layout: guides
-title: Getting Started With Weave & Docker
-shorttitle: Getting Started with Weave & Docker
+title: Getting Started With Weave and Docker
+shorttitle: Getting Started with Weave and Docker
 description: Installing and launching a Weave network by operating system.
 tags: ubuntu, CentOS, CoreOS, MacOS
 permalink: /guides/weave-docker-index.html

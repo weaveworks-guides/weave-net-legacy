@@ -10,19 +10,16 @@ sidebarweight: 50
 
 ---
 
-## What you will build ##
+## What You Will Build ##
 
-Weave allows you to focus on developing your application, rather than your infrastructure.
 
-In this example we will demonstrate how Weave allows you to quickly and easily deploy Nginx as
+This example demonstrates how using `Weave Net` and `Weave Run` you can deploy Nginx as
 a load balancer for a simple php application running in containers on multiple nodes in [Amazon
 Web Services](http://aws.amazon.com), with no modifications to the application and minimal docker knowledge.
 
 ![Weave, Nginx, Apache and Docker on AWS](/guides/images/2_Node_Nginx_AWS_Example.png)
 
-You will also be introduced to [WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme),
-which provides a simple way for containers to find each other using hostnames and requires no code
-changes.
+
 
 ## What you will use ##
 
@@ -32,47 +29,44 @@ changes.
 * [Ubuntu](http://ubuntu.com)
 * [Amazon Web Services](http://aws.amazon.com)
 
-## What you will need to complete this guide ##
+##Before Starting This Guide
 
-This getting started guide is self contained. You will use Weave, Docker, Nginx, Ubuntu and Amazon Web Services. We make use of the
-[Amazon Web Services (AWS) CLI tool](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) to manage and access AWS.
-You will need to have a valid [Amazon Web Services](http://aws.amazon.com) account, and the AWS CLI setup and configured before working
-through this getting started guide. Amazon provide an extensive guide on how to setup the [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html).
+Ensure the following are installed before starting this guide:
 
-* 15 minutes
-* [Git](http://git-scm.com/downloads)
-* [AWS CLI > 1.7.12 ](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
+*[Git](http://git-scm.com/downloads)
+*[Amazon Web Services (AWS) CLI tool](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) to manage and access AWS.
+*A valid [Amazon Web Services](http://aws.amazon.com) account. 
 
-## Setting up your AWS instances ##
 
-All of the code for this example is available on github, and you first clone the getting started repository.
+## Setting Up The AWS Instances ##
 
-    git clone http://github.com/weaveworks/guides
+To begin this example, clone the getting started repository:
+
+~~~bash
+    git clone https://github.com/weaveworks/guides
     cd guides/aws-nginx-ubuntu-simple
+~~~
 
-You will use the AWS CLI to setup and configure two AWS EC2 instances. For the purposes of this this getting started guide you will
-use the smallest available instances, t1.micro. We provide a script to set up your initial environment with Weave and Docker,
-installed on Ubuntu.
+To configure two AWS EC2 instances, you will use the AWS CLI. But for the purposes of this getting started guide you will use the smallest available instances, t1.micro. A script is provided to set up the initial environment with Weave and Docker, installed on Ubuntu.
 
-If you would like to manually work through these steps, and for further details on the script, please refer to the _**Manual
+To manually work through these steps, and for further details on the script, please refer to the _**Manual
 install on AWS section**_ at the end of this guide.
 
-If you get errors regarding the AMI, please set your preferred Ubuntu AMI value is the environment variable `AWS_AMI`.
+If any errors are thrown, regarding the AMI, ensure that the preferred Ubuntu AMI value is set. This is specified in the environment variable `AWS_AMI`.
 
     ./demo-aws-setup.sh
 
-This script will generate quite a lot of output, but once it is completed you will have two aws instances, running Ubuntu,
-with Weave with Docker installed. You will need the IP addresses of these instances to complete the rest of this guide. These are
-stored in an environment file `weavedemo.env` which we create during the execution of the `demo-aws-setup.sh`.
+This script will generate quite a lot of output, but once it is completed you will have two aws instances, running Ubuntu, with Weave with Docker installed. You will need the IP addresses of these instances to complete the rest of this guide. These are stored in an environment file `weavedemo.env` which we create during the execution of the `demo-aws-setup.sh`.
 
-You will see something similar to the output below when you look at the weavedemo.env file. Please note these are *not* the
-IP addresses for your demo, AWS will dynamically allocate IP addresses to your instances.
+You will see something similar to the output below when you look at the weavedemo.env file. Please note these are *not* the IP addresses for your demo, AWS dynamically allocates IP addresses to your instances.
 
+~~~bash
     cat weavedemo.env
     export WEAVE_AWS_DEMO_HOST1=52.16.63.10
     export WEAVE_AWS_DEMO_HOST2=52.16.63.7
     export WEAVE_AWS_DEMO_HOSTCOUNT=2
     export WEAVE_AWS_DEMO_HOSTS=(52.16.63.10 52.16.63.7)
+~~~
 
 If you are using a bash or similar you can just source this file to use for the rest of this guide, otherwise please
 subsititue the relevant IP address for $WEAVE_AWS_DEMO_HOST1 or 2.
@@ -98,12 +92,9 @@ The two docker containers we use in this guide were created for an [earlier gett
 
 ## Application Portability with Weave and Docker ##
 
-A key point to note is that we are using the application containers we created for our earlier example. By using WeaveDNS we do not
-have to make any changes to our containerized nginx configuration. In our earlier example we used three hosts running with vagrant,
-while in this example we will use two hosts on AWS.
+A key point to note is that we are using the application containers we created for our earlier example. By using WeaveDNS we do not have to make any changes to our containerized nginx configuration. In our earlier example we used three hosts running with vagrant, while in this example we will use two hosts on AWS.
 
-Weave and WeaveDNS allow us to easily deploy our containers to a new infrastucture and configuration with no code changes, and without
-the need to understand concepts such as ambassador containers and links.
+Weave and WeaveDNS allow us to easily deploy our containers to a new infrastucture and configuration with no code changes, and without the need to understand concepts such as ambassador containers and links.
 
 ## Starting our example ##
 

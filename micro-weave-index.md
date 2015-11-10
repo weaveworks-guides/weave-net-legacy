@@ -1,7 +1,7 @@
 ---
 layout: guides
-title: Weave & Microservices
-shorttitle: Connecting Microservices with Weave
+title: Connecting Containerized Microservices With Weave
+shorttitle: Connecting Containerized Microservices with Weave
 description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
 tags: microservices, rails, node.js, weaveworks, getting started guides
 permalink: /guides/microservices-weave-index.html
