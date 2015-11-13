@@ -21,7 +21,7 @@ In this example, you will:
 2. Run a service which Your provides a JSON message containing the date and the message `hello world`. 
 3. Query the `hello world` service from a second container using `curl`.
 
-This guide requires no programming skills. It will take about 10 minutes to complete.
+This guide requires no programming skills and takes about 10 minutes to complete.
 
 ![Weave and Docker](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/Simple_Weave.png)
 
@@ -83,18 +83,18 @@ This script:
 * launches a container with a simple hello world webserver in `weave-gs-02` (CONTAINER1) using the IP address `10.3.1.1`
 * launches a container containing `curl` which you will use to connect to CONTAINER1 on `weave-gs-01` with an IP address of `10.3.1.2`
 
-On `weave-gs-01`, a **Weave** router container was installed. On `weave-gs-02` another **Weave** router container was launched  by passing the IP address of your first host, telling **Weave** on `weave-gs-02` to create a peer with the **Weave** on `weave-gs-01`.
+On `weave-gs-01`, a **Weave** router container was installed. On `weave-gs-02` another **Weave** router container was launched  by passing the IP address of your first host. This tells **Weave** on `weave-gs-02` to create a peer with the **Weave** on `weave-gs-01`.
 
 
 ## Connecting Containers
 
-Log onto `weave-gs-01`, where the curl container in running, by typing:
+Log onto `weave-gs-01`, where the curl container is running, by typing:
 
 ~~~bash
 vagrant ssh weave-gs-01
 ~~~
 
-Connect to the container by running:
+Connect to the container:
 
 ~~~bash
 CONTAINER=$(sudo docker ps | grep weave-gs-ubuntu-curl | awk '{print $1}')
@@ -102,7 +102,7 @@ sudo docker attach $CONTAINER
 curl 10.3.1.1
 ~~~
 
-This produces output similar to the output listed below from the container on your second host. 
+This returns the following from the 'Hello World' service running on weave-gs-02:
 
 ~~~javascript
 {
