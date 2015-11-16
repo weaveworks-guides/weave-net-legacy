@@ -1,6 +1,6 @@
 ---
 layout: guides
-permalink: /guides/index.html
+permalink: /guides/index-0.html
 title: Weave & Microservices
 shorttitle: Connecting Microservices with Weave
 description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
