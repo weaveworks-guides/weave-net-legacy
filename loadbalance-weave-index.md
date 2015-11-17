@@ -1,6 +1,6 @@
 ---
 layout: guides
-title: Weave & Load Balancing
+title: Load Balancing Using Weave
 shorttitle: Load Balancing Using Weave
 description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
 tags: load balancing, round robin DNS, haproxy, weaveworks, weave network, containers, Weave Run

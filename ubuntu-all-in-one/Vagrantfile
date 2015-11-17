@@ -61,9 +61,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision "docker" do |d|
         d.pull_images "ubuntu"
         d.pull_images "nginx"
-        d.pull_images "zettio/weave"
-        d.pull_images "fintanr/weave-gs-simple-hw"
-        d.pull_images "fintanr/weave-gs-ubuntu-curl"
+        d.pull_images "weaveworks/weave"
+        d.pull_images "weaveworks/weave-gs-simple-hw"
+        d.pull_images "weaveworks/weave-gs-ubuntu-curl"
     end
     
     config.vm.provision "shell", privileged: true, inline: <<-SHELL
