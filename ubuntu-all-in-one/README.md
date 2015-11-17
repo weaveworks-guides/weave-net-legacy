@@ -1,12 +1,4 @@
 ---
-layout: guides
-shorttitle: Weave and Docker on Ubuntu-all-in-one
-title: Getting Started with Weave and Docker on Ubuntu-all-in-one
-description: Using Nginx as a reverse proxy/load balancer with Weave Net and Docker on Amazon Web Services
-tags: ubuntu, aws, ngnix, microservices, dns
-permalink: /guides/weave-docker-ubuntu-all-in-one.html
-sidebarpath: /start/wd/ubuntunall
-sidebarweight: 50
 
 ---
 
