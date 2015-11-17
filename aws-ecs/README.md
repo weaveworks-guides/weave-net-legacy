@@ -305,7 +305,7 @@ Where you will see something similar to this:
 View the IP addresses of the HTTP Servers and the Data Producers by running:
 
 ~~~bash
-    [ec2-user@ip-XXX-XXX-XXX-XXX ~]$ export DOCKER_HOST=unix:///var/run/weave.sock # Use weave-proxy
+    [ec2-user@ip-XXX-XXX-XXX-XXX ~]$ eval $(weave env) # Use weave-proxy
     [ec2-user@ip-XXX-XXX-XXX-XXX ~]$ docker run 2opremio/weaveecsdemo dig +short httpserver
     10.36.0.3
     10.32.0.3
