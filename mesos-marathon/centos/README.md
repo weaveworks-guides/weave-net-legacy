@@ -155,7 +155,7 @@ Mesos Marathon frameworks implements a management API (used by `deploy_on_marath
 
 ![Architecture Overview](/guides/images/mesos-marathon/centos/diagram-1.png)
 
-To enable Marathon to deploy tasks as Docker containers and to use Weave, there is [a configuration file](https://github.com/weaveworks/guides/blob/0b10b27f0559b8852c12b81b94034823c3816777/mesos-marathon/centos/mesos-slave-containerizers.conf) [installed](https://github.com/weaveworks/guides/blob/0b10b27f0559b8852c12b81b94034823c3816777/mesos-marathon/centos/setup_and_launch_mesos_slave.sh#L7) by Vagrant's provisioning logic which is described below. 
+To enable Marathon to deploy tasks as Docker containers and to use Weave, there is [a configuration file](https://github.com/weaveworks/guides/blob/master/mesos-marathon/centos/mesos-slave-containerizers.conf) [installed](https://github.com/weaveworks/guides/blob/0b10b27f0559b8852c12b81b94034823c3816777/mesos-marathon/centos/setup_and_launch_mesos_slave.sh#L7) by Vagrant's provisioning logic which is described below. 
 
 The following diagram shows how Weave interacts with Docker and Mesos.
 
