@@ -198,7 +198,7 @@ sleep 7 # Wait for data producers to start
 done
 ~~~
 
->*Note:* the source code shown above has been reformatted for clarity.
+>*Note:* the source code shown above has been simplified and reformatted for clarity.
 
 
 ![ECS and Weave Diagram](/guides/images/aws-ecs/ecs+weave-diagram.png)
