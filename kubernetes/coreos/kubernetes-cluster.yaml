@@ -6,6 +6,7 @@ write_files:
     owner: root
     content: |
       WEAVE_PEERS="172.17.8.101 172.17.8.102 172.17.8.103"
+      WEAVEPROXY_ARGS="--rewrite-inspect --without-dns"
       # Uncomment and make it more secure
       # WEAVE_PASSWORD="aVeryLongString"
 
@@ -132,7 +133,7 @@ coreos:
         [Service]
         EnvironmentFile=-/etc/weave.%H.env
         EnvironmentFile=-/etc/weave.env
-        ExecStartPre=/opt/bin/weave launch-proxy --rewrite-inspect --without-dns
+        ExecStartPre=/opt/bin/weave launch-proxy $WEAVEPROXY_ARGS
         ExecStart=/usr/bin/docker attach weaveproxy
         Restart=on-failure
         ExecStop=/opt/bin/weave stop-proxy
