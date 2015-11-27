@@ -128,7 +128,7 @@ Point your web browser to: `http://192.168.99.100:4040/` (or to the address disp
 >Note: If you are running containers on multiple hosts, you must launch Weave Scope onto each host. But if you are running Weave Net to network containers, you can launch Weave Scope onto one host and Weave Net, provided you have weaveDNS running will do the rest, see Launching Weave Scope When You are Using Weave Net, below. 
 
 
-##Launching Weave Scope When Using Weave Net to Connect Connect Containers
+##Launching Weave Scope When Using Weave Net to Connect Containers
 
 If you are running Weave Scope on the same machine as the Weave network, the probe uses `weaveDNS` to automatically discover other apps and containers on your network. 
 

@@ -3,7 +3,7 @@ layout: guides
 shorttitle: Using Weave Scope Cloud Service to Visualize and Monitor Docker Containers
 title: Using Weave Scope Cloud Service to Visualize and Monitor Docker Containers
 description: Use Weave Scope to monitor and visualize docker containers.
-tags: weave scope, docker containers, cluster, swarms
+tags: weave scope, docker containers visibility, cluster, swarms
 permalink: /guides/weave-scope/weave-scope-cloud-service.html
 sidebarpath: /start/weave-scope-cloud
 sidebarweight: 51
@@ -30,7 +30,7 @@ sudo scope launch --service-token=<token>
 
 >Note: If you are running Weave Net you can launch a Weave Scope probe onto one host and Weave Net, provided that you have weaveDNS running will discover the rest of the containers. 
 
-##Launching Weave Scope When Using Weave Net to Connect Connect Containers
+##Launching Weave Scope When Using Weave Net to Connect Containers
 
 If you are running Weave Scope on the same machine as the Weave network, the probe uses `weaveDNS` to automatically discover other apps and containers on your network. 
 
