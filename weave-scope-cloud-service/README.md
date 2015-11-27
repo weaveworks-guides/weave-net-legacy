@@ -30,7 +30,7 @@ sudo scope launch --service-token=<token>
 
 >Note: If you are running Weave Net you can launch a Weave Scope probe onto one host and Weave Net, provided that you have weaveDNS running will discover the rest of the containers. 
 
-##Launching Weave Scope When Using Weave Net to Connect Connect Container
+##Launching Weave Scope When Using Weave Net to Connect Connect Containers
 
 If you are running Weave Scope on the same machine as the Weave network, the probe uses `weaveDNS` to automatically discover other apps and containers on your network. 
 
