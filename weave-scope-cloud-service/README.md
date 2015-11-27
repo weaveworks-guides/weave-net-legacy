@@ -21,7 +21,7 @@ You can also run Weave Scope as a stand-alone service, where Weave Scope is run 
 
 Once you've received a service-token id, use it to launch a Weave Scope probe on every machine that you want to monitor:
 
-+~~~bash
+~~~bash
 +sudo wget -O /usr/local/bin/scope \
 +  https://github.com/weaveworks/scope/releases/download/latest_release/scope
 +sudo chmod a+x /usr/local/bin/scope
@@ -47,34 +47,33 @@ Hostnames are regularly resolved as A records, where each answer is used as a ta
 
 ##Visualizing Your Infrastructure
 
-Now that Scope is up and running, it’s time to see your infrastructure. The Scope user interface is loaded in your browser and gives you an immediate overview of your network.
+Once Weave Scope is displayed in your browser, it gives you an immediate overview of your network, and shows all of your containerized apps. 
 
-![An Overview of the App](/guides/images/weave-scope/.png)
+An Overview of the App:![An Overview of the App](/guides/images/weave-scope/weave-scope-application-layers.png)
 
-Each circle of this map represents a container in your network. The circles that are connected by a line are containers communicating with each other. Use your mouse to explore the network. When you hover over a container or a connection Scope highlights the connected containers and helps you understand the topology quicker. This is especially helpful for infrastructures with lots of containers.
+Each circle on the map represents a container in your network. Circles connected by a line are containers communicating with each other. Use your mouse to explore the network. When you hover over a container or a connection Weave Scope highlights the connected containers to help you understand the topology quicker. This is especially helpful for infrastructures with many containers.
 
-If you are looking for more information about one of the database (db) containers, click on a container with the label tns_db1_1 to view metrics about it.
+If you are looking for more information about one of the database (db) containers, click on the container with the label tns_db1_1 and view the metrics about it.
 
 Metrics of the DB Container:![Details and Metrics of the DB Container](/guides/images/weave-scope/weave-scope-database-metrics.png)
 
-The panel on the right shows basic information about the container, like the image and process name, as well as network metrics, like ingress/egress byte rates and number of TCP connections.
+The panel on the right shows basic information about the container, for example the image and process names, as well as any network metrics, like ingress/egress byte rates and also the number of TCP connections.
 
-##More Advanced Use Cases
+>Note: In this view, you can Pause, Restart, and Stop containers, and for this reason, access to your Weave Scope infrastructure visualization should be restricted to trusted individuals. 
 
-Scope works great in topologies of any size. When you get too many containers on the screen at once, you can use Scope’s grouping features to make things easier to understand. For example, in the containers view, you can click the grouping button to merge all the containers that are running the same container image together.
+##Grouping Containers
 
-Grouped Container View:![Grouped Container View](/guides/images/weave-scope/weave-scope-group-containers.png)
+Weave Scope works great in topologies of any size. When you get too many containers on the screen at once, you can use the grouping features to make things easier to understand. For example, in the containers view, click the grouping button to merge all the containers that are running the same container image together.
 
-In our stack, that means all of the db, app, and lb instances get merged together into single nodes, even when they exist across hosts. The result is a logical, rather than physical, lens on the infrastructure — something that application developers should intuitively understand. And detailed statistics are merged, too.
-These features are great for application developers, but those with a more operations-oriented background will feel right at home in the hosts view. Here, we see the physical layout of the infrastructure, as you might find in a tool like Ganglia or Squid.
+In our stack, that means all of the db, app, and lb instances get merged together into single nodes, even when they exist across hosts. The result is a logical, rather than physical, lens on the infrastructure — something that application developers should intuitively understand. And detailed statistics are also merged.
+
+These features are great for application developers, but those with a more operations-oriented background will feel right at home in the hosts view. 
 
 An Overview of all Processes Communicating![An Overview of all Processes Communicating](/guides/images/weave-scope/weave-scope-applications-view.png)
 
-A click on applications changes the map again, showing all processes communicating in your network. This is the most granular view of Scope.
+Click on applications to show all the processes communicating in your network. This is the most granular view of Weave Scope.
 
-The Applications view
-
-Scope collects information in a flexible data model, so it’s possible to visualize nearly any possible transformation of your network.
+Weave Scope collects information in a flexible data model, so it’s possible to visualize nearly any possible transformation of your network.
 
 ##Weave Scope Command Reference
 
@@ -83,7 +82,6 @@ To stop Weave Scope:
 ~~~bash
 ./weave scope stop
 ~~~
-
 
 
 ##Getting Help
