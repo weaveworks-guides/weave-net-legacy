@@ -9,28 +9,26 @@ sidebarpath: /start/weave-scope-cloud
 sidebarweight: 51
 ---
 
-Weave Scope automatically detects and monitors every host, container and process in your infrastructure, and builds a map of their inter-communications. An up-to-date view of your infrastructure in a web interface is provided for you to visualize, monitor and control your complex application topology and to identify bottlenecks and any other issues. Weave Scope does this without requiring a single change to your code or configuration, and without you having to make declarations about your infrastructure that will become out-of-date and stale.
+Weave Scope automatically detects and monitors every host, container and process in your infrastructure, builds a map showing their inter-communications and then presents an up-to-date view of your infrastructure in a web interface. You can visualize, monitor and control your distributed applications and troubleshoot bottlenecks, memory leaks or any other issues. It does this without requiring changes to your code or configuration, and without having to make declarations about your infrastructure that become out-of-date and stale. 
 
-With Weave Scope cloud service there is no need for you to run Weave Scope locally. Simply signup to the Weave Scope cloud service, obtain a secure token id, and then visualize your infrastructure from the Weaveworks website. 
+While Weave Scope works with Docker and the Weave network, neither is required. Weave Scope can be deployed to any infrastructure, and works well in all cloud and bare-metal environments.
 
 If you haven't already signed up for the cloud service, see [scope.weave.works](http://scope.weave.works) for instructions on getting started. 
-
-While Weave Scope works with docker and the Weave network, neither is required. Weave Scope monitors any infrastructure, and it works well in all cloud and bare-metal environments.
 
 You can also run Weave Scope as a stand-alone service, where Weave Scope is run locally to gain insight into your infrastructure. See, ["Using Weave Scope Standalone to Visualize and Monitor Docker Containers"](/guides/weave-scope/weave-scope-alone.html) for more information and an example on how to use it. 
 
 ##Running Weave Scope in Cloud Service Mode
 
+Once you've received a service-token id, use it to launch a Weave Scope probe on every machine that you want to monitor:
 
-To get an account for the Weave Scope service, sign up at [scope.weave.works](http://scope.weave.works). You will be sent a service token id. 
-
-To launch a probe and send reports to the Weave Scope app service, run the following command on each machine that you want to monitor:
-
-~~~bash
++~~~bash
++sudo wget -O /usr/local/bin/scope \
++  https://github.com/weaveworks/scope/releases/download/latest_release/scope
++sudo chmod a+x /usr/local/bin/scope
 sudo scope launch --service-token=<token>
 ~~~
 
->Note: If you are running containers on multiple hosts, you must launch a Weave Scope probe onto each host. But if you are running Weave Net you can launch a Weave Scope probe onto one host and Weave Net, provided you have weaveDNS running will discover the rest. 
+>Note: If you are running Weave Net you can launch a Weave Scope probe onto one host and Weave Net, provided that you have weaveDNS running will discover the rest of the containers. 
 
 ##Launching Weave Scope When Using Weave Net to Connect Connect Container
 
