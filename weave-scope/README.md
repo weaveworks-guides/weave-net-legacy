@@ -12,26 +12,30 @@ sidebarweight: 50
 
 Weave Scope automatically detects and monitors every host, container and process in your infrastructure, builds a map showing their inter-communications and then presents an up-to-date view of your infrastructure in a web interface. You can visualize, monitor and control your distributed applications and troubleshoot bottlenecks, memory leaks or any other issues. It does this without requiring changes to your code or configuration, and without having to make declarations about your infrastructure that become out-of-date and stale. 
 
-While Weave Scope works with Docker and the Weave network, neither is required. Weave Scope can be deployed to any infrastructure, and works well in all cloud and bare-metal environments.
+Weave Scope can be deployed to any infrastructure, and works well in all cloud and bare-metal environments.
 
-There are two ways in which Weave Scope can be deployed: as a standalone configuration, or if you don't want to bother with the administration yourself, you can sign up for the Weave Scope cloud service.
+##How Weave Scope is Deployed?
 
-##What is Weave Scope Cloud Service?
+Weave Scope consists of three parts: the probe, the app and the user interface. There are two ways in which Weave Scope can be deployed: as a standalone configuration, or if you don't want to bother with the administration yourself, you can sign up for the Weave Scope cloud service.
 
-The Weave Scope cloud service centrally manages and shares access to your Weave Scope user interface. With the cloud service, you run Weave Scope probes locally across your infrastructure and then monitor it from the Weaveworks website where the Weave Scope app feed visualization is hosted.
+###What is Weave Scope Cloud Service?
 
-Sign up at [scope.weave.works](http://scope.weave.works) to obtain a secure token key. Deploy Weave Scope probes with the secure token id to all of your hosts and monitor your containerized apps from the Weaveworks website any time you or management may need to.
+The Weave Scope cloud service manages and shares access to your Weave Scope user interface. With the cloud service, Weave Scope probes are run locally on your machines, whereas the app and the user interface are hosted on the Weave Scope cloud service. Infrastructure is monitored in a browser from the [scope.weave.works](http://scope.weave.works) website.
 
-##What is Weave Scope Standalone?
+Sign up at [scope.weave.works](http://scope.weave.works) to obtain a secure service token. 
 
-In standalone mode, Weave Scope probes are deployed locally and the Weave Scope app is launched in a browser to gain instant insight into your infrastructure.
+###What is Weave Scope Standalone?
 
-This tutorial demonstrates how to use Weave Scope standalone, where you will: 
+In standalone mode, all Weave Scope components are run locally: the probes and the app are deployed to your machines, and then the user interface is displayed in your browser to view the infrastructure setup.
+
+##About This Guide
+
+This guide demonstrates how to launch and use Weave Scope in standalone mode. You will: 
 
 1. Deploy a 3-tiered web application stack, consisting of a pool of data services, a set of custom application servers and a load balancing layer. 
-2. Launch Weave Scope to visualize and monitor containers and to return useful intelligence. 
+2. Launch Weave Scope to visualize and monitor containers and return useful intelligence. 
 
-This guide takes about 15 minutes to complete and while some UNIX skills are required, it does not require any programming skills to complete. 
+This tutorial takes about 15 minutes to complete and while some UNIX skills are required, it does not require any programming skills to complete. 
 
 
 ##What You Will Use
@@ -68,7 +72,7 @@ docker-machine ssh weave-scope-demo
 
 ###Deploying the Sample Application
 
-To demonstrate Weave Scope in stand-alone mode, you will deploy an example application with Docker Compose. This example uses a single host, but keep in mind that Weave Scope works across on multiple hosts, or even across data centers and cloud providers.
+To demonstrate Weave Scope in stand-alone mode, you will deploy an example application using Docker Compose. This example uses a single host, but keep in mind that Weave Scope works across on multiple hosts, or even across data centers and cloud providers.
 
 Install Docker and Docker Compose onto the VM by running:
 
@@ -109,8 +113,6 @@ app-60fbe0a31aee9526385d8e5b44d46afb via http://db2:9000
 db-e68d33ceeddbb77f4e36a447513367e8 OK
 ~~~
 
-With just a few commands, you've deployed a three-tier application stack into seven containers. 
-
 ###Launching Weave Scope
 
 With the sample app up and running, you are ready to install and launch Weave Scope:
@@ -124,15 +126,11 @@ sudo scope launch
 
 Point your web browser to: `http://192.168.99.100:4040/` (or to the address displayed to you in the terminal window after Weave Scope was launched).
 
-
->Note: If you are running containers on multiple hosts, you must launch Weave Scope onto each host. But if you are running Weave Net to network containers, you can launch Weave Scope onto one host and Weave Net, provided you have weaveDNS running will do the rest, see Launching Weave Scope When You are Using Weave Net, below. 
-
-
 ##Launching Weave Scope When Using Weave Net to Connect Containers
 
-If you are running Weave Scope on the same machine as the Weave network, the probe uses `weaveDNS` to automatically discover other apps and containers on your network. 
+If you are running Weave Scope on the same machine as a Weave network, Weave Scope uses `weaveDNS` to discover other instances of Weave Scope. 
 
-Weave Scope registers itself using the address `scope.weave.local`. Each probe then, sends its report to every app registered under this address. In other words, if you are running Weave Net with DNS, you do not need to take any further steps. Launch once and Weave Net takes care of the rest. 
+Weave Scope registers itself using the address `scope.weave.local`. Each probe then, sends its report to every app registered under this address. In other words, if you are running Weave Net with DNS, you do not need to take any further steps. 
 
 If you don't want to use weaveDNS, you can instruct Weave Scope to cluster with other Weave Scope instances on the command line. Hostnames and IP addresses are acceptable, both with and without ports, for example:
 
@@ -142,39 +140,48 @@ scope launch scope1:4030 192.168.0.12 192.168.0.11:4030
 
 Hostnames are regularly resolved as A records, where each answer is used as a target.
 
-##Visualizing Your Infrastructure
+`scope launch` prints out the URLs to which you can point your browser and display the user interface.
 
-Once Weave Scope is displayed in your browser, it gives you an immediate overview of your network, and shows all of your containerized apps. 
+##Visualizing Infrastructure
 
-An Overview of the App:![An Overview of the App](/guides/images/weave-scope/weave-scope-application-layers.png)
+Once Weave Scope is displayed in your browser, an immediate overview of the infrastructure is displayed, including any running containers. The Weave Scope view is presented in an order with clients generally placed above servers. Read a Weave Scope view by going from top to bottom.
 
-Each circle on the map represents a container in your network. Circles connected by a line are containers communicating with each other. Use your mouse to explore the network. When you hover over a container or a connection Weave Scope highlights the connected containers to help you understand the topology quicker. This is especially helpful for infrastructures with many containers.
+**An Overview of Application Layers:**![An Overview of the App](/guides/images/weave-scope/weave-scope-application-layers.png)
 
-If you are looking for more information about one of the database (db) containers, click on the container with the label tns_db1_1 and view the metrics about it.
+A node within the View that is connected by a line represents a connection between containers. To help you understand the connections in your view, hover over a container or a connection to highlight all connected containers. This is especially useful for infrastructures that use a lot of containers.
 
-Metrics of the DB Container:![Details and Metrics of the DB Container](/guides/images/weave-scope/weave-scope-database-metrics.png)
+##Viewing Metrics
 
-The panel on the right shows basic information about the container, for example the image and process names, as well as any network metrics, like ingress/egress byte rates and also the number of TCP connections.
+Metrics about a node are displayed by clicking on a node in the Weave Scope view.  For example, to examine the metrics about one of the database (db) containers in this example, click on the node with the label tns_db1_1.
 
->Note: In this view, you can Pause, Restart, and Stop containers, and for this reason, access to your Weave Scope infrastructure visualization should be restricted to trusted individuals. 
+**Metrics of the DB Container**:![Details and Metrics of the DB Container](/guides/images/weave-scope/weave-scope-database-metrics.png)
 
-##More Advanced Use Cases
+The panel on the right shows information about the database, such as the image and process names, sparklines displaying memory consumption and peformance, as well as network metrics like the number of TCP connections.
 
-Weave Scope works great in topologies of any size, but if there are too many containers on the screen at once, you can use Weave Scope’s grouping features to make things easier to understand. In the Containers view, click the Image button to merge all containers running on the same host together.
+>Note: In this view, you can Pause, Restart, and Stop containers, and for this reason, access to the Weave Scope user interface should be restricted to trusted individuals. 
 
-Grouped Container View:![Grouped Container View](/guides/images/weave-scope/weave-scope-group-containers.png)
+##Grouping By Containers or Hosts
 
-In our stack, all of the db, app, and lb instances get merged together into single nodes, even when they exist across hosts. The result is a logical, rather than physical, lens on the infrastructure — something that application developers intuitively understand. Detailed statistics are also merged.
+Weave Scope works great for infrastructures of any size, but if there are too many containers on the screen at once for you to manage, use Weave Scope’s grouping features to make the view easier to understand. In the Containers view, click the Image button to merge all containers running on the same host together.
 
-These features are great for application developers, but those with a more operations-oriented background will feel right at home in the hosts view, where you can see the physical layout of the infrastructure, as you might find in a tool like Ganglia or Squid.
+**Grouped Container View:**![Grouped Container View](/guides/images/weave-scope/weave-scope-group-containers.png)
 
-Click on Applications to show all processes communicating in your network. This is the most granular view of Scope.
+All db, app, and lb instances are merged together into single nodes, even when they exist across hosts. This is a logical, rather than a physical lens on the infrastructure — something that application developers intuitively understand. Detailed statistics are also merged.
 
-An Overview of all Processes Communicating![An Overview of all Processes Communicating](/guides/images/weave-scope/weave-scope-applications-view.png)
+The logical view is useful for application developers, but for those with a more operations-oriented background,  a `Hosts` view is also provided that displays a standard physical layout of the infrastructure.
 
-Scope collects information in a flexible data model, and therefor it is possible to visualize nearly all possible transformations on your network.
+Click on `Applications` to show all processes communicating in your network. This is the most granular view of Weave Scope. Weave Scope collects information in a flexible data model, which makes it possible to visualize nearly all possible transformations of your infrastructure setup.
 
-##Stopping Weave Scope and Other Weave Scope Commands
+**An Overview of all Processes Communicating:**![An Overview of all Processes Communicating](/guides/images/weave-scope/weave-scope-applications-view.png)
+
+
+##Stopping Weave Scope
+
+To stop Weave Scope: 
+
+~~~bash
+./weave scope stop
+~~~
 
 
 ##Conclusions
