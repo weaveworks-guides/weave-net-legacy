@@ -54,6 +54,8 @@ Metrics about a node are displayed by clicking on a node in the Weave Scope view
 
 Weave Scope works great in topologies of any size, but if there are too many nodes in the view at once, you can use the grouping features to make the view simpler to understand. For example, in the containers view, click the `By Image` button to merge all the containers that are running the same container image together.
 
+**Grouped Container View:**![Grouped Container View](/guides/images/weave-scope/weave-scope-group-containers.png)
+
 In our stack all instances get merged together into single nodes, even when they exist across hosts. The result is a logical, rather than physical, lens on the infrastructure — something that application developers intuitively understand. 
 
 Grouping all instances and applications are great for application developers, but for those who have a more operations-oriented background, there is also the option to group `By HOST`. 
@@ -76,6 +78,6 @@ To stop Weave Scope:
 
 ##Getting Help
 
-If you encounnter any problems with this application or documentation or you would like to get in touch, contact us via [Help and Support](http://weave.works/help/index.html).
+If you encounter any problems with this application or documentation or you would like to get in touch, contact us via [Help and Support](http://weave.works/help/index.html).
 
 
