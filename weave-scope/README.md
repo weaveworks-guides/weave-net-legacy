@@ -2,9 +2,9 @@
 layout: guides
 shorttitle: Using Weave Scope Standalone to Visualize and Monitor Docker Containers
 title: Using Weave Scope Standalone to Visualize and Monitor Docker Containers
-description: Use Weave Scope to monitor and visualize docker container clusters and swarms.
+description: How to use Weave Scope to monitor and visualize docker container clusters and swarms.
 tags: weave scope, docker container visibillity, cluster, swarms
-permalink: /guides/weave-scope/weave-scope-alone.html
+permalink: /guides/weave-scope/weave-scope-alone-monitor-containers.html
 sidebarpath: /start/weave-scope-alone
 sidebarweight: 50
 ---
