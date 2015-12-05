@@ -2,9 +2,9 @@
 layout: guides
 shorttitle: Using Weave Scope Cloud Service to Visualize and Monitor Docker Containers
 title: Using Weave Scope Cloud Service to Visualize and Monitor Docker Containers
-description: Use Weave Scope to monitor and visualize docker containers.
+description: How to use Weave Scope cloud service to monitor and visualize docker containers.
 tags: weave scope, docker containers visibility, cluster, swarms
-permalink: /guides/weave-scope/weave-scope-cloud-service.html
+permalink: /guides/weave-scope/weave-scope-cloud-service-monitor-containers.html
 sidebarpath: /start/weave-scope-cloud
 sidebarweight: 51
 ---
@@ -19,11 +19,22 @@ You can also launch Weave Scope as a stand-alone service, and run Weave Scope lo
 
 ##Signing Up With Weave Scope Cloud Service
 
-To register with Weave Scope cloud service, go to [scope.weave.works](http://scope.weave.works),  enter your email address and wait to receive a cloud service token.
+To register with Weave Scope cloud service, go to [scope.weave.works](http://scope.weave.works), enter your email address and wait for a confirmation email and a cloud service token.
+
+>*Note*: Candidates for the Early Access Program are evaluated on a case per case basis. It may take a few days before you receive a confirmation email. To accelerate the process, please send an email to `help@weave.works` which explains your use-case.
+
+![`Weave Scope` early access form](/guides/images/aws-ecs/scope-early-access.png)
+
+
+Once received, the cloud service token will be accessible from Weave Scope cloud service after you've logged in:
+
+![`Weave Scope` main page](/guides/images/aws-ecs/scope-cloud-main-page.png)
+
+From the example above, the service token is `3hud3h6ys3jhg9bq66n8xxa4b147dt5z`
 
 ##Running Weave Scope in Cloud Service Mode
 
-Once you've received a cloud service token, use it to launch a Weave Scope probe onto every machine that you want to monitor:
+Use the cloud service token to launch a Weave Scope probe onto every machine that you want to monitor:
 
 ~~~bash
 +sudo wget -O /usr/local/bin/scope \
