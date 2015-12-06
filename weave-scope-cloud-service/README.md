@@ -25,7 +25,6 @@ To register with Weave Scope cloud service, go to [scope.weave.works](http://sco
 
 ![`Weave Scope` early access form](/guides/images/aws-ecs/scope-early-access.png)
 
-
 Once received, the cloud service token will be accessible from Weave Scope cloud service after you've logged in:
 
 ![`Weave Scope` main page](/guides/images/aws-ecs/scope-cloud-main-page.png)
@@ -53,7 +52,7 @@ Weave Scope presents all nodes in a particular order, and presents all clients a
 
 **An Overview of the App:**![An Overview of the App](/guides/images/weave-scope/weave-scope-application-layers.png)
 
-A node connected by a line represents a connection between containers. To help you understand the connections in your view, hover over a container or a connection to highlight all connected containers. This is especially useful for infrastructures that use a lot of containers.
+A line between two nodes within the view represents a connection between containers. To help you understand the connections in your view, hover over a container or a connection to highlight all connected containers. This is especially useful for infrastructures that use a lot of containers.
 
 ##Viewing Metrics
 
@@ -83,7 +82,7 @@ Weave Scope collects information in a very flexible data model, so that you can 
 To stop Weave Scope: 
 
 ~~~bash
-./weave scope stop
+sudo weave scope stop
 ~~~
 
 

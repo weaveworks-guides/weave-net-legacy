@@ -148,7 +148,7 @@ Once Weave Scope is launched in your browser, an immediate overview of the infra
 
 **An Overview of Application Layers:**![An Overview of the App](/guides/images/weave-scope/weave-scope-application-layers.png)
 
-A node within the View that is connected by a line represents a connection between containers. To help you understand the connections in your view, hover over a container or a connection to highlight all connected containers. This is especially useful for infrastructures that use a lot of containers.
+A line between two nodes within the view represents a connection between containers. To help you understand the connections in your view, hover over a container or a connection to highlight all connected containers. This is especially useful for infrastructures that use a lot of containers.
 
 ##Viewing Metrics
 
@@ -180,7 +180,7 @@ Click on `Applications` to show all processes communicating in your network. Thi
 To stop Weave Scope: 
 
 ~~~bash
-./weave scope stop
+sudo weave scope stop
 ~~~
 
 
