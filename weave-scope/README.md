@@ -144,11 +144,11 @@ Hostnames are regularly resolved as A records, where each answer is used as a ta
 
 ##Visualizing Infrastructure
 
-Once Weave Scope is displayed in your browser, an immediate overview of the infrastructure is displayed, including any running containers. The Weave Scope view is presented in an order with clients generally placed above servers. Read a Weave Scope view by going from top to bottom.
+Once Weave Scope is launched in your browser, an immediate overview of the infrastructure is displayed, including any running containers. The Weave Scope view is presented in an order with clients generally placed above servers. Read a Weave Scope view by going from top to bottom.
 
 **An Overview of Application Layers:**![An Overview of the App](/guides/images/weave-scope/weave-scope-application-layers.png)
 
-A node within the View that is connected by a line represents a connection between containers. To help you understand the connections in your view, hover over a container or a connection to highlight all connected containers. This is especially useful for infrastructures that use a lot of containers.
+A line between two nodes within the view represents a connection between containers. To help you understand the connections in your view, hover over a container or a connection to highlight all connected containers. This is especially useful for infrastructures that use a lot of containers.
 
 ##Viewing Metrics
 
@@ -180,7 +180,7 @@ Click on `Applications` to show all processes communicating in your network. Thi
 To stop Weave Scope: 
 
 ~~~bash
-./weave scope stop
+sudo weave scope stop
 ~~~
 
 
