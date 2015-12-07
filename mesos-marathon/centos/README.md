@@ -1,24 +1,21 @@
 ---
 layout: guides
-title: "Using Weave with Apache Mesos & Marathon on CentOS"
+title: Setting Up and Networking Clusters with Weave and Apache Mesos & Marathon on CentOS
 description:
   How-to use Weave Net & Weave Run with Apache Mesos & Marathon for DNS service discovery
   and load balancing.
 tags: mesos, marathon, load-balancing, dns, centos, weaveworks, weave network
 permalink: /guides/platform/mesos-marathon/os/centos/cloud/vagrant/index.html
 
-shorttitle: Using Weave with Apache Mesos & Marathon
+shorttitle: Setting Up and Networking Clusters with Weave and Apache Mesos & Marathon on CentOS
 sidebarpath: /start/mesos
 sidebarweight: 45
 ---
 
 ## What You Will Build
 
-Weave provides a software network that is optimized for visualizing and communicating with apps scattered within Docker containers. Using tools and protocols that are familiar to you, Weave provides the network topology that allows you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
 
-This example describes how to setup a Weave Network using a cluster manager, specifically, within the Apache Mesos & Marathon environment. For more details on the Apache Mesos and its application manager, Marathon, see the [Apache Mesos Docs](http://mesos.apache.org/documentation/latest/) and the [Marathon Docs](https://mesosphere.github.io/marathon/).
-
-In particular, read about load-balancing in [Weave Run](/run) and the usage of the [Docker API proxy](http://docs.weave.works/weave/latest_release/proxy.html) with Mesos.
+This example explains how to set up a Weave network to connect containers with the Apache Mesos & Marathon cluster manager. For more details on the Apache Mesos and its application manager, Marathon, see the [Apache Mesos Docs](http://mesos.apache.org/documentation/latest/) and the [Marathon Docs](https://mesosphere.github.io/marathon/).
 
 In this self-contained tutorial, you will:
 
@@ -27,12 +24,16 @@ In this self-contained tutorial, you will:
 3. Set up and configure [Apache Mesos & Marathon](https://mesosphere.github.io/marathon/)
 4. Deploy and test a simple web app.
 
-## Let's go!
+This example requires no programming, but does assume some UNIX skills. It will take about 10 minutes to complete. 
 
-Before you begin, please ensure the following are installed:
+##Before You Begin
+
+Please ensure the following are installed:
 
 * [Git](http://git-scm.com/downloads)
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
+
+##Setting up the VMs and Configuring the Apache Zookeeper
 
 First, clone the repo and then run the vagrant script:
 

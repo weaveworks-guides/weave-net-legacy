@@ -1,11 +1,11 @@
 ---
 layout: guides
-title: Getting Started with Weave and Docker on CentOS
+title: Networking Docker Containers with Weave on CentOS
 description: Use Weave on CentOS to communicate with your containerized applications regardless of the host. 
 tags: vagrant, centos, apache, php, weave network, weave run
 permalink: /guides/weave-docker-centos-simple.html
 
-shorttitle: Getting Started with Weave & Docker on CentOS
+shorttitle: Networking Docker Containers with Weave on CentOS
 sidebarpath: /start/wd/centos
 sidebarweight: 15
 ---
