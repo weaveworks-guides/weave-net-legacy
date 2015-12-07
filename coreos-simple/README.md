@@ -1,11 +1,11 @@
 ---
 layout: guides
-title: Getting Started with Weave and Docker on CoreOS
+title: Networking Docker Containers with Weave on CoreOS
 description: How to use a Weave network on CoreOS to communicate with your containerized applications regardless of the host. 
 tags: vagrant, coreOS, apache, dns, weave network, weave run
 permalink: /guides/weave-docker-coreos-simple.html
 
-shorttitle: Getting Started with Weave & Docker on CoreOS
+shorttitle: Networking Docker Containers with Weave on CoreOS
 sidebarpath: /start/wd/coreos
 sidebarweight: 15
 ---
