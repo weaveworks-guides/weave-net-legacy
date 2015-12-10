@@ -82,7 +82,7 @@ Weave Scope collects information in a very flexible data model, so that you can 
 To stop Weave Scope: 
 
 ~~~bash
-sudo weave scope stop
+sudo scope stop
 ~~~
 
 
