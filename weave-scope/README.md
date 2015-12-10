@@ -18,13 +18,13 @@ Weave Scope can be deployed to any infrastructure, and works well in all cloud a
 
 Weave Scope consists of three parts: the probe, the app and the user interface. There are two ways in which Weave Scope can be deployed: as a standalone configuration, or if you don't want to bother with the administration yourself, you can sign up for the Weave Scope cloud service.
 
-###What is Weave Scope Cloud Service?
+###Weave Scope Cloud Service
 
 The Weave Scope cloud service manages and shares access to your Weave Scope user interface. With the cloud service, Weave Scope probes are run locally on your machines, whereas the app and the user interface are hosted on the Weave Scope cloud service. Infrastructure is monitored in a browser from the [scope.weave.works](http://scope.weave.works) website.
 
 Sign up at [scope.weave.works](http://scope.weave.works) to obtain a secure service token. 
 
-###What is Weave Scope Standalone?
+###Weave Scope Standalone
 
 In standalone mode, all Weave Scope components are run locally: the probes and the app are deployed to your machines, and then the user interface is displayed in your browser to view the infrastructure setup.
 
@@ -180,7 +180,7 @@ Click on `Applications` to show all processes communicating in your network. Thi
 To stop Weave Scope: 
 
 ~~~bash
-sudo weave scope stop
+sudo scope stop
 ~~~
 
 

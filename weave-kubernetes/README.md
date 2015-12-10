@@ -11,8 +11,6 @@ sidebarweight: 55
 
 This example demonstrates how a Weave network integrates with Google Kubernetes clusters on CoreOS in the Microsoft Azure cloud management system.
 
-Weave is a software network optimized for visualizing and communicating with apps distributed among Docker containers. Using tools and protocols that are familiar to you, Weave's network enables you to communicate between containerized apps distributed across multiple networks or hosts quickly and efficiently.
-
 [Kubernetes](http://kubernetes.io/v1.0/docs/user-guide/overview.html) is an open source container cluster manager built by Google. It allows you to manage multiple clusters of containers between hosts.
 
 Without Weave, implementing simple networking for your app across Kubernetes clusters can be involved. Because Docker containers can only communicate with each other if they reside on the same host, individual host subnets must be privately allocated for each node. To ensure that there are no collisions on the network, some ports used by your app may also need to be mapped.
@@ -71,7 +69,8 @@ sudo npm install
 
 Next log into Azure and run the kubernetes script to set up the cluster:
 
-&gt;Note: You may have to interactively log in. Please follow the instructions presented on the screen.
+>Note: You may have to interactively log in. Please follow the instructions presented on the screen.
+ 
 ~~~bash
 ./azure-login.js -u
 ./create-kubernetes-cluster.js

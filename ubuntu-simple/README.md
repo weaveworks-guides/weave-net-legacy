@@ -1,11 +1,11 @@
 ---
 layout: guides
-title: Getting Started with Weave and Docker on Ubuntu
+title: Networking Docker Containers with Weave on Ubuntu
 description: How to manage containers with a Weave network across hosts.
 tags: vagrant, ubuntu, apache, php
 permalink: /guides/weave-docker-ubuntu-simple.html
 
-shorttitle: Getting Started with Weave & Docker on Ubuntu
+shorttitle: Networking Docker Containers with Weave on Ubuntu
 sidebarpath: /start/wd/ubuntu
 sidebarweight: 15
 
