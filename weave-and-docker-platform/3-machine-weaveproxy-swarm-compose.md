@@ -109,15 +109,15 @@ Run `docker-compose ps` to show the two deployed containers:
     Name                  Command               State               Ports
     -------------------------------------------------------------------------------------
     app_redis_1   /w/w /entrypoint.sh redis- ...   Up      6379/tcp
-    app_web_1     /w/w python app.py               Up      192.168.99.131:32768->5000/tcp
+    app_web_1     /w/w python app.py               Up      192.168.99.131:80->5000/tcp
 
-Test the containers with `curl` using the IP/port listed above:
+Test the containers with `curl` using the IP listed above:
 
-    > curl 192.168.99.131:32768
+    > curl 192.168.99.131
     Hello World! I have been seen 1 times.
-    > curl 192.168.99.131:32768
+    > curl 192.168.99.131
     Hello World! I have been seen 2 times.
-    > curl 192.168.99.131:32768
+    > curl 192.168.99.131
     Hello World! I have been seen 3 times.
 
 ### Scale
@@ -136,16 +136,16 @@ Next run `docker-compose ps` to see that all 3 VMs are now running the web servi
     Name                  Command               State               Ports
     -------------------------------------------------------------------------------------
     app_redis_1   /w/w /entrypoint.sh redis- ...   Up      6379/tcp
-    app_web_1     /w/w python app.py               Up      192.168.99.131:32768->5000/tcp
-    app_web_2     /w/w python app.py               Up      192.168.99.129:32768->5000/tcp
-    app_web_3     /w/w python app.py               Up      192.168.99.130:32768->5000/tcp
+    app_web_1     /w/w python app.py               Up      192.168.99.131:80->5000/tcp
+    app_web_2     /w/w python app.py               Up      192.168.99.129:80->5000/tcp
+    app_web_3     /w/w python app.py               Up      192.168.99.130:80->5000/tcp
 
 
 Test each of these instances with `curl` using IP/port listed above:
 
-    > curl 192.168.99.129:32768
+    > curl 192.168.99.129
     Hello World! I have been seen 4 times.
-    > curl 192.168.99.130:32768
+    > curl 192.168.99.130
     Hello World! I have been seen 5 times.
 
 We have just deployed and scaled-up our simple app using Weave, Swarm and Compose!
