@@ -57,9 +57,9 @@ cd ./guides/centos-simple
 vagrant up
 ~~~
 
-Vagrant pulls down and configures a CentOS image. This may take a few minutes depending on  the speed of your network connection. For more details on Vagrant please refer to the [Vagrant Documentation](http://vagrantup.com).
+Vagrant pulls down and configures a CentOS image. This may take a few minutes depending on the speed of your network connection. For information about Vagrant refer to the [Vagrant Documentation](http://vagrantup.com).
 
-You may be prompted for a password when `/etc/hosts` is being updated during the Vagrant setup, please just hit return at this point.
+You may be prompted for a password when `/etc/hosts` is being updated during the Vagrant setup, just hit return at this point.
 
 Once the hosts are set up, check their status using:
 
@@ -92,7 +92,7 @@ root@weave-gs-01:~# curl -L git.io/weave -o /usr/local/bin/weave
 root@weave-gs-01:~# chmod a+x /usr/local/bin/weave
 ~~~~
 
-We provide the commands to install Weave as part of this getting started guide, but in practice this step would be automated.
+We provide the commands to install Weave as part of this getting started guide, but in practice these steps would be automated.
 
 ## Launching Weave
 
@@ -110,53 +110,54 @@ The two hosts are now connected to each other, and any subsequent containers lau
 
 ### What Just Happened?
 
-Since this is the first time launching Weave you have:
+Since this is the first time launching Weave you have downloaded several docker images containing the Weave components: Weave Router, WeaveDNS, Weave Docker API Proxy and the Docker Network Plugin.
 
-* downloaded a docker image containing all three Weave components: Weave Router, WeaveDNS, and the Weave Docker API Proxy
-* launched them into 2 containers (Weave Router and WeaveDNS are launched together)
+
+>Note: See [Weave Plugin](http://docs.weave.works/weave/latest_release/plugin.html) for information on configuring and setting this up. 
 
 On the first host, `weave-gs-01`, you launched a Weave router container. On the second host, `weave-gs-02`, you launched another Weave router container using the IP address of your first host. This command tells the Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
 
-At this point you have two containers running on each host, which you can see from docker. On either host run to view the Weave containers:
+At this point you have Weave containers running on each host, which you can see from docker by running the following from either host: 
 
     docker ps
 
 where you will see something similar to the following:
 
 ~~~bash
-CONTAINER ID        IMAGE                         COMMAND                CREATED             STATUS              PORTS  
-f73bc94b0aae        weaveworks/weaveexec:v1.1.0   "/home/weave/weavepr   5 seconds ago       Up 4 seconds                                                                                                     weaveproxy          
-85b690712b05        weaveworks/weave:v1.1.0       "/home/weave/weaver    7 seconds ago       Up 6 seconds        0.0.0.0:6783->6783/udp, 0.0.0.0:6783->6783/tcp, 10.1.42.1:53->53/tcp, 10.1.42.1:53->53/udp   weave               
+5175974bf5ef        weaveworks/weaveexec:1.4.1   "/home/weave/weavepro"   19 seconds ago      Up 17 seconds                           weaveproxy
+5abd69d62682        weaveworks/weave:1.4.1       "/home/weave/weaver -"   20 seconds ago      Up 18 seconds                           weave
 ~~~
 
-View the peered network by running `weave status`:
+Run `weave status` to view the peered hosts:
 
 ~~~bash
     $ weave status
 
-      Version: v1.1.0
+ Version: 1.4.1
 
-       Service: router
-      Protocol: weave 1..2
-          Name: de:df:fc:24:72:69(weave-gs-02)
-    Encryption: disabled
- PeerDiscovery: enabled
-       Targets: 1
-   Connections: 1 (1 established)
-         Peers: 2 (with 2 established connections between them)
+        Service: router
+       Protocol: weave 1..2
+           Name: e2:de:2e:93:9d:96(weave-gs-02)
+     Encryption: disabled
+  PeerDiscovery: enabled
+        Targets: 1
+    Connections: 1 (1 established)
+          Peers: 2 (with 2 established connections)
+ TrustedSubnets: none
 
-       Service: ipam
-     Consensus: deferred
-         Range: 10.32.0.0-10.47.255.255
- DefaultSubnet: 10.32.0.0/12
+        Service: ipam
+         Status: idle
+          Range: 10.32.0.0-10.47.255.255
+  DefaultSubnet: 10.32.0.0/12
 
-       Service: dns
-        Domain: weave.local.
-           TTL: 1
-       Entries: 0
+        Service: dns
+         Domain: weave.local.
+       Upstream: 10.0.2.3
+            TTL: 1
+        Entries: 0
 
-       Service: proxy
-       Address: unix:///var/run/weave.sock
+        Service: proxy
+        Address: unix:///var/run/weave/weave.sock
 ~~~
 
 ##Deploying the _'Hello, Weave!'_ Service
@@ -220,4 +221,5 @@ You can adapt this example and use it as a template for your own implementation.
 
  * [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
  * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
+ * [Weave Plugin](http://docs.weave.works/weave/latest_release/plugin.html)
 
