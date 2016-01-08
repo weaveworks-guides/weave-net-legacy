@@ -10,11 +10,7 @@ sidebarpath: /start/wd/centos
 sidebarweight: 15
 ---
 
-{% include product-vars %}
-
-## What you will build ##
-
-This example demonstrates how to deploy `Weave Net` and then use `Weave Run` to discover containers on your network. 
+In this example you will use `Weave Net` to provide nework connectivity and service discovery using the [`weavedns service`](http://docs.weave.works/weave/latest_release/weavedns.html). 
 
 In this example:
 
@@ -100,11 +96,15 @@ Next start Weave on each host:
 
 On host `weave-gs-01`
 
+~~~bash
      weave launch
+~~~
 
 On host `weave-gs-02`
 
+~~~bash
     weave launch 172.17.8.101
+~~~
 
 The two hosts are now connected to each other, and any subsequent containers launched on to the Weave network will be visible to any other containers that Weave is aware of.
 
@@ -112,15 +112,14 @@ The two hosts are now connected to each other, and any subsequent containers lau
 
 Since this is the first time launching Weave you have downloaded several docker images containing the Weave components: Weave Router, WeaveDNS, Weave Docker API Proxy and the Docker Network Plugin.
 
-
 >Note: See [Weave Plugin](http://docs.weave.works/weave/latest_release/plugin.html) for information on configuring and setting this up. 
 
 On the first host, `weave-gs-01`, you launched a Weave router container. On the second host, `weave-gs-02`, you launched another Weave router container using the IP address of your first host. This command tells the Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
 
 At this point you have Weave containers running on each host, which you can see from docker by running the following from either host: 
-
+~~~bash
     docker ps
-
+~~~
 where you will see something similar to the following:
 
 ~~~bash
@@ -166,7 +165,9 @@ Next you will use Weave to run a Docker image containing an Apache webserver.  D
 
 On `weave-gs-01` run
 
+~~~bash
     weave run 10.0.1.1/24 -t -i weaveworks/weave-gs-centos-hw
+~~~~
 
 You should now have an Apache server running in a Docker container.
 
@@ -181,16 +182,21 @@ The container is registered with `WeaveDNS` and is accessible to other container
 Next, create a container on your second host and connect to the webserver in the container on our first host. 
 
 On `weave-gs-02` run:
-
+~~~bash
     CONTAINER=`weave run 10.0.1.2/24 -t -i weaveworks/weave-gs-centos-bash`
+~~~
 
 Attach to the docker container using the `CONTAINER` value we captured earlier, and then run a curl command to connect to your hello world service.
 
+~~~bash
     docker attach $CONTAINER
-    
+~~~
+
 Press return 
 
+~~~bash
     curl http://10.0.1.1
+~~~
 
 And you will see the following JSON message returned:
 
@@ -213,7 +219,7 @@ Vagrant destroy
 
 ## Conclusions ##
 
-In this example, we deployed a simple application, that returns a message from a running Apache webserver. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using `Weave Run`, so that applications within containers can communicate with one another. 
+In this example, we deployed a simple application, that returns a message from a running Apache webserver. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using `Weave Net` and its `weavedns` service, so that applications within containers can communicate with one another. 
 
 You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 
@@ -222,4 +228,4 @@ You can adapt this example and use it as a template for your own implementation.
  * [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
  * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
  * [Weave Plugin](http://docs.weave.works/weave/latest_release/plugin.html)
-
+ * [`weavedns service`](http://docs.weave.works/weave/latest_release/weavedns.html)
