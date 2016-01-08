@@ -146,7 +146,7 @@ Follow the same steps for `weave-3` as you did for `weave-2` above.
 
 ##Setting up Swarm Agents Against `weaveproxy`
 
-This next step is a necessary work-around to a reported Docker Machine issue, which we will refrain from covering in detail. Refer to  [issue #1334 in Docker Machine](https://github.com/docker/machine/issues/1334) for more information.  In short, the swarm agents are restarted with a new discovery token and then registered to TCP port 12375 for `weaveproxy`. The following script [`scripts/3-replace-swarm-agents.sh`][step3] describes this process in more detail.
+This next step is a necessary work-around to a reported Docker Machine issue, which we will refrain from covering in detail. Refer to  [issue #1334 in Docker Machine](https://github.com/docker/machine/issues/1334) for more information.  In short, the swarm agents are restarted with a new discovery token and then registered to TCP port 12375 for `Docker API Proxy`. The following script [`scripts/3-replace-swarm-agents.sh`][step3] describes this process in more detail.
 
 ##Putting it All Together
 
