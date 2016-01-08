@@ -13,10 +13,6 @@ sidebarpath: /start/micro/ruby
 sidebarweight: 45
 ---
 
-
-## What You Will Build ##
-
-
 In this example you will set up a simple, containerized deployment of a Ruby on Rails application, backed by a PostgreSQL database. WeaveDNS will then discover all containers on the network without any code changes. 
 
 Specifically, you will: 

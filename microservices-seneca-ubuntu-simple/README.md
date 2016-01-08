@@ -9,9 +9,6 @@ sidebarpath: /start/micro/nodeubuntu
 sidebarweight: 50
 ---
 
-## What you will build ##
-
-
 This example demonstrates how to create a containerized set of microservices built with [Node.js](http://nodejs.org), and the microservices toolkit for Node.js, [Seneca](http://senecajs.org/).
 
 The example is derived from the Seneca microservices example and is available on 
@@ -57,8 +54,7 @@ A formal definition is hard to come by, but the definitions we have found to be 
 
 A common thread throughout all of these definitions is that of small simple services that do one thing very well, and which can be easily combined together. People frequently cite [The Unix Philosophy](http://en.wikipedia.org/wiki/Unix_philosophy) of "small, composable tools" when describing a Microservices architecture.
 
-A discussion on why you should use Microservices is beyond the scope of this guide. For more information see the
-articles and presentations by [Martin Fowler and James Lewis](http://martinfowler.com/articles/microservices.html), [Adrian Cockcroft](http://www.slideshare.net/adriancockcroft/dockercon-state-of-the-art-in-microservices) and in the book [Building Microservices](http://shop.oreilly.com/product/0636920033158.do) by Sam Newman.
+A discussion on why you should use Microservices is beyond the scope of this guide. For more information see the articles and presentations by [Martin Fowler and James Lewis](http://martinfowler.com/articles/microservices.html), [Adrian Cockcroft](http://www.slideshare.net/adriancockcroft/dockercon-state-of-the-art-in-microservices) and in the book [Building Microservices](http://shop.oreilly.com/product/0636920033158.do) by Sam Newman.
 
 ## Setting Up The Hosts ##
 
@@ -100,7 +96,7 @@ vagrant ssh weave-gs-02
 vagrant@weave-gs-02:~$ sudo -s
 root@weave-gs-01:~# curl -L git.io/weave -o /usr/local/bin/weave
 root@weave-gs-01:~# chmod a+x /usr/local/bin/weave
-~~~~
+~~~
 
 The commands to install and launch Weave are provided as part of this getting started guide, but in practice you would automate this step for each host.
 
@@ -151,11 +147,11 @@ vagrant@weave-gs-02:~$ weave status
 ~~~
 
 
-####About `WeaveDNS`
+####About `weavedns`
 
-[WeaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html) answers name queries on a Weave network. It provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', WeaveDNS requires no code changes and it also works across hosts.
+[Weavedns](http://docs.weave.works/weave/latest_release/weavedns.html) answers name queries on a Weave network. It provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', WeaveDNS requires no code changes and it also works across hosts.
 
-The seneca code was modified in this example to refer to hostnames. Each container was given a hostname and then uses `weaveDNS` to find the correct container for a request.
+The seneca code was modified in this example to refer to hostnames. Each container was given a hostname and then uses `weavedns` to find the correct container for a request.
 
 ###2. Start the Node.js application 
 

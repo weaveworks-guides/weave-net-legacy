@@ -11,9 +11,6 @@ sidebarweight: 20
 
 ---
 
-## What you will build ##
-
-Weave allows you to focus on developing your application, rather than your infrastructure.
 
 In this example we will demonstrate how Weave allows you to quickly and easily deploy Nginx as
 a load balancer for a simple php application running in containers on multiple nodes, with no
@@ -21,14 +18,14 @@ modifications to the application and minimal docker knowledge.
 
 ![Weave, Nginx, Apache and Docker 3 Nodes](/guides/images/3_Node_Nginx_Example.png)
 
-## What you will use ##
+## What You Will Use ##
 
 * [Weave](http://weave.works)
 * [Docker](http://docker.com)
 * [Nginx](http://Nginx.org)
 * [Ubuntu](http://ubuntu.com)
 
-## What you will need to complete this guide ##
+## Before You Begin ##
 
 This getting started guide is self contained. You will use Weave, Docker, Nginx and Ubuntu, and we make use of VirtualBox and Vagrant to allow you to run this entire getting started guide on your personal system.
 
@@ -36,7 +33,7 @@ This getting started guide is self contained. You will use Weave, Docker, Nginx 
 * [Git](http://git-scm.com/downloads)
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
-## Setting up our hosts ##
+## Setting up The Hosts ##
 
 All of the code for this example is available on github, and you first clone the getting started repository.
 
@@ -61,9 +58,9 @@ The IP addresses we use for this demo are
 
 Our Vagrantfile also configures `weave-gs-01` to pass traffic from port 80 to localhost port 8080.
 
-## Introducing WeaveDNS ##
+## Introducing Weavedns ##
 
-[WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme) answers name queries in a Weave network. WeaveDNS provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', this requires no code changes and works across hosts.
+[WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme) answers name queries on a Weave container network. Weavedns provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', this requires no code changes and works across hosts.
 
 In this example you will give each container a hostname and use WeaveDNS to allow Nginx to find the correct container for a request.
 
@@ -76,7 +73,7 @@ seemlessly together, and you will
 
 ## Introduction Weave Proxy ##
 
-You will use the [Weave proxy](http://docs.weave.works/weave/latest_release/features.html#docker) functionality, which gives seamless integration with Docker.
+You will use the [Weave Docker API proxy](http://docs.weave.works/weave/latest_release/features.html#docker) functionality, which gives seamless integration with Docker.
 
 ## Nginx and a simple PHP application running in Apache ##
 
@@ -90,7 +87,7 @@ The details of the Nginx configuration are out of scope for this article, but yo
 We have created two docker containers specifically for this guide, if you would like further details on how these were created refer to
 the Dockerfile section at the end of this guide.
 
-## Starting our example ##
+## Starting The Example ##
 
 To start the example run the script `launch-nginx-demo.sh`. This will
 
