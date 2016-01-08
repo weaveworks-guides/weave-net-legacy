@@ -112,11 +112,11 @@ Version: v1.2
        Address: tcp://192.168.99.100:12375
 ~~~
 
-Running `weave launch` automatically configures your network, and it starts the weave router, which launches the {{ weavedns }} service. `weave launch` also sets up a Docker API proxy on the weave network, so that you can manage your containers using standard Docker commands from your local machine.
+Running `weave launch` automatically configures your network, and it starts the weave router, which launches the `weavedns` service. `weave launch` also sets up a Docker API proxy on the weave network, so that you can manage your containers using standard Docker commands from your local machine.
 
->Note: Both {{ weavedns }} and {{ weaveproxy }} services can also be started independently, if required, see `weave --help` for more information.
+>Note: Both the `weavedns` and the `Weave Docker API Proxy` services can be started independently, if required, see `weave --help` for more information.
 
-See the [Weave Docker API Proxy documentation](https://github.com/weaveworks/weave/blob/master/site/proxy.md) for more information about the {{ weaveproxy }}.
+See the [Weave Docker API Proxy documentation](http://docs.weave.works/weave/latest_release/proxy.html) for more information about the Weave Docker API proxy.
 
 Now you are ready to deploy containers and also use DNS so that the containers can discover each other.
 
@@ -188,10 +188,10 @@ You can easily adapt these examples and use them as templates in your own implem
 
 ## Further Reading
 
-  *  [Learn more about Weave](http://weave.works/articles/index.html)
+  *  [Learn More About Weave](http://weave.works/articles/index.html)
   *  [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
-  *  [Docker API](https://github.com/weaveworks/weave/blob/master/site/proxy.md)
-  *  [TLS Settings](https://docs.docker.com/articles/https/)
+  *  [Weave Docker API](http://docs.weave.works/weave/latest_release/proxy.html
+ 
 
 [ch1]: /part-1-launching-weave-net-with-docker-machine/
 [ch2]: /part-2-using-weave-with-docker-machine-and-swarm/

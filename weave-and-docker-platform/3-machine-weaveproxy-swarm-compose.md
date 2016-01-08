@@ -10,16 +10,6 @@ sidebarpath: /start/dist/swarm
 sidebarweight: 25
 ---
 
-{% include product-vars %}
-
-> - Part 1: [Launching Weave Net with Docker Machine][ch1]
-> - Part 2: [Using Weave with Docker Machine and Swarm][ch2]
-> - **Part 3: Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave**
-
-
-## What You Will Build
-
-
 In this Part 3 of the guide you will be introduced to using Weave with Docker Swarm and Docker Compose. 
 
 [Docker Machine](https://docs.docker.com/machine/) makes it really easy to create Docker hosts (VMs) on your computer, on cloud providers and inside your own data center. It creates servers, installs Docker on them, then it configures the Docker client to talk to them.
