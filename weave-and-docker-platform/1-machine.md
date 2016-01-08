@@ -10,16 +10,6 @@ sidebarpath: /start/dist/weavedocmach
 sidebarweight: 15
 ---
 
-{% include product-vars %}
-
-
-> - **Part 1: Launching Weave Net with Docker Machine**
-> - Part 2: [Using Weave with Docker Machine and Swarm][ch2]
-> - Part 3: [Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave][ch3]
-
-## What You Will Build
-
-
  In this Part 1 of _'Launching Weave Net with Docker Machine'_ you will be introduced to the basics of launching a container network with Weave.
 
 [Docker Machine](https://docs.docker.com/machine/) makes it simple to create Docker hosts (VMs) on your computer, on cloud providers or within your own data center. It creates servers, installs Docker on them, and then it configures the Docker client to talk to them.
@@ -203,6 +193,3 @@ You can easily adapt these examples and use them as templates in your own implem
   *  [Docker API](https://github.com/weaveworks/weave/blob/master/site/proxy.md)
   *  [TLS Settings](https://docs.docker.com/articles/https/)
 
-[ch1]: /guides/weave-and-docker-platform/weavenetwork.html
-[ch2]: /guides/weave-and-docker-platform/using-weave-with-machine-and-swarm.html
-[ch3]: /guides/weave-and-docker-platform/compose-scalable-swarm-cluster-with-weave.html
