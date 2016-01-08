@@ -8,17 +8,14 @@ shorttitle: Weave Run & Dockerized Spring Apps
 sidebarpath: /start/micro/dockerspring
 sidebarweight: 20
 ---
-{% include product-vars %}
 
-## What You Will Build ##
-
-This example demonstrates how to use [Weave Run](http://weave.works/run/index.html) to automatically find services on a Weave container network.  You will deploy a docker container with a Spring-based microservice and then discover that microservice using `weaveDNS` without requiring any modifications to the application.
+This example demonstrates how to use [`weavedns`](http://docs.weave.works/weave/latest_release/weavedns.html) to automatically find services on a Weave container network.  You will deploy docker containers using Spring-based microservices and then discover those microservices using `weavedns` without requiring any modifications to the code.
 
 Specifically, in this tutorial you will: 
 
 1. Use Vagrant to set up the Unbuntu host and install docker
 2. Launch a microservice, consisting of a Tomcat application server and a Java Servlet, created with the Spring Framework into a Docker container.
-3. Use `weaveDNS` to discover the container on the Weave Network.
+3. Use `weavedns` to discover the container on the Weave Network.
 4. Return `Hello Weave!` from the microservice using curl.
 
 This tutorial requires no progamming, but it does require some UNIX skills. This example should take about 15 minutes to complete. 
@@ -57,7 +54,7 @@ This example uses Vagrant to provision and set up your host it:
  * downloads the Spring-based microservice.
  * downloads Weave from DockerHub.
  
-If you would like to see a more manual set up of a Virtualbox host with Weave, see [Getting Started with Weave and Docker on Ubuntu](http://http://weave.works/guides/weave-docker-ubuntu-simple.html).
+If you would like to see a more manual set up of a Virtualbox host with Weave, see [Getting Started with Weave and Docker on Ubuntu](/networking-docker-containers-with-weave-on-ubuntu/).
 
 ~~~bash
 cd guides/spring-boot-weave-service-discovery
@@ -82,7 +79,7 @@ The IP addresses used for this demo are as follows:
 
 ####Weave and DNS
 
-The [Weavedns](http://docs.weave.works/weave/latest_release/weavedns.html) service answers name queries on a Weave network. `weavedns` provides a simple way for containers to find each other by giving them hostnames and telling the other containers to connect to those names.
+The [weavedns](http://docs.weave.works/weave/latest_release/weavedns.html) service answers name queries on a Weave network. `weavedns` provides a simple way for containers to find each other by giving them hostnames and telling the other containers to connect to those names.
 
 ####Weave and Automatic IP Address Management
 
@@ -120,8 +117,7 @@ To install and launch Weave manually on the host:
 
 
 >Note: In this guide commands were run directly on the host, but you can also run docker commands from your local machine on the remote host by configuring the docker client to use the [Weave Docker API
-Proxy](http://docs.weave.works/weave/latest_release/proxy.html). The Weave Docker API Proxy allows you to use the official docker client, and it will also attach any booted
-containers to the weave network. To enable the proxy, first install Weave on to your local machine, run `weave launch` and then set the environment by running `eval "$(weave env)"`
+Proxy](http://docs.weave.works/weave/latest_release/proxy.html). The Weave Docker API Proxy allows you to use the official docker client, and it will also attach any booted containers to the weave network. To enable the proxy, first install Weave on to your local machine, run `weave launch` and then set the environment by running `eval "$(weave env)"`
 
 ## What Just Happened
 
