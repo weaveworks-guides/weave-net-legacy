@@ -10,9 +10,6 @@ sidebarpath: /start/dist/mach
 sidebarweight: 20
 ---
 
-
-## What You Will Build
-
 In [Part 1][ch1], you learned how to use `Weave` with [Docker Machine](https://docs.docker.com/machine/). 
 
 In this Part 2 of the guide you will learn how to configure a basic [Docker Swarm Cluster](https://docs.docker.com/swarm/), and how to deploy a Weave network onto it to make its contents discoverable.

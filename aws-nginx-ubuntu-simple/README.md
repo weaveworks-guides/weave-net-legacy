@@ -10,15 +10,11 @@ sidebarweight: 50
 
 ---
 
-## What You Will Build ##
-
-
 This example demonstrates how using `Weave Net` and `Weave Run` you can deploy Nginx as
 a load balancer for a simple php application running in containers on multiple nodes in [Amazon
 Web Services](http://aws.amazon.com), with no modifications to the application and minimal docker knowledge.
 
 ![Weave, Nginx, Apache and Docker on AWS](/guides/images/2_Node_Nginx_AWS_Example.png)
-
 
 
 ## What you will use ##
@@ -73,18 +69,18 @@ subsititue the relevant IP address for $WEAVE_AWS_DEMO_HOST1 or 2.
 
     . ./weavedemo.env
 
-## Introducing WeaveDNS ##
+## Introducing the `weavedns` Service ##
 
-[WeaveDNS](https://github.com/weaveworks/weave/tree/master/weavedns#readme) answers name queries in a Weave network. WeaveDNS provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', this requires no code changes and works across hosts.
+[Weavedns](http://docs.weave.works/weave/latest_release/weavedns.html) answers name queries on a Weave container network. `Weavedns` provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', this requires no code changes and works across hosts.
 
-In this example you will give each container a hostname and use WeaveDNS to allow Nginx to find the correct container for a request.
+In this example you will give each container a hostname and use the `weavedns` service to allow Nginx to find the correct container for a request.
 
-## Nginx and a simple PHP application running in Apache ##
+## Nginx and a Simple PHP Application Running in Apache ##
 
 Nginx is a popular free, open-source, high-performance HTTP server and reverse proxy. It is frequently used as a load balancer. In this
 example we will use Nginx to load balance requests to a set of containers running Apache.
 
-While our example application is very simple, as a php application running on apache2 it resembles many real world applications
+While our example application is very simple, as a php application running on apache2, it resembles many real world applications
 in use. We have created an Nginx configuration which will round-robin across the websevers our php application is running on.
 The details of the Nginx configuration are out of scope for this article, but you can review it at [on github](https://github.com/weaveworks/guides/blob/master/nginx-ubuntu-simple/example/nginx.conf).
 
@@ -94,9 +90,9 @@ The two docker containers we use in this guide were created for an [earlier gett
 
 A key point to note is that we are using the application containers we created for our earlier example. By using WeaveDNS we do not have to make any changes to our containerized nginx configuration. In our earlier example we used three hosts running with vagrant, while in this example we will use two hosts on AWS.
 
-Weave and WeaveDNS allow us to easily deploy our containers to a new infrastucture and configuration with no code changes, and without the need to understand concepts such as ambassador containers and links.
+`Weave Net` allows you to easily deploy our containers to a new infrastucture and configuration with no code changes, and without the need to understand concepts such as ambassador containers and links.
 
-## Starting our example ##
+## Starting the Example ##
 
 To start the example run the script `launch-aws-nginx-demo.sh`. This will
 
@@ -106,7 +102,7 @@ To start the example run the script `launch-aws-nginx-demo.sh`. This will
 
     ./launch-aws-nginx-demo.sh
 
-If you would like to execute these steps manually the commands to launch Weave and WeaveDNS are
+To execute these steps manually, the commands to launch Weave and WeaveDNS are:
 
     ssh -i weavedemo-key.pem ubuntu@$WEAVE_AWS_DEMO_HOST1
     sudo weave launch
@@ -116,7 +112,7 @@ If you would like to execute these steps manually the commands to launch Weave a
     sudo weave launch $WEAVE_AWS_DEMO_HOST1
     sudo weave launch-dns 10.2.1.2/24
 
-The commands to launch our application containers are
+The commands to launch our application containers are:
 
     ssh -i weavedemo-key.pem ubuntu@$WEAVE_AWS_DEMO_HOST1
     sudo weave run --with-dns 10.3.1.1/24 -h ws1.weave.local fintanr/weave-gs-nginx-apache
@@ -136,14 +132,14 @@ Finally we launch our Nginx container
     ssh -i weavedemo-key.pem ubuntu@$WEAVE_AWS_DEMO_HOST1
     sudo weave run --with-dns 10.3.1.7/24 -ti -h nginx.weave.local -d -p 80:80 fintanr/weave-gs-nginx-simple
 
-### What has happened? ###
+### What Just Happened? ###
 
 At this point you have launched Weave and WeaveDNS on all of your hosts, and connected six containers running our simple php
 application and Nginx together using Weave.
 
 Our Nginx container is publicly exposed as a http server on $WEAVE_AWS_DEMO_HOST1
 
-## Testing our example ##
+## Testing the Example ##
 
 To demonstrate our example we have provided a small curl script which will make http requests to the our Nginx container. We make
 six requests so you can see Nginx moving through each of the webservers in turn.
@@ -184,7 +180,7 @@ You will see output similar to
         "date" : "2015-02-25 14:35:53"
     }
 
-## Summary ##
+## Conclusions ##
 
 You have now used Weave to deploy a containerised PHP application using Nginx across multiple hosts on AWS EC2.
 
