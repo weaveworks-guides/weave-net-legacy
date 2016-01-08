@@ -10,13 +10,7 @@ sidebarpath: /start/wd/coreos
 sidebarweight: 15
 ---
 
-{% include product-vars %}
-
-## What You Will Build ##
-
-In this example you will use `Weave Net` and `Weave Run` to provide nework connectivity and service discovery using DNS. 
-
-In this example:
+In this example you will use `Weave Net` to provide nework connectivity and service discovery using the [`weavedns service`](http://docs.weave.works/weave/latest_release/weavedns.html). 
 
 1. You will create a simple containerized web service that runs in on weave-gs-01.
 2. On weave-gs-02, we will deploy a second container that enables you to query the web service on weave-gs-01.
@@ -188,7 +182,7 @@ Now you can exit from the container. As you have finished the command that the c
 
 ## Conclusions ##
 
-In this example, we deployed a simple application, that returns a message from a running Apache webserver. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using ` Weave Run `, so that applications within containers can communicate with one another. 
+In this example, we deployed a simple application, that returns a message from a running Apache webserver. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using [`weavedns`](http://docs.weave.works/weave/latest_release/weavedns.html), so that applications within containers can communicate with one another. 
 
 You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 

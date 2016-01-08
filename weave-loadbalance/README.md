@@ -10,7 +10,7 @@ sidebarweight: 18
 ---
 
 
-In this example, we demonstrate how you can use {{Weave Net}} and {{Weave Run}} to load balance an application without doing any modifications to the application's code. We will deploy a simple go-based REST server that listens for and then outputs the IP address of each container on the weave network. In addition to this, we show how Weave implements load balancing using [round robin DNS](https://en.wikipedia.org/wiki/Round-robin_DNS).
+In this example, we demonstrate how you can use `Weave Net` and `Weave Run` to load balance an application without doing any modifications to the application's code. We will deploy a simple go-based REST server that listens for and then outputs the IP address of each container on the weave network. In addition to this, we show how Weave implements load balancing using [round robin DNS](https://en.wikipedia.org/wiki/Round-robin_DNS).
 
 Specifically, you will:
 
