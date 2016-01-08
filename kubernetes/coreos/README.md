@@ -10,15 +10,9 @@ sidebarpath: /start/kubernetes
 sidebarweight: 60
 ---
 
-## What You Will Build
-
 Kubernetes is an open source container cluster manager built by Google. It allows you to manage multiple clusters spread across multiple machines. With Kubernetes there is the concept of the pod, which represents a collection of containers deployed as a single logical unit. For more information see the [Kubernetes Overview](http://kubernetes.io/v1.0/docs/user-guide/overview.html)
 
 In this example, we will demonstrate how you can use a Weave network with Kubernetes on a CoreOS cluster. Although there are other network fabric solutions such as [Flannel](https://coreos.com/flannel/docs/latest/flannel-config.html) and [Calico](http://www.projectcalico.org/), only Weave provides simple to deploy [encryption](http://docs.weave.works/weave/latest_release/features.html#security) and automatic unique IP assigment using [IPAM](http://docs.weave.works/weave/latest_release/features.html#addressing). Weave furthermore, is one of the few solutions that can integrate with any uncontainerized services that you may have, such as legacy databases, together on a container network.
-
-This is a reworked version of our old Kubernetes guide. Many new features have been added to Weave since the time of writing. Both Weave and Kubernetes have become much more mature as they've gone beyond 1.0 releases.
-
-With the [Weave 1.1 release](https://github.com/weaveworks/weave/releases/tag/v1.1.0) users can utilise a Docker API proxy and IP address allocation with Kubernetes, thereby removing the need to configure the Docker daemon with statically allocated subnets for each host.
 
 In this example we will:
 
