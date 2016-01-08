@@ -10,16 +10,10 @@ sidebarpath: /start/dist/mach
 sidebarweight: 20
 ---
 
-{% include product-vars %}
-
-
-> - Part 1: [Launching Weave Net with Docker Machine][ch1]
-> - **Part 2: Using Weave with Docker Machine and Swarm**
-> - Part 3: [Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave][ch3]
 
 ## What You Will Build
 
-In part one, you saw how Weave is used with [Docker Machine](https://docs.docker.com/machine/). 
+In [Part 1][ch1], you learned how to use `Weave` with [Docker Machine](https://docs.docker.com/machine/). 
 
 In this Part 2 of the guide you will learn how to configure a basic [Docker Swarm Cluster](https://docs.docker.com/swarm/), and how to deploy a Weave network onto it to make its contents discoverable.
 
@@ -28,7 +22,6 @@ In this Part 2 of the guide you will learn how to configure a basic [Docker Swar
 Weave’s standard container network enables simple DNS-based container discovery, so that you can manage your distributed containerized application without the need to deploy any additional services or software. It also boosts the Swarm cluster scalability, and provides true portability whether deployed to a public cloud or to an in-house data center. Weave furthermore, eliminates the need for an [ambassador pattern][ambassador], or any other approach that might involve some combination of distributed configuration store and a proxy.
 
 [ambassador]: https://docs.docker.com/articles/ambassador_pattern_linking/
-
 
 In Part 2 of this tutorial, you will:
 
@@ -56,7 +49,7 @@ For all other operating systems, install and configure the following separately 
   - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (_`>= 4.3.x`_)
   - `curl` (_any version_)
 
-_If you completed [Part 1 of this tutorial][ch1], you should have all of these dependencies installed._
+If you completed [Part 1][ch1], you should have all of these dependencies installed.
 
 ###About Part 2 of This Guide
 
@@ -151,9 +144,9 @@ Follow the same steps for `weave-3` as you did for `weave-2` above.
   >>A useful script that launches weave and sets up the hosts and connects the cluster can be found here: [`scripts/2-weave-launch.sh`][step2].
 
 
-##Setting up Swarm Agents Against {{ weaveproxy }}
+##Setting up Swarm Agents Against `weaveproxy`
 
-This next step is a necessary work-around to a reported Docker Machine issue, which we will refrain from covering in detail. Refer to  [issue #1334 in Docker Machine](https://github.com/docker/machine/issues/1334) for more information.  In short, the swarm agents are restarted with a new discovery token and then registered to TCP port 12375 for {{ weaveproxy }}. The following script [`scripts/3-replace-swarm-agents.sh`][step3] describes this process in more detail.
+This next step is a necessary work-around to a reported Docker Machine issue, which we will refrain from covering in detail. Refer to  [issue #1334 in Docker Machine](https://github.com/docker/machine/issues/1334) for more information.  In short, the swarm agents are restarted with a new discovery token and then registered to TCP port 12375 for `weaveproxy`. The following script [`scripts/3-replace-swarm-agents.sh`][step3] describes this process in more detail.
 
 ##Putting it All Together
 
@@ -258,8 +251,7 @@ Unless you proceed to [Part 3 Creating and Scaling Multi-host Docker Deployment 
 
 ## Summary
 
-You have learned how to use Weave with Docker Swarm & Machine to provision a miniature infrastructure of 3 virtual
-machines running on VirtualBox and [Weave Net](/net) providing connectivity for Docker containers. We then deployed a simple
+You have learned how to use Weave with Docker Swarm & Machine to provision a miniature infrastructure of 3 virtual machines running on VirtualBox and [Weave Net](/net) providing connectivity for Docker containers. We then deployed a simple
 _"Hello, Weave!"_ service and tested that set up. Most importantly, you now know all the commands to create a cluster of Docker hosts and should understand how to integrate Weave and Docker Swarm to proceed to the next step with confidence. Next we will look at how to use Compose to deploy an entire stack of containers to a Swarm cluster all powered by [Weave Net](/net) and [Weave Run](/run).
 
 You can easily adapt these examples and use them as a templates in your own implementation.  We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
@@ -273,6 +265,6 @@ You can easily adapt these examples and use them as a templates in your own impl
 [step2]: https://github.com/weaveworks/guides/blob/30afe999265ad18494f3a88064f70cac1edc9607/weave-and-docker-platform/scripts/2-weave-launch.sh
 [step3]: https://github.com/weaveworks/guides/blob/30afe999265ad18494f3a88064f70cac1edc9607/weave-and-docker-platform/scripts/3-replace-swarm-agents.sh
 
-[ch1]: /guides/weave-and-docker-platform/weavenetwork.html
-[ch2]: /guides/weave-and-docker-platform/using-weave-with-machine-and-swarm.html
-[ch3]: /guides/weave-and-docker-platform/compose-scalable-swarm-cluster-with-weave.html
+[ch1]: /part-1-launching-weave-net-with-docker-machine/
+[ch2]: /part-2-using-weave-with-docker-machine-and-swarm/
+[ch3]: /part-3-creating-and-scaling-multi-host-docker-deployment-with-swarm-and-compose-using-weave/

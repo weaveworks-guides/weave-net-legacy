@@ -43,11 +43,9 @@ The tutorial should take 15-25 minutes to complete.
 
   - [Weave](http://weave.works)
   - [Docker, Compose, Swarm & Machine](http://docker.com)
-  - [Python][], [Flask][] & [Redis][]
-
-[Python]: https://www.python.org/
-[Flask]: http://flask.pocoo.org/
-[Redis]: http://redis.io/
+  - [Python]: https://www.python.org/
+  - [Flask]: http://flask.pocoo.org/
+  - [Redis]: http://redis.io/
 
 If you are already familiar with Compose, then you will recognise the Flask app used here. If you haven't yet used Compose, then have a look at [the overview in Docker Compose Documentation](https://docs.docker.com/compose/#overview) which describes the app and the `docker-compose.yml` file structure, as well as the `Dockerfile` used.
 
@@ -63,7 +61,8 @@ For all other operating systems, install and configure the following separately 
   - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (_`>= 4.3.x`_)
   - `curl` (_any version_)
 
-If you have followed through [Part 3 of this tutorial][ch3], then you will have **most** of these dependencies installed.
+If you have followed through [Part 2 of this tutorial][ch2], then you will have **most** of these dependencies installed.
+
 The only new tool introduced here is **`Docker Compose`**.
 
 >Note: [Docker Compose](http://docs.docker.com/machine/#installation) is not supported on Windows.
@@ -194,6 +193,6 @@ You can easily adapt these examples and use them as a templates in your own impl
   *  [Automatic IP Address Management](http://docs.weave.works/weave/latest_release/features.html#addressing)
 
 
-[ch1]: /guides/weave-and-docker-platform/weavenetwork.html
-[ch2]: /guides/weave-and-docker-platform/using-weave-with-machine-and-swarm.html
-[ch3]: /guides/weave-and-docker-platform/compose-scalable-swarm-cluster-with-weave.html
+[ch1]: /part-1-launching-weave-net-with-docker-machine/
+[ch2]: /part-2-using-weave-with-docker-machine-and-swarm/
+[ch3]: /part-3-creating-and-scaling-multi-host-docker-deployment-with-swarm-and-compose-using-weave/

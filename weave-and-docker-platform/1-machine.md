@@ -182,7 +182,7 @@ This tutorial demonstrated how to launch a Weave network using Docker Machine. A
 
 You should now be familiar with the commands you need to use in order to create Virtual Machines and also those used to create and start containers on them through the {{ weaveproxy }}.
 
-Proceed to Part 2, where we will set up multiple Virtual Machines, using Docker Swarm to schedule containers, use [Weave Net](/net) to provide transparent connectivity across multiple Docker hosts and use [Weave Run](/run) to enable service discovery via DNS.
+Proceed to [Part 2] [ch2], where we will set up multiple Virtual Machines, using Docker Swarm to schedule containers, use [Weave Net](/net) to provide transparent connectivity across multiple Docker hosts and use [Weave Run](/run) to enable service discovery via DNS.
 
 You can easily adapt these examples and use them as templates in your own implementation.  We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 
@@ -193,3 +193,6 @@ You can easily adapt these examples and use them as templates in your own implem
   *  [Docker API](https://github.com/weaveworks/weave/blob/master/site/proxy.md)
   *  [TLS Settings](https://docs.docker.com/articles/https/)
 
+[ch1]: /part-1-launching-weave-net-with-docker-machine/
+[ch2]: /part-2-using-weave-with-docker-machine-and-swarm/
+[ch3]: /part-3-creating-and-scaling-multi-host-docker-deployment-with-swarm-and-compose-using-weave/
