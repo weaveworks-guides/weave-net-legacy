@@ -9,9 +9,6 @@ sidebarpath: /start/load/run
 sidebarweight: 18
 ---
 
-{% include product-vars %}
-
-## What You Will Build ##
 
 In this example, we demonstrate how you can use {{Weave Net}} and {{Weave Run}} to load balance an application without doing any modifications to the application's code. We will deploy a simple go-based REST server that listens for and then outputs the IP address of each container on the weave network. In addition to this, we show how Weave implements load balancing using [round robin DNS](https://en.wikipedia.org/wiki/Round-robin_DNS).
 
@@ -95,17 +92,17 @@ Next, launch Weave on both hosts using the `--ipalloc-range` option. This option
 The weave network with all three components are launched on to both hosts.
 If you don't want to manually ssh on to each host, you can automate this process by running `setup-weave.sh`.
 
-#### About WeaveDNS and Automatic IP Management
+#### About Weavedns and Automatic IP Management
 
-The Weave DNS server answers name queries on a Weave network and provides a simple way for containers to find each other: just give them hostnames and then tell any other containers to connect to those names. Unlike Docker ‘links’, weaveDNS requires no code changes and it also works across hosts. 
+The `weavedns` service answers name queries on a Weave container network and provides a simple way for containers to find each other: just give them hostnames and then tell any other containers to connect to those names. Unlike Docker ‘links’, `weavedns` requires no code changes and it also works across hosts. 
 
-See [Automatic Discovery with WeaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html) for information about how WeaveDNS works
+See [Automatic Discovery with Weavedns](http://docs.weave.works/weave/latest_release/weavedns.html) for information about how the `weavedns` service works
 
 [Weave Automatic IP Address Management (IPAM)](http://docs.weave.works/weave/latest_release/ipam.html) automatically assigns any new containers a unique IP address across the network. With Weave IPAM you can easily add more containers to your network, without having to worry about manually assigning each a unique IP.
 
 ####Checking the Weave Network
 
-At this point, the Weave network connected the two hosts as peers. Also WeaveDNS and Weave IPAM,  both of which were launched with the weave router are standing by to discover and assign IPs to any running containers on the network.
+At this point, the Weave network connected the two hosts as peers. Also `weavedns` and Weave IPAM,  both of which were launched with the weave router are standing by to discover and assign IPs to any running containers on the network.
 
 Log on to either one of the hosts and type `weave status` to view the Weave components:  
 
@@ -162,7 +159,7 @@ Weave IPAM assigns each container a unique IP, WeaveDNS then detects them, and a
 
 You can also use this script `launch-demo-containers.sh` to launch all six containers.
 
-To check the status of your containers, run `docker ps`  Also, you may want to run `weave status dns` to ensure that the containers have been discovered by weaveDNS.
+To check the status of your containers, run `docker ps`  Also, you may want to run `weave status dns` to ensure that the containers have been discovered by `weavedns`.
 
 ## What Just Happened
 

@@ -12,10 +12,8 @@ sidebarpath: /start/mesos
 sidebarweight: 45
 ---
 
-## What You Will Build
 
-
-This example explains how to set up a Weave network to connect containers with the Apache Mesos & Marathon cluster manager. For more details on the Apache Mesos and its application manager, Marathon, see the [Apache Mesos Docs](http://mesos.apache.org/documentation/latest/) and the [Marathon Docs](https://mesosphere.github.io/marathon/).
+This example explains how to set up a Weave network to connect containers with the Apache Mesos & Marathon cluster manager. For details on the Apache Mesos and its application manager, Marathon, refer to the [Apache Mesos Docs](http://mesos.apache.org/documentation/latest/) and the [Marathon Docs](https://mesosphere.github.io/marathon/).
 
 In this self-contained tutorial, you will:
 
