@@ -87,7 +87,7 @@ vagrant ssh weave-gs-02
 vagrant@weave-gs-02:~$ sudo -s
 root@weave-gs-01:~# curl -L git.io/weave -o /usr/local/bin/weave
 root@weave-gs-01:~# chmod a+x /usr/local/bin/weave
-~~~~
+~~~
 
 The commands to install `Weave` are provided as part of this getting started guide, but in practice you would automate this step for each host.
 
