@@ -1,8 +1,8 @@
 ---
 layout: guides
 
-shorttitle: Service Discovery & Load Balancing with Weave
-title: Service Discovery and Load Balancing with Weave on Amazon ECS
+shorttitle: Service Discovery & Load Balancing on Amazon ECS
+title: The fastest path to Docker on ECS: microservice deployment on Amazon EC2 Container Service with Weave Net
 description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
 tags: aws, load-balancing, dns, packer, ecs, amazon-linux, microservices, weave scope
 permalink: /guides/service-discovery-with-weave-aws-ecs.html
@@ -11,36 +11,35 @@ sidebarweight: 25
 ---
 
 
-[Amazon EC2 container service](http://aws.amazon.com/ecs/) or ECS is a scalable container management service that allows you to manage Docker containers on a cluster of Amazon EC2 instances. Weave provides a software network optimized for visualizing and communicating with apps distributed among Docker containers. Using tools and protocols that are familiar to you, Weave's network provides a way for you to communicate between containerized apps distributed across multiple networks or hosts more quickly and efficiently.
+[Amazon EC2 container service](http://aws.amazon.com/ecs/) is a scalable container management service that allows you to manage Docker containers on a cluster of Amazon EC2 instances. Weave Net provides a simple and robust software-defined network for apps running as Docker containers that does not require a external database (cluster store). Weave simplifies setting up a container network within the Amazon EC2 Container Service. Because Weave allows each container to use standard port numbers -- for example you can expose MySQL on port 3306 -- managing services is straightforward. Every container can find the IP of any other container using a simple DNS query on the container's name, and communicate directly without NAT or complicated port mapping.
 
-Weave simplifies setting up a container network within the Amazon EC2 Container Service. Because Weave uses standard ports, for example, you could expose MySQL port 3306 on the Weave network, managing containers is straight forward. In addition to using default TCP ports, Weave looks up IP addresses in DNS and works across hosts using only hostnames to find other containers without the need for custom code.
+An advantage to using DNS is that when you use a container name within (say) a config file, you are not required to have a script in place to generate the name based on run-time variables. You can also optionally burn the config file with the hostname right into the container image.
 
-An advantage to using DNS is that when you set a hostname within a config file, you are not required to have a script in place to generate the hostname based on input variables. You can also optionally burn the config file with the hostname right into the container image.
-
-With Weave there is no need to deploy extra services to achieve DNS lookup and load balancing. [Weave Run](http://weave.works/run/) takes care of both automatic service discovery and load balancing. Because these web services are already a part of Weave, there is no need to deploy and provision additional services, therefor reducing both overhead costs and resource complexity. Weave in essence saves you time and money, and lets you focus on app development, rather than your infrastructure design.
+There is no need to deploy extra services to achieve DNS lookup and load balancing. Weave Net takes care of both automatic service discovery and load balancing, reducing overhead and complexity. Weave saves you time and money, and lets you focus on app development rather than your infrastructure design.
 
 ###About This Example
 
-In this example you will use Weave for service discovery and load balancing
+This guide takes approximately 15 minutes to complete: you will use Weave for service discovery and load balancing
 between [containers that have been deployed to Amazon Elastic Cloud (EC2) instances using Amazon Container Service or ECS](http://aws.amazon.com/ecs/). 
 
-This example also introduces [`Weave Scope`](http://weave.works/scope/index.html), which enables you to visualize and understand your container-based applications.
+This guide also introduces [Weave Scope](http://weave.works/scope/index.html), which enables you to visualize and understand your container-based applications.
 
-Two types of containerized microservices are demonstrated in this guide: HTTP Servers and Data Producers.
+Two types of containerized microservices are demonstrated in this guide: HTTP Servers and "Data Producers".
 
 ![overview diagram](/guides/images/aws-ecs/overview-diagram.png)
 
-The HTTP Servers serve data produced from the Data Producers. This is a very common pattern in practice, but its implementation requires answers to the following questions:
+Data producers generically model containers that produce a data feed of some kind. The HTTP Servers present a web interface to the data from the Data Producers. This is a very common pattern in distributed systems, but its implementation requires answers to the following questions:
 
 1. Service discovery: How does an HTTP Server find a Data Producer to connect to?
 2. Load balancing/fault tolerance: How can the HTTP Servers make uniform and efficient use of all the Data Producers available to them?
 
-Weave solves these issues using the [weavedns service](http://docs.weave.works/weave/latest_release/weavedns.html), where it securely and transparently:
+Weave solves these issues using its built-in DNS server, where it securely and transparently:
 
 * Implements service discovery by adding DNS A-records for your containers based on
 their names 
 * Manages load balancing by randomizing the order of DNS responses.
-* For more information about the weavedns service see [Automatic Discovery with weavedns](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
+
+For more information about the weavedns service see [Automatic Discovery with weavedns](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
 
 ## What You Will Use
 
@@ -49,22 +48,18 @@ their names
 * [Docker](http://docker.com)
 * [Amazon ECS](http://aws.amazon.com/ecs/)
 
-##Before You Begin
+## Before You Begin
 
-This getting started guide is self contained. You will use Weave, Docker and Amazon ECS. We also make use of the [Amazon Web Services (AWS) CLI tool](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) to manage and access AWS.  You need a valid [Amazon Web Services](http://aws.amazon.com) account, and also have the AWS CLI set up and configured before working through this guide. Amazon provides extensive documentation on how to set up the [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html).
+We will make use of the [Amazon Web Services (AWS) CLI tool](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) to manage and access AWS.  You need a valid [Amazon Web Services](http://aws.amazon.com) account, and also have the AWS CLI set up and configured before working through this guide. Please ensure your AWS account has the appropriate administrative privileges. Amazon provides extensive documentation on how to set up the [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html).
 
 * [Git](http://git-scm.com/downloads)
 * [AWS CLI >= 1.7.35 ](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
 * [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
 * An [SSH client](https://en.wikipedia.org/wiki/Comparison_of_SSH_clients) (optional)
 
-This guide takes approximately 15 minutes to complete.
-
 ## Getting the Code
 
-The code for this example is available on GitHub.
-
-Clone the `weaveworks/guides` repository and then change to the `aws-ecs`
+The code for this guide is available on GitHub. Clone the `weaveworks/guides` repository and then change to the `aws-ecs`
 directory, from which you will be working throughout most of this guide.
 
 ~~~ bash
@@ -90,29 +85,27 @@ and then modify it by running:
 aws configure
 ~~~
 
-Also, please ensure your AWS account has administrative privileges to be able
-to configure this demonstration.
 
-## Obtain a `Weave Scope` Cloud Service Token (Recommended)
+## Obtain a Weave Scope Cloud Service Token (Recommended)
 
-This step is optional but is recommended. To visualize the result of this example with the `Weave Scope` cloud service, you need to obtain a `Weave Scope` cloud service token.
+This step is optional but recommended. To visualize the result of this example with the Weave Scope cloud service, you need to obtain a `Weave Scope` cloud service token.
 
-The `Weave Scope` cloud service is still in beta. To gain access, please sign up for the [Early Access Program](http://scope.weave.works) at [http://scope.weave.works](http://scope.weave.works).
+The `Weave Scope` cloud service is in beta. To gain access, please sign up for the [Early Access Program](http://scope.weave.works) at [http://scope.weave.works](http://scope.weave.works).
 
 ![`Weave Scope` early access form](/guides/images/aws-ecs/scope-early-access.png)
 
-Once you've been granted access, an email will be sent to you containing your Weave Scope cloud service token. 
+Once you've been granted access, an email will be sent to you containing your cloud service token. 
 
 >*Note*: Candidates for the Early Access Program are evaluated on a case per case basis. It may take a few days before you receive a confirmation email. To accelerate the process, please send an email to `help@weave.works` which explains your use-case.
 
 Once received, the token is also accessible from the Weave Scope main page after you've logged in:
 
-![`Weave Scope` main page](/guides/images/aws-ecs/scope-cloud-main-page.png)
+![Weave Scope main page](/guides/images/aws-ecs/scope-cloud-main-page.png)
 
 From the example above, the service token is `3hud3h6ys3jhg9bq66n8xxa4b147dt5z`
 
 
-##Automatic Setup and Configuration
+## Automatic Setup and Configuration
 
 To configure this example, run the following command:
 
@@ -151,10 +144,10 @@ You should see something like this:
 The `setup.sh` script automatically:
 
 * Created an Amazon ECS cluster named `weave-ecs-demo-cluster`
-* Spawned three hosts (EC2 instances in Amazon's jargon), which are now part of
+* Spawned three hosts (EC2 instances), which are now part of
   the cluster and are based on Weave's ECS
   [AMI](https://en.wikipedia.org/wiki/Amazon_Machine_Image).
-* Created an ECS task family definition that describes the HTTP Server and Data Producer containers.
+* Created an ECS task family definition that describes the HTTP Server and "Data Producer" containers.
 * Spawned three tasks, one per host, resulting in an HTTP Server and a Data Producer container running on each host.
 
 ## Testing the Setup
@@ -169,12 +162,12 @@ This is what you should see:
 
 ![httpserver's output](/guides/images/aws-ecs/httpserver.png)
 
-Reload your browser to force the HTTP Server to refresh its Data Provider address list (generated randomly by `weavedns`), balancing the load between the EC2 instances.
+Reload your browser to force the HTTP Server to refresh its Data Provider address list, balancing the load between the EC2 instances.
 
 
 ## How Do Service Discovery and Load Balancing Work?
 
-Both the HTTP Server and the Data Producer containers are very simple. They were implemented with a few lines of bash, using mostly Netcat.
+Both the HTTP Server and the Data Producer containers are very simple. They were implemented with a few lines of bash, using Netcat.
 
 Container `dataproducer`:
 
@@ -202,8 +195,8 @@ done
 
 ![ECS and Weave Diagram](/guides/images/aws-ecs/ecs+weave-diagram.png)
 
-When ECS launches a container, the call to Docker is intercepted by weaveproxy,
-and an address is assigned using Weave's automatic IP allocator, the container is then registered with the `weavedns` service and attached to the Weave network. `Weavedns` registers A-records based on the container's name:
+When ECS launches a container, the call to Docker is intercepted by Weave's Docker API proxy,
+and an address is assigned using Weave's automatic IP allocator. The container is then registered with the Weave DNS service and attached to the Weave network. Weave Net's DNS registers A-records based on the container's name:
 
 * A `dataproducer` A-record for all the Data Producer containers.
 * A `httpserver` A-record for all the HTTP Server container.
