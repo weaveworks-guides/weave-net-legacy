@@ -229,7 +229,7 @@ docker run -d --name=mongoDB weaveworks/mongo /entrypoint.sh mongod --smallfiles
 
 ###Viewing the RabbitMQ and MondoDB Containers in Scope
 
-Go back to Weave Scope in your browser to visualize and view metrics on the recently deployed services. As you can see the Mongo database, and RabbitMQ are standing by waiting for instructions. They are not connected yet because we haven't yet deployed Eureka (the User Management Service) or the Restful Services.
+Go back to Weave Scope in your browser to visualize and view metrics on the recently deployed services. As you can see the Mongo database, and RabbitMQ are standing by and waiting for instructions. They are not connected yet because we haven't yet deployed Eureka (the User Management Service) or the Restful Services.
 
 Click on the RabbitMQ container to view its metrics:
 
@@ -238,7 +238,7 @@ Click on the RabbitMQ container to view its metrics:
 
 ###Deploying Containers onto weave-microservice-01
 
-Next, go to your `weave-microservice-01 terminal` and deploy the front-end and the Eureka service into containers by running the following docker commands:
+Next, go to your `weave-microservice-01` terminal and deploy the web front-end, the RESTful service and the Eureka service into containers by running the following docker commands:
 
 **Eureka Service**
 
@@ -259,7 +259,7 @@ docker run -d --name=restful-service weaveworks/microservice_apps java -DSPRING_
 docker run -d -p 8080:8080 --name=webapp-register weaveworks/microservice_apps java -Duser_registration_url=http://REGISTRATION-SERVICE:8081/user -jar /app/spring-boot-webapp.jar --spring.profiles.active=enableEureka --eureka.client.serviceUrl.defaultZone=http://eureka:8761/eureka/
 ~~~
 
-After launching the Web app, the RESTful service and the Eureka service into containers onto `weave-microservice-01` return to Weave Scope, where you can visualize and monitor the microservices discovering each other. Once discovery is complete all of the services should be in communication and connected with one another, as observed in `Weave Scope`.
+After launching the Web app, the RESTful service and the Eureka service into containers, return to `Weave Scope`, where you can visualize and monitor the microservices discovering each other. Once discovery is completed, all of the services should be in communication and connected with a line between the two. Mouse over a container node to see its connections, which are indicated by other nodes highlighting.
 
 >Note: RabbitMQ may not be connected right away. It connects when the first registration request has been made, which is illustrated in a later section of this guide. 
 
