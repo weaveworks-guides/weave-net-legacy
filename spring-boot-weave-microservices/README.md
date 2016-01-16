@@ -213,7 +213,7 @@ An explanation of the docker run commands is beyond the scope of this guide. For
 
 >**Note:** Before running the docker commands, ensure that the weave environment is set. If you have left the terminal, you must enter `weave env --restore` before deploying the containers.
 
-To deploy the containers to the VM run the following docker commands for each service: 
+To deploy the containers onto `weave-microservice-02` run the following docker commands for each service from the `weave-microservice-02` terminal window: 
 
 **RabbitMQ Service**
 
@@ -238,7 +238,7 @@ Click on the RabbitMQ container to view its metrics:
 
 ###Deploying Containers onto weave-microservice-01
 
-Next, deploy the front-end and the Eureka service on `weave-microservices-01` by running the following docker commands for each service:
+Next, go to your `weave-microservice-01 terminal` and deploy the front-end and the Eureka service into containers by running the following docker commands:
 
 **Eureka Service**
 
@@ -253,13 +253,13 @@ docker run -d --name=eureka weaveworks/eureka java -jar /app.jar
 docker run -d --name=restful-service weaveworks/microservice_apps java -DSPRING_RABBITMQ_HOST=rabbitmq -Dspring.data.mongodb.uri=mongodb://mongodb/userregistration -jar /app/spring-boot-restful-service.jar --spring.profiles.active=enableEureka --eureka.client.serviceUrl.defaultZone=http://eureka:8761/eureka/
 ~~~
 
-**The Web Appr**
+**The Web App**
 
 ~~~bash
 docker run -d -p 8080:8080 --name=webapp-register weaveworks/microservice_apps java -Duser_registration_url=http://REGISTRATION-SERVICE:8081/user -jar /app/spring-boot-webapp.jar --spring.profiles.active=enableEureka --eureka.client.serviceUrl.defaultZone=http://eureka:8761/eureka/
 ~~~
 
-After launching the Web app, the RESTful service and Eureka service into containers on `weave-microservice-01` return to Weave Scope, where you can visualize and monitor the microservices discovering each other. Once discovery is complete all of the services should be in communication with one another, as observed in `Weave Scope`.
+After launching the Web app, the RESTful service and the Eureka service into containers onto `weave-microservice-01` return to Weave Scope, where you can visualize and monitor the microservices discovering each other. Once discovery is complete all of the services should be in communication and connected with one another, as observed in `Weave Scope`.
 
 >Note: RabbitMQ may not be connected right away. It connects when the first registration request has been made, which is illustrated in a later section of this guide. 
 
