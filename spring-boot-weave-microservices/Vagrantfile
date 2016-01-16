@@ -1,4 +1,4 @@
-# Basic Ubuntu, Senenca, Node and Docker setup
+# Basic Ubuntu, RabbitMQ, MongoDB, Eureka and Docker setup
 #
 # Weave Getting Started Guides
 
@@ -14,10 +14,11 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 # Defaults for config options defined in CONFIG
 
 $num_instances = 2
-$instance_name_prefix = "weave-gs"
+$instance_1 = "weave-microservice-01"
+$instance_2 = "weave-microservice-02"
 $share_home = false
 $vm_gui = false
-$vm_memory = 512
+$vm_memory = 3072
 $vm_cpus = 1
 $vm_starting_ip = "172.17.8.100"
 
@@ -32,32 +33,54 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.cache.scope = :box
     end
 
-    (1..$num_instances).each do |i|
-    
-        config.vm.define vm_name = "%s-%02d" % [$instance_name_prefix, i] do |config|
-            config.vm.hostname = vm_name
-            if  i == 1 
-                config.vm.network "forwarded_port", guest: 80, host: 8080
-            end        
+    # VM-2
+    config.vm.define $instance_2 do |vm2|
+        vm2.vm.hostname = $instance_2
+        #if  i == 1 
+        #vm2.vm.network "forwarded_port", guest: 80, host: 8080
+        #end        
 
-            ip = IPAddr.new($vm_ip)
-            $vm_ip = ip.succ.to_s
-            config.vm.network "private_network", ip: $vm_ip
+        ip = IPAddr.new($vm_ip)
+        $vm_ip = ip.succ.to_s
+        vm2.vm.network "private_network", ip: $vm_ip
+ 
+        vm2.vm.provider :virtualbox do |vb|
+            vb.gui = $vm_gui
+            vb.memory = $vm_memory
+            vb.cpus = $vm_cpus
+        end
+ 
+        vm2.vm.provision "docker" do |d2| 
+            d2.pull_images "weaveworks/mongo"
+            d2.pull_images "weaveworks/rabbitmq"
+            d2.pull_images "weaveworks/microservice_apps"
         end
     end
 
-    config.vm.provider :virtualbox do |vb|
-        vb.gui = $vm_gui
-        vb.memory = $vm_memory
-        vb.cpus = $vm_cpus
-    end
+	# VM-1
+    config.vm.define $instance_1 do |vm1|
+        vm1.vm.hostname = $instance_1
+        #if  i == 1 
+        vm1.vm.network "forwarded_port", guest: 8080, host: 8080
+        vm1.vm.network "forwarded_port", guest: 8081, host: 8081
+        #end        
 
-    config.vm.provision "docker", images: [
-        "ubuntu",
-        "weaveworks/seneca_user",
-        "weaveworks/seneca_webapp",
-        "weaveworks/seneca_offer",
-    ]
+        ip = IPAddr.new($vm_ip)
+        $vm_ip = ip.succ.to_s
+        vm1.vm.network "private_network", ip: $vm_ip
+ 
+		vm1.vm.provider :virtualbox do |vb|
+		    vb.gui = $vm_gui
+		    vb.memory = $vm_memory
+		    vb.cpus = $vm_cpus
+		end
+ 
+		vm1.vm.provision "docker" do |d1| 
+		    d1.pull_images "weaveworks/eureka"
+		    d1.pull_images "weaveworks/microservice_apps"
+
+        end
+    end
     
     config.vm.provision "shell", privileged: true, inline: <<-SHELL
         sudo curl -s -L git.io/weave -o /usr/local/bin/weave
