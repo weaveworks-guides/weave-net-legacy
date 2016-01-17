@@ -321,9 +321,9 @@ vagrant destroy
 
 ## Conclusions
 
-You have used Weave Net to create a container network out of a set of microservices illustratrating a User Registration service. You also used Weave Scope to visualize and monitor the micoservices as they were being deployed and also used it to monitor and test interactions within your application. 
+You have used Weave Net to create a container network out of a set of microservices illustratrating a User Registration service. You also used Weave Scope to visualize and monitor the micoservices as they were being deployed and used to test interactions within your application. 
 
-Thank-you to Chris Richardson, who graciously let us use his code. For more information on this application and on microservices in general, see Chris Richardson's blog, [Plain Old Objects](http://plainoldobjects.com/)
+Thank-you to Chris Richardson, who graciously lent us the use of his code. For more information on this application and on microservices in general, see Chris Richardson's blog, [Plain Old Objects](http://plainoldobjects.com/)
 
 ## Further Reading
 
