@@ -11,7 +11,7 @@ sidebarweight: 55
 
 Spring Boot is a relatively new framework that allows you to build stand-alone production grade applications. Since [Spring Boot](http://projects.spring.io/spring-boot/) services are relatively isolated and are generally designed to perform one function, the framework lends itself well to a microservices-based architecture.
 
-This guide shows you how to dockerize a User Registration application based on a microservices architecture. You will run several microservices in docker containers, deploy them across two VMs, and connect them all together with Weave Net.  As the containerized microservices are communicating with one another, you will then use Weave Scope to monitor the connections and verify the functionality of User Registration application.
+This guide shows you how to dockerize a User Registration application based on a microservices architecture. You will run several microservices in docker containers, deploy them across two VMs, and connect them all together with Weave Net.  As the containerized microservices are communicating with one another, you will then use Weave Scope to monitor the connections and verify the functionality of the application.
 
 The application built in this example is a user registration management system. Users register through a web front-end by entering an email and an associated password.
 
