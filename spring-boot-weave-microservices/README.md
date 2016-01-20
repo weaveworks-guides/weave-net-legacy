@@ -13,15 +13,13 @@ Spring Boot is a relatively new framework that allows you to build stand-alone p
 
 This guide shows you how to dockerize a User Registration application based on a microservices architecture. You will run several microservices in docker containers, deploy them across two VMs, and connect them all together with Weave Net.  As the containerized microservices are communicating with one another, you will then use Weave Scope to monitor the connections and verify the functionality of User Registration application.
 
-The code used in this example is adapted from Chris Richardson's excellent discussion and tutorial on microservices architecture. For information on how this application is built, see [**Building microservices with Spring Boot – part 1**](http://plainoldobjects.com/2014/04/01/building-microservices-with-spring-boot-part1/) and [**Building Microservices with Spring Boot --part 2**](http://plainoldobjects.com/2014/05/05/building-microservices-with-spring-boot-part-2/)
-
 The application built in this example is a user registration management system. Users register through a web front-end by entering an email and an associated password.
 
 The backend user registration service exposes a single RESTful endpoint for registering users. The registration request contains the user’s email address and password, which is sent to the Mongo database, and if the email address is not already present, then it notifies [RabbitMQ,](https://www.rabbitmq.com/download.html) who then notifies [Eureka](https://github.com/netflix/eureka) (an Open Source Registration service developed by Netflix) to include it in the registry. 
 
 ![User Registration Application Flow Across Two VMs](/guides/images/spring-boot-microservices/containerized-microservices-spring-boot.png)
 
-The code used in this guide has been pre-compiled into docker images and uploaded to the Weaveworks repository on Dockerhub. 
+The code used in this example is adapted from Chris Richardson's excellent discussion and tutorial on microservices architecture. For information on how this application is built, see [**Building microservices with Spring Boot – part 1**](http://plainoldobjects.com/2014/04/01/building-microservices-with-spring-boot-part1/) and [**Building Microservices with Spring Boot --part 2**](http://plainoldobjects.com/2014/05/05/building-microservices-with-spring-boot-part-2/)
 
 A Vagrant file is provided for convenience. This script provisions two Ubuntu Virtual Machines (VMs) on VirtualBox and it also pulls down all of the necessary container images.
 
