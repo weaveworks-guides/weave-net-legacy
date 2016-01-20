@@ -1,6 +1,6 @@
 ---
 layout: guides
-title: Networking and Monitoring Containerized Spring Boot Microservices with Weave Net and Weave Scope
+title: How to Containerize Spring Boot Microservices
 shorttitle: Networking and Monitoring Containerized Spring Boot Microservices with Weave Net and Weave Scope
 description: Using Weave Net and Weave Scope to network and monitor your microservices.
 tags: ubuntu, spring-boot, microservices, weave 
@@ -9,15 +9,17 @@ sidebarpath: /start/microservices/spring-weave-net-scope
 sidebarweight: 55
 ---
 
-This guide demonstrates how you can use Weave Scope to visualize a collection of dockerized microservices running on two Virtual Machines all networked using Weave Net. 
+Spring Boot is a relatively new framework that allows you to build stand-alone production grade applications. Since [Spring Boot](http://projects.spring.io/spring-boot/) services are relatively isolated and are generally designed to perform one function, the framework lends itself well to a microservices-based architecture.
 
-The application built in this microservices architecture example is a user registration management system. Users register through a web front-end by entering an email and an associated password. 
+This guide shows you how to dockerize a User Registration application based on a microservices architecture. You will run several microservices in docker containers, deploy them across two VMs, and connect them all together with Weave Net.  As the containerized microservices are communicating with one another, you will then use Weave Scope to monitor the connections and verify the functionality of User Registration application.
+
+The code used in this example is adapted from Chris Richardson's excellent discussion and tutorial on microservices architecture. For information on how this application is built, see [**Building microservices with Spring Boot – part 1**](http://plainoldobjects.com/2014/04/01/building-microservices-with-spring-boot-part1/) and [**Building Microservices with Spring Boot --part 2**](http://plainoldobjects.com/2014/05/05/building-microservices-with-spring-boot-part-2/)
+
+The application built in this example is a user registration management system. Users register through a web front-end by entering an email and an associated password.
 
 The backend user registration service exposes a single RESTful endpoint for registering users. The registration request contains the user’s email address and password, which is sent to the Mongo database, and if the email address is not already present, then it notifies [RabbitMQ,](https://www.rabbitmq.com/download.html) who then notifies [Eureka](https://github.com/netflix/eureka) (an Open Source Registration service developed by Netflix) to include it in the registry. 
 
 ![User Registration Application Flow Across Two VMs](/guides/images/spring-boot-microservices/containerized-microservices-spring-boot.png)
-
->**Note:** The application code in this example is adapted from Chris Richardson's excellent discussion and tutorial on microservices architecture. For information on how this application is built, see [**Building microservices with Spring Boot – part 1**](http://plainoldobjects.com/2014/04/01/building-microservices-with-spring-boot-part1/) and [**Building Microservices with Spring Boot --part 2**](http://plainoldobjects.com/2014/05/05/building-microservices-with-spring-boot-part-2/)
 
 The code used in this guide has been pre-compiled into docker images and uploaded to the Weaveworks repository on Dockerhub. 
 
@@ -318,10 +320,9 @@ To clean up the VMs from your machine:
 vagrant destroy
 ~~~
 
-
 ## Conclusions
 
-You have used Weave Net to create a container network out of a set of microservices illustratrating a User Registration service. You also used Weave Scope to visualize and monitor the micoservices as they were being deployed and used to test interactions within your application. 
+You have used Weave Net to create a container network out of a set of microservices illustratrating a User Registration service. You also used Weave Scope to visualize and monitor the micoservices as they were being deployed and used it to test interactions within your application. 
 
 Thank-you to Chris Richardson, who graciously lent us the use of his code. For more information on this application and on microservices in general, see Chris Richardson's blog, [Plain Old Objects](http://plainoldobjects.com/)
 
