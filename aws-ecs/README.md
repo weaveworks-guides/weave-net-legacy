@@ -193,7 +193,7 @@ done
 >*Note:* the source code shown above has been simplified and reformatted for clarity.
 
 
-![ECS and Weave Diagram](/guides/images/aws-ecs/ecs+weave-diagram.png)
+![ECS and Weave Diagram](/guides/images/aws-ecs/ecs-weave-diagram.png)
 
 When ECS launches a container, the call to Docker is intercepted by Weave's Docker API proxy,
 and an address is assigned using Weave's automatic IP allocator. The container is then registered with the Weave DNS service and attached to the Weave network. Weave Net's DNS registers A-records based on the container's name:
