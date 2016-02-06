@@ -2,26 +2,26 @@
 layout: guides
 title: How to Containerize Spring Boot Microservices
 shorttitle: Networking and Monitoring Containerized Spring Boot Microservices with Weave Net and Weave Scope
-description: Using Weave Net and Weave Scope to network and monitor your microservices.
+description: Using Weave Net and Weave Scope to network and monitor your Spring Boot microservices.
 tags: ubuntu, spring-boot, microservices, weave 
 permalink: /guides/language/java/framework/spring/microservices-weave-net-and-scope.html
 sidebarpath: /start/microservices/spring-weave-net-scope
 sidebarweight: 55
 ---
 
-Spring Boot is a relatively new framework that allows you to build stand-alone production grade applications. Since [Spring Boot](http://projects.spring.io/spring-boot/) services are relatively isolated and are generally designed to perform one function, the framework lends itself well to a microservices-based architecture.
+Spring Boot is a framework that allows you to build stand-alone production grade applications. Since [Spring Boot](http://projects.spring.io/spring-boot/) services are relatively isolated and are generally designed to perform one function, the framework lends itself well to a microservices-based architecture.
 
-This guide shows you how to dockerize a User Registration application based on a microservices architecture. You will run several microservices in docker containers, deploy them across two VMs, and connect them all together with Weave Net.  As the containerized microservices are communicating with one another, you will then use Weave Scope to monitor the connections and verify the functionality of the application.
+This guide shows you how to network and monitor a containerized user registration application based on a microservices architecture. You will run several microservices in docker containers, deploy them across two VMs, connect them all together with Weave Net, and then use Weave Scope to monitor the microservices and to troubleshoot and verify the application as its being deployed.
 
 The application built in this example is a user registration management system. Users register through a web front-end by entering an email and an associated password.
 
-The backend user registration service exposes a single RESTful endpoint for registering users. The registration request contains the user’s email address and password, which is sent to the Mongo database, and if the email address is not already present, then it notifies [RabbitMQ,](https://www.rabbitmq.com/download.html) who then notifies [Eureka](https://github.com/netflix/eureka) (an Open Source Registration service developed by Netflix) to include it in the registry. 
+The backend user registration service exposes a single RESTful endpoint for registering users. The registration request contains the user’s email address and password, which is sent to the Mongo database, and if the email address is not already present, it notifies [RabbitMQ,](https://www.rabbitmq.com/download.html) who then notifies [Eureka](https://github.com/netflix/eureka) (an Open Source Registration service developed by Netflix) to include it in the registry. 
 
 ![User Registration Application Flow Across Two VMs](/guides/images/spring-boot-microservices/containerized-microservices-spring-boot.png)
 
 The code used in this example is adapted from Chris Richardson's excellent discussion and tutorial on microservices architecture. For information on how this application is built, see [**Building microservices with Spring Boot – part 1**](http://plainoldobjects.com/2014/04/01/building-microservices-with-spring-boot-part1/) and [**Building Microservices with Spring Boot --part 2**](http://plainoldobjects.com/2014/05/05/building-microservices-with-spring-boot-part-2/)
 
-A Vagrant file is provided for convenience. This script provisions two Ubuntu Virtual Machines (VMs) on VirtualBox and it also pulls down all of the necessary container images.
+A Vagrant file is provided for convenience. This script provisions two Ubuntu Virtual Machines (VMs) on VirtualBox and pulls down all of the necessary container images.
 
 This guide requires no programming, and depending on the speed of your network, will take about 20 minutes to complete. 
 
@@ -34,7 +34,6 @@ This guide requires no programming, and depending on the speed of your network, 
 * [Netflix/Eureka](https://github.com/netflix/eureka)
 * [RabbitMQ](https://www.rabbitmq.com/download.html)
 * [Mongo NoSQL Database](https://www.mongodb.org/)
-
 
 ##Before You Begin
 
@@ -57,15 +56,15 @@ cd spring-boot-weave-microservices
 
 ##Setting Up The Virtual Machines and Pulling the Docker Images
 
-Running the Vagrant script creates two Ubuntu VMs on VirtualBox and then pulls the necessary docker images used in this guide as well as the latest versions of Docker and Weave Net from Dockerhub. 
+The Vagrant script provisions two VMs with Ubuntu on VirtualBox, installs the latest version of Docker and Weave Net and also downloads (or pulls) the necessary docker images used in this guide. 
 
-Once you’ve changed to the `spring-boot-weave-microservices` directory run the vagrant script by typing: 
+Change to the `spring-boot-weave-microservices` directory, and run the vagrant script: 
 
 ~~~bash
 vagrant up
 ~~~
 
-When the script is complete, view the status of the VMs: 
+After the script is complete, view the status of the VMs: 
 
 ~~~bash
 vagrant status
@@ -78,7 +77,7 @@ weave-microservice-02     running (virtualbox)
 weave-microservice-01     running (virtualbox)
 ~~~
 
-The IP Addresses used for the VMs are as follows: 
+The IP Addresses used for the two VMs are: 
 
 weave-microservice-01: 172.17.8.102
 
@@ -87,7 +86,7 @@ weave-microservice-02: 172.17.8.101
 
 ##Launching a Weave Container Network and Peering The Virtual Machines
 
-In this section you will launch Weave Net onto both VMs, and to create a peer connection, the IP address of one VM will be passed to the other VM. 
+Next, launch Weave Net onto both VMs, and create a peer connection between the two by passing the IP address of one VM to the other VM. 
 
 ssh onto `weave-microservice-01`: 
 
@@ -121,7 +120,7 @@ Launch Weave Net onto the VM:
 vagrant@weave-microservice-02:~$ weave launch 172.17.8.102
 ~~~
 
-Set the environment for Weave: 
+Set the environment for Weave Net: 
 
 ~~~bash
 vagrant@weave-microservice-02:~$ eval $(weave env)
@@ -168,10 +167,12 @@ vagrant@weave-microservice-01:~$ weave status
 
 ##Launching Weave Scope
 
-Next you will install `Weave Scope` and use it to view your microservices application as it gets deployed onto the Weave Network.  
+Next install `Weave Scope` and use it to view your microservices application as it deploys onto the Weave Network.  
 
-For `Weave Scope` to function properly, the application must be launched onto both VMs:  
+For `Weave Scope` to monitor all containers, the application must be installed and launched onto both VMs:  
 
+On `weave-microservice-01` VM install and launch Weave Scope:
+ 
 ~~~bash
 sudo wget -O /usr/local/bin/scope \
   https://github.com/weaveworks/scope/releases/download/latest_release/scope
@@ -179,12 +180,14 @@ sudo chmod a+x /usr/local/bin/scope
 sudo scope launch
 ~~~
 
+Now switch to the terminal of `weave-microservice-02` and do the same . 
+
 Display `Weave Scope` in your browser using the URL that was presented to you in the terminal window after the application has finished launching. In this guide, Scope uses the following URLs: `http://172.17.8.101:4040/` or `http://172.17.8.102:4040/`
 
 
 ##Viewing Peered Virtual Machines in Weave Scope
 
-With both `Weave Net` and `Weave Scope` launched, go to `Weave Scope`in your browser to view the peered VMs. A line between the two nodes indicates a connection has been made, and if you mouse over one of the nodes all connections with that node will highlight. You will see a better example of this highlighting once the entire microservices application has been deployed. 
+With both `Weave Net` and `Weave Scope` launched, go to `Weave Scope`in your browser to view the peered VMs. A line between the two nodes indicates a connection has been made, and if you mouse over one of the nodes all connections with that node highlight. You will see a better example of this highlighting once the entire microservices application has been deployed. 
 
 ![Two Peered VMs](/guides/images/spring-boot-microservices/two-peered-vms.png)
 
@@ -192,7 +195,7 @@ You can use `Weave Scope` to monitor the communications of the different microse
 
 ##Deploying the Microservices to Docker Containers
 
-The microservices are split up between the two VMs. On `weave-microservice-01`, the docker images for the web front-end service and the registration manager were pulled. 
+The microservices are divided between the VMs. On `weave-microservice-01`, the docker images for the web front-end service and the registration manager were downloaded. 
 
 These include: 
 
@@ -200,18 +203,18 @@ These include:
  * The Web App
  * Eureka
 
-And on `weave-microservices-02` the back-end services were pulled: 
+And on `weave-microservices-02` the images for the back-end services were downloaded: 
 
  * RabbitMQ
  * MongoDB
 
 ###Deploying Containers onto weave-microservice-02
 
-You will deploy the backend microservices onto `weave-microservice-02` first. 
+First, deploy the backend microservices onto `weave-microservice-02`. 
 
 An explanation of the docker run commands is beyond the scope of this guide. For more information on their use, refer to [Docker Run Commands documentation](https://docs.docker.com/engine/reference/commandline/run/)
 
->**Note:** Before running the docker commands, ensure that the weave environment is set. If you have left the terminal, you must enter `weave env --restore` before deploying the containers.
+>**Note:** Before running the docker commands, ensure that the weave environment is set. If you have left the terminal, you must enter `weave env --restore` before attaching the containers to the Weave Network.
 
 To deploy the containers onto `weave-microservice-02` run the following docker commands for each service from the `weave-microservice-02` terminal window: 
 
@@ -229,7 +232,7 @@ docker run -d --name=mongoDB weaveworks/mongo /entrypoint.sh mongod --smallfiles
 
 ###Viewing the RabbitMQ and MondoDB Containers in Scope
 
-Go back to Weave Scope in your browser to visualize and view metrics on the recently deployed services. As you can see the Mongo database, and RabbitMQ are standing by and waiting for instructions. They are not connected yet because we haven't yet deployed Eureka (the User Management Service) or the Restful Services.
+Go back to Weave Scope in your browser to visualize and view metrics about the recently deployed services. As you can see, the Mongo database, and RabbitMQ are standing by and waiting for instructions. They are not connected yet because the Eureka (the User Management Service) or the Restful Services have not yet been deployed.
 
 Click on the RabbitMQ container to view its metrics:
 
@@ -238,14 +241,13 @@ Click on the RabbitMQ container to view its metrics:
 
 ###Deploying Containers onto weave-microservice-01
 
-Next, go to your `weave-microservice-01` terminal and deploy the web front-end, the RESTful service and the Eureka service into containers by running the following docker commands:
+Return to the `weave-microservice-01` terminal where you will deploy the RESTful service, the Web App and the Eureka service into containers.
 
 **Eureka Service**
 
 ~~~bash
 docker run -d --name=eureka weaveworks/eureka java -jar /app.jar
 ~~~
-
 
 **Restful Service**
 
@@ -259,7 +261,7 @@ docker run -d --name=restful-service weaveworks/microservice_apps java -DSPRING_
 docker run -d -p 8080:8080 --name=webapp-register weaveworks/microservice_apps java -Duser_registration_url=http://REGISTRATION-SERVICE:8081/user -jar /app/spring-boot-webapp.jar --spring.profiles.active=enableEureka --eureka.client.serviceUrl.defaultZone=http://eureka:8761/eureka/
 ~~~
 
-After launching the Web app, the RESTful service and the Eureka service into containers, return to `Weave Scope`, where you can visualize and monitor the microservices discovering each other. Once discovery is completed, all of the services should be in communication and connected with a line between the two. Mouse over a container node to see its connections, which are indicated by other nodes highlighting.
+After launching the containerized front-end services, return to `Weave Scope`, where you can visualize and monitor the microservices discovering each other. Once discovery is completed, all of the services should be in communication and will be connected with one another. Mouse over a container node to see its connections, which are indicated by other nodes highlighting.
 
 >Note: RabbitMQ may not be connected right away. It connects when the first registration request has been made, which is illustrated in a later section of this guide. 
 
@@ -296,17 +298,17 @@ webapp-register 10.32.0.4    a2c19c69fe45 4e:fa:13:6e:48:c7
 
 ##Visualizing User Registration with Weave Scope
 
-With the containers deployed, and all in communication with one another, you are ready to test the application.  Open the following URL in your browser: `http://127.0.0.1:8080/register.html` where you should see a registration page.
+With the containers deployed, and all in communication, you are ready to test the application.  Open the following URL in your browser: `http://127.0.0.1:8080/register.html` to display the registration page.
 
 ![Testing the Microservices App](/guides/images/spring-boot-microservices/email-registration.png)
 
-To ensure that your message reached the correct destination, go back to Weave Scope, click on RESTful Service container, and then open the terminal view. The terminal view is launched by clicking the control button furthest left.
+To ensure that your message reached the correct destination, go back to `Weave Scope`, click on the RESTful Service container, and then open the terminal view. The terminal view is launched by clicking the control button furthest left.
 
 Enter an email address and a password in the browser, and wait for the message to appear in the Terminal view of Weave Scope.  Notice that the RESTful service has processed and passed on the message to the system. 
 
 ![RESTful, RabbitMQ and Eureka Communicating](/guides/images/spring-boot-microservices/restful-rabbit-eureka.png)
 
-Display the terminal window of other containers, and add a new email to see what messages appear. 
+Display the terminal window of other containers, and then add a new email to see what messages appear. 
 
 >**Note:** You can also stop, pause and restart containers to troubleshoot communication errors in your app. 
 
@@ -320,7 +322,7 @@ vagrant destroy
 
 ## Conclusions
 
-You have used Weave Net to create a container network out of a set of microservices illustratrating a User Registration service. You also used Weave Scope to visualize and monitor the micoservices as they were being deployed and used it to test interactions within your application. 
+You have used Weave Net to network a containerized microservices-based application distributed across two VMs. You also used Weave Scope to visualize and monitor the micoservices as they were being deployed and used it to test interactions within your application. 
 
 Thank-you to Chris Richardson, who graciously lent us the use of his code. For more information on this application and on microservices in general, see Chris Richardson's blog, [Plain Old Objects](http://plainoldobjects.com/)
 
