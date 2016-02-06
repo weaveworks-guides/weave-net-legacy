@@ -21,7 +21,7 @@ The backend user registration service exposes a single RESTful endpoint for regi
 
 The code used in this example is adapted from Chris Richardson's excellent discussion and tutorial on microservices architecture. For information on how this application is built, see [**Building microservices with Spring Boot – part 1**](http://plainoldobjects.com/2014/04/01/building-microservices-with-spring-boot-part1/) and [**Building Microservices with Spring Boot --part 2**](http://plainoldobjects.com/2014/05/05/building-microservices-with-spring-boot-part-2/)
 
-A Vagrant file is provided for convenience. This script provisions two Ubuntu Virtual Machines (VMs) on VirtualBox and pulls down all of the necessary container images.
+A Vagrant file is provided for convenience. This script provisions two Ubuntu Virtual Machines (VMs) on VirtualBox and downloads all of the necessary container images.
 
 This guide requires no programming, and depending on the speed of your network, will take about 20 minutes to complete. 
 
@@ -134,7 +134,7 @@ Check that the VMs are peered:
 
 vagrant@weave-microservice-01:~$ weave status
 
-        Version: 1.4.1
+        Version: 1.4.3
 
         Service: router
        Protocol: weave 1..2
@@ -169,7 +169,7 @@ vagrant@weave-microservice-01:~$ weave status
 
 Next install `Weave Scope` and use it to view your microservices application as it deploys onto the Weave Network.  
 
-For `Weave Scope` to monitor all containers, the application must be installed and launched onto both VMs:  
+For `Weave Scope` to monitor all containers, the application must be installed and launched onto both VMs.
 
 On `weave-microservice-01` VM install and launch Weave Scope:
  
@@ -195,7 +195,7 @@ You can use `Weave Scope` to monitor the communications of the different microse
 
 ##Deploying the Microservices to Docker Containers
 
-The microservices are divided between the VMs. On `weave-microservice-01`, the docker images for the web front-end service and the registration manager were downloaded. 
+The microservices are divided between the VMs. On `weave-microservice-01`, the docker images for the web front-end services as well as the registration manager were downloaded. 
 
 These include: 
 
@@ -232,7 +232,7 @@ docker run -d --name=mongoDB weaveworks/mongo /entrypoint.sh mongod --smallfiles
 
 ###Viewing the RabbitMQ and MondoDB Containers in Scope
 
-Go back to Weave Scope in your browser to visualize and view metrics about the recently deployed services. As you can see, the Mongo database, and RabbitMQ are standing by and waiting for instructions. They are not connected yet because the Eureka (the User Management Service) or the Restful Services have not yet been deployed.
+Go back to Weave Scope in your browser to visualize and view metrics about the recently deployed services. As you can see, the Mongo database, and RabbitMQ are standing by and waiting for instructions. They are not in communication yet because neither the Eureka (the User Management Service) nor the Restful Services have been deployed.
 
 Click on the RabbitMQ container to view its metrics:
 
@@ -241,7 +241,7 @@ Click on the RabbitMQ container to view its metrics:
 
 ###Deploying Containers onto weave-microservice-01
 
-Return to the `weave-microservice-01` terminal where you will deploy the RESTful service, the Web App and the Eureka service into containers.
+Return to the `weave-microservice-01` terminal and deploy the RESTful service, the Web App and the Eureka service into containers.
 
 **Eureka Service**
 
@@ -261,7 +261,7 @@ docker run -d --name=restful-service weaveworks/microservice_apps java -DSPRING_
 docker run -d -p 8080:8080 --name=webapp-register weaveworks/microservice_apps java -Duser_registration_url=http://REGISTRATION-SERVICE:8081/user -jar /app/spring-boot-webapp.jar --spring.profiles.active=enableEureka --eureka.client.serviceUrl.defaultZone=http://eureka:8761/eureka/
 ~~~
 
-After launching the containerized front-end services, return to `Weave Scope`, where you can visualize and monitor the microservices discovering each other. Once discovery is completed, all of the services should be in communication and will be connected with one another. Mouse over a container node to see its connections, which are indicated by other nodes highlighting.
+After launching the containerized front-end services, and Eureka, return to `Weave Scope`, where you can visualize and monitor the microservices discovering each other. Once discovery is complete, all of the microservices should be connected with one another. Mouse over a container node to see its connections, which are indicated by other nodes highlighting.
 
 >Note: RabbitMQ may not be connected right away. It connects when the first registration request has been made, which is illustrated in a later section of this guide. 
 
@@ -302,9 +302,9 @@ With the containers deployed, and all in communication, you are ready to test th
 
 ![Testing the Microservices App](/guides/images/spring-boot-microservices/email-registration.png)
 
-To ensure that your message reached the correct destination, go back to `Weave Scope`, click on the RESTful Service container, and then open the terminal view. The terminal view is launched by clicking the control button furthest left.
+To ensure that your message reached the correct destination, display `Weave Scope`, click on the RESTful Service container, and then open the terminal view. The terminal view is launched by clicking the control button furthest left.
 
-Enter an email address and a password in the browser, and wait for the message to appear in the Terminal view of Weave Scope.  Notice that the RESTful service has processed and passed on the message to the system. 
+Enter an email address and a password into the registration page, and then wait for the message to appear in the Terminal View of the RESful Service container displayed in Weave Scope.  Notice that the RESTful service has processed and passed on the message to the system. 
 
 ![RESTful, RabbitMQ and Eureka Communicating](/guides/images/spring-boot-microservices/restful-rabbit-eureka.png)
 
