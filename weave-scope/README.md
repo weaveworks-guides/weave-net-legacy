@@ -1,7 +1,6 @@
 ---
 layout: guides
-shorttitle: Using Weave Scope Standalone to Visualize and Monitor Docker Containers
-title: Using Weave Scope Standalone to Visualize and Monitor Docker Containers
+title: Monitoring Docker Containers with Weave Scope
 description: How to use Weave Scope to monitor and visualize docker container clusters and swarms.
 tags: weave scope, docker container visibillity, cluster, swarms
 permalink: /guides/weave-scope/weave-scope-alone-monitor-containers.html
@@ -10,7 +9,7 @@ sidebarweight: 50
 ---
 
 
-Weave Scope automatically detects and monitors every host, container and process in your infrastructure, builds a map showing their inter-communications and then presents an up-to-date view of your infrastructure in a web interface. You can visualize, monitor and control your distributed applications and troubleshoot bottlenecks, memory leaks or any other issues. It does this without requiring changes to your code or configuration, and without having to make declarations about your infrastructure that become out-of-date and stale. 
+Weave Scope automatically detects and monitors every host, Docker container and process in your infrastructure, builds a map showing their inter-communications and then presents an up-to-date view of your infrastructure in a web interface. You can visualize, monitor and control your distributed applications and troubleshoot bottlenecks, memory leaks or any other issues. It does this without requiring changes to your code or configuration, and without having to make declarations about your infrastructure that become out-of-date and stale. 
 
 Weave Scope can be deployed to any infrastructure, and works well in all cloud and bare-metal environments.
 
