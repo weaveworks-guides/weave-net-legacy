@@ -1,6 +1,6 @@
 ---
 layout: guides
-title: Automatically Discover Containerized Microservices
+title: Automatically Discover Dockerized Microservices
 description: Deploy containerized microservices to Weave Net.
 tags: vagrant, spring, java, ubuntu, microservices
 permalink: /guides/language/java/framework/spring/index.html
@@ -9,7 +9,7 @@ sidebarpath: /start/micro/dockerspring
 sidebarweight: 20
 ---
 
-In this tutorial you will learn how to use [`weavedns`](http://docs.weave.works/weave/latest_release/weavedns.html) to automatically discover services on a Weave container network.  You will deploy several Spring-based microservices to Docker containers and then discover those microservices using `weavedns` without requiring any modifications to the code.
+In this tutorial you will learn how to use [`weavedns`](http://docs.weave.works/weave/latest_release/weavedns.html) to automatically discover dockerized microservices using Weave Net.  You will deploy several Spring-based microservices to Docker containers and then discover those microservices using `weavedns` without requiring any modifications to the code.
 
 You will: 
 
