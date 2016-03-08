@@ -160,6 +160,9 @@ echo "done"
 # Auto Scaling Group
 echo -n "Creating Auto Scaling Group (weave-ecs-demo-group) with 3 instances .. "
 aws autoscaling create-auto-scaling-group --auto-scaling-group-name weave-ecs-demo-group --launch-configuration-name weave-ecs-launch-configuration --min-size 3 --max-size 3 --desired-capacity 3 --vpc-zone-identifier $SUBNET_ID
+
+# Useful to test peer-discovery using the weave:peerGroupName tag instead of Autoscaling-group-membership.
+#aws autoscaling create-or-update-tags --tags "ResourceId=weave-ecs-demo-group,ResourceType=auto-scaling-group,Key=weave:peerGroupName,Value=test,PropagateAtLaunch=true"
 echo "done"
 
 # Wait for instances to join the cluster

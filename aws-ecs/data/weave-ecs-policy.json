@@ -14,6 +14,7 @@
                 "ecs:ListContainerInstances",
                 "ecs:DescribeContainerInstances",
                 "ec2:DescribeInstances",
+                "ec2:DescribeTags",
                 "autoscaling:DescribeAutoScalingInstances"
             ],
             "Resource": [
