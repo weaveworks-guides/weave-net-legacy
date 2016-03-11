@@ -22,7 +22,7 @@ This example uses very simple UNIX tools, and doesn’t require any programming 
 
 This tutorial will take approximately 10 minutes to complete.
 
-![Simple Loadbalancing with Weave](/guides/images/Weave_LoadBalance.png)
+![Simple Loadbalancing with Weave](/images/Weave_LoadBalance.png)
 
 ## What You Will Use ##
 

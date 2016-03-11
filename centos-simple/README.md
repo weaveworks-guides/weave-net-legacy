@@ -18,7 +18,7 @@ In this example:
 2. On weave-gs-02, we will deploy a second container that enables you to query the web service on weave-gs-01.
 3. Run curl to query the _'Hello, Weave!'_ service from the second container.
 
-![Weave and Docker](/guides/images/Simple_Weave.png)
+![Weave and Docker](/images/Simple_Weave.png)
 
 This tutorial uses simple UNIX tools, and it doesn't require any programming skills.
 

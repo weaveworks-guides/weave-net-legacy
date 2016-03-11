@@ -17,7 +17,7 @@ The application built in this example is a user registration management system. 
 
 The backend user registration service exposes a single RESTful endpoint for registering users. The registration request contains the user’s email address and password, which is sent to the Mongo database, and if the email address is not already present, it notifies [RabbitMQ,](https://www.rabbitmq.com/download.html) who then notifies [Eureka](https://github.com/netflix/eureka) (an Open Source Registration service developed by Netflix) to include it in the registry. 
 
-![User Registration Application Flow Across Two VMs](/guides/images/spring-boot-microservices/containerized-microservices-spring-boot.png)
+![User Registration Application Flow Across Two VMs](/images/spring-boot-microservices/containerized-microservices-spring-boot.png)
 
 The code used in this example is adapted from Chris Richardson's excellent discussion and tutorial on microservices architecture. For information on how this application is built, see [**Building microservices with Spring Boot – part 1**](http://plainoldobjects.com/2014/04/01/building-microservices-with-spring-boot-part1/) and [**Building Microservices with Spring Boot --part 2**](http://plainoldobjects.com/2014/05/05/building-microservices-with-spring-boot-part-2/)
 
@@ -189,7 +189,7 @@ Display `Weave Scope` in your browser using the URL that was presented to you in
 
 With both `Weave Net` and `Weave Scope` launched, go to `Weave Scope`in your browser to view the peered VMs. A line between the two nodes indicates a connection has been made, and if you mouse over one of the nodes all connections with that node highlight. You will see a better example of this highlighting once the entire microservices application has been deployed. 
 
-![Two Peered VMs](/guides/images/spring-boot-microservices/two-peered-vms.png)
+![Two Peered VMs](/images/spring-boot-microservices/two-peered-vms.png)
 
 You can use `Weave Scope` to monitor the communications of the different microservices as they are being deployed throughout this guide. 
 
@@ -236,7 +236,7 @@ Go back to Weave Scope in your browser to visualize and view metrics about the r
 
 Click on the RabbitMQ container to view its metrics:
 
-![RabbitMQ and MongoDB Deployed to Containers](/guides/images/spring-boot-microservices/backend-containers.png)
+![RabbitMQ and MongoDB Deployed to Containers](/images/spring-boot-microservices/backend-containers.png)
 
 
 ###Deploying Containers onto weave-microservice-01
@@ -265,7 +265,7 @@ After launching the containerized front-end services, and Eureka, return to `Wea
 
 >Note: RabbitMQ may not be connected right away. It connects when the first registration request has been made, which is illustrated in a later section of this guide. 
 
-![All Containers Deployed and Communicating](/guides/images/spring-boot-microservices/all-containers-communicating.png)
+![All Containers Deployed and Communicating](/images/spring-boot-microservices/all-containers-communicating.png)
 
 ###Viewing the DNS Entries with Weave
 
@@ -300,13 +300,13 @@ webapp-register 10.32.0.4    a2c19c69fe45 4e:fa:13:6e:48:c7
 
 With the containers deployed, and all in communication, you are ready to test the application.  Open the following URL in your browser: `http://127.0.0.1:8080/register.html` to display the registration page.
 
-![Testing the Microservices App](/guides/images/spring-boot-microservices/email-registration.png)
+![Testing the Microservices App](/images/spring-boot-microservices/email-registration.png)
 
 To ensure that your message reached the correct destination, display `Weave Scope`, click on the RESTful Service container, and then open the terminal view. The terminal view is launched by clicking the control button furthest left.
 
 Enter an email address and a password into the registration page, and then wait for the message to appear in the Terminal View of the RESful Service container displayed in Weave Scope.  Notice that the RESTful service has processed and passed on the message to the system. 
 
-![RESTful, RabbitMQ and Eureka Communicating](/guides/images/spring-boot-microservices/restful-rabbit-eureka.png)
+![RESTful, RabbitMQ and Eureka Communicating](/images/spring-boot-microservices/restful-rabbit-eureka.png)
 
 Display the terminal window of other containers, and then add a new email to see what messages appear. 
 

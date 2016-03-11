@@ -144,7 +144,7 @@ redis-slave-ncdc3    1/1       Running   0          1h
 
 Now you will be able to load the app into your browser using IP address of either of the nodes (`172.17.8.101`, `172.17.8.102`, `172.17.8.103`) and the port number that was returned when you ran `kubectl create -f guestbook-example` above.
 
-![Guestbook front-end](/guides/images/kubernetes/coreos/guestbook.png)
+![Guestbook front-end](/images/kubernetes/coreos/guestbook.png)
 
 
 Here are a few other useful commands for troubleshooting:

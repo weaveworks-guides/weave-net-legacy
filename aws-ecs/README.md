@@ -26,7 +26,7 @@ This guide also introduces [Weave Scope](http://weave.works/scope/index.html), w
 
 Two types of containerized microservices are demonstrated in this guide: HTTP Servers and "Data Producers".
 
-![overview diagram](/guides/images/aws-ecs/overview-diagram.png)
+![overview diagram](/images/aws-ecs/overview-diagram.png)
 
 Data producers generically model containers that produce a data feed of some kind. The HTTP Servers present a web interface to the data from the Data Producers. This is a very common pattern in distributed systems, but its implementation requires answers to the following questions:
 
@@ -92,7 +92,7 @@ This step is optional but recommended. To visualize the result of this example w
 
 The `Weave Scope` cloud service is in beta. To gain access, please sign up for the [Early Access Program](http://scope.weave.works) at [http://scope.weave.works](http://scope.weave.works).
 
-![`Weave Scope` early access form](/guides/images/aws-ecs/scope-early-access.png)
+![`Weave Scope` early access form](/images/aws-ecs/scope-early-access.png)
 
 Once you've been granted access, an email will be sent to you containing your cloud service token. 
 
@@ -100,7 +100,7 @@ Once you've been granted access, an email will be sent to you containing your cl
 
 Once received, the token is also accessible from the Weave Scope main page after you've logged in:
 
-![Weave Scope main page](/guides/images/aws-ecs/scope-cloud-main-page.png)
+![Weave Scope main page](/images/aws-ecs/scope-cloud-main-page.png)
 
 From the example above, the service token is `3hud3h6ys3jhg9bq66n8xxa4b147dt5z`
 
@@ -160,7 +160,7 @@ The three URLs shown above communicate via your browser with the HTTP Server con
 
 This is what you should see:
 
-![httpserver's output](/guides/images/aws-ecs/httpserver.png)
+![httpserver's output](/images/aws-ecs/httpserver.png)
 
 Reload your browser to force the HTTP Server to refresh its Data Provider address list, balancing the load between the EC2 instances.
 
@@ -193,7 +193,7 @@ done
 >*Note:* the source code shown above has been simplified and reformatted for clarity.
 
 
-![ECS and Weave Diagram](/guides/images/aws-ecs/ecs-weave-diagram.png)
+![ECS and Weave Diagram](/images/aws-ecs/ecs-weave-diagram.png)
 
 When ECS launches a container, the call to Docker is intercepted by Weave's Docker API proxy,
 and an address is assigned using Weave's automatic IP allocator. The container is then registered with the Weave DNS service and attached to the Weave network. Weave Net's DNS registers A-records based on the container's name:
@@ -234,7 +234,7 @@ This is what you should see with `Weave Scope` when accessing one of the HTTP Se
 times (i.e. reloading `http://foo.region.compute.amazonaws.com` in your browser
 multiple times).
 
-![Scope visualization](/guides/images/aws-ecs/scope.png)
+![Scope visualization](/images/aws-ecs/scope.png)
 
 Click the `httpserver` container to display its details.
 
