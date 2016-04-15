@@ -11,7 +11,7 @@ ssh_to_instance() {
 SCOPE_IMAGE_FILE=$(mktemp /tmp/scope-update-image-tar-XXXX)
 trap 'rm $SCOPE_IMAGE_FILE' EXIT
 echo -n 'Saving current Scope image .. '
-docker save weaveworks/scope > $SCOPE_IMAGE_FILE
+docker save weaveworks/scope:latest> $SCOPE_IMAGE_FILE
 echo done
 
 INSTANCE_HOSTNAMES=$(`dirname "$0"`/echo_instances.sh)
