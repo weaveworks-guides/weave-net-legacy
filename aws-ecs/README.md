@@ -405,7 +405,7 @@ Add inbound rules to the group to allow:
 * Private Weave access between instances:
     * tcp port 6783 for data.
     * udp port 6783 for control in sleeve mode.
-    * udp port 6784 for control in [fastdp](http://docs.weave.works/weave/latest_release/features.html#fast-data-path) mode.
+    * udp port 6784 for control in [fastdp](/documentation/net-1.5-features#fast-data-path) mode.
 * Public and private access to Weave Scope between instances (tcp port 4040) . This is Only needed when not using Scope 'Cloud').
 
 ~~~bash
@@ -521,4 +521,4 @@ You can easily adapt these examples and use them as a templates in your own impl
 
 * [Automatic Discovery with weavedns](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
 * [Weave - Weaving Containers into Applications](https://github.com/weaveworks/weave)
-* [Documentation Home Page](http://docs.weave.works/weave/latest_release/)
+* [Documentation Home Page](/docs)

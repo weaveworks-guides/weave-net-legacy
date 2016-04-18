@@ -328,7 +328,7 @@ Thank-you to Chris Richardson, who graciously lent us the use of his code. For m
 
 ## Further Reading
 
-* [Documentation Home Page](http://docs.weave.works/weave/latest_release/)
-* [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
-* [Weave encryption](http://docs.weave.works/weave/latest_release/features.html#security)
-* [Weave DNS](http://docs.weave.works/weave/latest_release/weavedns.html)
+* [Documentation Home Page](/docs)
+* [Weave Features](/documentation/net-1.5-features)
+* [Weave encryption](/documentation/net-1.5-features#security)
+* [WeaveDNS](/documentation/net-1.5-weavedns)

@@ -149,7 +149,7 @@ vagrant@weave-gs-02:~$ weave status
 
 ####About `weavedns`
 
-[Weavedns](http://docs.weave.works/weave/latest_release/weavedns.html) answers name queries on a Weave network. It provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', WeaveDNS requires no code changes and it also works across hosts.
+[WeaveDNS](/documentation/net-1.5-weavedns) answers name queries on a Weave network. It provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', WeaveDNS requires no code changes and it also works across hosts.
 
 The seneca code was modified in this example to refer to hostnames. Each container was given a hostname and then uses `weavedns` to find the correct container for a request.
 
@@ -212,8 +212,8 @@ You can adapt this example and use it as a template for your own implementation.
 
 ##Further Reading
 
- * [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
- * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
+ * [How Weave Works](/documentation/net-1.5-router-topology)
+ * [Weave Features](/documentation/net-1.5-features)
 
 
 ## Credits ##

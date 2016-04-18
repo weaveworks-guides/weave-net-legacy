@@ -255,7 +255,7 @@ You can easily adapt these examples and use them as a templates in your own impl
 
 ##Further Reading
 
-  *  [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
+  *  [How Weave Works](/documentation/net-1.5-router-topology)
   *  [Automatic IP Address Management](https://github.com/weaveworks/weave/blob/master/site/ipam.md)
 
 [step1]: https://github.com/weaveworks/guides/blob/30afe999265ad18494f3a88064f70cac1edc9607/weave-and-docker-platform/scripts/1-machine-create.sh

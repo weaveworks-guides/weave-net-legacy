@@ -12,7 +12,7 @@ sidebarweight: 15
 ---
 
 
-This example demonstrates how [`weavedns`](http://docs.weave.works/weave/latest_release/weavedns.html) automatically discovers services on a `Weave` container network.
+This example demonstrates how [WeaveDNS](/documentation/net-1.5-weavedns) automatically discovers services on a `Weave` container network.
 
 In this example, you will:
 
@@ -222,5 +222,5 @@ You can adapt this example and use it as a template for your own implementation.
 
 ## Further Reading
 
- * [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
- * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
+ * [How Weave Works](/documentation/net-1.5-router-topology)
+ * [Weave Features](/documentation/net-1.5-features)

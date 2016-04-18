@@ -179,8 +179,8 @@ You can easily adapt these examples and use them as a templates in your own impl
 ##Further Reading
 
   *  [Weave -- weaving containers into applications](https://github.com/weaveworks/weave#readme)
-  *  [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
-  *  [Automatic IP Address Management](http://docs.weave.works/weave/latest_release/features.html#addressing)
+  *  [How Weave Works](/documentation/net-1.5-router-topology)
+  *  [IP Address Management](/documentation/net-1.5-ipam)
 
 
 [ch1]: /part-1-launching-weave-net-with-docker-machine/

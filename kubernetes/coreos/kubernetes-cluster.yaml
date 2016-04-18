@@ -100,7 +100,7 @@ coreos:
         After=docker.service
         Before=weave.service
         Description=Install Weave
-        Documentation=http://docs.weave.works/
+        Documentation=http://weave.works/docs
         Requires=network-online.target
         [Service]
         EnvironmentFile=-/etc/weave.%H.env
@@ -127,7 +127,7 @@ coreos:
         After=install-weave.service
         After=docker.service
         Description=Weave proxy for Docker API
-        Documentation=http://docs.weave.works/
+        Documentation=http://weave.works/docs
         Requires=docker.service
         Requires=install-weave.service
         [Service]
@@ -147,7 +147,7 @@ coreos:
         After=install-weave.service
         After=docker.service
         Description=Weave Network Router
-        Documentation=http://docs.weave.works/
+        Documentation=http://weave.works/docs
         Requires=docker.service
         Requires=install-weave.service
         [Service]
@@ -168,7 +168,7 @@ coreos:
         After=install-weave.service
         After=weave.service
         After=docker.service
-        Documentation=http://docs.weave.works/
+        Documentation=http://weave.works/docs
         Requires=docker.service
         Requires=install-weave.service
         Requires=weave.service

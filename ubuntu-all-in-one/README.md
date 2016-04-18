@@ -109,5 +109,5 @@ You have now used Weave to quickly deploy an application across two hosts using 
 
 ## Further Reading
 
- * [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
- * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
+ * [How Weave Works](/documentation/net-1.5-router-topology)
+ * [Weave Features](/documentation/net-1.5-features)

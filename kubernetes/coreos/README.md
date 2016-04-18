@@ -12,7 +12,7 @@ sidebarweight: 60
 
 Kubernetes is an open source container cluster manager built by Google. It allows you to manage multiple clusters spread across multiple machines. With Kubernetes there is the concept of the pod, which represents a collection of containers deployed as a single logical unit. For more information see the [Kubernetes Overview](http://kubernetes.io/v1.0/docs/user-guide/overview.html)
 
-In this example, we will demonstrate how you can use a Weave network with Kubernetes on a CoreOS cluster. Although there are other network fabric solutions such as [Flannel](https://coreos.com/flannel/docs/latest/flannel-config.html) and [Calico](http://www.projectcalico.org/), only Weave provides simple to deploy [encryption](http://docs.weave.works/weave/latest_release/features.html#security) and automatic unique IP assigment using [IPAM](http://docs.weave.works/weave/latest_release/features.html#addressing). Weave furthermore, is one of the few solutions that can integrate with any uncontainerized services that you may have, such as legacy databases, together on a container network.
+In this example, we will demonstrate how you can use a Weave network with Kubernetes on a CoreOS cluster. Although there are other network fabric solutions such as [Flannel](https://coreos.com/flannel/docs/latest/flannel-config.html) and [Calico](http://www.projectcalico.org/), only Weave provides simple to deploy [encryption](/documentation/net-1.5-features#security) and automatic unique IP assigment using [IPAM](/documentation/net-1.5-features#addressing). Weave furthermore, is one of the few solutions that can integrate with any uncontainerized services that you may have, such as legacy databases, together on a container network.
 
 In this example we will:
 
@@ -161,8 +161,8 @@ You can easily adapt this example and use it as a template for your own implemen
 ##Further Reading
 
 
-* [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
-* [Weave encryption](http://docs.weave.works/weave/latest_release/features.html#security)
-* [Weave IPAM](http://docs.weave.works/weave/latest_release/features.html#addressing)
+* [Weave Features](/documentation/net-1.5-features)
+* [Weave encryption](/documentation/net-1.5-features#security)
+* [Weave IPAM](/documentation/net-1.5-features#addressing)
 * [Weave - Weaving Containers into Applications](https://github.com/weaveworks/weave)
-* [Documentation Home Page](http://docs.weave.works/weave/latest_release/)
+* [Documentation Home Page](/docs)

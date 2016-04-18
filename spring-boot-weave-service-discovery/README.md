@@ -9,7 +9,7 @@ sidebarpath: /start/micro/dockerspring
 sidebarweight: 20
 ---
 
-In this tutorial you will learn how to use [`weavedns`](http://docs.weave.works/weave/latest_release/weavedns.html) to automatically discover dockerized microservices using Weave Net.  You will deploy several Spring-based microservices to Docker containers and then discover those microservices using `weavedns` without requiring any modifications to the code.
+In this tutorial you will learn how to use [WeaveDNS](/documentation/net-1.5-weavedns) to automatically discover dockerized microservices using Weave Net.  You will deploy several Spring-based microservices to Docker containers and then discover those microservices using `weavedns` without requiring any modifications to the code.
 
 You will: 
 
@@ -78,11 +78,11 @@ The IP addresses used for this demo are as follows:
 
 ####Weave and DNS
 
-The [weavedns](http://docs.weave.works/weave/latest_release/weavedns.html) service answers name queries on a Weave network. `weavedns` provides a simple way for containers to find each other by giving them hostnames and telling the other containers to connect to those names.
+The [WeaveDNS](/documentation/net-1.5-weavedns) service answers name queries on a Weave network. `weavedns` provides a simple way for containers to find each other by giving them hostnames and telling the other containers to connect to those names.
 
 ####Weave and Automatic IP Address Management
 
-[Weave Automatic IP Address Management (IPAM)](http://docs.weave.works/weave/latest_release/ipam.html) automatically assigns containers IP addresses that are unique across the network. With Weave IPAM you can easily add more containers to your network, ensuring that each container receives a unique IP.
+[Weave Automatic IP Address Management (IPAM)](/documentation/net-1.5-ipam) automatically assigns containers IP addresses that are unique across the network. With Weave IPAM you can easily add more containers to your network, ensuring that each container receives a unique IP.
 
 ## Launching Weave
 
@@ -116,7 +116,7 @@ To install and launch Weave Net manually on the host:
 
 
 >Note: In this guide commands were run directly on the host, but you can also run Docker commands from your local machine on the remote host by configuring the docker client to use the [Weave Docker API
-Proxy](http://docs.weave.works/weave/latest_release/proxy.html). The Weave Docker API Proxy allows you to use the official docker client, and it will also attach any booted containers to the weave network. To enable the proxy, first install Weave on to your local machine, run `weave launch` and then set the environment by running `eval "$(weave env)"`
+Proxy](/documentation/net-1.5-weave-docker-api). The Weave Docker API Proxy allows you to use the official docker client, and it will also attach any booted containers to the weave network. To enable the proxy, first install Weave on to your local machine, run `weave launch` and then set the environment by running `eval "$(weave env)"`
 
 ## What Just Happened
 
@@ -225,7 +225,7 @@ You can adapt this example and use it as a template for your own implementation.
 
 
 ##For Further Reading
- * [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
- * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
- * [Naming and Discovery](http://docs.weave.works/weave/latest_release/features.html#naming-and-discovery)
- * [Address Allocation](http://docs.weave.works/weave/latest_release/features.html#addressing)
+ * [How Weave Works](/documentation/net-1.5-router-topology)
+ * [Weave Features](/documentation/net-1.5-features)
+ * [Naming and Discovery](/documentation/net-1.5-features#naming-and-discovery)
+ * [IP Address Management](/documentation/net-1.5-ipam)

@@ -164,7 +164,7 @@ You should see output similar to this:
     </center></body></html>
 
 
-Run `curl -v outyet:8080` several times to confirm that Weave Net is balancing the load. You will notice that the IP address for `outyet` is not always the same and instead is randomized by weavedns as it balances the load between the hosts. For more information on weavedns see [Automatic Discovery with WeaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html).
+Run `curl -v outyet:8080` several times to confirm that Weave Net is balancing the load. You will notice that the IP address for `outyet` is not always the same and instead is randomized by weavedns as it balances the load between the hosts. For more information on weavedns see [Discovering Containers with WeaveDNS](/documentation/net-1.5-weavedns).
 
 
 ### Overriding Default Configuration Variables
@@ -196,8 +196,8 @@ You can easily adapt this example and use it as a template for your own implemen
 
 ## Further Reading
 
- * [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
- * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
- * [Docker API proxy](http://docs.weave.works/weave/latest_release/proxy.html)
+ * [How Weave Works](/documentation/net-1.5-router-topology)
+ * [Weave Features](/documentation/net-1.5-features)
+ * [Integrating Docker via the API Proxy](/documentation/net-1.5-weave-docker-api)
 
 

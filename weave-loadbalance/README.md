@@ -93,9 +93,9 @@ The `setup-weave.sh` script automates this process for you as well.
 
 Unlike Docker ‘ambassador links’, `weavedns` requires no code changes and it also works across hosts. 
 
-See [Automatic Discovery with weavedns](http://docs.weave.works/weave/latest_release/weavedns.html) for information about how the weavedns service works.
+See [Discovering Containers with WeaveDNS](/documentation/net-1.5-weavedns) for information about how the weavedns service works.
 
-[Weave Automatic IP Address Management (IPAM)](http://docs.weave.works/weave/latest_release/ipam.html) automatically assigns any new containers a unique IP address across the network. With Weave IPAM you can add more containers to the network without having to worry about manually assigning each a unique IP.
+[Weave Automatic IP Address Management (IPAM)](/documentation/net-1.5-ipam) automatically assigns any new containers a unique IP address across the network. With Weave IPAM you can add more containers to the network without having to worry about manually assigning each a unique IP.
 
 ####Checking the Weave Network
 
@@ -234,4 +234,4 @@ You can adapt this example and use it as a template for your own implementation.
 
 * [Automatic Discovery with weavedns](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
 * [Weave - Weaving Containers into Applications](https://github.com/weaveworks/weave)
-* [Documentation Home Page](http://docs.weave.works/weave/latest_release/)
+* [Documentation Home Page](/docs)

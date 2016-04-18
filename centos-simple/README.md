@@ -10,7 +10,7 @@ sidebarpath: /start/wd/centos
 sidebarweight: 15
 ---
 
-In this example you will use `Weave Net` to provide nework connectivity and service discovery using the [`weavedns service`](http://docs.weave.works/weave/latest_release/weavedns.html). 
+In this example you will use `Weave Net` to provide nework connectivity and service discovery using the [WeaveDNS service](/documentation/net-1.5-weavedns). 
 
 In this example:
 
@@ -112,7 +112,7 @@ The two hosts are now connected to each other, and any subsequent containers lau
 
 Since this is the first time launching Weave you have downloaded several docker images containing the Weave components: Weave Router, WeaveDNS, Weave Docker API Proxy and the Docker Network Plugin.
 
->Note: See [Weave Plugin](http://docs.weave.works/weave/latest_release/plugin.html) for information on configuring and setting this up. 
+>Note: See [Weave Plugin](/documentation/net-1.5-plugin) for information on configuring and setting this up. 
 
 On the first host, `weave-gs-01`, you launched a Weave router container. On the second host, `weave-gs-02`, you launched another Weave router container using the IP address of your first host. This command tells the Weave on `weave-gs-02` to peer with the Weave on `weave-gs-01`.
 
@@ -225,7 +225,7 @@ You can adapt this example and use it as a template for your own implementation.
 
 ##Further Reading
 
- * [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
- * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
- * [Weave Plugin](http://docs.weave.works/weave/latest_release/plugin.html)
- * [`weavedns service`](http://docs.weave.works/weave/latest_release/weavedns.html)
+ * [How Weave Works](/documentation/net-1.5-router-topology)
+ * [Weave Features](/documentation/net-1.5-features)
+ * [Weave Plugin](/documentation/net-1.5-plugin)
+ * [WeaveDNS service](/documentation/net-1.5-weavedns)
