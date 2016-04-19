@@ -161,7 +161,7 @@ The container is registered with Weave and is accessible to other containers reg
 ##Deploying The Client Container
 
 You now want to create a container on your second host and connect to the webserver in the container on our first host. 
-We will use a container we created for our [Getting startedi with Weave and Docker on CentOS guide](). Containers return a container ID which you will capture to use further on in this example. On `weave-gs-02` run
+We will use a container we created for our [Getting started with Weave and Docker on CentOS guide](). Containers return a container ID which you will capture to use further on in this example. On `weave-gs-02` run
 
     CONTAINER=`sudo weave run 10.0.1.2/24 -t -i weaveworks/weave-gs-centos-bash`
 
