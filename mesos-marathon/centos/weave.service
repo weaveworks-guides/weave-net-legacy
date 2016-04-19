@@ -1,6 +1,6 @@
 [Unit]
 Description=Weave Net
-Documentation=http://docs.weave.works/
+Documentation=http://weave.works/docs
 After=docker.service
 Before=weaveproxy.service
 Requires=docker.service

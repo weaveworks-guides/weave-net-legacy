@@ -1,6 +1,6 @@
 [Unit]
 Description=Weave Docker API proxy
-Documentation=http://docs.weave.works/
+Documentation=http://weave.works/docs
 After=docker.service
 Requires=docker.service
 [Service]

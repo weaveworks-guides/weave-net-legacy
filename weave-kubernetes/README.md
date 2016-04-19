@@ -17,9 +17,9 @@ Without Weave, implementing simple networking for your app across Kubernetes clu
 
 Only after private subnets are allocated and any ports mapped, will the kube-proxy, which runs on each node, be able to forward simple TCP/UDP requests to the correct containers within a pod. And if DNS is required, an extra service must also be configured.
 
-With Weave there is no need to deploy or specify any extra services and since Weave listens on standard ports, mapping ports is also not required. Using the [Weave Docker API Proxy](http://docs.weave.works/weave/latest_release/proxy.html), Weave takes care of [IP management with IPAM](http://docs.weave.works/weave/latest_release/ipam.html) and also [Automatic Service Discovery](http://docs.weave.works/weave/latest_release/features.html#naming-and-discovery), with the `weaveDNS` service which removes the requirement of having to directly configure the Docker daemon with statically allocated private subnets for each host or node.
+With Weave there is no need to deploy or specify any extra services and since Weave listens on standard ports, mapping ports is also not required. Using the [Weave Docker API Proxy](/documentation/net-1.5-weave-docker-api), Weave takes care of [IP management with IPAM](/documentation/net-1.5-ipam) and also [Discovering Containers with WeaveDNS](/documentation/net-1.5-weavedns), with the `weaveDNS` service which removes the requirement of having to directly configure the Docker daemon with statically allocated private subnets for each host or node.
 
-In addition to those services, Weave provides simple to deploy [encryption](http://docs.weave.works/weave/latest_release/features.html#security) and is one of the few solutions that can integrate with non-containerized services, such as legacy databases, and manage those services together on a container network.
+In addition to those services, Weave provides simple to deploy [encryption](/documentation/net-1.5-features#security) and is one of the few solutions that can integrate with non-containerized services, such as legacy databases, and manage those services together on a container network.
 
 Because Weave is an integrated and dedicated container network solution, overhead costs and resource complexity is reduced. Weave in essence saves you time and money, and lets you focus on app development, rather than your infrastructure design.
 
@@ -367,8 +367,8 @@ The purpose of this guide is to provide an out-of-the-box implementation that ca
 
 ## Further Reading
 
-* [Documentation Home Page](http://docs.weave.works/weave/latest_release/)
+* [Documentation Home Page](/docs)
 * [How Weave Works](https://github.com/weaveworks/weave)
-* [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
-* [Weave encryption](http://docs.weave.works/weave/latest_release/features.html#security)
-* [Weave IPAM](http://docs.weave.works/weave/latest_release/features.html#addressing)
+* [Weave Features](/documentation/net-1.5-features)
+* [Weave encryption](/documentation/net-1.5-features#security)
+* [Weave IPAM](/documentation/net-1.5-features#addressing)

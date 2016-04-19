@@ -182,7 +182,7 @@ documentation](https://registry.hub.docker.com/_/rails/)
 
 Weave is responsible for the raw
 network connection and also any routing between containers.
-[WeaveDNS](http://docs.weave.works/weave/latest_release/weavedns.html)
+[WeaveDNS](/documentation/net-1.5-weavedns)
 provides service-discovery between the app, and the database
 container.
 
@@ -197,7 +197,7 @@ $ eval "$(weave env)"
 ~~~
 
 >Note: In this guide commands were run directly on the host, but you can also run docker commands from your local machine on the remote host by configuring the docker client to use the [Weave Docker API
-Proxy](http://docs.weave.works/weave/latest_release/proxy.html). The Weave Docker API Proxy allows you to use the official docker client, and it will also attach any booted containers to the weave network. To enable the proxy, first install Weave on to your local machine, run `weave launch` and then set the environment by running `eval "$(weave env)"`
+Proxy](/documentation/net-1.5-weave-docker-api). The Weave Docker API Proxy allows you to use the official docker client, and it will also attach any booted containers to the weave network. To enable the proxy, first install Weave on to your local machine, run `weave launch` and then set the environment by running `eval "$(weave env)"`
 
 
 ##Launching PostgreSQL
@@ -296,6 +296,6 @@ You can adapt this example and use it as a template for your own implementation.
 
 ##Further Reading
 
- * [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
- * [Weave Features](http://docs.weave.works/weave/latest_release/features.html)
- * [Weave Docker API Proxy](http://docs.weave.works/weave/latest_release/proxy.html)
+ * [How Weave Works](/documentation/net-1.5-router-topology)
+ * [Weave Features](/documentation/net-1.5-features)
+ * [Weave Docker API Proxy](/documentation/net-1.5-weave-docker-api)

@@ -119,7 +119,7 @@ Running `weave launch` automatically configures your network, and it starts the 
 
 >Note: Both the `weavedns` and the `Weave Docker API Proxy` services can be started independently, if required, see `weave --help` for more information.
 
-See the [Weave Docker API Proxy documentation](http://docs.weave.works/weave/latest_release/proxy.html) for more information about the Weave Docker API proxy.
+See the [Weave Docker API Proxy documentation](/documentation/net-1.5-weave-docker-api) for more information about the Weave Docker API proxy.
 
 Now you are ready to deploy containers and also use DNS so that the containers can discover each other.
 
@@ -192,8 +192,8 @@ You can easily adapt these examples and use them as templates in your own implem
 ## Further Reading
 
   *  [Learn More About Weave](http://weave.works/articles/index.html)
-  *  [How Weave Works](http://docs.weave.works/weave/latest_release/how-it-works.html)
-  *  [Weave Docker API](http://docs.weave.works/weave/latest_release/proxy.html)
+  *  [How Weave Works](/documentation/net-1.5-router-topology)
+  *  [Weave Docker API](/documentation/net-1.5-weave-docker-api)
  
 
 [ch1]: /part-1-launching-weave-net-with-docker-machine/
