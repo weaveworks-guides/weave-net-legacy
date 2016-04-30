@@ -22,7 +22,7 @@ You will use Weave and Ansible to:
 
 This example requires no programming and takes about 15 minutes to complete. 
 
-![Weave and Docker](/guides/images/2_Node_HAProxy_AWS_Example.png)
+![Weave and Docker](/images/2_Node_HAProxy_AWS_Example.png)
 
 ## What You Will Use ##
 

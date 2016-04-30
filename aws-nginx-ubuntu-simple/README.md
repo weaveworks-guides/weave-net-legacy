@@ -14,7 +14,7 @@ This example demonstrates how using `Weave Net` and `Weave Run` you can deploy N
 a load balancer for a simple php application running in containers on multiple nodes in [Amazon
 Web Services](http://aws.amazon.com), with no modifications to the application and minimal docker knowledge.
 
-![Weave, Nginx, Apache and Docker on AWS](/guides/images/2_Node_Nginx_AWS_Example.png)
+![Weave, Nginx, Apache and Docker on AWS](/images/2_Node_Nginx_AWS_Example.png)
 
 
 ## What you will use ##

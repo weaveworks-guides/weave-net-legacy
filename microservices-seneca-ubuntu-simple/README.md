@@ -23,7 +23,7 @@ Specifically, you will:
 
 The example does not require any programming and it will take 15 minutes to complete. 
 
-![Weave, Microservices and Docker](/guides/images/Microservices_Seneca_Weave.png)
+![Weave, Microservices and Docker](/images/Microservices_Seneca_Weave.png)
 
 ## What You Will Use
 

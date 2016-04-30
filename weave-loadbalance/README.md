@@ -16,7 +16,7 @@ You will:
 2. Return the IP address of each container from the webservice using `curl`.
 3. Load balance six containers across two hosts on a Weave network.
 
-![Simple Loadbalancing with Weave](/guides/images/Weave_LoadBalance.png)
+![Simple Loadbalancing with Weave](/images/Weave_LoadBalance.png)
 
 ## What You Will Use ##
 

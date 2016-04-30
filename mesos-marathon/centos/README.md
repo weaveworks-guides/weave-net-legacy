@@ -26,13 +26,13 @@ This example requires no programming, but does assume some UNIX skills. It will 
 
 Mesos Marathon frameworks implements a management API (used by `deploy_on_marathon.sh` script) and the user interface. Mesos schedules any tasks created through Marathon and runs those on the cluster, where with the exception of `mesos-00` there is a `mesos-slave` service on each of the nodes . Docker and the Weave Net containers run on all nodes, it doesn't have to run on `mesos-00`, but from a management perspective, it may be convenient to do so. 
 
-![Architecture Overview](/guides/images/mesos-marathon/centos/diagram-1.png)
+![Architecture Overview](/images/mesos-marathon/centos/diagram-1.png)
 
 To enable Marathon to deploy tasks as Docker containers and to use Weave Net, [a configuration file](https://github.com/weaveworks/guides/blob/master/mesos-marathon/centos/mesos-slave-containerizers.conf) [installed](https://github.com/weaveworks/guides/blob/0b10b27f0559b8852c12b81b94034823c3816777/mesos-marathon/centos/setup_and_launch_mesos_slave.sh#L7) using Vagrant's provisioning logic is provided.  See these files for further information on how this tutorial is configured.  
 
 The following diagram shows how Weave Net interacts with Docker and Mesos.
 
-![Weave Net, Docker and Mesos](/guides/images/mesos-marathon/centos/diagram-2.png)
+![Weave Net, Docker and Mesos](/images/mesos-marathon/centos/diagram-2.png)
 
 For more information on the Apache Mesos and its application manager, Marathon, refer to the [Apache Mesos Docs](http://mesos.apache.org/documentation/latest/) and the [Marathon Docs](https://mesosphere.github.io/marathon/).
 
@@ -125,8 +125,8 @@ If you are looking to deploy your own app instead of this example, make sure to 
 
 The Marathon UI is accessed at `http://172.17.85.100:8080`
 
-![Marathon Apps](/guides/images/mesos-marathon/centos/marathon-1.png)
-![Marathon Apps - outyet](/guides/images/mesos-marathon/centos/marathon-2.png)
+![Marathon Apps](/images/mesos-marathon/centos/marathon-1.png)
+![Marathon Apps - outyet](/images/mesos-marathon/centos/marathon-2.png)
 
 Log on to `mesos-01`, become root and set the environment for Weave Net, which is necessary for attaching containers to a Weave network:
 
