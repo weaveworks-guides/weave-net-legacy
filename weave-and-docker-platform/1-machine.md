@@ -10,7 +10,7 @@ sidebarpath: /start/dist/weavedocmach
 sidebarweight: 15
 ---
 
-In this Part 1  "Launching Weave Net with Docker Machine" the basics of launching a container network with Weave Net is introduced. In [Part 2 "Using Weave With Docker Machine and Swarm](/part-2-using-weave-with-docker-machine-and-swarm/), you will learn how to configure a basic [Docker Swarm Cluster](https://docs.docker.com/swarm/) and use Weave Net to discover containers within it. In [Part 3 "Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave"](/part-3-creating-and-scaling-multi-host-docker-deployment-with-swarm-and-compose-using-weave/), you will use what you learned in parts 1 and 2 and using [Docker Compose](https://docs.docker.com/compose/) and Weave Net will launch a two-tier application spread across three VMs. 
+In this Part 1  "Launching Weave Net with Docker Machine" the basics of launching a container network with Weave Net is introduced. In [Part 2 "Using Weave With Docker Machine and Swarm](/part-2-using-weave-with-docker-machine-and-swarm/), you will learn how to configure a basic [Docker Swarm Cluster](https://docs.docker.com/swarm/) and use Weave Net to discover containers within it. In [Part 3 "Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave"](/part-3-creating-and-scaling-multi-host-docker-deployment-with-swarm-and-compose-using-weave/), you will take what you learned in Parts 1 and 2 and use [Docker Compose](https://docs.docker.com/compose/) and Weave Net to launch a two-tier application spread across three VMs. 
 
 [Docker Machine](https://docs.docker.com/machine/) makes it simple to create Docker hosts (VMs) on your computer, on cloud providers or within your own data center. It creates servers, installs Docker on them, and then it configures the Docker client to talk to them.
 
@@ -24,7 +24,7 @@ In Part 1 of this tutorial, you will:
   4. Use Weave's built-in "micro DNS" server to discover the Weave-attached Docker containers on the network
   5. Communicate with your app and send a message from one container to another using shell commands
 
-This example uses very simple UNIX tools, doesn't require any programming skills and will take about 10 minutes to complete.
+This example uses very simple UNIX tools, doesn't require any programming skills and takes about 10 minutes to complete.
 
 ## What You Will Use
 
@@ -33,9 +33,9 @@ This example uses very simple UNIX tools, doesn't require any programming skills
 
 ## Before You Begin
 
-If you are using OS X or Windows install [Docker Toolbox](https://www.docker.com/toolbox), which provides all of the tools you need to complete this guide.
+If you are using OS X or Windows, install [Docker Toolbox](https://www.docker.com/toolbox), which provides all of the tools you need to complete this guide.
 
-For other operating systems, please install and configure the following separately before proceeding:
+For other operating systems, install and configure the following separately before proceeding:
 
   - [`docker-machine`](http://docs.docker.com/machine/#installation) binary (_`>= 0.2.0`_)
   - [`docker`](https://docs.docker.com/installation/#installation) binary, at least the client (_`>= v1.6.x`_)
@@ -43,9 +43,6 @@ For other operating systems, please install and configure the following separate
   - `curl` (_any version_)
 
 ## Installing Weave Net
-
-Weave is available as a Docker Networking plug-in (for Docker >= 1.9), and as a stand-alone install.
-In this guide, you will use Weave on its own. 
 
 Download the latest version of `weave`and then clone the guides directory. If you do not have ownership of the `/usr/local/bin` directory, you may need to preface the commands with `sudo`:
 
@@ -78,13 +75,15 @@ Now you are ready to launch the Weave network:
 weave launch
 ~~~
 
-Next set up your environment to use Weave's Docker API Proxy. The Docker API Proxy allows you to use standard Docker commands, and also enables Weave Net to attach containers to the network and them IP addresses. An alternative way to attach containers to the Weave network is by using the Docker Plugin. In this tutorial, you will be using the Weave Docker API Proxy. 
+Next set up your environment to use Weave's Docker API Proxy. The Docker API Proxy allows you to use standard Docker commands, and enables you to attach containers to the Weave network and assign them IP addresses. An alternative way to attach containers to the Weave network is by using the Docker Plugin (for Docker >= 1.9). In this tutorial, you will be using the Weave Docker API Proxy to attach containers.
+
+To set up the environment for the Weave Docker API Proxy:
 
 ~~~bash
 eval "$(weave env)"
 ~~~
 
-Check to see that all of the components of the Weave network are running:
+Check to see that Weave Net is running:
 
 ~~~bash
 weave status
@@ -122,17 +121,17 @@ Version: 1.5.2
 
 Running `weave launch` automatically configures your network, starts the weave router, which contains the `weavedns` service, and it also launches the Docker API proxy and the Weave Docker Plugin. 
 
->**Note:** Weave components can be started and stopped independently, if required, see `weave --help` for more information.
+>**Note:** If necessary, you can start and stop Weave components independently, see `weave --help` for more information.
 
-Now you are ready to deploy containers and use weaveDNS so that the containers can discover each other.
+Now you are ready to deploy containers and also take advantage of weaveDNS to discover containers.
 
 ### Deploying Two Containers to the Weave Network
 
-In this example, you are using the Docker API proxy to attach containers to the Weave network. The proxy was configured when you ran `eval$(weave env)`. 
+In this example, you are using the Docker API proxy to attach containers to the Weave network. As a reminder, the proxy was configured when you ran `eval$(weave env)`. 
 
->**Note:** Do not attach containers to the Weave network using both the Weave Docker Networking Plugin and Weave Docker API Proxy simultaneously. Containers run in this way will end up with two Weave network interfaces and two IP addresses. To ensure that the proxy is not being used, do not run eval $(weave env), or docker $(weave config). To attach containers using the Docker Network Plugin, use the `--net=weave` flag with the Docker run command. 
+>**Note:** Do not attach containers to the Weave network using both the Weave Docker Networking Plugin and Weave Docker API Proxy simultaneously. Containers run in this way will end up with two Weave network interfaces and two IP addresses. To ensure that the proxy is not being used, do not run eval $(weave env), or docker $(weave config). To attach containers with the Docker Network Plugin, you can use the `--net=weave` flag when using the Docker run command. 
 
-For more information on how to use the Weave Docker Plugin, see [Integrating Docker via the Network Plugin](https://www.weave.works/docs/net/latest/plugin/)
+For more information on how to use the Weave Docker Plugin, see ["Integrating Docker via the Network Plugin"](https://www.weave.works/docs/net/latest/plugin/)
 
 The first app to be deployed is called `pingme`. It consists of a simple netcat (aka `nc`) server running on TCP port 4000, and it is configured to send a short message, `Hello, Weave!` to any client that connects to it.
 
@@ -181,7 +180,7 @@ Type 'exit' to exit the `pinger` container.
 
 ## Cleanup
 
-This completes Part 1 of this tutorial. If you are not going on to [Part 2][ch2], then you may want to remove the containers and the VM used in this example:
+This completes Part 1 of this tutorial. If you are not going on to [Part 2](/part-2-using-weave-with-docker-machine-and-swarm/), then you may want to remove the containers and the VM used in this example:
 
 ~~~bash
 > docker rm -f pingme pinger
@@ -191,8 +190,6 @@ This completes Part 1 of this tutorial. If you are not going on to [Part 2][ch2]
 ##Conclusions
 
 This tutorial demonstrated how to launch a Weave network using Docker Machine. A simple  _"Hello, Weave!"_ service was deployed to a container that listens on TCP port 4000 for any connections from other containers.
-
-You should now be familiar with the commands you need to use in order to create Virtual Machines and also those used to create and start containers on them.
 
 Proceed to [Part 2](/part-2-using-weave-with-docker-machine-and-swarm/), where you will set up multiple Virtual Machines, using Docker Swarm to schedule containers, use [Weave Net](/weave-net/) to provide transparent connectivity across multiple Docker hosts and to automatically discover new containers with weaveDNS without the need of an external cluster store.
 
