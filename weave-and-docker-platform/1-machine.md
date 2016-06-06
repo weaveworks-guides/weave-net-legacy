@@ -75,7 +75,7 @@ Now you are ready to launch the Weave network:
 weave launch
 ~~~
 
-Next set up your environment to use Weave's Docker API Proxy. The Docker API Proxy allows you to use standard Docker commands, and enables you to attach containers to the Weave network and assign them IP addresses. An alternative way to attach containers to the Weave network is by using the Docker Plugin (for Docker >= 1.9). In this tutorial, you will be using the Weave Docker API Proxy to attach containers.
+Next set up your environment to use Weave's Docker API Proxy. The Docker API Proxy allows you to use standard Docker commands, and enables you to attach containers to the Weave network and assigns IP addresses to them. An alternative way to attach containers to the Weave network is by using the Docker Plugin (for Docker >= 1.9). In this tutorial, you will be using the Weave Docker API Proxy to attach containers.
 
 To set up the environment for the Weave Docker API Proxy:
 
@@ -119,11 +119,11 @@ Version: 1.5.2
 
 ~~~
 
-Running `weave launch` automatically configures your network, starts the weave router, which contains the `weavedns` service, and it also launches the Docker API proxy and the Weave Docker Plugin. 
+Running `weave launch` automatically configures your network, starts the weave router, `weavedns`, and also launches the Docker API proxy and the Weave Docker Plugin. 
 
 >**Note:** If necessary, you can start and stop Weave components independently, see `weave --help` for more information.
 
-Now you are ready to deploy containers and also take advantage of weaveDNS to discover containers.
+Now you are ready to deploy containers and take advantage of weaveDNS to discover containers.
 
 ### Deploying Two Containers to the Weave Network
 
