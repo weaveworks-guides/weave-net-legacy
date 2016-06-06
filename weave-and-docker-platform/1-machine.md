@@ -47,7 +47,7 @@ For other operating systems, please install and configure the following separate
 Weave is available as a Docker Networking plug-in (for Docker >= 1.9), and as a stand-alone install.
 In this guide, you will use Weave on its own. 
 
-Download the latest version of `weave`and then clone the guides directory. If you do not have ownership of the `/usr/local/bin` directory, you may need to preface these commands with `sudo`:
+Download the latest version of `weave`and then clone the guides directory. If you do not have ownership of the `/usr/local/bin` directory, you may need to preface the commands with `sudo`:
 
 ~~~bash
 curl -L git.io/weave -o /usr/local/bin/weave
@@ -120,17 +120,17 @@ Version: 1.5.2
 
 ~~~
 
-Running `weave launch` automatically configures your network, starts the weave router, which contains the `weavedns` service, and also launches the Docker API proxy and the Weave Docker Plugin. 
+Running `weave launch` automatically configures your network, starts the weave router, which contains the `weavedns` service, and it also launches the Docker API proxy and the Weave Docker Plugin. 
 
->**Note:** It is inadvisable to attach containers to the Weave network using the Weave Docker Networking Plugin and Weave Docker API Proxy simultaneously. Containers run in this way will end up with two Weave network interfaces and two IP addresses. To ensure that the proxy is not being used, do not run eval $(weave env), or docker $(weave config)
+>**Note:** Do not attach containers to the Weave network using both the Weave Docker Networking Plugin and Weave Docker API Proxy simultaneously. Containers run in this way will end up with two Weave network interfaces and two IP addresses. To ensure that the proxy is not being used, do not run eval $(weave env), or docker $(weave config)
 
-Since in this example, you are using the proxy, which we've configured by running `eval$(weave env)` , you will have to stop the Docker Plugin by typing: 
+In this example, you are using the Docker API proxy, which has been configured by running `eval$(weave env)`, to avoid attaching containers to two weave networks, first stop the Docker Plugin by typing: 
 
 ~~~
 weave stop-plugin
 ~~~
 
->Note: Both the `weavedns` and the `Weave Docker API Proxy` services can also be started and stopped independently, if required, see `weave --help` for more information.
+>**Note:** `weavedns` and the `Weave Docker API Proxy` can also be started and stopped independently, if required, see `weave --help` for more information.
 
 Now you are ready to deploy containers and use weaveDNS so that the containers can discover each other.
 
