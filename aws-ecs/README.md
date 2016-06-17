@@ -92,7 +92,7 @@ To visualize this example with the Weave Cloud service, you will need to obtain 
  
 To gain access, sign up at [Weave Cloud](http://cloud.weave.works). An email will be sent to you with further login instructions. 
 
-Login into Weave Cloud and click the settings icon in the top right hand corner to obtain the cloud service token:
+Login to Weave Cloud and click the settings icon in the top right hand corner to obtain the cloud service token:
 
 ![Weave Cloud main page](/guides/images/aws-ecs/weave-cloud-main-page.png)
 
