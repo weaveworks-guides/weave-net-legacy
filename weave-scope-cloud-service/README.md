@@ -1,6 +1,6 @@
 ---
 layout: guides
-title: Using Weave Cloud to Visualize and Monitor Docker Containers
+title: Visualizing Dockerized Microservices With Weave Cloud
 description: How to use Weave Cloud service to monitor and visualize docker containers.
 tags: weave scope, docker containers visibility, cluster, swarms
 permalink: /guides/weave-scope/weave-scope-cloud-service-monitor-containers.html
