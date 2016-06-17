@@ -22,7 +22,7 @@ There is no need to deploy extra services to achieve DNS lookup and load balanci
 This guide takes approximately 15 minutes to complete: you will use Weave for service discovery and load balancing
 between [containers that have been deployed to Amazon Elastic Cloud (EC2) instances using Amazon Container Service or ECS](http://aws.amazon.com/ecs/). 
 
-This guide also introduces [Weave Scope](http://weave.works/scope/index.html), which enables you to visualize and understand your container-based applications.
+This guide also introduces [Weave Scope](http://weave.works/scope/index.html), and [Weave Cloud](https://cloud.weave.works) which enables you to visualize and understand your container-based microservices.
 
 Two types of containerized microservices are demonstrated in this guide: HTTP Servers and "Data Producers".
 
@@ -36,7 +36,7 @@ Data producers generically model containers that produce a data feed of some kin
 Weave solves these issues using its built-in DNS server, where it securely and transparently:
 
 * Implements service discovery by adding DNS A-records for your containers based on
-their names 
+their names.
 * Manages load balancing by randomizing the order of DNS responses.
 
 For more information about the weavedns service see [Automatic Discovery with weavedns](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
@@ -86,24 +86,14 @@ aws configure
 ~~~
 
 
-## Obtain a Weave Scope Cloud Service Token (Recommended)
+## Obtain a Weave Cloud Service Token (Recommended)
 
-This step is optional but recommended. To visualize the result of this example with the Weave Scope cloud service, you need to obtain a `Weave Scope` cloud service token.
+To visualize this example with the Weave Cloud service, you will need to obtain a Weave Cloud service token.
+ 
+To gain access, sign up at [Weave Cloud](http://cloud.weave.works). An email will be sent to you with further login instructions. 
+Once received, the token is also accessible from the Weave Cloud main page after you've logged in:
 
-The `Weave Scope` cloud service is in beta. To gain access, please sign up for the [Early Access Program](http://scope.weave.works) at [http://scope.weave.works](http://scope.weave.works).
-
-![`Weave Scope` early access form](/guides/images/aws-ecs/scope-early-access.png)
-
-Once you've been granted access, an email will be sent to you containing your cloud service token. 
-
->*Note*: Candidates for the Early Access Program are evaluated on a case per case basis. It may take a few days before you receive a confirmation email. To accelerate the process, please send an email to `help@weave.works` which explains your use-case.
-
-Once received, the token is also accessible from the Weave Scope main page after you've logged in:
-
-![Weave Scope main page](/guides/images/aws-ecs/scope-cloud-main-page.png)
-
-From the example above, the service token is `3hud3h6ys3jhg9bq66n8xxa4b147dt5z`
-
+![Weave Cloud main page](/guides/images/aws-ecs/scope-cloud-main-page.png)
 
 ## Automatic Setup and Configuration
 
@@ -113,8 +103,10 @@ To configure this example, run the following command:
 ./setup.sh $SCOPE_TOKEN
 ~~~
 
-where `$SCOPE_TOKEN` is an optional argument corresponding to your `Weave Scope`
-cloud service token.
+where, 
+
+* `$SCOPE_TOKEN` is an optional argument corresponding to your Weave Cloud
+service token.
 
 You should see something like this:
 
@@ -216,10 +208,10 @@ The HTTP Server works as follows:
 
 [`Weave Scope`](http://weave.works/scope/) provides a real-time visualization of the containers running on the Weave network and also an overview of how they communicate with each other.
 
-* If you provided a `$PROBE_TOKEN` to `setup.sh`, simply login to [http://scope.weave.works](http://scope.weave.works)
+* If you provided a `$PROBE_TOKEN` to `setup.sh`, simply login to [https://cloud.weave.works](https://cloud.weave.works)
 * As an alternative, if you did not provide a token, all of your ECS instances will still be running equipped with a `Weave Scope`
   web application listening on port `4040` (this solution does have some
-  performance and administration issues compared to the `Weave Scope` cloud service, but
+  performance and administration issues compared to using the Weave Cloud service, but it
   is more than sufficient for demonstration purposes).
 
   To access it,  open your browser and paste the `Weave Scope` application URL from any of your instances:
@@ -511,7 +503,7 @@ If you need to incorporate changes to the Weave AMI, you can do so by following 
 
 ##Conclusions
 
-You have used Weave out-of-the-box within the Amazon Container Management service or ECS and used Weave for both service discovery and load balancing between containers running in Amazon EC2 instances. In addition to this, you were introduced to the `Weave Scope` cloud service for visualizing and monitoring a Weave container network. 
+You have used Weave out-of-the-box within the Amazon Container Management service or ECS and used Weave for both service discovery and load balancing between containers running in Amazon EC2 instances. In addition to this, you were introduced to Weave Cloud for visualizing and monitoring a Weave container network. 
 
 Weave runs regardless of whether it was executed on the same or on different hosts, and can even run across completely different cloud providers if necessary.
 
