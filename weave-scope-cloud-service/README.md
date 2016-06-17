@@ -14,7 +14,7 @@ Weave Scope can be deployed to any infrastructure, and works well in all cloud a
 
 [Weave Cloud](http://cloud.weave.works) centrally manages and shares access to your Weave Scope user interface. With the cloud service, you run Weave Scope probes locally across your machines and then monitor the infrastructure from the Weaveworks website where the Weave Scope app feed is hosted. 
 
-You can also launch Weave Scope in stand-alone mode, and run Weave Scope locally in your own environment. See, ["Using Weave Scope Standalone to Visualize and Monitor Docker Containers"](/using-weave-scope-standalone-to-visualize-and-monitor-docker-containers/) for more information and an example on how to use it. 
+You can also launch Weave Scope in stand-alone mode, and run Weave Scope locally in your own environment. See, ["Monitoring Docker Containers with Weave Scope"](/monitor-docker-containers/) for more information and an example on how to use it. 
 
 ##Signing Up With Weave Cloud Service
 
