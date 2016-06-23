@@ -254,7 +254,7 @@ Send us your thoughts or issues via [Help and Support](http://weave.works/help/i
 
 ##Further Reading
 
-  *  [How Weave Works](/documentation/net-1.5-router-topology)
+  *  [How Weave Works](/docs/net/latest/how-it-works/)
   *  [Automatic IP Address Management](/docs/net/latest/ipam/)
 
 [step1]: https://github.com/weaveworks/guides/blob/30afe999265ad18494f3a88064f70cac1edc9607/weave-and-docker-platform/scripts/1-machine-create.sh
