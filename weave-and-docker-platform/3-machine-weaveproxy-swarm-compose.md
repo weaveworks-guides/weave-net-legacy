@@ -169,7 +169,7 @@ You can tear-down the VMs you have deployed:
 
 ## Summary
 
-In this final Part 3 of _"Creating distributed applications with Weave and the Docker platform"_ tutorial we have looked
+In this final Part 3 of _"Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave_ tutorial we have looked
 at how Weave works with all three components of the Docker platform (Machine, Swarm & Compose). You should now be able to understand all that's required in setting up a scalable cluster of Docker hosts using Weave tools and then deploying your application to it with ease. 
 
 You may automate your deployment somewhat differently, and so this guide is split into three parts, each describing the concepts necessary to that you can understand how Weave will help you to deploy and manage your applications. 
