@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+## TODO: We can probably get rid of this with Docker Machine 0.8.0,
+## as it has `--swarm-join-opt` flag which we should be able to use
+## (at least in theory)
+
 DOCKER_SWARM_CREATE=${DOCKER_SWARM_CREATE:-"curl -s -XPOST https://discovery-stage.hub.docker.com/v1/clusters"}
 
 ## This script will replace Swarm agent, aside from that it will have

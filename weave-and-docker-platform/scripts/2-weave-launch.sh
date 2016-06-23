@@ -6,7 +6,7 @@ for i in $(seq 3) ; do
   export DOCKER_CLIENT_ARGS="$(docker-machine config weave-${i})"
 
   ## We are going to use IPAM, hence we supply estimated cluster size
-  ./weave launch --init-peer-count 3
+  ./weave launch --ipalloc-init consensus=3
 
   ## Let's connect-up the Weave cluster by telling
   ## each of the nodes about the head node (weave-1)

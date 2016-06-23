@@ -76,7 +76,7 @@ The workflow, then is as follows:
 
 >*Note:* In Weave there is no notion of master/slave or any other roles of the nodes. Here we simply
 picked `weave-1` as a sort of bootstrap node. You could also pass all of the IPs or DNS names to `weave launch`
-and avoid having to set the <code>--init-peer-count</code> explicitly. In this example, we are using Docker Machine on VirtualBox and therefor do not know the IP addresses and do not have DNS. You should be able to use DNS with one of the cloud drivers, such as Microsoft Azure or Google Compute Engine.
+and avoid having to set the <code>--ipalloc-init consensus=<count></code> explicitly. In this example, we are using Docker Machine on VirtualBox and therefor do not know the IP addresses and do not have DNS. You should be able to use DNS with one of the cloud drivers, such as Microsoft Azure or Google Compute Engine.
 
 >To obtain the discovery swarm token, and to automatically create the VMs, a sample implementation script is provided: [`scripts/1-machine-create.sh`][step1].
 
@@ -107,26 +107,26 @@ docker-machine create -d virtualbox weave-3
 
 Now you are ready to launch Weave onto the virtual machines you just created.
 
-The IP addresses of all the peers are not known ahead of time, so you will need to pass `--init-peer-count 3` to `weave launch`.
-`--init-peer-count` is set to 3, as we are specifying a cluster of 3 VMs.
+The IP addresses of all the peers are not known ahead of time, so you will need to pass `--ipalloc-init consensus=<count>` to `weave launch`.
+`--ipalloc-init consensus=<count>` is set to 3, as we are specifying a cluster of 3 VMs.
 
 On each host you will need to:
 
-  1. launch Weave by passing  `--init-peer-count 3`
+  1. launch Weave by passing  `--ipalloc-init consensus=3`
   2. Connect the host to `weave-1` (our bootstrap node)
 
 To start weave on `weave-1` run:
 
 ~~~bash
 eval "$(docker-machine env weave-1)"
-weave launch --init-peer-count 3
+weave launch --ipalloc-init consensus=3
 ~~~
 
 Launch weave on `weave-2` and connect to the bootstrap node:
 
 ~~~bash
 eval "$(docker-machine env weave-2)"
-weave launch --init-peer-count 3
+weave launch --ipalloc-init consensus=3
 weave connect "$(docker-machine ip weave-1)"
 ~~~
 
