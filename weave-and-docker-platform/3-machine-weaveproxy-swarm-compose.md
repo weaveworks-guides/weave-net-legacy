@@ -33,9 +33,9 @@ The tutorial should take 15-25 minutes to complete.
 
   - [Weave](http://weave.works)
   - [Docker, Compose, Swarm & Machine](http://docker.com)
-  - [Python]: https://www.python.org/
-  - [Flask]: http://flask.pocoo.org/
-  - [Redis]: http://redis.io/
+  - [Python](https://www.python.org/)
+  - [Flask](http://flask.pocoo.org/)
+  - [Redis](http://redis.io/)
 
 If you are already familiar with Compose, then you will recognise the Flask app used here. If you haven't yet used Compose, then have a look at [the overview in Docker Compose Documentation](https://docs.docker.com/compose/#overview) which describes the app and the `docker-compose.yml` file structure, as well as the `Dockerfile` used.
 
