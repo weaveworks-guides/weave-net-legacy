@@ -33,9 +33,9 @@ The tutorial should take 15-25 minutes to complete.
 
   - [Weave](http://weave.works)
   - [Docker, Compose, Swarm & Machine](http://docker.com)
-  - [Python]: https://www.python.org/
-  - [Flask]: http://flask.pocoo.org/
-  - [Redis]: http://redis.io/
+  - [Python](https://www.python.org/)
+  - [Flask](http://flask.pocoo.org/)
+  - [Redis](http://redis.io/)
 
 If you are already familiar with Compose, then you will recognise the Flask app used here. If you haven't yet used Compose, then have a look at [the overview in Docker Compose Documentation](https://docs.docker.com/compose/#overview) which describes the app and the `docker-compose.yml` file structure, as well as the `Dockerfile` used.
 
@@ -45,8 +45,8 @@ If you are using OS X you can install [Docker Toolbox](https://www.docker.com/to
 
 For all other operating systems, install and configure the following separately before proceeding:
 
-  - [`docker-compose`](http://docs.docker.com/compose/install/) binary (_`>= 1.2.0`_)
-  - [`docker-machine`](http://docs.docker.com/machine/#installation) binary (_`>= 0.2.0`_)
+  - [`docker-compose`](http://docs.docker.com/compose/install/) binary (_`>= 1.7.2`_)
+  - [`docker-machine`](http://docs.docker.com/machine/#installation) binary (_`>= 0.7.0`_)
   - [`docker`](https://docs.docker.com/installation/#installation) binary, at lest the client (_`>= v1.6.x`_)
   - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (_`>= 4.3.x`_)
   - `curl` (_any version_)
@@ -169,7 +169,7 @@ You can tear-down the VMs you have deployed:
 
 ## Summary
 
-In this final Part 3 of _"Creating distributed applications with Weave and the Docker platform"_ tutorial we have looked
+In this final Part 3 of _"Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave_ tutorial we have looked
 at how Weave works with all three components of the Docker platform (Machine, Swarm & Compose). You should now be able to understand all that's required in setting up a scalable cluster of Docker hosts using Weave tools and then deploying your application to it with ease. 
 
 You may automate your deployment somewhat differently, and so this guide is split into three parts, each describing the concepts necessary to that you can understand how Weave will help you to deploy and manage your applications. 

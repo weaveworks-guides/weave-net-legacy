@@ -91,9 +91,10 @@ aws configure
 To visualize this example with the Weave Cloud service, you will need to obtain a Weave Cloud service token.
  
 To gain access, sign up at [Weave Cloud](http://cloud.weave.works). An email will be sent to you with further login instructions. 
-Once received, the token is also accessible from the Weave Cloud main page after you've logged in:
 
-![Weave Cloud main page](/guides/images/aws-ecs/scope-cloud-main-page.png)
+Login to Weave Cloud and click the settings icon in the top right hand corner to obtain the cloud service token:
+
+![Weave Cloud main page](/guides/images/aws-ecs/weave-cloud-main-page.png)
 
 ## Automatic Setup and Configuration
 

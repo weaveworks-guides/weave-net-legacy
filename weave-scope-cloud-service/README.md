@@ -1,6 +1,6 @@
 ---
 layout: guides
-title: Using Weave Cloud Service to Visualize and Monitor Docker Containers
+title: Visualizing Dockerized Microservices With Weave Cloud
 description: How to use Weave Cloud service to monitor and visualize docker containers.
 tags: weave scope, docker containers visibility, cluster, swarms
 permalink: /guides/weave-scope/weave-scope-cloud-service-monitor-containers.html
@@ -14,23 +14,20 @@ Weave Scope can be deployed to any infrastructure, and works well in all cloud a
 
 [Weave Cloud](http://cloud.weave.works) centrally manages and shares access to your Weave Scope user interface. With the cloud service, you run Weave Scope probes locally across your machines and then monitor the infrastructure from the Weaveworks website where the Weave Scope app feed is hosted. 
 
-You can also launch Weave Scope in stand-alone mode, and run Weave Scope locally in your own environment. See, ["Using Weave Scope Standalone to Visualize and Monitor Docker Containers"](/using-weave-scope-standalone-to-visualize-and-monitor-docker-containers/) for more information and an example on how to use it. 
+You can also launch Weave Scope in stand-alone mode, and run Weave Scope locally in your own environment. See, ["Monitoring Docker Containers with Weave Scope"](/monitor-docker-containers/) for more information and an example on how to use it. 
 
 ##Signing Up With Weave Cloud Service
 
-To register with Weave Scope cloud service, go to [cloud.weave.works](http://cloud.weave.works), enter your email address and wait for a confirmation email and a cloud service token.
+To register with Weave Cloud, go to [cloud.weave.works](http://cloud.weave.works), and enter your email address. A confirmation email will be sent with further instructions. 
 
->*Note*: Candidates for the Early Access Program are evaluated on a case per case basis. It may take a few days before you receive a confirmation email. To accelerate the process, please send an email to `help@weave.works` which explains your use-case.
+Login to Weave Cloud and click the settings icon in the top right hand corner to obtain the cloud service token:
 
-Once received, the cloud service token will be accessible from Weave cloud service after you've logged in:
+![`Weave Scope` main page](/guides/images/aws-ecs/weave-cloud-main-page.png)
 
-![`Weave Scope` main page](/guides/images/aws-ecs/scope-cloud-main-page.png)
 
-From the example above, the service token is `3hud3h6ys3jhg9bq66n8xxa4b147dt5z`
+##Running Weave Cloud
 
-##Running Weave Cloud Service Mode
-
-Use the cloud service token to launch a Weave Scope probe onto every machine that you want to monitor:
+Use the Weave Cloud service token to launch a Weave Scope probe onto every machine that you want to monitor:
 
 ~~~bash
 +sudo wget -O /usr/local/bin/scope \
@@ -39,11 +36,9 @@ Use the cloud service token to launch a Weave Scope probe onto every machine tha
 sudo scope launch --service-token=<token>
 ~~~
 
->**Note:** Weave Scope *must* be launched onto every host that you want to monitor.  
-
 ##Viewing Your Infrastructure Setup
 
-With Weave Scope probes deployed and the app launched, go to [cloud.weave.works](http://cloud.weave.works) to see an immediate overview of your infrastructure displayed in the browser. 
+With Weave Scope probes deployed and the app launched, go to [https://cloud.weave.works](https://cloud.weave.works) to see an immediate overview of your containerized app displayed in your browser. 
 
 Weave Scope presents all nodes in a particular order, and presents all clients above servers. As a general rule, you can read a Weave Scope view by going from top to bottom.
 
