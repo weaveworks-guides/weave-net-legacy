@@ -10,7 +10,7 @@ sidebarpath: /start/dist/mach
 sidebarweight: 20
 ---
 
-In [Part 1][ch1], you learned how to use `Weave` with [Docker Machine](https://docs.docker.com/machine/). 
+In [Part 1][ch1], you learned how to use Weave Net with [Docker Machine](https://docs.docker.com/machine/). 
 
 In this Part 2 of the guide you will learn how to configure a basic [Docker Swarm Cluster](https://docs.docker.com/swarm/), and how to deploy a Weave network onto it to make its contents discoverable.
 
@@ -74,22 +74,21 @@ The workflow, then is as follows:
   The Discovery Swarm token is a unique cluster id. For more information see the [Docker Swarm Documentation](https://docs.docker.com/swarm/install-w-machine/)
 
 
->*Note:* In Weave there is no notion of master/slave or any other roles of the nodes. Here we simply
-picked `weave-1` as a sort of bootstrap node. You could also pass all of the IPs or DNS names to `weave launch`
-and avoid having to set the <code>--init-peer-count</code> explicitly. In this example, we are using Docker Machine on VirtualBox and therefor do not know the IP addresses and do not have DNS. You should be able to use DNS with one of the cloud drivers, such as Microsoft Azure or Google Compute Engine.
+>**Note:** Weave Net doesn't recognize a master/slave relationship or any other node roles. In this example, `weave-1` is used as a sort of bootstrap node. You could also pass all of the IPs or DNS names to `weave launch`
+and avoid having to set the `--init-peer-count` explicitly.  By using Docker Machine on VirtualBox, the IP addresses are unknown and therefore do not use DNS. You should be able to use DNS with one of the cloud drivers, such as Microsoft Azure or Google Compute Engine.
 
 >To obtain the discovery swarm token, and to automatically create the VMs, a sample implementation script is provided: [`scripts/1-machine-create.sh`][step1].
 
 ##Launching Weave
 
-If you are continuting on from Part 1 of this guide, then first stop weave on weave-1: 
+If you are continuing from Part 1 of this guide, then first stop weave on weave-1: 
 
 ~~~bash
 weave stop
 eval "$(weave env --restore)"
 ~~~
 
->Note: Before re-launching Weave, you must restore the Weave Docker API proxy env by running `weave env --restore`
+>**Note:** Before re-launching Weave, you must restore the Weave Docker API proxy env by running `weave env --restore`
 
 Next open a new terminal for each new VM and create the VMs with docker-machine: 
 
