@@ -14,21 +14,21 @@ In this Part 1  "Launching Weave Net with Docker Machine" the basics of launchin
 
 [Docker Machine](https://docs.docker.com/machine/) makes it simple to create Docker hosts (VMs) on your computer, on cloud providers or within your own data center. It creates servers, installs Docker on them, and then it configures the Docker client to talk to them.
 
-Weave Net simplifies networking Docker containers across hosts by automatically allocating IP addresses to containers. It also allows you to find the IP of any container through either a DNS query or by using its name and it does this without requiring an external database (cluster store).
+Weave Net simplifies networking Docker containers across hosts by automatically allocating unique IP addresses to containers. It also allows you to find the IP of any container through either a DNS query or by using its name and it does this without requiring an external database (cluster store).
 
 In Part 1 of this tutorial, you will:
 
-  1. Install Docker Machine and Weave
-  2. Launch Weave on to a single VM on VirtualBox
+  1. Install Docker Machine and Weave Net
+  2. Launch Weave Net on to a single VM on VirtualBox
   3. Deploy a basic _"Hello, Weave!"_ application
-  4. Use Weave's built-in "micro DNS" server to discover the Weave-attached Docker containers on the network
+  4. Use Weave's built-in "microDNS" server to discover the Weave-attached Docker containers on the network
   5. Communicate with your app and send a message from one container to another using shell commands
 
 This example uses very simple UNIX tools, doesn't require any programming skills and takes about 10 minutes to complete.
 
 ## What You Will Use
 
-  - [Weave](http://weave.works)
+  - [Weave Net](http://weave.works)
   - [Docker & Docker Machine](https://docs.docker.com)
 
 ## Before You Begin
@@ -83,16 +83,15 @@ To set up the environment for the Weave Docker API Proxy:
 eval "$(weave env)"
 ~~~
 
-Check to see that Weave Net is running:
+Type `weave status` to check that Weave Net is running:
 
 ~~~bash
-weave status
 
-Version: 1.5.2 
+        Version: 1.6.0 (up to date; next check at ......)
 
         Service: router
        Protocol: weave 1..2
-           Name: ae:03:56:5c:39:df(weave-10)
+           Name: 8a:a9:91:a6:1f:e9(weave-1)
      Encryption: disabled
   PeerDiscovery: enabled
         Targets: 0
@@ -101,8 +100,8 @@ Version: 1.5.2
  TrustedSubnets: none
 
         Service: ipam
-         Status: idle
-          Range: 10.32.0.0-10.47.255.255
+         Status: ready
+          Range: 10.32.0.0/12
   DefaultSubnet: 10.32.0.0/12
 
         Service: dns
@@ -112,10 +111,11 @@ Version: 1.5.2
         Entries: 0
 
         Service: proxy
-        Address: tcp://192.168.99.101:12375
+        Address: tcp://192.168.99.100:12375
 
         Service: plugin
      DriverName: weave
+
 
 ~~~
 

@@ -48,9 +48,9 @@ If you completed [Part 1][ch1], you should have all of these dependencies instal
 
 ###About Part 2 of This Guide
 
-Part 1 of this guide described how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave in action, then refer to [Putting It All Together](#putting-it-all-together) below, where several helpful shell scripts are provided to automate this process.
+Part 1 of this guide described how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave Net in action, then refer to [Putting It All Together](#putting-it-all-together) below, where several helpful shell scripts are provided to automate this process.
 
-To demonstrate Weave Net in a cluster environment, and still be able to run comfortably on a laptop,  this example limits the number of VMs to three. In a production setting however, you can have any number of hosts in a  Docker Swarm and connect them together using Weave Net.
+To demonstrate Weave Net in a cluster environment, and still be able to run comfortably on a laptop,  this example limits the number of VMs to three. In a production setting however, you can have any number of hosts in a  Docker Swarm and connect them all together using Weave Net.
 
 Throughout this guide the VMs are referred to as:
 
@@ -69,12 +69,10 @@ The workflow, then is as follows:
   3. create `weave-3` as a Swarm agent
   4. Generate a Discovery Swarm token. 
   
-  The Discovery Swarm token is a unique cluster id. For more information see the [Docker Swarm Documentation](https://docs.docker.com/swarm/install-w-machine/)
+  The Discovery Swarm token is a unique cluster ID. For more information see the [Docker Swarm Documentation](https://docs.docker.com/swarm/install-w-machine/)
 
 
-
->*Note:* In Weave there is no notion of master/slave or any other roles of the nodes. Here we simply
-picked `weave-1` as a sort of bootstrap node. You could also pass all of the IPs or DNS names to `weave launch`
+>*Note:* In a Weave network there is no notion of master/slave or any other roles of the nodes. Here `weave-1` is simply picked as a sort of bootstrap node. You could also pass all of the IPs or DNS names to `weave launch`
 and avoid having to set the <code>--ipalloc-init consensus=<count></code> explicitly. In this example, Docker Machine is being used on VirtualBox and therefore the IP addresses are not known and do not have DNS. You should however be able to use DNS with any one of the cloud drivers, such as Microsoft Azure or Google Compute Engine.
 
 
@@ -130,7 +128,7 @@ weave launch --ipalloc-init consensus=3
 weave connect "$(docker-machine ip weave-1)"
 ~~~
 
-check to see that all went well:
+Check to see that all went well:
 
 ~~~bash
 weave status
@@ -145,7 +143,7 @@ Follow the same steps for `weave-3` as you did for `weave-2` above.
 
 This next step is a necessary work-around to a reported Docker Machine issue, which we will refrain from covering in detail. Refer to  [issue #1334 in Docker Machine](https://github.com/docker/machine/issues/1334) for more information.  In short, the swarm agents are restarted with a new discovery token and then registered to TCP port 12375 for `Docker API Proxy`. The following script [`scripts/3-replace-swarm-agents.sh`][step3] describes this process in more detail.
 
-##Putting it All Together
+##Automating the Weave Net Cluster Provisioning
 
 Change to the scripts directory:
 
