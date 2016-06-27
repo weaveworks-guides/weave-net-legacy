@@ -123,7 +123,7 @@ Other ways to initialize peers use the options `seed` or `observer`. With the `s
 
 For more information, see ["Initializing Peers on a Network"](https://www.weave.works/docs/net/latest/ipam/#initialization)
 
->**Important!** In this example, Docker Machine is being used on VirtualBox and therefore the IP addresses are not known in advance and is not using weaveDNS for peer discovery. You should however be able to use weaveDNS with any one of the cloud drivers, such as Microsoft Azure or Google Compute Engine.
+>**Important!** Docker Machine is being used on VirtualBox where IP addresses are not known in advance. Therefore this example is not using weaveDNS for peer discovery. You should however be able to use weaveDNS to discover peers with any one of the cloud drivers, such as Microsoft Azure or Google Compute Engine.
 
 The `consensus` option, used in this example, allows Weave Net to determine the seed automatically via a consensus algorithm. For Weave Net to reliably form a reliable single consensus, you must tell each peer how many peers there are in total. In this example there are 3 peers.
 
