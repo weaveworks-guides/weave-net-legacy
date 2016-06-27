@@ -78,7 +78,7 @@ There are a two ways to generate the token, one is after the VMs have been creat
 Generate a token with:
 
 ~~~bash
-url -s -XPOST https://discovery.hub.docker.com/v1/clusters
+curl -s -XPOST https://discovery.hub.docker.com/v1/clusters
 ~~~
 
 Copy the discovery token somewhere, you will need it when you are creating the virtual machines and the swarm.
