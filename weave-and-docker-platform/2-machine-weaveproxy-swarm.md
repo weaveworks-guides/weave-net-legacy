@@ -40,6 +40,26 @@ For all other operating systems, install and configure the following separately 
 
 If you completed [Part 1][ch1],then all of these dependencies should already be installed.
 
+##Cloning the Guides Repo and Installing Weave Net
+
+If you didn't complete [Part 1][ch1], then first clone the guides directory: 
+
+~~~bash
+git clone https://github.com/weaveworks/guides
+~~~
+
+and cd to the `weave-and-docker-platform` directory. 
+
+##Installing Weave Net
+
+Download the latest version of `weave`. If you do not have ownership of the `/usr/local/bin` directory, you may need to preface the commands with `sudo`:
+
+~~~bash
+curl -L git.io/weave -o /usr/local/bin/weave
+chmod a+x /usr/local/bin/weave
+~~~
+
+
 ###How This Guide is Organized
 
 Part 1 of this guide described how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave Net in action, then refer to [Automating Cluster Provisioning ](#automate-cluster), where several helpful shell scripts are provided that automates this entire process.
