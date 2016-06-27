@@ -46,13 +46,13 @@ Part 1 of this guide described how to provision the cluster on the command line 
 
 But if you prefer to work through setting up a swarm and use Weave Net, see the following topics: 
 
-  * Workflow for Setting up a Swarm(#work-order)
-  * Generate the Discovery Swarm Token(#swarm-token)
-  * Create the VMs and Set Up the Swarm(#create-vms)
-  * Connecting the Cluster with Weave Net: Initializing Peers(#connect-cluster)
-  * Setting up Swarm Agents to Use the Weave Docker API Proxy(#swarm-agents-proxy)
-  * Deploying Containers and Testing the Weave Network(#deploy-agents-proxy)
-  * Automating Cluster Provisioning(#automate-cluster)
+  * [Workflow for Setting up a Swarm](#work-order)
+  * [Generate the Discovery Swarm Token](#swarm-token)
+  * [Create the VMs and Set Up the Swarm](#create-vms)
+  * [Connecting the Cluster with Weave Net: Initializing Peers](#connect-cluster)
+  * [Setting up Swarm Agents to Use the Weave Docker API Proxy](#swarm-agents-proxy)
+  * [Deploying Containers and Testing the Weave Network](#deploy-agents-proxy)
+  * [Automating Cluster Provisioning](#automate-cluster)
 
 
 ##<a name="work-order"></a>Workflow for Setting up a Swarm
@@ -123,7 +123,7 @@ Other ways to initialize peers use the options `seed` or `observer`. With the `s
 
 For more information, see ["Initializing Peers on a Network"](https://www.weave.works/docs/net/latest/ipam/#initialization)
 
->**Important!**In this example, Docker Machine is being used on VirtualBox and therefore the IP addresses are not known in advance and is not using weaveDNS for peer discovery. You should however be able to use weaveDNS with any one of the cloud drivers, such as Microsoft Azure or Google Compute Engine.
+>**Important!** In this example, Docker Machine is being used on VirtualBox and therefore the IP addresses are not known in advance and is not using weaveDNS for peer discovery. You should however be able to use weaveDNS with any one of the cloud drivers, such as Microsoft Azure or Google Compute Engine.
 
 The `consensus` option, used in this example, allows Weave Net to determine the seed automatically via a consensus algorithm. For Weave Net to reliably form a reliable single consensus, you must tell each peer how many peers there are in total. In this example there are 3 peers.
 
