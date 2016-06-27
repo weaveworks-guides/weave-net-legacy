@@ -21,7 +21,7 @@ In Part 1 of this tutorial, you will:
   1. Install Docker Machine and Weave Net
   2. Launch Weave Net on to a single VM on VirtualBox
   3. Deploy a basic _"Hello, Weave!"_ application
-  4. Use Weave's built-in "microDNS" server to discover the Weave-attached Docker containers on the network
+  4. Use weaveDNS to discover the Weave-attached Docker containers on the network
   5. Communicate with your app and send a message from one container to another using shell commands
 
 This example uses very simple UNIX tools, doesn't require any programming skills and takes about 10 minutes to complete.
