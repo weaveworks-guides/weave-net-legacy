@@ -14,6 +14,8 @@ In [Part 1][ch1], you learned how to use Weave Net with [Docker Machine](https:/
 
 In this Part 2 of the guide you will learn how to configure a basic [Docker Swarm Cluster](https://docs.docker.com/swarm/), and how to deploy a Weave network onto it to make its contents discoverable.
 
+In [Part 3 "Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave"](/part-3-creating-and-scaling-multi-host-docker-deployment-with-swarm-and-compose-using-weave/), you will take what you learned in Parts 1 and 2 and use [Docker Compose](https://docs.docker.com/compose/) and Weave Net to launch a two-tier application spread across three VMs. 
+
 [Docker Swarm](http://docs.docker.com/swarm/) is a native clustering environment for its Docker engines. It turns a pool of Docker engines into a single, virtual host. [Docker Machine](https://docs.docker.com/machine/) allows you to easily create the Docker hosts (VMs) on your computer, on cloud providers or inside your own data center. With a few commands, it creates servers, installs Docker on them, and then it configures the Docker client to talk to them.
 
 Weave Net's standard container network enables simple DNS-based container discovery, so that you can manage your distributed containerized applications without the need to deploy any additional services or software. It also boosts the Swarm cluster scalability, and provides true portability whether deployed to a public cloud or to an in-house data center. Weave furthermore, eliminates the need for an [ambassador pattern linking](https://docs.docker.com/engine/admin/ambassador_pattern_linking/), or any other approach that might involve some combination of distributed configuration store and a proxy.
@@ -313,6 +315,8 @@ Unless you proceed to [Part 3 Creating and Scaling Multi-host Docker Deployment 
 ## Summary
 
 You have learned how to use Weave Net with Docker Machine and Swarm to provision a miniature infrastructure of three virtual machines running on VirtualBox and [Weave Net](/net) providing connectivity for Docker containers. A simple _"Hello, Weave!"_ service was deployed and tested. Most importantly, you should now know all the commands to create a cluster of Docker hosts and also understand how to integrate Weave Net and Docker Swarm to proceed to the next step with confidence. Next you will learn how to use Compose to deploy an entire stack of containers to a Swarm cluster all powered by [Weave Net](/net).
+
+Proceed to In [Part 3 "Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave"](/part-3-creating-and-scaling-multi-host-docker-deployment-with-swarm-and-compose-using-weave/). 
 
 Send us your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 
