@@ -16,15 +16,7 @@ In this Part 2 of the guide you will learn how to configure a basic [Docker Swar
 
 [Docker Swarm](http://docs.docker.com/swarm/) is a native clustering environment for its Docker engines. It turns a pool of Docker engines into a single, virtual host. [Docker Machine](https://docs.docker.com/machine/) allows you to easily create the Docker hosts (VMs) on your computer, on cloud providers or inside your own data center. With a few commands, it creates servers, installs Docker on them, and then it configures the Docker client to talk to them.
 
-Weave’s standard container network enables simple DNS-based container discovery, so that you can manage your distributed containerized application without the need to deploy any additional services or software. It also boosts the Swarm cluster scalability, and provides true portability whether deployed to a public cloud or to an in-house data center. Weave furthermore, eliminates the need for an [ambassador pattern][ambassador], or any other approach that might involve some combination of distributed configuration store and a proxy.
-
-[ambassador]: https://docs.docker.com/articles/ambassador_pattern_linking/
-
-In Part 2 of this tutorial, you will:
-
-  1. Set up a simple Docker Swarm cluster using 3 virtual hosts.
-  2. Deploy the Weave Network and discover hosts through DNS.
-  3. Deploy a sample app to test that hosts are communicating within the Docker Swarm
+Weave Net's standard container network enables simple DNS-based container discovery, so that you can manage your distributed containerized applications without the need to deploy any additional services or software. It also boosts the Swarm cluster scalability, and provides true portability whether deployed to a public cloud or to an in-house data center. Weave furthermore, eliminates the need for an [ambassador pattern linking](https://docs.docker.com/engine/admin/ambassador_pattern_linking/), or any other approach that might involve some combination of distributed configuration store and a proxy.
 
 This example requires no programming, but does require basic UNIX skills.
 
@@ -37,7 +29,7 @@ This tutorial will take approximately 15-25 minutes to complete.
 
 ##What You Need to Complete Part 2
 
-If you are using OS X or Windows, you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides all of the tools you need to complete this guide.
+If you are using OS X or Windows, then install [Docker Toolbox](https://www.docker.com/toolbox), which provides all of the tools you need to complete this guide.
 
 For all other operating systems, install and configure the following separately before proceeding:
 
@@ -46,88 +38,108 @@ For all other operating systems, install and configure the following separately 
   - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (_`>= 4.3.x`_)
   - `curl` (_any version_)
 
-If you completed [Part 1][ch1], you should have all of these dependencies installed.
+If you completed [Part 1][ch1],then all of these dependencies should already be installed.
 
-###About Part 2 of This Guide
+###How This Guide is Organized
 
-Part 1 of this guide described how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave in action, then refer to [Putting It All Together](#putting-it-all-together) below, where several helpful shell scripts are provided to automate this process.
+Part 1 of this guide described how to provision the cluster on the command line manually. If you prefer to jump ahead and see Weave Net in action, then refer to [Automating Cluster Provisioning ](#automate-cluster), where several helpful shell scripts are provided that automates this entire process.
 
-To demonstrate Weave in a cluster environment, and still be able to run comfortably on a laptop,  this example limits the number of VMs to 3. In a production setting however, you can have any number of hosts in a  Docker Swarm and connect them together using Weave.
+But if you prefer to work through setting up a swarm and use Weave Net, see the following topics: 
 
-Throughout this guide the VMs are referred to as:
+  * Workflow for Setting up a Swarm(#work-order)
+  * Generate the Discovery Swarm Token(#swarm-token)
+  * Create the VMs and Set Up the Swarm(#create-vms)
+  * Connecting the Cluster with Weave Net: Initializing Peers(#connect-cluster)
+  * Setting up Swarm Agents to Use the Weave Docker API Proxy(#swarm-agents-proxy)
+  * Deploying Containers and Testing the Weave Network(#deploy-agents-proxy)
+  * Automating Cluster Provisioning(#automate-cluster)
 
-  - `weave-1`
-  - `weave-2`
-  - `weave-3`
 
-##Setting up the Swarm
+##<a name="work-order"></a>Workflow for Setting up a Swarm
 
-Among the 3 VMs to be provisioned, choose one that will act as the Swarm master. In this example, we refer to `weave-1` as the head or the bootstrap node. Keep in mind that Weave has no specific knowledge of a Swarm master and its agents, and you can deploy your network in whatever topology you choose. But for the purposes of this example, `weave-1` acts as the bootstrap node where it provides the initial configuration information for any newly joining nodes.
+Among the three VMs to be provisioned, choose one that will act as the Swarm master. In this example, we refer to `weave-1` as the head or the bootstrap node. Keep in mind that Weave has no specific knowledge of a Swarm master and its agents, and you can deploy your network in whatever topology you choose. But for the purposes of this example, `weave-1` acts as the bootstrap node where it provides the initial configuration information for any newly joining nodes.
 
 The workflow, then is as follows:
 
-  1. create `weave-1` as a Swarm master
-  2. create `weave-2` as a Swarm agent
-  3. create `weave-3` as a Swarm agent
-  4. Generate a Discovery Swarm token. 
-  
-  The Discovery Swarm token is a unique cluster id. For more information see the [Docker Swarm Documentation](https://docs.docker.com/swarm/install-w-machine/)
+  1. Generate a Discovery Swarm token. 
+  2. create `weave-1` as a Swarm master
+  3. create `weave-2` as a Swarm agent
+  4. create `weave-3` as a Swarm agent
+
+The swarm discovery token is a unique cluster ID. Normally this token is created after the hosts have been provisioned, and you are about to define the Swarm, but since this is a sandbox scenario and uses Virtualbox, the token is generated beforehand, so that it can be used as a command line option during the VM creation. 
+
+For more information see the [Docker Swarm Documentation](https://docs.docker.com/swarm/install-w-machine/). 
 
 
-<<<<<<< HEAD
->**Note:** Weave Net doesn't recognize a master/slave relationship or any other node roles. In this example, `weave-1` is used as a sort of bootstrap node. You could also pass all of the IPs or DNS names to `weave launch`
-and avoid having to set the `--init-peer-count` explicitly.  By using Docker Machine on VirtualBox, the IP addresses are unknown and therefore do not use DNS. You should be able to use DNS with one of the cloud drivers, such as Microsoft Azure or Google Compute Engine.
-=======
->*Note:* In Weave there is no notion of master/slave or any other roles of the nodes. Here we simply
-picked `weave-1` as a sort of bootstrap node. You could also pass all of the IPs or DNS names to `weave launch`
-and avoid having to set the <code>--ipalloc-init consensus=<count></code> explicitly. In this example, we are using Docker Machine on VirtualBox and therefor do not know the IP addresses and do not have DNS. You should be able to use DNS with one of the cloud drivers, such as Microsoft Azure or Google Compute Engine.
->>>>>>> 53051b9e0fc760bda0ebac9ac62c9ed12a095f37
+##<a name="swarm-token"></a>Generate the Swarm Discovery Token
 
->To obtain the discovery swarm token, and to automatically create the VMs, a sample implementation script is provided: [`scripts/1-machine-create.sh`][step1].
+There are a two ways to generate the token, one is after the VMs have been created, which requires a Swarm image to be downloaded which is then used to generate the token, and the other, generates it from a discovery service website, and returns it via curl. This example uses the latter, which incidently is not recommended for production.
 
-##Launching Weave
-
-If you are continuing from Part 1 of this guide, then first stop weave on weave-1: 
+Generate a token with:
 
 ~~~bash
-weave stop
-eval "$(weave env --restore)"
+url -s -XPOST https://discovery.hub.docker.com/v1/clusters
 ~~~
 
->**Note:** Before re-launching Weave, you must restore the Weave Docker API proxy env by running `weave env --restore`
+Copy the discovery token somewhere, you will need it when you are creating the virtual machines and the swarm.
 
-Next open a new terminal for each new VM and create the VMs with docker-machine: 
+See [Create a Swarm Discovery Token](https://docs.docker.com/swarm/install-w-machine/#create-a-swarm-discovery-token)
+
+##<a name="create-vms"></a>Create the VMs and Set Up the Swarm
+
+Using the Swarm Discovery Token you just generated, you will create the machines and also set up the structure for Docker Swarm. In a Weave network there is no notion of master/slave or any other roles of the nodes. Here `weave-1` is simply picked as a sort of bootstrap node. 
+
+To create the bootstrap node,  `weave-1`: 
 
 ~~~bash
-docker-machine create -d virtualbox weave-2
+docker-machine create --driver virtualbox weave-1  --swarm-discovery=token://<generated-discovery-token> --swarm-master
 ~~~
 
-In a separate terminal window:
+Create the other 2 VMs with: 
 
 ~~~bash
-docker-machine create -d virtualbox weave-3
+docker-machine create --driver virtualbox --swarm --swarm-discovery=token://<generated-discovery-token> weave-2
 ~~~
 
-###Creating the Cluster with Weave
+~~~bash
+docker-machine create --driver virtualbox --swarm --swarm-discovery=token://<generated-discovery-token> weave-3
+~~~
 
-Now you are ready to launch Weave onto the virtual machines you just created.
+Where, 
 
-The IP addresses of all the peers are not known ahead of time, so you will need to pass `--ipalloc-init consensus=<count>` to `weave launch`.
-`--ipalloc-init consensus=<count>` is set to 3, as we are specifying a cluster of 3 VMs.
+ * --swarm-discovery=token://<generated-discovery-token> is the token you [generated](#swarm-token) for this swarm
+ * --swarm-master is the head node or the boostrapping node (and only applies to the bootstrap node, weave-1)
 
-On each host you will need to:
 
-  1. launch Weave by passing  `--ipalloc-init consensus=3`
-  2. Connect the host to `weave-1` (our bootstrap node)
+##<a name="connect-cluster"></a>Connecting the Cluster with Weave Net: Initializing Peers
 
-To start weave on `weave-1` run:
+Next launch Weave Net onto the virtual machines you just created and connect the nodes together in a Swarm. 
+
+Since the IP addresses of all the peers are not known ahead of time, so you will need to pass `--ipalloc-init consensus=<count>` to `weave launch`. The `--ipalloc-init consensus=<count>` option establishes a quorum of peers based on the number of peers entered. 
+
+>**Note:** You could also pass all of the IPs or DNS names to `weave launch` and avoid having to set the <code>--ipalloc-init consensus=<count></code> explicitly. 
+
+Other ways to initialize peers use the options `seed` or `observer`. With the `seed` option, you provide a list of peer names that share the same address space. Whereas the `observer` option can be used on one or more peers in a cluster, and enables them to be changed or added to a fixed cluster without having to worry about re-adjusting your total peer counts.
+
+For more information, see ["Initializing Peers on a Network"](https://www.weave.works/docs/net/latest/ipam/#initialization)
+
+>**Important!**In this example, Docker Machine is being used on VirtualBox and therefore the IP addresses are not known in advance and is not using weaveDNS for peer discovery. You should however be able to use weaveDNS with any one of the cloud drivers, such as Microsoft Azure or Google Compute Engine.
+
+The `consensus` option, used in this example, allows Weave Net to determine the seed automatically via a consensus algorithm. For Weave Net to reliably form a reliable single consensus, you must tell each peer how many peers there are in total. In this example there are 3 peers.
+
+On each host, you will:
+
+  1. Launch Weave Net by passing the `--ipalloc-init consensus=3` option.
+  2. Connect each host to the bootstrap node,  `weave-1`.
+
+To start Weave Net on `weave-1` run the following:
 
 ~~~bash
 eval "$(docker-machine env weave-1)"
 weave launch --ipalloc-init consensus=3
 ~~~
 
-Launch weave on `weave-2` and connect to the bootstrap node:
+Next, launch Weave Net on `weave-2` and connect it to the bootstrap node:
 
 ~~~bash
 eval "$(docker-machine env weave-2)"
@@ -135,75 +147,90 @@ weave launch --ipalloc-init consensus=3
 weave connect "$(docker-machine ip weave-1)"
 ~~~
 
-check to see that all went well:
+Follow the same steps for `weave-3` as you did for `weave-2`, 
+also connecting it to the bootstrap node: 
+
+~~~bash
+eval "$(docker-machine env weave-3)"
+weave launch --ipalloc-init consensus=3
+weave connect "$(docker-machine ip weave-1)"
+~~~
+
+Check to see that Weave Net is all set up as expected and that all nodes are peered:
 
 ~~~bash
 weave status
 ~~~
 
-Follow the same steps for `weave-3` as you did for `weave-2` above.
-
-  >>A useful script that launches weave and sets up the hosts and connects the cluster can be found here: [`scripts/2-weave-launch.sh`][step2].
+Where you should see the following in the Connections and Peers section: 
 
 
-##Setting up Swarm Agents Against `weaveproxy`
+      Connections: 2 (2 established)
+      Peers: 3 (with 6 established connections)
 
-This next step is a necessary work-around to a reported Docker Machine issue, which we will refrain from covering in detail. Refer to  [issue #1334 in Docker Machine](https://github.com/docker/machine/issues/1334) for more information.  In short, the swarm agents are restarted with a new discovery token and then registered to TCP port 12375 for `Docker API Proxy`. The following script [`scripts/3-replace-swarm-agents.sh`][step3] describes this process in more detail.
+And to see that everything is setup properly run `docker-machine ls`:
 
-##Putting it All Together
-
-Change to the scripts directory:
-
-    cd ./guides/weave-and-docker-platform/scripts
-
-Now that you understand how this is provisioned, the whole process can be automated by running these 3 scripts:
-
-    ./1-machine-create.sh
-    ./2-weave-launch.sh
-    ./3-replace-swarm-agents.sh
-
-Once done, check that everything is running properly:
-
-    > docker-machine ls
     NAME      ACTIVE   DRIVER       STATE     URL                         SWARM
     weave-1            virtualbox   Running   tcp://192.168.99.129:2376   weave-1 (master)
     weave-2            virtualbox   Running   tcp://192.168.99.130:2376   weave-1
     weave-3   *        virtualbox   Running   tcp://192.168.99.131:2376   weave-1
 
-As you can see, there are 3 virtual machines running. 
 
-Check that they are in a Swarm:
+Also, check that all nodes are in a Swarm by running `docker `docker-machine config --swarm weave-1` info`:
 
-    > docker `docker-machine config --swarm weave-1` info
-    Containers: 13
-    Strategy: spread
-    Filters: affinity, health, constraint, port, dependency
-    Nodes: 3
-     weave-1: 192.168.99.129:12375
-      └ Containers: 5
-      └ Reserved CPUs: 0 / 8
-      └ Reserved Memory: 0 B / 1.025 GiB
-     weave-2: 192.168.99.130:12375
-      └ Containers: 4
-      └ Reserved CPUs: 0 / 8
-      └ Reserved Memory: 0 B / 1.025 GiB
-     weave-3: 192.168.99.131:12375
-      └ Containers: 4
-      └ Reserved CPUs: 0 / 8
-      └ Reserved Memory: 0 B / 1.025 GiB
+     Containers: 26
+     Images: 17
+     Server Version: swarm/1.2.3
+     Role: primary
+     Strategy: spread
+     Filters: health, port, containerslots, dependency, affinity, constraint
+     Nodes: 3
+     weave-1: 192.168.99.100:12375
+      └ ID: 7IUX:7TQQ:SVMV:FVPK:TS4A:7ZGF:2UNK:CHRH:HHVP:I4JF:5PI5:RUNF
+      └ Status: Healthy
+      └ Containers: 9
+      └ Reserved CPUs: 0 / 1
+      └ Reserved Memory: 0 B / 1.021 GiB
+     weave-2: 192.168.99.101:12375
+      └ ID: SIF4:K2P2:GKTV:632D:GVBX:IZ76:4Q2I:SS6Z:LGRM:O2OY:JUG4:6JLT
+      └ Status: Healthy
+      └ Containers: 9
+      └ Reserved CPUs: 0 / 1
+      └ Reserved Memory: 0 B / 1.021 GiB
+     weave-3: 192.168.99.103:12375
+      └ ID: JFUK:42JN:P3GL:MOOO:OITX:PI4C:NPGP:5RSC:SCII:TYXC:KJK2:BZDD
+      └ Status: Healthy
+      └ Containers: 8
+      └ Reserved CPUs: 0 / 1
+      └ Reserved Memory: 0 B / 1.021 GiB
 
-Now that everything is set up correctly, we can run a few containers.
+##<a name="swarm-agents-proxy"></a>Setting up Swarm Agents to Use the Weave Docker API Proxy
 
-## Deploying the Containers
+This next step is a necessary work-around to a reported Docker Machine issue, which we will refrain from covering in detail. Refer to  [issue #1334 in Docker Machine](https://github.com/docker/machine/issues/1334) for more information.  In short, the swarm agents are restarted with a new discovery token and then registered to TCP port 12375 for the `Docker API Proxy`. The following script [`scripts/3-replace-swarm-agents.sh`][step3] describes this process in more detail.
 
-First, deploy the _"Hello, Weave!"_ container:
+##<a name="deploy-agents-proxy"></a>Deploying Containers and Testing the Weave Network
+
+Before deploying containers to the Weave Net, ensure that the environment for the Weave Docker API Proxy is setup by 
+running: 
+
+~~~bash
+eval "$(weave env)"
+~~~
+
+The Docker API Proxy allows you to use standard Docker commands to attach containers to the Weave network and assign IP addresses to them. An alternative way to attach containers to the Weave network is by using the Docker Plugin (for Docker >= 1.9). In this tutorial, you will be using the Weave Docker API Proxy to attach containers. 
+
+###Testing the Weave Network
+
+Deploy the _"Hello, Weave!"_ container:
 
     > docker `docker-machine config --swarm weave-1` run -d --name=pingme \
         gliderlabs/alpine nc -p 4000 -ll -e echo 'Hello, Weave!'
     df8bb89d048abce4f9ed25259072ac6c177ebdae708222662325603ef4ec4a78
 
 Confirm that there is a transparent multi-host setup, and then check that the test container `pinger`
-doesn't run on the same hosts as `pingme` does. This can be checked by setting the Swarm affinity constraint with `-e 'affinity:container!=pingme'`.
+is not running on the same host as `pingme`. 
+
+This can be checked by setting the Swarm affinity constraint with `-e 'affinity:container!=pingme'`.
 
     > docker `docker-machine config --swarm weave-1` run -e 'affinity:container!=pingme' --name=pinger -ti \
         gliderlabs/alpine sh -l
@@ -219,7 +246,6 @@ Now repeat the test using the `ping` and `nc` commands:.
     --- pingme.weave.local ping statistics ---
     3 packets transmitted, 3 packets received, 0% packet loss
     round-trip min/avg/max = 3.284/9.585/17.572 ms
-
 
     pinger:/# echo "What's up?" | nc pingme.weave.local 4000
     Hello, Weave!
@@ -245,6 +271,19 @@ Since everything worked as expected, you can get rid of both containers by runni
     pingme
     pinger
 
+##<a name="automate-cluster"></a>Automating Cluster Provisioning
+
+Change to the scripts directory:
+
+    cd ./guides/weave-and-docker-platform/scripts
+
+Now that you understand how this is provisioned, the whole process can be automated by running these 3 scripts:
+
+    ./1-machine-create.sh
+    ./2-weave-launch.sh
+    ./3-replace-swarm-agents.sh
+
+
 ## Cleanup
 
 Unless you proceed to [Part 3 Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave][ch3] right away, you may want to remove the VMs that were created:
@@ -253,15 +292,16 @@ Unless you proceed to [Part 3 Creating and Scaling Multi-host Docker Deployment 
 
 ## Summary
 
-You have learned how to use Weave with Docker Swarm & Machine to provision a miniature infrastructure of 3 virtual machines running on VirtualBox and [Weave Net](/net) providing connectivity for Docker containers. We then deployed a simple
-_"Hello, Weave!"_ service and tested that set up. Most importantly, you now know all the commands to create a cluster of Docker hosts and should understand how to integrate Weave and Docker Swarm to proceed to the next step with confidence. Next we will look at how to use Compose to deploy an entire stack of containers to a Swarm cluster all powered by [Weave Net](/net) and [Weave Run](/run).
+You have learned how to use Weave Net with Docker Machine and Swarm to provision a miniature infrastructure of three virtual machines running on VirtualBox and [Weave Net](/net) providing connectivity for Docker containers. A simple _"Hello, Weave!"_ service was deployed and tested. Most importantly, you should now know all the commands to create a cluster of Docker hosts and also understand how to integrate Weave Net and Docker Swarm to proceed to the next step with confidence. Next you will learn how to use Compose to deploy an entire stack of containers to a Swarm cluster all powered by [Weave Net](/net).
 
-You can easily adapt these examples and use them as a templates in your own implementation.  We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
+Send us your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 
 ##Further Reading
 
-  *  [How Weave Works](/documentation/net-1.5-router-topology)
-  *  [Automatic IP Address Management](https://github.com/weaveworks/weave/blob/master/site/ipam.md)
+  *  [How Weave Works](/docs/net/latest/how-it-works/)
+  *  [Allocating IP Addresses](/docs/net/latest/ipam/)
+  *  [Integrating Docker via the Network Plugin](/docs/net/latest/plugin/)
+  *  [Operations Guide](https://www.weave.works/docs/net/latest/operational-guide/concepts/)
 
 [step1]: https://github.com/weaveworks/guides/blob/30afe999265ad18494f3a88064f70cac1edc9607/weave-and-docker-platform/scripts/1-machine-create.sh
 [step2]: https://github.com/weaveworks/guides/blob/30afe999265ad18494f3a88064f70cac1edc9607/weave-and-docker-platform/scripts/2-weave-launch.sh
