@@ -66,7 +66,7 @@ chmod a+x /usr/local/bin/weave
 
 This guide describes how to provision a cluster on the command line manually. If you prefer to jump ahead and see Weave Net in action, then refer to [Automating Cluster Provisioning ](#automate-cluster), where several helpful shell scripts are provided that automates this entire process.
 
-But if you prefer to work through setting up a swarm and to use Weave Net, then see the following topics: 
+But if you prefer to work through setting up a swarm and use Weave Net, then see the following topics: 
 
   * [Workflow for Setting up a Swarm](#work-order)
   * [Generate the Discovery Swarm Token](#swarm-token)
@@ -79,7 +79,7 @@ But if you prefer to work through setting up a swarm and to use Weave Net, then 
 
 ##<a name="work-order"></a>Workflow for Setting up a Swarm
 
-Among the three VMs to be provisioned, choose one that will act as the Swarm master. In this example, we refer to `weave-1` as the head or the bootstrap node. Keep in mind that Weave Net has no specific knowledge of a Swarm master and its agents, and you can deploy your network in whatever topology you choose. But for the purposes of this example, `weave-1` acts as the bootstrap node which provides the initial configuration information for any newly joining nodes.
+Among the three VMs to be provisioned, choose one that will act as the swarm master. In this example, we refer to `weave-1` as the head or the bootstrap node. Keep in mind that Weave Net has no specific knowledge of a Swarm master and its agents, and you can deploy your network in whatever topology you choose. But for the purposes of this example, `weave-1` acts as the bootstrap node which provides the initial configuration information for any newly joining nodes.
 
 The workflow is as follows:
 
@@ -88,14 +88,14 @@ The workflow is as follows:
   3. create `weave-2` as a Swarm agent
   4. create `weave-3` as a Swarm agent
 
-The swarm discovery token is a unique cluster ID. Normally this token is created after the hosts have been provisioned, and you are about to define the Swarm, but since this is a sandbox scenario that uses Virtualbox, the token is generated beforehand, so that it can be used as a command line option during the VM creation. 
+The swarm discovery token is a unique cluster ID. Normally this token is created after the hosts have been provisioned, and usedas you define the Swarm, but since this is a sandbox scenario that uses Virtualbox, the token is generated beforehand, so that it can be used as a command line option during the VM creation. 
 
 For more information see the [Docker Swarm Documentation](https://docs.docker.com/swarm/install-w-machine/). 
 
 
 ##<a name="swarm-token"></a>Generate the Swarm Discovery Token
 
-There are a two ways to generate the token, one is after the VMs have been created, which requires a Swarm image to be downloaded which is then used to generate the token, and the other, generates it from a discovery service website, and returns it via curl. This example uses the latter, (which incidently is not recommended for production).
+There are a two ways to generate the token, one is after the VMs have been created, which requires a swarm image to be downloaded which is then used to generate the token, and the other, generates it from a discovery service website, and returns it via curl. This example uses the latter, (which incidently is not recommended for production).
 
 Generate a token with:
 
@@ -109,9 +109,9 @@ See [Create a Swarm Discovery Token](https://docs.docker.com/swarm/install-w-mac
 
 ##<a name="create-vms"></a>Create the VMs and Set Up the Swarm
 
-Using the Swarm Discovery Token you just generated, you will create the machines and also set up the structure for Docker Swarm. 
+Using the swarm discovery token you just generated, you will create the machines and also set up the structure for Docker Swarm. 
 
-To create the bootstrap node,  `weave-1`: 
+To create the bootstrap node, `weave-1`: 
 
 ~~~bash
 docker-machine create --driver virtualbox weave-1  --swarm-discovery=token://<generated-discovery-token> --swarm-master
@@ -135,7 +135,7 @@ Where,
 
 ##<a name="connect-cluster"></a>Connecting the Cluster with Weave Net: Initializing Peers
 
-Next launch Weave Net onto the virtual machines you just created and connect the nodes together in a Swarm. 
+Next launch Weave Net onto the virtual machines you just created and connect the nodes together in a swarm. 
 
 Since the IP addresses of all the peers are not known ahead of time, so you will need to pass `--ipalloc-init consensus=<count>` to `weave launch`. The `--ipalloc-init consensus=<count>` option establishes a quorum of peers based on the number of peers entered. 
 
