@@ -66,7 +66,7 @@ chmod a+x /usr/local/bin/weave
 
 This guide describes how to provision a cluster on the command line manually. If you prefer to jump ahead and see Weave Net in action, then refer to [Automating Cluster Provisioning ](#automate-cluster), where several helpful shell scripts are provided that automates this entire process.
 
-But if you prefer to work through setting up a swarm and use Weave Net, then see the following topics: 
+But if you prefer to work through setting up a swarm using Weave Net, then see the following topics: 
 
   * [Workflow for Setting up a Swarm](#work-order)
   * [Generate the Discovery Swarm Token](#swarm-token)
