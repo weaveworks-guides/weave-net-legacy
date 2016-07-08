@@ -52,8 +52,8 @@ A Vagrant script (`Vagrantfile`) automates the provisioning of the hosts. It dow
 Change to the weave-loadbalance subdirectory and run vagrant: 
 
 ~~~bash
-    cd guides/weave-loadbalance
-    vagrant up
+cd guides/weave-loadbalance
+vagrant up
 ~~~
 
 Wait for Vagrant to pull and configure the Ubuntu image.  Depending on the speed of your network connection, this may take a few minutes.  
@@ -61,14 +61,14 @@ Wait for Vagrant to pull and configure the Ubuntu image.  Depending on the speed
 Check that the VMs are running:
 
 ~~~bash
-    vagrant status
+vagrant status
 ~~~
 
 The IP addresses used in this demo are:
 
 ~~~bash
-    172.17.8.101    weave-gs-01
-    172.17.8.102    weave-gs-02
+172.17.8.101    weave-gs-01
+172.17.8.102    weave-gs-02
 ~~~
 
 ### Launching Weave Net ##
@@ -76,11 +76,11 @@ The IP addresses used in this demo are:
 Next, launch Weave Net onto both hosts and pass the `--ipalloc-range` option. This command option allocates Weave Net to a particular subnet. 
 
 ~~~bash
-    vagrant ssh weave-gs-01
-    weave launch --ipalloc-range 10.2.0.1/16
+vagrant ssh weave-gs-01
+weave launch --ipalloc-range 10.2.0.1/16
 
-    vagrant ssh weave-gs-02
-    weave launch --ipalloc-range 10.2.0.1/16 172.17.8.101
+vagrant ssh weave-gs-02
+weave launch --ipalloc-range 10.2.0.1/16 172.17.8.101
 ~~~
 
 Weave Net should be deployed to the hosts using the address range that were explicitly assigned to the host with the `--ipalloc-range`.
@@ -147,17 +147,17 @@ IPAM assigns each container a unique IP, and weavedns detects them, and adds an 
 >**Note:** Ensure that you run `eval $(weave env)` to configure Weave Net's environment before you launch containers. 
 
 ~~~bash
-    vagrant ssh weave-gs-01
-    eval $(weave env)
-    docker run -d -h loadbalance.weave.local weaveworks/myip-scratch
-    docker run -d -h loadbalance.weave.local weaveworks/myip-scratch
-    docker run -d -h loadbalance.weave.local weaveworks/myip-scratch
+vagrant ssh weave-gs-01
+eval $(weave env)
+docker run -d -h loadbalance.weave.local weaveworks/myip-scratch
+docker run -d -h loadbalance.weave.local weaveworks/myip-scratch
+docker run -d -h loadbalance.weave.local weaveworks/myip-scratch
 
-    vagrant ssh weave-gs-02
-    eval $(weave env)
-    docker run -d -h loadbalance.weave.local weaveworks/myip-scratch
-    docker run -d -h loadbalance.weave.local weaveworks/myip-scratch
-    docker run -d -h loadbalance.weave.local weaveworks/myip-scratch
+vagrant ssh weave-gs-02
+eval $(weave env)
+docker run -d -h loadbalance.weave.local weaveworks/myip-scratch
+docker run -d -h loadbalance.weave.local weaveworks/myip-scratch
+docker run -d -h loadbalance.weave.local weaveworks/myip-scratch
 ~~~
 
 You can also use this script `launch-demo-containers.sh` to launch all six containers.
@@ -173,42 +173,36 @@ At this point, six REST service containers have been launched on the hosts. The 
 Run a container with `curl` to query the myip service: 
 
 ~~~bash
-    vagrant ssh weave-gs-01
-    eval $(weave env)
-    CONTAINER=$(docker run -d -ti -h ubuntu.weave.local weaveworks/weave-gs-ubuntu-curl)
-    docker exec -ti $CONTAINER "/bin/bash"
+vagrant ssh weave-gs-01
+eval $(weave env)
+CONTAINER=$(docker run -d -ti -h ubuntu.weave.local weaveworks/weave-gs-ubuntu-curl)
+docker exec -ti $CONTAINER "/bin/bash"
 ~~~
 
 From the interactive container, connect to the endpoint, and then make a request to the myip service.
 
 
 ~~~bash
-    for i in `seq 1 20`; do curl loadbalance.weave.local/myip; done
+for i in `seq 1 20`; do curl loadbalance.weave.local/myip; done
 ~~~
 
 
 This produces the following output:
 
 ~~~bash
-    root@ubuntu:/# for i in `seq 1 20`; do curl lb.weave.local/myip; done
-    10.2.128.2
-    fe80::9421:2bff:fec1:6d09
-    
-    10.2.128.2
-    fe80::9421:2bff:fec1:6d09
-    
-    10.2.0.4
-    fe80::4838:e2ff:fef1:246f
-    
-    10.2.128.3
-    fe80::f0b0:1eff:fe57:f322
-    
-    10.2.128.3
-    fe80::f0b0:1eff:fe57:f322
-    
-    10.2.0.2
-    fe80::3c60:1fff:feee:644a
-    ....
+root@ubuntu:/# for i in `seq 1 20`; do curl lb.weave.local/myip; done
+10.2.128.2
+
+10.2.128.2
+
+10.2.0.4
+
+10.2.128.3
+
+10.2.128.3
+
+10.2.0.2
+....
 ~~~
 
 Notice that requests are balanced equally among all six containers running across the hosts (`10.2.0.x` are from `weave-gs-01`, and `10.2.128.x` are from `weave-gs-02`).
@@ -218,9 +212,8 @@ Notice that requests are balanced equally among all six containers running acros
 To remove the hosts from your machine:
 
 ~~~bash
-Vagrant destroy weave-gs-01
-
-Vagrant destroy weave-gs-02
+vagrant destroy weave-gs-01
+vagrant destroy weave-gs-02
 ~~~
 
 
