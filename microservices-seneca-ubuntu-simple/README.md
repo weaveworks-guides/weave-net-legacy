@@ -78,8 +78,6 @@ The IP addresses used for this demo are:
     172.17.8.101 	weave-gs-01
     172.17.8.102 	weave-gs-02
 
-Vagrant also configures weave-gs-01 to pass traffic from port 80 to localhost port 8080.
-
 ##Installing Weave
 
 Install Weave on each host [using a separate terminal for each host](http://weave.works/guides/about/vagrant.html#general-usage-pattern):
@@ -178,7 +176,7 @@ You should now have multiple containers running on each host, which you can see 
 
 ~~~bash
 
-    vagrant@weave-gs-01:~$ docker ps
+vagrant@weave-gs-01:~$ docker ps
 CONTAINER ID        IMAGE                        COMMAND                CREATED             STATUS              PORTS                                                                                        NAMES
 287ea2b5f60a        weaveworks/seneca_user       "nodejs /opt/app/ser   3 minutes ago       Up 3 minutes                                                                                                     sleepy_jones        
 2c1d61eed533        weaveworks/weaveexec:1.1.1   "/home/weave/weavepr   7 minutes ago       Up 7 minutes                                                                                                     weaveproxy          
@@ -189,13 +187,13 @@ bf9414255fc6        weaveworks/weave:1.1.1       "/home/weave/weaver    7 minute
 
 ## Microservices Example With Seneca ##
 
-The example is running three different microservices in three different containers, spread across the two hosts. To test that all of the services are running properly, point your browser to [http://localhost:8080](http://localhost:8080), where you are presented with a login screen. Login with the username: u1 and password u1.
+The example is running three different microservices in three different containers, spread across the two hosts. To test that all of the services are running properly, point your browser to [http://172.17.8.102](http://172.17.8.102), where you are presented with a login screen. Login with the username: u1 and password u1.
 
 This example is a very simple demonstration of how to use the Seneca framework, the discussion of which is beyond the scope of this guide. For more details refer to the [Seneca website](http://senecajs.org/).
 
 Seneca is written in Javascript using the Node.js libraries. The Dockerfiles used for building the containers in this guide are included in the [github repo](https://github.com/weaveworks/guides/tree/master/microservices-seneca-ubuntu-simple). 
 
-##Launching The Demo Application ##
+## Launching The Demo Application ##
 
 The following script is provided that automates the launching the Weave network and also deploying the application into the containers. 
 
