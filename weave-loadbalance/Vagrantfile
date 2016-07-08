@@ -39,13 +39,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     (1..$num_instances).each do |i|
-    
+
         config.vm.define vm_name = "%s-%02d" % [$instance_name_prefix, i] do |config|
             config.vm.hostname = vm_name
-            if  i == 1 
+            if  i == 1
                 config.vm.network "forwarded_port", guest: 80, host: 8080
                 config.vm.network "forwarded_port", guest: 4040, host: 4040
-            end        
+            end
 
             ip = IPAddr.new($vm_ip)
             $vm_ip = ip.succ.to_s
@@ -60,15 +60,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     config.vm.provision "docker" do |d|
-        d.pull_images "ubuntu"
-        d.pull_images "docker"
         d.pull_images "weaveworks/myip-scratch"
         d.pull_images "weaveworks/weave-gs-ubuntu-curl"
         d.pull_images "weaveworks/weave"
-        d.pull_images "gliderlabs/alpine:edge"
-        d.pull_images "gliderlabs/alpine:latest"
     end
-    
+
     config.vm.provision "shell", privileged: true, inline: <<-SHELL
         sudo curl -L git.io/weave -o /usr/local/bin/weave
         sudo chmod a+x /usr/local/bin/weave
