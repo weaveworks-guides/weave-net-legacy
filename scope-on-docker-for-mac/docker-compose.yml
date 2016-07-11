@@ -7,8 +7,6 @@ services:
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - external
       - secure
@@ -20,20 +18,14 @@ services:
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - external
-    environment:
-      - "constraint:node==swarm-master"
   catalogue:
     image: weaveworksdemos/catalogue
     hostname: catalogue
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - external
   accounts:
@@ -42,8 +34,6 @@ services:
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - secure
   accounts-db:
@@ -52,8 +42,6 @@ services:
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - secure
   cart:
@@ -62,8 +50,6 @@ services:
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - internal
   cart-db:
@@ -72,8 +58,6 @@ services:
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - internal
   orders:
@@ -82,8 +66,6 @@ services:
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - internal
       - secure
@@ -94,8 +76,6 @@ services:
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - internal
   shipping:
@@ -104,20 +84,15 @@ services:
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - backoffice
   queue-master:
     image: weaveworksdemos/queue-master
     hostname: queue-master
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    volumes: [ '/var/run/docker.sock:/var/run/docker.sock' ]
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - backoffice
   rabbitmq:
@@ -126,8 +101,6 @@ services:
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - backoffice
   payment:
@@ -136,8 +109,6 @@ services:
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - secure
   login:
@@ -146,8 +117,6 @@ services:
     dns: 172.17.0.1
     dns_search: weave.local
     restart: always
-    environment:
-      - reschedule:on-node-failure
     networks:
       - secure
   weavescope:
@@ -155,25 +124,21 @@ services:
     network_mode: host
     pid: host
     privileged: true
-    labels:
-      - 'works.weave.role=system'
+    labels: [ 'works.weave.role=system' ]
     volumes: [ '/var/run/docker.sock:/var/run/docker.sock:rw' ]
     command: [ '--no-app', '--probe.docker=true', 'localhost:4040' ]
   weavescope-app:
     image: weaveworks/scope:0.16.0
     ports: [ '4040:4040' ]
-    labels:
-      - 'works.weave.role=system'
+    labels: [ 'works.weave.role=system' ]
     command: [ '--no-probe' ]
   load-test:
     image: weaveworksdemos/load-test
     restart: always
-    #network_mode: host
     networks:
       - external
-    #environment:
-      #TARGET_HOST: localhost
     command: [ '-h', 'edge-router', '-r', '1000', '-c', '20' ]
+
 networks:
   external:
     driver: bridge
