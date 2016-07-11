@@ -96,15 +96,20 @@ and then view three Docker containers and Weave Net:
 
 Where you should see the following:
 
-    CONTAINER ID    IMAGE                        COMMAND                CREATED         STATUS         PORTS                                            NAMES
-    b9c179b2303d    weaveworks/weaveexec:1.4.3   "/home/weave/weavepr   4 minutes ago   Up 3 minutes                                                    weaveproxy
-    3ca6d9c9dd0d    weaveworks/weave:1.4.3       "/home/weave/weaver    4 minutes ago   Up 3 minutes   0.0.0.0:6783->6783/tcp, 0.0.0.0:6783->6783/udp   weave
+    CONTAINER ID    IMAGE                        COMMAND                  CREATED         STATUS         PORTS  NAMES
+    a565aa9a79ab    weaveworks/weaveexec:1.6.0   "/home/weave/weavepro"   3 minutes ago   Up 3 minutes          weaveproxy
+    5bbc7f6bc5ea    weaveworks/weave:1.6.0       "/home/weave/weaver -"   3 minutes ago   Up 3 minutes          weave
+
 
 
 There is not much else to do on `mesos-00`, so you can exit:
 
 ~~~ bash
 [root@mesos-00 vagrant]# exit
+exit
+[vagrant@mesos-00 ~]$ exit
+logout
+Connection to 127.0.0.1 closed.
 ~~~
 
 Back in your local shell, run:
