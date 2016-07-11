@@ -14,7 +14,7 @@ if File.exist?(CONFIG)
 end
 
 Vagrant.configure(2) do |config|
-  config.vm.box = 'bento/centos-7.1'
+  config.vm.box = 'centos/7'
 
   vms = (0..$mesos_slaves).map{ |a| 'mesos-%02d' % [a] }
 
