@@ -62,7 +62,7 @@ Vagrant.configure(2) do |config|
         set -e
         set -x
         yum -q -y install docker
-        cd /vagrant
+        cd /home/vagrant/sync
         ./install_weave.sh
         ./setup_and_launch_weave.sh #{weave_peers.join(' ')}
         ./install_mesosphere_packages.sh
