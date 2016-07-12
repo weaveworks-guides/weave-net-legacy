@@ -15,7 +15,7 @@ An include statement looks like:
 {"gitdown": "include", "file": "../../_includes/common-file.md"}
 ```
 
-In this example, this entire section (between and including the curly braces) will be replaced with the contents of `../_includes/common-file.md`.
+In this example, this entire section (between and including the curly braces) will be replaced with the contents of `../../_includes/common-file.md`.
 
 # Building guides
 
