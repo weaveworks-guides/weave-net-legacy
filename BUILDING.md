@@ -12,7 +12,7 @@ When a Markdown file A includes another Markdown file B, the contents of the B a
 
 An include statement looks like:
 ```
-{"gitdown": "include", "file": "../_includes/common-file.md"}
+{"gitdown": "include", "file": "../../_includes/common-file.md"}
 ```
 
 In this example, this entire section (between and including the curly braces) will be replaced with the contents of `../_includes/common-file.md`.
@@ -44,7 +44,7 @@ Create a new file in the top-level `_includes` folder, for example `_includes/ru
 Then in a componentized guide source file, you can include it, for example like this:
 
 ```
-{"gitdown": "include", "file": "../_includes/running-weave-net-vagrant.md"}
+{"gitdown": "include", "file": "../../_includes/running-weave-net-vagrant.md"}
 ```
 
 Don't forget to add your include-able file to Git before you commit and push!
