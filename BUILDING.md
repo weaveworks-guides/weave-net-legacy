@@ -4,7 +4,9 @@ When there is a lot of duplication in our guides, they are harder to maintain.
 
 For example, the way you set up Weave Net may change from one release to the next.
 If the guides always install the latest version of Weave Net, it is very arduous and easy to forget to update the instructions in all of the guides.
-Instead, componentized guides can be built out of other "included" Markdown files.
+
+The solution to this problem is to "factor out" common content into "component" files which can be _included_ from many guides.
+Componentized guides written in this way can then be built out of other "included" Markdown files.
 
 When a Markdown file A includes another Markdown file B, the contents of the B are substituted into file A at the point at which the `include` statement occurs.
 
