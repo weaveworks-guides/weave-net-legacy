@@ -4,7 +4,7 @@ Here is some content before the include.
 
 And now for the include.
 
-{"gitdown": "include", "file": "../../_includes/common-file.md"}
+{"gitdown": "include", "file": "../../_includes/hello-world.md"}
 
 # Content after the include
 
