@@ -19,6 +19,9 @@ In this example, this entire section (between and including the curly braces) wi
 
 # Building guides
 
+You must be running Docker before you can build a guide.
+On a Mac, use [Docker for Mac](https://docs.docker.com/docker-for-mac/).
+
 If a guide folder has a `build.sh` script and a `_README` directory, then it means that the `README.md` can be constructed out of other files by building it.
 We call these guides _componentized guides_.
 
