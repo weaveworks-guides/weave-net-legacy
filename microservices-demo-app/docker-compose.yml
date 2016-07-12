@@ -91,25 +91,6 @@ services:
     restart: always
     networks:
       - secure
-  #weavescope:
-  #  image: weaveworks/scope:0.16.0
-  #  network_mode: host
-  #  pid: host
-  #  privileged: true
-  #  labels: [ 'works.weave.role=system' ]
-  #  volumes: [ '/var/run/docker.sock:/var/run/docker.sock:rw' ]
-  #  command: [ '--no-app', '--probe.docker=true', 'localhost:4040' ]
-  #weavescope-app:
-  #  image: weaveworks/scope:0.16.0
-  #  ports: [ '4040:4040' ]
-  #  labels: [ 'works.weave.role=system' ]
-  #  command: [ '--no-probe' ]
-  #load-test:
-  #  image: weaveworksdemos/load-test
-  #  restart: always
-  #  networks:
-  #    - external
-  #  command: [ '-h', 'edge-router', '-r', '1000', '-c', '20' ]
 
 networks:
   external:
