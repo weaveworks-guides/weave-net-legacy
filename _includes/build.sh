@@ -5,7 +5,7 @@ GIT_ROOT=$(git rev-parse --show-toplevel)
 # GIT_SUFFIX_PATH needs to be "foo-guide/x/y/z",
 #     e.g. GIT_ROOT.replace(PWD, "")
 GIT_SUFFIX_PATH=$(echo $PWD | sed "s|$GIT_ROOT||")
-echo docker run -ti -v $GIT_ROOT:/guides \
+docker run -ti -v $GIT_ROOT:/guides \
     -w /guides$GIT_SUFFIX_PATH lmarsden/gitdown \
     ./_README/README.md \
     --output-file ./README.md

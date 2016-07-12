@@ -22,7 +22,8 @@ In this example, this entire section (between and including the curly braces) wi
 If a guide folder has a `build.sh` script and a `_README` directory, then it means that the `README.md` can be constructed out of other files by building it.
 We call these guides _componentized guides_.
 
-*Do not edit `README.md` files directly in componentized guides.*
+**Do not edit `README.md` files directly in componentized guides.**
+
 If you do, you will lose changes made directly to these files next time the file gets built.
 
 Instead, edit the `_README/README.md` _source file_, and when you want to build the _output file_ `README.md`, run `./build.sh` in your terminal, in the appropriate guide folder (use `cd` to get there).
