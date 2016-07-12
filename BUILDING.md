@@ -34,7 +34,7 @@ Instead, edit the `_README/README.md` _source file_, and when you want to build 
 This will output the built guide into `README.md` in the guide folder.
 
 You should run `./build.sh` before committing the file to the repository.
-Make sure to make sure that both `_README/README.md` and `README.md` are included in your commit.
+Make sure that both `_README/README.md` and `README.md` are included in your commit.
 
 Then you can refer to the built `README.md` file in the same way that you normally do when, for example, importing the Markdown into Wordpress.
 
