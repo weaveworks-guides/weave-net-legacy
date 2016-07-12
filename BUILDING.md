@@ -52,8 +52,27 @@ Don't forget to add your include-able file to Git before you commit and push!
 # Creating a new componentized guide
 
 There is a sample componentized guide that you can use in `example-componentized-guide` folder.
-You can copy this into a new guide folder called `new-guide` with:
+You can copy this into a new guide folder called `new-guide` with (assuming you're in an appropriate `git` branch):
 
 ```
 cp -r example-componentized-guide new-guide
+cd new-guide
+./build.sh
+git add .
+git commit -am "Create new componentized guide new-guide"
+```
+
+# Modifying an existing guide so that it can use includes
+
+Follow the following instructions, substitituing `name-of-guide` for the guide you want to turn into a componentized guide (assuming you're in an appropriate `git` branch):
+
+```
+cd name-of-guide
+mkdir _README
+mv README.md _README/README.md
+ln -s ../_includes/build.sh build.sh
+chmod +x build.sh
+./build.sh
+git add _README/README.md build.sh
+git commit -am "Convert name-of-guide into componentized guide."
 ```
