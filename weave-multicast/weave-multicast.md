@@ -5,9 +5,9 @@ description: How to use Weave Scope to monitor and visualize docker container cl
 ---
 
 
-Weave Net is one of the few Docker container networking solutions that supports multicast networking. Since Weave Net emulates a full layer 2 network, it operates just like a server that is attached to a standard Ethernet network. Weave Net multicast operates even if the underlying network doesn’t support it, which is the case with Amazon Web Services (AWS) and Azure.  
+Weave Net is one of the few Docker container networking solutions that supports multicast networking. Since Weave Net fully emulates a layer 2 network, it operates just like a server that is attached to a standard Ethernet network. Weave Net multicast works even if the underlying network doesn’t support it, which is the case with Amazon Web Services (AWS) and Azure.  
 
-With multicast, it is possible for a node to transmit its data once and then to have it delivered to multiple receivers in a multicast group. Multicasting is used by software that generates and distributes data feeds to other applications.
+With multicast, it is possible for a node to transmit its data once and then to have it delivered to multiple receivers in the same multicast group. Multicasting is used by software that generates and distributes data feeds to other applications.
 
 This tutorial describes the following: 
 
@@ -112,11 +112,11 @@ Click on one of the containers to view its metrics:
 
 [metrics-multicast-screencast]
 
-To view multicast in action, select the terminal button in the metrics panel: 
+To view multicast in action, select the terminal button from the top of the metrics panel: 
 
 [multicast-scope]
 
-You can follow the same procedures for the other containers and see within the terminal how all of IP addresses are being discovered by each of the nodes as they broadcast data across the Weave network.
+Click on some of the other containers and launch their terminals to view how all of the IP addresses are being discovered by each of the nodes as they broadcast data across the Weave network.
 
 ##Conclusions
 
