@@ -5,40 +5,46 @@ description: How to use Weave Scope to monitor and visualize docker container cl
 ---
 
 
-Weave Net is one of the few Docker container networking solutions that supports multicast networking. Since Weave Net fully emulates a layer 2 network, it operates just like a server that is attached to a standard Ethernet network. Weave Net multicast works even if the underlying network doesn’t support it, which is the case with Amazon Web Services (AWS) and Azure.  
+Weave Net is one of the few Docker container networking solutions that supports multicast networking. Since Weave Net fully emulates a layer 2 network, it operates just like a server that is attached to a standard Ethernet network. Running multicast in Weave Net works even if the underlying network doesn’t support it, which is the case with Amazon Web Services (AWS) and Azure.
 
 With multicast, it is possible for a node to transmit its data once and then to have it delivered to multiple receivers in the same multicast group. Multicasting is used by software that generates and distributes data feeds to other applications.
 
-This tutorial describes the following: 
+This tutorial describes the following topics: 
 
-1. Configuring an EC2 cluster with Weave Net and Weave Scope pre-installed onto it.
-2. How to create a task definition for the EC2 cluster. 
-3. Deploying the multicast demo as a service on the cluster.
-4. Visualizing the multicast demo in Weave Cloud
+*[What You Will Use](#what-use)
+*[Launching the AWS CloudFormation Template](#launching-AWS)
+*[Creating the Stack](#the-stack)
+*[Deploying the Multicast Demo to an EC2 Cluster](#multicast-demo)
+  *[Running Multicast Services in an ECS Cluster](#running-multicast)
+*[Visualizing Multicast in Weave Cloud](#visualize-multicast)
 
-
-##What You Will Use
+##<a name="what-use"></a>What You Will Use
 
 * Weave Net and Multicast
-* Cloud Formation Template
+* AWS CloudFormation Template
 * EC2 Container Console
 * Weave Cloud
 
-This AWS CloudFormation template is the easiest way to get started with Weave Net and Weave Scope. CloudFormation templates provide developers and systems administrators a simple way to create a collection or a stack of related AWS resources, and allows you to provision and update them in an orderly and predictable fashion.
+##<a name="launching-AWS"></a>Launching the AWS CloudFomation Templates
+
+This AWS CloudFormation template is the easiest way to get started with Weave Net and Weave Cloud. CloudFormation templates provide developers and systems administrators a simple way to create a collection or a stack of related AWS resources, and allows you to provision and update them in an orderly and predictable fashion.
 
 Use this specially created Weaveworks CloudFormation template to create an EC2 cluster with all of the resources you need, including Weave Net and Weave Scope.
 
-Before launching the stack:
+###Before You Begin
+
+Before launching the cloud formation template:
 
 * Set up an Amazon Account if you don’t already have one.
 * Create the Key Pairs. You will need to reference the name of the key pairs when you create the stack.
-* Set up a [Weave Cloud](https://cloud.weave.works) account and obtain the cloud token
-* Ready to launch Weave?  Click here to launch a stack to AWS:
+* Set up a [Weave Cloud](https://cloud.weave.works) account and [obtain the cloud token](https://www.weave.works/guides/using-weave-scope-cloud-service-to-visualize-and-monitor-docker-containers/).
 
-[launch the weaveworks stack]
+**Ready to launch a stack?  Click here to launch a stack to AWS:**
+
+[![](images/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?templateURL=https:%2F%2Fs3.amazonaws.com%2Fweaveworks-cfn-public%2Fintegrations%2Fecs-identiorca.json)
 
 
-##Configuring the Stack
+##<a name="the-stack"></a>Creating the Stack
 
 1. Enable ‘Specify an Amazon S3 template URL’ and then click Next.
 
@@ -62,7 +68,7 @@ Once the stack has been created, select the Outputs tab and look for the URL to 
 
 Leave the stack creation window open and create a new tab for this next section. 
 
-##Deploying the Multicast Demo to an EC2 Cluster
+##<a name="multicast-demo"></a>Deploying the Multicast Demo to an EC2 Cluster
 
 To deploy the multicast demo: 
 
@@ -92,17 +98,17 @@ For this demo, these are the only fields that need to be configured. Once comple
 
 Return to the top level `Task Definitions`, where you should see your newly created task in the list.
 
-###Running Multicast Services in an ECS Cluster
+###<a name="running-multicast"></a>Running Multicast Services in an ECS Cluster
 
 Next, run the task you just created as a service in the cluster. For the purposes of this demo, you will run three instances of the service. 
 
 1. Select the cluster that was created with the AWS Cloud Formation template. 
 2. Click on Create to add a service: 
 
-In this dialog, select the Task Definition you added, then give the service a name and assign the number of tasks to 3. Click `Create Service` and then `View Service`. Wait for the containers to spin up, when they've changed from PENDING to RUNNING before moving on to the next section. 
+In this dialog, select the Task Definition you created, then give the service a name and assign the number of tasks to 3. Click `Create Service` and then `View Service`. Wait for the containers to spin up, when they've changed from PENDING to RUNNING, before moving on to the next section. 
 
 
-##Visualizing Multicast in Weave Cloud
+##<a name="visualize-multicast"></a>Visualizing Multicast in Weave Cloud
 
 To visualize the demo, launch Weave Cloud by returning to the Cloud Stack tab and copying the URL from the Outputs tab. 
 
@@ -126,7 +132,7 @@ If you have any questions or comments, we would be happy to hear from you, visit
 
 Further Reading: 
 
- * 
+ * [Weave Net Features]
 
 
 
