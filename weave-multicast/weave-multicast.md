@@ -11,12 +11,12 @@ With multicast, it is possible for a node to transmit its data once and then to 
 
 This tutorial describes the following topics: 
 
-*[What You Will Use](#what-use)
-*[Launching the AWS CloudFormation Template](#launching-AWS)
-*[Creating the Stack](#the-stack)
-*[Deploying the Multicast Demo to an EC2 Cluster](#multicast-demo)
-  *[Running Multicast Services in an ECS Cluster](#running-multicast)
-*[Visualizing Multicast in Weave Cloud](#visualize-multicast)
+* [What You Will Use](#what-use)
+* [Launching the AWS CloudFormation Template](#launching-AWS)
+* [Creating the Stack](#the-stack)
+* [Deploying the Multicast Demo to an EC2 Cluster](#multicast-demo)
+   * [Running Multicast Services in an ECS Cluster](#running-multicast)
+* [Visualizing Multicast in Weave Cloud](#visualize-multicast)
 
 ##<a name="what-use"></a>What You Will Use
 
@@ -47,17 +47,11 @@ Before launching the cloud formation template:
 ##<a name="the-stack"></a>Creating the Stack
 
 1. Enable ‘Specify an Amazon S3 template URL’ and then click `Next`.
-
-[screen capture]
-
+ [screen capture]
 2. Enter a name for the stack, and then select the key pair that you generated, from the KeyName dropdown.
-
 [screen capture]
-
-3. Add the Weave Cloud token into the WeaveScopeCloudService token field.
-
+3. Add the Weave Cloud token into the WeaveScopeCloudService token field and click `Next`.
 4. The options dialog doesn’t require any input.
-
 5. In the Confirmation dialog, enable the capabilities acknowledgement box and click `Create`.
 
 [screen capture]
@@ -74,18 +68,12 @@ Leave the stack creation window open and create a new tab for this next section.
 
 To deploy the multicast demo: 
 
-1. Go to the EC2 Container Service console by clicking `Services -> EC2 Container Service Console` where you will see something similar to the following:
-
-[screen capture]
+Go to the EC2 Container Service console by clicking `Services -> EC2 Container Service Console` where you will see something similar to the following: 
+[screen capture] 
 
 The cluster you just created with the AWS template appears under the Cluster group. Its name is appended with the name that you give your stack in step 2 during stack creation.
-
 2. Create a task by clicking on `Task Definition` and then `Create New Task`. 
-
-3. Give the task a name in the Task Definition field: 
-
-[task-definition-screen-capture]()
-
+3. Give the task a name in the Task Definition field:  [task-definition-screen-capture]
 4. Create the multicast containers from the docker image by clicking the `Create Container` button, where the following appears: 
 
 [add-container-screencapture]
