@@ -72,9 +72,10 @@ Go to the EC2 Container Service console by clicking `Services -> EC2 Container S
 [screen capture] 
 
 The cluster you just created with the AWS template appears under the Cluster group. Its name is appended with the name that you give your stack in step 2 during stack creation.
-2. Create a task by clicking on `Task Definition` and then `Create New Task`. 
-3. Give the task a name in the Task Definition field:  [task-definition-screen-capture]
-4. Create the multicast containers from the docker image by clicking the `Create Container` button, where the following appears: 
+
+1. Create a task by clicking on `Task Definition` and then `Create New Task`. 
+2. Give the task a name in the Task Definition field:  [task-definition-screen-capture]
+3. Create the multicast containers from the docker image by clicking the `Create Container` button, where the following appears: 
 
 [add-container-screencapture]
 
