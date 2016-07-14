@@ -35,8 +35,8 @@ Use this specially created Weaveworks CloudFormation template to create an EC2 c
 
 Before launching the cloud formation template:
 
-* Set up an Amazon Account if you don’t already have one.
-* Create the Key Pairs. You will need to reference the name of the key pairs when you create the stack.
+* [Set up an Amazon Account](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html)
+* [Create the Key Pairs]("http://docs.aws.amazon.com/gettingstarted/latest/wah/getting-started-prereq.html). You will need to reference the name of the key pairs when you create the stack.
 * Set up a [Weave Cloud](https://cloud.weave.works) account and [obtain the cloud token](https://www.weave.works/guides/using-weave-scope-cloud-service-to-visualize-and-monitor-docker-containers/).
 
 **Ready to launch a stack?  Click here to launch a stack to AWS:**
@@ -46,7 +46,7 @@ Before launching the cloud formation template:
 
 ##<a name="the-stack"></a>Creating the Stack
 
-1. Enable ‘Specify an Amazon S3 template URL’ and then click Next.
+1. Enable ‘Specify an Amazon S3 template URL’ and then click `Next`.
 
 [screen capture]
 
@@ -54,9 +54,11 @@ Before launching the cloud formation template:
 
 [screen capture]
 
-3. The options dialog doesn’t require any input.
+3. Add the Weave Cloud token into the WeaveScopeCloudService token field.
 
-4. In the Confirmation dialog, enable the capabilities acknowledgement box and click 'Create'.
+4. The options dialog doesn’t require any input.
+
+5. In the Confirmation dialog, enable the capabilities acknowledgement box and click `Create`.
 
 [screen capture]
 
@@ -64,7 +66,7 @@ The CloudFormation stack dashboard appears, where you can monitor the progress o
 
 [screen capture]
 
-Once the stack has been created, select the Outputs tab and look for the URL to Weave Cloud where you can visualize the demo app. However, before you can do that, you will first deploy the multicast app as a set of services to the ECS cluster you just created. 
+Once the stack has been created, select the Outputs tab and look for the URL to Weave Cloud where you can visualize the demo app. However, before you can do that, you need to deploy the multicast app as a set of services to the ECS cluster you just created. 
 
 Leave the stack creation window open and create a new tab for this next section. 
 
@@ -72,7 +74,7 @@ Leave the stack creation window open and create a new tab for this next section.
 
 To deploy the multicast demo: 
 
-1. Go to the EC2 Container Service console by clicking `services -> EC2 Container Service Console` where you will see something similar to the following:
+1. Go to the EC2 Container Service console by clicking `Services -> EC2 Container Service Console` where you will see something similar to the following:
 
 [screen capture]
 
@@ -90,8 +92,8 @@ The cluster you just created with the AWS template appears under the Cluster gro
 
 Fill in the following fields: 
 
- * Container Name -- Enter an arbitrary name for the container
- * Image -- Add `lmarsden/mlist`
+ * Container Name -- Enter a name for the container
+ * Image -- Add the repository and the app `lmarsden/mlist`
  * Maximum Memory -- 300
  
 For this demo, these are the only fields that need to be configured. Once complete, click `Add` 
@@ -103,7 +105,7 @@ Return to the top level `Task Definitions`, where you should see your newly crea
 Next, run the task you just created as a service in the cluster. For the purposes of this demo, you will run three instances of the service. 
 
 1. Select the cluster that was created with the AWS Cloud Formation template. 
-2. Click on Create to add a service: 
+2. Click on `Create` to add a service: 
 
 In this dialog, select the Task Definition you created, then give the service a name and assign the number of tasks to 3. Click `Create Service` and then `View Service`. Wait for the containers to spin up, when they've changed from PENDING to RUNNING, before moving on to the next section. 
 
@@ -130,9 +132,10 @@ In this tutorial, you deployed Weave Net and Weave Scope onto an ECS cluster usi
 
 If you have any questions or comments, we would be happy to hear from you, visit [Weave Help & Support](https://www.weave.works/help/) for information on contacting us. 
 
-Further Reading: 
+**Further Reading:**
 
- * [Weave Net Features]
+ * [Weave Net Features](https://www.weave.works/docs/net/latest/features/)
+ * [Microservice Deployment to ECS with Weave Net](https://www.weave.works/guides/service-discovery-and-load-balancing-with-weave-on-amazon-ecs-2/)
 
 
 
