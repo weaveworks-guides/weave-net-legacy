@@ -36,7 +36,7 @@ Use this specially created Weaveworks CloudFormation template to create an EC2 c
 Before launching the cloud formation template:
 
 * [Set up an Amazon Account](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html)
-* [Create the Key Pairs]("http://docs.aws.amazon.com/gettingstarted/latest/wah/getting-started-prereq.html). You will need to reference the name of the key pairs when you create the stack.
+* [Create the Key Pairs](http://docs.aws.amazon.com/gettingstarted/latest/wah/getting-started-prereq.html). You will need to reference the name of the key pairs when you create the stack.
 * Set up a [Weave Cloud](https://cloud.weave.works) account and [obtain the cloud token](https://www.weave.works/guides/using-weave-scope-cloud-service-to-visualize-and-monitor-docker-containers/).
 
 **Ready to launch a stack?  Click here to launch a stack to AWS:**
