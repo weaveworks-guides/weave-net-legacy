@@ -9,7 +9,7 @@ Weave Net is one of the few Docker container networking solutions that supports 
 
 With multicast, it is possible for a node to transmit its data once and then to have it delivered to multiple receivers in the same multicast group. Multicasting is used by software that generates and distributes data feeds to other applications.
 
-This tutorial describes the following topics: 
+This tutorial you will run a multicast demo in an ECS cluster and then visualize the result in Weave Cloud. Specifically, this tutorial describes the following topics: 
 
 * [What You Will Use](#what-use)
 * [Launching the AWS CloudFormation Template](#launching-AWS)
@@ -20,7 +20,7 @@ This tutorial describes the following topics:
 
 ##<a name="what-use"></a>What You Will Use
 
-* Weave Net and Multicast
+* [Weave Net]( and [Multicast]
 * AWS CloudFormation Template
 * EC2 Container Console
 * Weave Cloud
@@ -46,10 +46,10 @@ Before launching the cloud formation template:
 
 ##<a name="the-stack"></a>Creating the Stack
 
-1. Enable ‘Specify an Amazon S3 template URL’ and then click `Next`.
- [screen capture]
-2. Enter a name for the stack, and then select the key pair that you generated, from the KeyName dropdown.
-[screen capture]
+1. Enable the ‘Specify an Amazon S3 template URL’ option and then click `Next`.
+ ![](/images/multicast/AWS-1-select-template.png)
+2. Enter a name for the stack and then select the key pair that you generated, from the KeyName dropdown.
+![](/images/multicast/AWS-2-select-template.png)
 3. Add the Weave Cloud token into the WeaveScopeCloudService token field and click `Next`.
 4. The options dialog doesn’t require any input.
 5. In the Confirmation dialog, enable the capabilities acknowledgement box and click `Create`.
@@ -79,11 +79,11 @@ The cluster you just created with the AWS template appears under the Cluster gro
 
 [add-container-screencapture]
 
-Fill in the following fields: 
+Fill in the following: 
 
- * Container Name -- Enter a name for the container
+ * Container Name -- A name for the container
  * Image -- Add the repository and the app `lmarsden/mlist`
- * Maximum Memory -- 300
+ * Maximum Memory -- 500
  
 For this demo, these are the only fields that need to be configured. Once complete, click `Add` 
 
