@@ -41,7 +41,7 @@ Before launching the cloud formation template:
 
 **Ready to launch a stack?  Click here to launch a stack to AWS:**
 
-[![](images/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?templateURL=https:%2F%2Fs3.amazonaws.com%2Fweaveworks-cfn-public%2Fintegrations%2Fecs-identiorca.json)
+[![](images/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?templateURL=https:%2F%2Fs3.amazonaws.com%2Fweaveworks-cfn-public%2Fintegrations%2Fcloudformation.json)
 
 
 ##<a name="the-stack"></a>Creating the Stack
