@@ -41,15 +41,15 @@ Before launching the cloud formation template:
 
 **Ready to launch a stack?  Click here to launch a stack to AWS:**
 
-[![](images/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?templateURL=https:%2F%2Fs3.amazonaws.com%2Fweaveworks-cfn-public%2Fintegrations%2Fecs-baseline.json)
+[![](/guides/images/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?templateURL=https:%2F%2Fs3.amazonaws.com%2Fweaveworks-cfn-public%2Fintegrations%2Fecs-baseline.json)
 
 
 ##<a name="the-stack"></a>Creating the Stack
 
 1. Enable the ‘Specify an Amazon S3 template URL’ option and then click `Next`.
- ![](/images/multicast/AWS-1-select-template.png)
+ ![](/guides/images/multicast/AWS-1-select-template.png)
 2. Enter a name for the stack and then select the key pair that you generated, from the KeyName dropdown.
-![](/images/multicast/AWS-2-select-template.png)
+![](/guides/images/multicast/AWS-2-select-template.png)
 3. Add the Weave Cloud token into the WeaveScopeCloudService token field and click `Next`.
 4. The options dialog doesn’t require any input.
 5. In the Confirmation dialog, enable the capabilities acknowledgement box and click `Create`.
