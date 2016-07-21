@@ -20,7 +20,7 @@ This tutorial you will run a multicast demo in an ECS cluster and then visualize
 
 ##<a name="what-use"></a>What You Will Use
 
-* [Weave Net]( and [Multicast]
+* [Weave Net](https://www.weave.works/docs/net/latest/installing-weave/) and [Multicast](https://www.weave.works/docs/net/latest/features/)
 * AWS CloudFormation Template
 * EC2 Container Console
 * Weave Cloud
