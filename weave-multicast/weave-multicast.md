@@ -48,19 +48,19 @@ Before launching the cloud formation template:
 
 1. Enable the ‘Specify an Amazon S3 template URL’ option and then click `Next`.
  ![](/guides/images/multicast/AWS-1-select-template.png)
-2. Enter a name for the stack and then select the key pair that you generated, from the KeyName dropdown.
-![](/guides/images/multicast/AWS-2-select-template.png)
-3. Add the Weave Cloud token into the WeaveScopeCloudService token field and click `Next`.
-4. The options dialog doesn’t require any input.
-5. In the Confirmation dialog, enable the capabilities acknowledgement box and click `Create`.
+2. Enter a name for the stack. 
+3. Select whether you want to deploy an additional sample app, called 'Hit Counter'that comes with this template. This app is different from the Multicast demo. Choose No if you don't want to deploy it.  
+4. Next choose the key pair that you generated, from the KeyName dropdown.
+![](/guides/images/multicast/AWS-2-specify-details-parameters.png)
+5. Add the Weave Cloud token into the WeaveScopeCloudService token field and click `Next`.
+4. The options dialog doesn’t require any input, so just click `Next`.
+5. In the Confirmation dialog, enable the capabilities acknowledgement box and then click `Create`.
 
-[screen capture]
+![](/guides/images/multicast/AWS-4-create-stack.png)
 
 The CloudFormation stack dashboard appears, where you can monitor the progress of the stack’s creation. It takes about 10-15 minutes to complete. Press refresh button in the top right corner to monitor its progress.
 
-[screen capture]
-
-Once the stack has been created, select the Outputs tab and look for the URL to Weave Cloud where you can visualize the demo app. However, before you can do that, you need to deploy the multicast app as a set of services to the ECS cluster you just created. 
+Once the stack has been created, go to [Weave Cloud](https://cloud.weave.works) where you can visualize the demo app. However, before you can do that, you need to deploy the multicast app as a set of services to the ECS cluster you just created. 
 
 Leave the stack creation window open and create a new tab for this next section. 
 
@@ -68,22 +68,24 @@ Leave the stack creation window open and create a new tab for this next section.
 
 To deploy the multicast demo: 
 
-Go to the EC2 Container Service console by clicking `Services -> EC2 Container Service Console` where you will see something similar to the following: 
-[screen capture] 
+Go to the EC2 Container Service console by clicking `Services -> EC2 Container Service Console` where you will see something similar to the following:
 
-The cluster you just created with the AWS template appears under the Cluster group. Its name is appended with the name that you give your stack in step 2 during stack creation.
+![](/guides/images/multicast/create-stack.png)
+
+The cluster you just created with the AWS template appears under the Cluster group. Its name is appended with the name that you gave your stack in step 2 during stack creation.
 
 1. Create a task by clicking on `Task Definition` and then `Create New Task`. 
-2. Give the task a name in the Task Definition field:  [task-definition-screen-capture]
+2. Give the task a name in the Task Definition field: ![](/guides/images/multicast/create-task.png).
 3. Create the multicast containers from the docker image by clicking the `Create Container` button, where the following appears: 
 
-[add-container-screencapture]
+![](/guides/images/multicast/add-container.png)
 
 Fill in the following: 
 
  * Container Name -- A name for the container
  * Image -- Add the repository and the app `lmarsden/mlist`
  * Maximum Memory -- 500
+ * CPU -- 100
  
 For this demo, these are the only fields that need to be configured. Once complete, click `Add` 
 
@@ -96,22 +98,26 @@ Next, run the task you just created as a service in the cluster. For the purpose
 1. Select the cluster that was created with the AWS Cloud Formation template. 
 2. Click on `Create` to add a service: 
 
+![](/guides/images/multicast/create-service.png)
+
+![](/guides/images/multicast/service-name-definition-instances.png)
+
 In this dialog, select the Task Definition you created, then give the service a name and assign the number of tasks to 3. Click `Create Service` and then `View Service`. Wait for the containers to spin up, when they've changed from PENDING to RUNNING, before moving on to the next section. 
 
 
 ##<a name="visualize-multicast"></a>Visualizing Multicast in Weave Cloud
 
-To visualize the demo, launch Weave Cloud by returning to the Cloud Stack tab and copying the URL from the Outputs tab. 
+To visualize the demo, log in to Weave Cloud and click View Instance:
 
-[containers-multicast-screencapture]
+![](/guides/images/multicast/containers-multicast.png)
 
 Click on one of the containers to view its metrics: 
 
-[metrics-multicast-screencast]
+![](/guides/images/multicast/metrics-multicast.png)
 
-To view multicast in action, select the terminal button from the top of the metrics panel: 
+To view multicast in action, select the terminal button from the controls located on the top of the metrics panel: 
 
-[multicast-scope]
+![](/guides/images/multicast/metrics-multicast.png)
 
 Click on some of the other containers and launch their terminals to view how all of the IP addresses are being discovered by each of the nodes as they broadcast data across the Weave network.
 
