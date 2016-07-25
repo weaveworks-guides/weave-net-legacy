@@ -10,13 +10,13 @@ You will use Docker and Docker Compose to deploy the Socks Shop onto your local 
 
 The following topics are discussed: 
 
-* [Install Docker for Mac](#install-docker-for-mac)
+* [Installing Docker for Mac](#install-docker-for-mac)
 * [Deploying the Socks Shop App](#deploy-the-demo-app)
 * [Signing Up for Weave Cloud](#sign-up-to-weave-cloud)
 * [Connecting the Scope Probes to Weave Cloud](#connect-scope-probe-to-weave-cloud)
 
 
-<h3 id="install-docker-for-mac">Install Docker for Mac</h3>
+<h3 id="install-docker-for-mac">Installing Docker for Mac</h3>
 
 If you haven't installed Docker for Mac, please follow the installation instructions on [Docker website][install-d4m].
 
@@ -71,9 +71,9 @@ sudo chmod +x /usr/local/bin/scope
 scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
 ```
 
-Where, 
+**Where,** 
 
-<YOUR_WEAVE_CLOUD_SERVICE_TOKEN> -- is the token that appears on the settings page, once you’ve logged into Weave Cloud. 
+`=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` - is the token that appears on the settings page, once you’ve logged into Weave Cloud. 
 
 
 <h3 id="run-the-load-test">Running the Load Test</h3>
@@ -93,6 +93,8 @@ With the load test running, you can observe the different services communicating
 ###Conclusions
 
 In this guide, an online store using a microservices-based approach was launched into the Weave Cloud, where you could observe communication events and also interact with the topology of the microservices app. 
+
+If you have any questions or comments, we would be happy to hear from you, visit [Weave Help & Support](https://www.weave.works/help/) for information on ways to contact us. 
 
 **Further Reading**
 
