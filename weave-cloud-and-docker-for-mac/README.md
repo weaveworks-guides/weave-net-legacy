@@ -1,73 +1,102 @@
-<h3 id="introduction-weave-cloud-and-the-demo-app">Introduction: Weave Cloud and the Demo App</h3>
+---
+layout: guides
+title: Visualizing Microservices with Weave Cloud
+---
 
-In this guide you will learn how Weave Cloud can help you to understand a microservices app. You will deploy
-an app consisting of several microservices written in different languages (Node.js, Java and Go) as well as
-data services (RabbitMQ and MongoDB). You will use Docker for Docker Compose to deploy this app on
-your local machine, and then use the Weave Scope Probe to push metrics to Weave Cloud to observe the
-topology of the app and explore how it works. Weave Scope Probe monitors the network traffic and builds the
-topology graph in real-time, augmented with metadata from Docker API along with various system metrics.
+
+In this guide you will learn how Weave Cloud can help you understand and troubleshoot a microservices-based app.  The app you will deploy is an online store, called the Socks Shop that consists of several microservices written in three different languages: Node.js, Spring Boot and Go Kit, and which also uses the data services, RabbitMQ and MongoDB.
+
+You will use Docker and Docker Compose to deploy the Socks Shop onto your local machine, and then you will launch Weave Scope probes to push metrics to Weave Cloud so that you can observe the topology of the app and explore how it works. Weave Scope probes monitor network traffic and builds a topology graph in real-time. The view in Weave Cloud is augmented with metadata from the Docker API along with several different systems metrics that allow you to troubleshoot your app.
+
+The following topics are discussed: 
+
+* [Install Docker for Mac](#install-docker-for-mac)
+* [Deploying the Socks Shop App](#deploy-the-demo-app)
+* [Signing Up for Weave Cloud](#sign-up-to-weave-cloud)
+* [Connecting the Scope Probes to Weave Cloud](#connect-scope-probe-to-weave-cloud)
+
 
 <h3 id="install-docker-for-mac">Install Docker for Mac</h3>
 
 If you haven't installed Docker for Mac, please follow the installation instructions on [Docker website][install-d4m].
 
-Once it's runing you should see <img alt="Docker Icon in the Mac OS menu bar" src="docker-for-mac-menu-bar-icon.png"
+Once it's running you will see <img alt="Docker Icon in the Mac OS menu bar" src="docker-for-mac-menu-bar-icon.png"
 style="height: 1em;" /> in your menu bar.
 
 [install-d4m]: https://docs.docker.com/docker-for-mac/
 
-<h3 id="deploy-the-demo-app">Deploy the Demo App</h3>
+<h3 id="deploy-the-demo-app">Deploying the Socks Shop App</h3>
 
-In this guide you will deploy a miscroservices app that [we have built](demo-app). The app is a full-blown
-online store, which sells socks.
+To deploy The Socks Shop: 
 
-Get the code:
+**1. Get the code:**
+
 ```
-git clone https://github.com/weaveworks/guides
-cd microservices-demo-app
+git clone https://github.com/weaveworks/microservices-demo.git
+cd microservices-demo
 ```
-Deploy the shop app:
+
+**2. Deploy Weave Net and the Socks Shop app:**
+
 ```
-docker-compose pull
-docker-compose -p shop up -d
+weave launch curl -L 
+docker-compose pull 
+docker-compose -p shop up -d 
 open http://localhost
 ```
 
-Once the app has been loaded in your browser, you can test the functionality. The user interface should be
-self-explanatory. Login using `user1`/`password1`, put an item in the basket and proceed to checkout.
+Once the app has been displayed in your browser, you can test the functionality. Login using `user1`/`password1`, put an item in the basket and proceed to checkout.
 
 [demo-app]: https://github.com/weaveworks/weaveDemo
 
 
-<h3 id="sign-up-to-weave-cloud">Sign Up to Weave Cloud</h3>
+<h3 id="sign-up-to-weave-cloud">Signing Up for Weave Cloud</h3>
 
-You will use Weave Cloud to see what the application does. If you haven't yet sign up, here is what you need to do.
+To visualize microservices, sign up for Weave Cloud:
 
-1. Go to ***[cloud.weave.works](https://cloud.weave.works)***
-2. Sign up with either Github, Google or email
-3. Obtain service token as shown below
+1.	Go to cloud.weave.works
+2.	Sign up with either Github, Google or an email address.
+3.	Obtain the cloud service token as shown below
+
 
 ![Obtain service token for Weave Cloud](weave-cloud-token-screenshot.png)
 
-<h3 id="connect-scope-probe-to-weave-cloud">Connect Scope Probe to Weave Cloud</h3>
+<h3 id="connect-scope-probe-to-weave-cloud">Connecting the Scope Probes to Weave Cloud</h3>
 
-Install and launch Weave Scope Probe:
+Install and launch the Weave Scope probes:
+
 ```
 sudo curl --silent --location https://git.io/scope --output /usr/local/bin/scope
 sudo chmod +x /usr/local/bin/scope
 scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
 ```
 
-<h3 id="run-the-load-test">Run the Load Test</h3>
+Where, 
 
-Unless there is load on the app, you cannot see full topology in Weave Cloud. To observe the topology,
-you will need to run a load test:
+<YOUR_WEAVE_CLOUD_SERVICE_TOKEN> -- is the token that appears on the settings page, once you’ve logged into Weave Cloud. 
+
+
+<h3 id="run-the-load-test">Running the Load Test</h3>
+
+To fully appreciate the topology of this app, you will need to run a load on the app. 
+
+Run a load test with the following:
+
 ```
 docker run -ti --rm --name=LOAD_TEST \
   --net=shop_external \
   weaveworksdemos/load-test -h edge-router -r 100 -c 2
 ```
 
-While the load test is running, you should see how different services communicate, and the topology
-graph in Weave Cloud console will form.
+With the load test running, you can observe the different services communicating by clicking on one of the containers and opening its accompanying terminal window. The topology graph in Weave Cloud console will also form.
+
+###Conclusions
+
+In this guide, an online store using a microservices-based approach was launched into the Weave Cloud, where you could observe communication events and also interact with the topology of the microservices app. 
+
+**Further Reading**
+
+ * [Introducing Weave Cloud](https://www.weave.works/docs/scope/latest/introducing/)
+ * [Installing Weave Scope](https://www.weave.works/docs/scope/latest/installing/)
+
 
