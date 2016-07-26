@@ -25,7 +25,9 @@ The following topics are described:
 * [Weave Net](https://www.weave.works/docs/net/latest/installing-weave/) and [Multicast](https://www.weave.works/docs/net/latest/features/)
 * AWS CloudFormation Template
 * EC2 Container Console
-* The [Weave Cloud](https://cloud.weave.works) token obtained after you've signed up. 
+* The [Weave Cloud](https://cloud.weave.works) token obtained after you've signed up: 
+
+![Obtain service token for Weave Cloud](weave-cloud-token-screenshot.png)
 
 ##<a name="launching-AWS"></a>Launching the AWS CloudFomation Templates
 
@@ -70,7 +72,7 @@ To deploy the multicast demo:
 
 Go to the EC2 Container Service console by clicking `Services -> EC2 Container Service Console` where you will see something similar to the following:
 
-![](create-stack.png)
+![](clusters.png)
 
 The cluster you just created with the AWS template appears under the Cluster group. Its name is prepended with the name that you gave your stack in step 2 during stack creation.
 
