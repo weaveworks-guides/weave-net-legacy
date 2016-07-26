@@ -43,7 +43,7 @@ Before launching the CloudFormation template:
 
 **Ready to launch a stack?  Click here to launch a stack to AWS:**
 
-[![](../images/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?templateURL=https:%2F%2Fs3.amazonaws.com%2Fweaveworks-cfn-public%2Fintegrations%2Fecs-baseline.json)
+[![](cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?templateURL=https:%2F%2Fs3.amazonaws.com%2Fweaveworks-cfn-public%2Fintegrations%2Fecs-baseline.json)
 
 
 ##<a name="the-stack"></a>Creating the Stack
@@ -75,10 +75,10 @@ Go to the EC2 Container Service console by clicking `Services -> EC2 Container S
 The cluster you just created with the AWS template appears under the Cluster group. Its name is prepended with the name that you gave your stack in step 2 during stack creation.
 
 1. Create a task by clicking on `Task Definition` and then `Create New Task`. 
-2. Give the task a name in the Task Definition field: ![](guides/images/multicast/create-task.png).
+2. Give the task a name in the Task Definition field: ![](create-task.png).
 3. Create the multicast containers from the docker image by clicking the `Create Container` button, where the following appears: 
 
-![](../images/multicast/add-container.png)
+![](add-container.png)
 
 Fill in: 
 
@@ -98,9 +98,8 @@ Next, run the task you just created as a service in the cluster. For the purpose
 1. Select the cluster that was created with the AWS Cloud Formation template. 
 2. Click on `Create` to add a service: 
 
-![](../images/multicast/create-service.png)
+![](create-service.png)
 
-![](../images/multicast/service-name-definition-instances.png)
 
 Select the Task Definition you just created, then give the service a name and assign the number of tasks to 3. Click `Create Service` and then `View Service`. Wait for the containers to spin up, when they've changed from PENDING to RUNNING, before moving on to the next section. 
 
@@ -109,15 +108,15 @@ Select the Task Definition you just created, then give the service a name and as
 
 To visualize the demo, log in to Weave Cloud and click View Instance:
 
-![](../images/multicast/containers-multicast.png)
+![](containers-multicast.png)
 
 Click on one of the containers to view its metrics: 
 
-![](../images/multicast/metrics-multicast.png)
+![](metrics-multicast.png)
 
 To view multicast in action, select the terminal button from the controls located on the top of the metrics panel: 
 
-![](../images/multicast/metrics-multicast.png)
+![](containers-multicast-terminal.png)
 
 Click on some of the other containers and launch their terminals to view how all of the IP addresses are being discovered by each of the nodes as they broadcast data across the Weave network.
 
