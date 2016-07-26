@@ -32,32 +32,35 @@ To deploy The Socks Shop:
 **1. Get the code:**
 
 ```
-git clone https://github.com/weaveworks/microservices-demo.git
-cd microservices-demo
+git clone https://github.com/weaveworks/guides
+cd microservices-demo-app
 ```
 
 **2. Deploy Weave Net and the Socks Shop app:**
 
 ```
-weave launch curl -L 
 docker-compose pull 
 docker-compose -p shop up -d 
 open http://localhost
 ```
 
-Once the app has been displayed in your browser, you can test the functionality. Login using `user1`/`password1`, put an item in the basket and proceed to checkout.
+>>**Note: Since the app is written in Java, you may have to wait from 6 to 10 minutes for the app to appear in your browser. 
+
+Once the app  displays in your browser, you can test the functionality. Login using `user1`/`password1`, and then put an item in the basket and proceed to checkout.
+
+![The Socks Shop ](socks-shop.png)
+
 
 [demo-app]: https://github.com/weaveworks/weaveDemo
 
 
 <h3 id="sign-up-to-weave-cloud">Signing Up for Weave Cloud</h3>
 
-To visualize microservices, sign up for Weave Cloud:
+To visualize microservices, first sign up for Weave Cloud:
 
-1.	Go to cloud.weave.works
-2.	Sign up with either Github, Google or an email address.
-3.	Obtain the cloud service token as shown below
-
+1.	Go to [cloud.weave.works](https://cloud.weave.works)
+2.	Sign up using either a Github, or Google account or you can use an email address.
+3.	Obtain the cloud service token from the User settings screen:
 
 ![Obtain service token for Weave Cloud](weave-cloud-token-screenshot.png)
 
@@ -88,7 +91,17 @@ docker run -ti --rm --name=LOAD_TEST \
   weaveworksdemos/load-test -h edge-router -r 100 -c 2
 ```
 
-With the load test running, you can observe the different services communicating by clicking on one of the containers and opening its accompanying terminal window. The topology graph in Weave Cloud console will also form.
+With the load test running, you can observe the different services communicating by clicking on the Load Test container in Weave Cloud. Then open its associated terminal to view the test's messages. With the load test running, the topology graph in Weave Cloud console will also form.
+
+![The Socks Shop ](load-test-messages.png)
+
+###Tearing Down the App
+
+To clean up the app from system: 
+
+```
+docker-compose -p shop down
+```
 
 ###Conclusions
 
