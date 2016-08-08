@@ -70,13 +70,13 @@ Install and launch the Weave Scope probes:
 ~~~bash
 sudo curl --silent --location https://git.io/scope --output /usr/local/bin/scope
 sudo chmod +x /usr/local/bin/scope
-scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
+scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN> --probe.no-controls
 ~~~
 
 **Where,** 
 
-`=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` - is the token that appears on the settings page, once you’ve logged into Weave Cloud. 
-
+* `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` - is the token that appears on the settings page, once you’ve logged into Weave Cloud. 
+* `--probe.no-controls` sets controls to read-only access for users who are not admin. 
 
 <h3 id="run-the-load-test">Running the Load Test</h3>
 
