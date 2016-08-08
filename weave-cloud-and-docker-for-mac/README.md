@@ -18,12 +18,11 @@ The following topics are discussed:
 
 <h3 id="install-docker-for-mac">Installing Docker for Mac</h3>
 
-If you haven't installed Docker for Mac, please follow the installation instructions on [Docker website][install-d4m].
+If you haven't installed Docker for Mac, please follow the installation instructions on <a href="https://docs.docker.com/docker-for-mac/" target="_blank"> Docker website </a>.
 
 Once it's running you will see <img alt="Docker Icon in the Mac OS menu bar" src="docker-for-mac-menu-bar-icon.png"
 style="height: 1em;" /> in your menu bar.
 
-[install-d4m]: https://docs.docker.com/docker-for-mac/
 
 <h3 id="deploy-the-demo-app">Deploying the Socks Shop App</h3>
 
@@ -58,7 +57,7 @@ Once the app  displays in your browser, you can test the functionality. Login us
 
 To visualize microservices, first sign up for Weave Cloud:
 
-1.	Go to [cloud.weave.works](https://cloud.weave.works)
+1.	Go to <a href="https://cloud.weave.works" target="_blank"> Weave Cloud </a>
 2.	Sign up using either a Github, or Google account or use an email address.
 3.	Obtain the cloud service token from the User settings screen:
 
