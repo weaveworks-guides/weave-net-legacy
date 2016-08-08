@@ -1,0 +1,103 @@
+version: '2'
+
+services:
+  front-end:
+    image: weaveworksdemos/front-end
+    hostname: front-end
+    restart: always
+    networks:
+      - external
+      - secure
+      - internal
+  edge-router:
+    image: weaveworksdemos/edge-router
+    ports: [ '80:80' ]
+    hostname: edge-router
+    restart: always
+    networks:
+      - external
+  catalogue:
+    image: weaveworksdemos/catalogue
+    hostname: catalogue
+    restart: always
+    networks:
+      - external
+  accounts:
+    image: weaveworksdemos/accounts
+    hostname: accounts
+    restart: always
+    networks:
+      - secure
+  accounts-db:
+    image: mongo
+    hostname: accounts-db
+    restart: always
+    networks:
+      - secure
+  cart:
+    image: weaveworksdemos/cart
+    hostname: cart
+    restart: always
+    networks:
+      - internal
+  cart-db:
+    image: mongo
+    hostname: cart-db
+    restart: always
+    networks:
+      - internal
+  orders:
+    image: weaveworksdemos/orders
+    hostname: orders
+    restart: always
+    networks:
+      - internal
+      - secure
+      - backoffice
+  orders-db:
+    image: mongo
+    hostname: orders-db
+    restart: always
+    networks:
+      - internal
+  shipping:
+    image: weaveworksdemos/shipping
+    hostname: shipping
+    restart: always
+    networks:
+      - backoffice
+  queue-master:
+    image: weaveworksdemos/queue-master
+    hostname: queue-master
+    volumes: [ '/var/run/docker.sock:/var/run/docker.sock' ]
+    restart: always
+    networks:
+      - backoffice
+  rabbitmq:
+    image: rabbitmq:3
+    hostname: rabbitmq
+    restart: always
+    networks:
+      - backoffice
+  payment:
+    image: weaveworksdemos/payment
+    hostname: payment
+    restart: always
+    networks:
+      - secure
+  login:
+    image: weaveworksdemos/login
+    hostname: login
+    restart: always
+    networks:
+      - secure
+
+networks:
+  external:
+    driver: bridge
+  secure:
+    driver: bridge
+  internal:
+    driver: bridge
+  backoffice:
+    driver: bridge
