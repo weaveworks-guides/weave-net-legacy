@@ -1,6 +1,6 @@
 ---
 layout: guides
-title: Visualizing Microservices with Weave Cloud
+title: Visualizing Microservices with Weave Cloud on Docker for Mac
 ---
 
 
