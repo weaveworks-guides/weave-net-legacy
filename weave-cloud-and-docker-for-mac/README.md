@@ -43,9 +43,7 @@ docker-compose -p shop up -d
 open http://localhost
 ~~~
 
->**Note:** If localhost does not load the Socks Shop, then use the IP `127.0.0.1` to load the app.  
-
->**Note:** Since the app is written in Java, you may have to wait from 6 to 10 minutes for the app to appear in your browser. 
+>**Note:** If localhost does not load the Socks Shop, then use the IP `127.0.0.1` instead.  
 
 Once the app  displays in your browser, you can test the functionality. Login using `user1`/`password1`, and then put an item in the basket and proceed to the checkout.
 
