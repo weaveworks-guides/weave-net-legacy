@@ -76,7 +76,7 @@ scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN> --probe.no-control
 **Where,** 
 
 * `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` - is the token that appears on the settings page, once you’ve logged into Weave Cloud. 
-* `--probe.no-controls` sets controls to read-only access for users who are not admin. 
+* `--probe.no-controls` sets controls to read-only access for all users. This flag is optional. 
 
 <h3 id="run-the-load-test">Running the Load Test</h3>
 
