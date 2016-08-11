@@ -70,13 +70,18 @@ Install and launch the Weave Scope probes:
 ~~~bash
 sudo curl --silent --location https://git.io/scope --output /usr/local/bin/scope
 sudo chmod +x /usr/local/bin/scope
-scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN> --probe.no-controls
+scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
 ~~~
 
 **Where,** 
 
 * `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` - is the token that appears on the settings page, once you’ve logged into Weave Cloud. 
 * `--probe.no-controls` sets controls to read-only access for all users. This flag is optional. 
+
+**Note:** To set the Weave Cloud controls to read-only for all users, you can launch scope with the --probe.no-controls flag.  In this demo, you will be launching a terminal window and viewing messages between microservices, and so this flag is not necessary. However, you may want to keep this flag in mind when using Weave Cloud and sharing your infrastructure views with others outside of your organization.
+
+Weave Cloud controls allow you to stop, start and pause containers. They also enable you to launch a terminal and interact directly with your containers.
+
 
 <h3 id="run-the-load-test">Running the Load Test</h3>
 
