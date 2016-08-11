@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+ ping:
+    image: alpine
+    container_name: pingme
+    command: nc -p 4000 -ll -e echo 'Hello, Weave!'
+    network_mode: "bridge"
+    
+ ping:
+    image: alpine
+    container_name: pinger
+    command: sh -l
+    hostname: hello.weave.local
+    network_mode: "bridge"
