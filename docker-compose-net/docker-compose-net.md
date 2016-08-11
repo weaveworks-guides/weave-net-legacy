@@ -7,13 +7,13 @@ Docker Compose is a tool used to configure multiple container apps. A Docker Com
 
 The following topics are discussed: 
 
-*[What You Will Use](#what-use)
-*[Before You Begin](#before)
-*[Attaching Containers to a Weave Network](#attaching-containers)
-*[Docker Compose and the Weave Net Docker API Proxy](#setup-proxy)
-    *[Docker Compose File for the Weave Docker API Proxy](#compose-proxy)
-*[Docker Compose and the Weave Net Docker Plugin](#setup-plugin)
-    *[Docker Compose File Variants and the Weave Net Docker Plugin](#compose-plugin)
+  * [What You Will Use](#what-use)
+  * [Before You Begin](#before)
+  * [Attaching Containers to a Weave Network](#attaching-containers)
+  * [Docker Compose and the Weave Net Docker API Proxy](#setup-proxy)
+     * [Docker Compose File for the Weave Docker API Proxy](#compose-proxy)
+  * [Docker Compose and the Weave Net Docker Plugin](#setup-plugin)
+    * [Docker Compose File Variants and the Weave Net Docker Plugin](#compose-plugin)
 
 
 ##<a name="what-use"></a>What You Will Use
