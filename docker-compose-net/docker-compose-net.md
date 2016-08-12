@@ -3,7 +3,7 @@ layout: guides
 title: How to Use Docker Compose with Weave Net
 ---
 
-Docker Compose is a tool used to configure multiple container apps. A Docker Compose file configures your application's services and with a single command creates and starts services. Depending on how you are using Weave Net, whether through the Docker API Proxy or by using the Weave Docker Plugin, the configuration of the Docker Compose file differs. This guide provides an overview of the different ways in which  networking can be configured and also examples of the compose file when using Weave Net. 
+Docker Compose is a tool used to configure multiple container apps. A Docker Compose file configures your application's services and with a single command creates and starts services. Depending on how you are using Weave Net, whether through the Docker API Proxy or by using the Weave Docker Plugin, the configuration of the Docker Compose file differs. This guide provides an overview of the different ways in which networking can be configured and also provides examples of the docker compose files for Weave Net. 
 
 The following topics are discussed: 
 
