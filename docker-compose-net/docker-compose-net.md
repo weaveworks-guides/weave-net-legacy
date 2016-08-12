@@ -104,7 +104,7 @@ docker-compose up -d pingme weave-net-demo-01
 ~~~
 
 ~~~bash
-docker-compose up -d pinger weave-net-demo-02
+docker-compose up -d pingme weave-net-demo-01 
 ~~~
 
 ###<a name="compose-proxy"></a>Docker Compose File for the Weave Docker API Proxy###
