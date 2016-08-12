@@ -15,7 +15,6 @@ The following topics are discussed:
   * [Docker Compose and the Weave Net Docker Plugin](#setup-plugin)
     * [Docker Compose File Variants and the Weave Net Docker Plugin](#compose-plugin)
 
-
 ##<a name="what-use"></a>What You Will Use
 
 * [Weave](http://weave.works)
@@ -89,10 +88,6 @@ sudo chmod +x /usr/local/bin/weave
 weave launch <host-02-ip>
 ~~~
 
-**Where,**
-
-* <host-02-ip> is the ip you obtained in step 2.
-
 **4.** Setup the environment to run the Weave Docker API proxy: 
 
 ~~~bash
@@ -131,6 +126,16 @@ services:
     network_mode: "bridge"
 ~~~
 
+###<a name="compose-plugin"></a>Docker Compose File Variants and the Weave Net Docker Plugin
+
+If you are using the plugin, there are several different ways in which to setup your Docker Compose file. Which method you use, depends on your application's requirements: 
+
+1. Using "networks: - weave" and "dns: ..." and "dns_search: ..." service stanzas and "networks: weave: external: true" networks stanza. This uses the default 'weave' network for everything. It doesn't require a docker cluster and it uses weaveDNS.
+
+2. Using "networks: default: driver: weave". This places all containers on a user-defined network and it uses the 'weave' driver. It assumes that you have a Docker cluster. This method uses Docker's DNS.
+
+3. Using "networks: - {name}" service stanzas and "networks: {name} driver: weave" network stanza. Similar to number 2 but has the ability to place containers on different/multiple networks. This method requires a docker cluster and it uses weaveDNS.
+4. 
 ##<a name="setup-plugin"></a>Docker Compose and the Weave Net Docker Plugin
 
 **1.** Create two virtual machines with Docker-Machine and then obtain the IP of one of the machines. As described in steps 1 and 2 [above].
@@ -143,21 +148,9 @@ sudo chmod +x /usr/local/bin/weave
 weave launch <host-02-ip>
 ~~~
 
-**Where,**
+And then do not run eval `$(weave env)`. In fact, if you were launching containers manually with Docker run commands, using the `--net` flag automatically disables the proxy and Weave Net attaches containers to the Weave Net Docker Plugin network interface. 
 
-* <host-02-ip> is the ip obtained by running `docker-machine ip weave-net-demo-02`
 
-And then do not run eval `$(weave env)`. In fact, if you were launching containers manually with Docker run commands, using the --net flag automatically disables the proxy and Weave Net attaches containers to the Weave Net Docker Plugin network interface. 
-
-###<a name="compose-plugin"></a>Docker Compose File Variants and the Weave Net Docker Plugin
-
-If you are using the plugin, there are several different ways in which to setup your Docker Compose file. Which method you use, depends on your application's requirements: 
-
-1. Using "networks: - weave" and "dns: ..." and "dns_search: ..." service stanzas and "networks: weave: external: true" networks stanza. This uses the default 'weave' network for everything. It doesn't require a docker cluster and it uses weaveDNS.
-
-2. Using "networks: default: driver: weave". This places all containers on a user-defined network and it uses the 'weave' driver. It assumes that you have a Docker cluster. This method uses Docker's DNS.
-
-3. Using "networks: - {name}" service stanzas and "networks: {name} driver: weave" network stanza. Similar to number 2 but has the ability to place containers on different/multiple networks. This method requires a docker cluster and it uses weaveDNS.
 
 
 
