@@ -100,8 +100,8 @@ With the Weave environment set up, you can run regular Docker commands on the sa
 
 ~~~bash
 cd proxy-compose
-docker-compose up -d pingme on weave-net-demo-01 
-docker-compose up -d pinger on weave-net-demo-02
+docker-compose up -d pingme weave-net-demo-01 
+docker-compose up -d pinger weave-net-demo-02
 ~~~
 
 ###<a name="compose-proxy"></a>Docker Compose File for the Weave Docker API Proxy###
