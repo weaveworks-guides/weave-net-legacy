@@ -38,7 +38,7 @@ For other operating systems, please install and configure the following separate
  There are two different ways that you can attach containers to a Weave network when using Compose (which method to use is 
  entirely up to you):
  
- **1.** The Weave Net Docker API Proxy. See [Setting Up the Weave Net Docker API Proxy](#weave-api-proxy).  
+ **1.** The Weave Net Docker API Proxy. See [Integrating Docker via the API Proxy](https://www.weave.works/docs/net/latest/weave-docker-api/).  
  
  **2.**  The Docker Network Plugin framework. The Docker Network Plugin is used when 
  Docker containers are started with the --net flag, for example: 
@@ -51,7 +51,7 @@ For other operating systems, please install and configure the following separate
   you give to your container on start 
  
  >>**Note:** If a Docker container is started with the `--net` flag, then the Weave Docker API Proxy
- is automatically disabled and is not used to attach containers. See [Integrating Docker via the Network Plugin](plugin.md).
+ is automatically disabled and is not used to attach containers. See [Integrating Docker via the Network Plugin](https://www.weave.works/docs/net/latest/features/#plugin).
 
 
 ##<a name="setup-proxy"></a>Docker Compose and the Weave Net Docker API Proxy
