@@ -117,7 +117,7 @@ cd proxy-compose
 docker-compose up -d pinger 
 ~~~
 
-6. Test that the hosts are connected by pinging one of the containers: 
+6. If all has went well, you should see 'Hello, Weave!' printed on your command line. Pingme will keep resonding to the command sent by Pinger for 3600 seconds. 
 
 
 
@@ -132,13 +132,14 @@ services:
  pingme:
     image: alpine
     container_name: pingme
+    command: sleep 3600
     command: nc -p 4000 -ll -e echo 'Hello, Weave!'
     network_mode: "bridge"
     
  pinger:
     image: alpine
     container_name: pinger
-    command: sh -l
+    command: ping pingme.weave.local
     hostname: hello.weave.local
     network_mode: "bridge"
 ~~~
@@ -182,6 +183,8 @@ cd proxy-compose
 docker-compose up -d pinger
 ~~~
 
+**4.** If all has went well, you should see 'Hello, Weave!' printed on your command line. Pingme will keep resonding to the command sent by Pinger for 3600 seconds. 
+
 ###<a name="compose-plugin"></a>Docker Compose File Syntax for the Weave Docker Plugin
 
 To use the plugin, set `driver` to `weavemesh` and leave `networks` and `default`empty. 
@@ -193,6 +196,7 @@ services:
  pingme:
     image: alpine
     container_name: pingme
+    command: sleep 3600
     command: nc -p 4000 -ll -e echo 'Hello, Weave!'
     networks:
     default:
@@ -201,7 +205,7 @@ services:
  pinger:
     image: alpine
     container_name: pinger
-    command: sh -l
+    command: ping pingme.weave.local
     hostname: hello.weave.local
     networks:
     default:
