@@ -442,7 +442,7 @@ AMI=XXXX
 Initialize the instance User Data script.
 
 ~~~bash
-cp /data/set-ecs-cluster-name.sh ./user-data.sh
+cp data/set-ecs-cluster-name.sh ./user-data.sh
 ~~~
 
 Optionally (if you would like to use Scope 'Cloud' and you are participating in the Early
@@ -451,7 +451,7 @@ command, replacing `XXXX` with your Scope 'Cloud' service token.
 
 
 ~~~bash
-echo "SCOPE_AAS_PROBE_TOKEN=XXXX" >> ./user-data.sh
+echo "echo SERVICE_TOKEN=XXXX >> /etc/weave/scope.config" >> ./user-data.sh
 ~~~
 
 ~~~bash
