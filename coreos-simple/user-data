@@ -1,0 +1,40 @@
+#cloud-config
+
+coreos:
+  units:
+    - name: 10-weave.network
+      runtime: false
+      content: |
+        [Match]
+        Type=bridge
+        Name=weave*
+
+        [Network]
+
+    - name: install-weave.service
+      command: start
+      enable: true
+      content: |
+        [Unit]
+        After=network-online.target
+        After=docker.service
+        Description=Install Weave
+        Documentation=http://zettio.github.io/weave/
+        Requires=network-online.target
+        Requires=docker.service
+
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStartPre=/bin/mkdir -p /opt/bin/
+        ExecStartPre=/usr/bin/curl \
+          --silent \
+          --location \
+          https://github.com/weaveworks/weave/releases/download/latest_release/weave \
+          --output /opt/bin/weave
+        ExecStartPre=/usr/bin/chmod +x /opt/bin/weave
+        ExecStartPre=/usr/bin/docker pull zettio/weave:latest
+        ExecStartPre=/usr/bin/docker pull zettio/weavetools:latest
+        ExecStartPre=/usr/bin/docker pull zettio/weavedns:latest
+        ExecStartPre=/usr/bin/docker pull weaveworks/weaveexec:latest
+        ExecStart=/bin/echo Weave Installed
