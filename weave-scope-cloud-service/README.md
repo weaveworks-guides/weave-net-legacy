@@ -22,7 +22,7 @@ To register with Weave Cloud, go to [cloud.weave.works](http://cloud.weave.works
 
 Login to Weave Cloud and click the settings icon in the top right hand corner to obtain the cloud service token:
 
-![`Weave Scope` main page](/guides/images/aws-ecs/weave-cloud-main-page.png)
+![Weave Cloud](/guides/images/aws-ecs/weave-cloud-main-page.png)
 
 
 ##Running Weave Cloud
