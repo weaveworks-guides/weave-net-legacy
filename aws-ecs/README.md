@@ -26,7 +26,7 @@ This guide also introduces [Weave Scope](http://weave.works/scope/index.html), a
 
 Two types of containerized microservices are demonstrated in this guide: HTTP Servers and "Data Producers".
 
-![overview diagram](/guides/images/aws-ecs/overview-diagram.png)
+![AWS ECS overview diagram](/guides/images/aws-ecs/overview-diagram.png)
 
 Data producers generically model containers that produce a data feed of some kind. The HTTP Servers present a web interface to the data from the Data Producers. This is a very common pattern in distributed systems, but its implementation requires answers to the following questions:
 
@@ -94,7 +94,7 @@ To gain access, sign up at [Weave Cloud](http://cloud.weave.works). An email wil
 
 Login to Weave Cloud and click the settings icon in the top right hand corner to obtain the cloud service token:
 
-![Weave Cloud main page](/guides/images/aws-ecs/weave-cloud-main-page.png)
+![Weave Cloud Main Page](/guides/images/aws-ecs/weave-cloud-main-page.png)
 
 ## Automatic Setup and Configuration
 
@@ -227,7 +227,7 @@ This is what you should see with `Weave Scope` when accessing one of the HTTP Se
 times (i.e. reloading `http://foo.region.compute.amazonaws.com` in your browser
 multiple times).
 
-![Scope visualization](/guides/images/aws-ecs/scope.png)
+![Weave Scope Visualization](/guides/images/aws-ecs/scope.png)
 
 Click the `httpserver` container to display its details.
 
