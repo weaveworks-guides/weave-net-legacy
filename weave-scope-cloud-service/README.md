@@ -42,7 +42,7 @@ With Weave Scope probes deployed and the app launched, go to [https://cloud.weav
 
 Weave Scope presents all nodes in a particular order, and presents all clients above servers. As a general rule, you can read a Weave Scope view by going from top to bottom.
 
-**An Overview of the App:**![An Overview of the App](/guides/images/weave-scope/weave-scope-application-layers.png)
+**An Overview of the App:**![Weave Scope App Overview](/guides/images/weave-scope/weave-scope-application-layers.png)
 
 A line between two nodes within the view represents a connection between containers. To help you understand the connections in your view, hover over a container or a connection to highlight all connected containers. This is especially useful for infrastructures that use a lot of containers.
 
@@ -56,7 +56,7 @@ Metrics about a node are displayed by clicking on a node in the Weave Scope view
 
 Weave Scope works great in topologies of any size, but if there are too many nodes in the view at once, you can use the grouping features to make the view simpler to understand. For example, in the containers view, click the `By Image` button to merge all the containers that are running the same container image together.
 
-**Grouped Container View:**![Grouped Container View](/guides/images/weave-scope/weave-scope-group-containers.png)
+**Grouped Container View:**![Weave Scope Grouped Container View](/guides/images/weave-scope/weave-scope-group-containers.png)
 
 In our stack all instances get merged together into single nodes, even when they exist across hosts. The result is a logical, rather than physical, lens on the infrastructure — something that application developers intuitively understand. 
 
@@ -66,7 +66,7 @@ Click on `Applications` to show all the processes communicating in your network.
 
 Weave Scope collects information in a very flexible data model, so that you can visualize all possible transformations within your network.
 
-**An Overview of all Processes:**![An Overview of all Processes Communicating](/guides/images/weave-scope/weave-scope-applications-view.png)
+**An Overview of all Processes:**![Weave Scope View Processes Communicating](/guides/images/weave-scope/weave-scope-applications-view.png)
 
 ##Stopping Weave Scope
 
