@@ -145,7 +145,7 @@ Hostnames are regularly resolved as A records, where each answer is used as a ta
 
 Once Weave Scope is launched in your browser, an immediate overview of the infrastructure is displayed, including any running containers. The Weave Scope view is presented in an order with clients generally placed above servers. Read a Weave Scope view by going from top to bottom.
 
-**An Overview of Application Layers:**![An Overview of the App](/guides/images/weave-scope/weave-scope-application-layers.png)
+**An Overview of Application Layers:**![Weave Scope Overview of Application Layers](/guides/images/weave-scope/weave-scope-application-layers.png)
 
 A line between two nodes within the view represents a connection between containers. To help you understand the connections in your view, hover over a container or a connection to highlight all connected containers. This is especially useful for infrastructures that use a lot of containers.
 
@@ -153,7 +153,7 @@ A line between two nodes within the view represents a connection between contain
 
 Metrics about a node are displayed by clicking on a node in the Weave Scope view.  For example, to examine the metrics about one of the database (db) containers in this example, click on the node with the label tns_db1_1.
 
-**Metrics of the DB Container**:![Details and Metrics of the DB Container](/guides/images/weave-scope/weave-scope-database-metrics.png)
+**Metrics of the DB Container**:![Weave Scope Metrics of DB Container](/guides/images/weave-scope/weave-scope-database-metrics.png)
 
 The panel on the right shows information about the database, such as the image and process names, sparklines displaying memory consumption and peformance, as well as network metrics like the number of TCP connections.
 
@@ -163,7 +163,7 @@ The panel on the right shows information about the database, such as the image a
 
 Weave Scope works great for infrastructures of any size, but if there are too many containers on the screen at once for you to manage, use Weave Scope’s grouping features to make the view easier to understand. In the Containers view, click the Image button to merge all containers running on the same host together.
 
-**Grouped Container View:**![Grouped Container View](/guides/images/weave-scope/weave-scope-group-containers.png)
+**Grouped Container View:**![Weave Scope Grouped Container View](/guides/images/weave-scope/weave-scope-group-containers.png)
 
 All db, app, and lb instances are merged together into single nodes, even when they exist across hosts. This is a logical, rather than a physical lens on the infrastructure — something that application developers intuitively understand. Detailed statistics are also merged.
 
@@ -171,7 +171,7 @@ The logical view is useful for application developers, but for those with a more
 
 Click on `Applications` to show all processes communicating in your network. This is the most granular view of Weave Scope. Weave Scope collects information in a flexible data model, which makes it possible to visualize nearly all possible transformations of your infrastructure setup.
 
-**An Overview of all Processes Communicating:**![An Overview of all Processes Communicating](/guides/images/weave-scope/weave-scope-applications-view.png)
+**An Overview of all Processes Communicating:**![Weave Scope View Processes Communicating](/guides/images/weave-scope/weave-scope-applications-view.png)
 
 
 ##Stopping Weave Scope
