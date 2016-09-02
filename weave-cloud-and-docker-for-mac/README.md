@@ -20,7 +20,7 @@ The following topics are discussed:
 
 If you haven't installed Docker for Mac, please follow the installation instructions on <a href="https://docs.docker.com/docker-for-mac/" target="_blank"> Docker website </a>.
 
-Once it's running you will see <img alt="Docker Icon in the Mac OS menu bar" src="/guides/weave-cloud-and-docker-for-mac/docker-for-mac-menu-bar-icon.png"
+Once it's running you will see <img alt="Docker Icon in the Mac OS menu bar" src="https://github.com/weaveworks/guides/blob/master/weave-cloud-and-docker-for-mac/docker-for-mac-menu-bar-icon.png"
 style="height: 1em;" /> in your menu bar.
 
 
