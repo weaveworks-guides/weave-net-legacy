@@ -47,7 +47,7 @@ open http://localhost
 
 Once the app displays in your browser, you can test the functionality. Login using `user1`/`password1`, and then put an item in the basket and proceed to the checkout.
 
-![The Socks Shop](socks-shop.png)
+![The Socks Shop](guides/weave-cloud-and-docker-for-mac/socks-shop.png)
 
 
 [demo-app]: https://github.com/weaveworks/weaveDemo
@@ -61,7 +61,7 @@ To visualize microservices, first sign up for Weave Cloud:
 2.	Sign up using either a Github, or Google account or use an email address.
 3.	Obtain the cloud service token from the User settings screen:
 
-![Obtain service token for Weave Cloud](weave-cloud-token-screenshot.png)
+![Obtain service token for Weave Cloud](guides/weave-cloud-and-docker-for-mac/weave-cloud-token-screenshot.png)
 
 <h3 id="connect-scope-probe-to-weave-cloud">Connecting the Scope Probes to Weave Cloud</h3>
 
@@ -96,7 +96,7 @@ docker run -ti --rm --name=LOAD_TEST \
 
 With the load test running, you can observe the different services communicating by clicking on the Load Test container in Weave Cloud. From the metrics panel,  open Load Test's terminal to view the messages. With the load test running, the topology graph in Weave Cloud console will also form.
 
-![Weave Load Test](load-test-messages.png)
+![Weave Load Test](guides/weave-cloud-and-docker-for-mac/load-test-messages.png)
 
 ###Tearing Down the App
 
