@@ -45,9 +45,9 @@ open http://localhost
 
 >**Note:** If localhost does not load the Socks Shop, then use the IP `127.0.0.1` instead.  
 
-Once the app  displays in your browser, you can test the functionality. Login using `user1`/`password1`, and then put an item in the basket and proceed to the checkout.
+Once the app displays in your browser, you can test the functionality. Login using `user1`/`password1`, and then put an item in the basket and proceed to the checkout.
 
-![The Socks Shop ](socks-shop.png)
+![The Socks Shop](socks-shop.png)
 
 
 [demo-app]: https://github.com/weaveworks/weaveDemo
@@ -96,7 +96,7 @@ docker run -ti --rm --name=LOAD_TEST \
 
 With the load test running, you can observe the different services communicating by clicking on the Load Test container in Weave Cloud. From the metrics panel,  open Load Test's terminal to view the messages. With the load test running, the topology graph in Weave Cloud console will also form.
 
-![The Socks Shop ](load-test-messages.png)
+![Weave Load Test](load-test-messages.png)
 
 ###Tearing Down the App
 
