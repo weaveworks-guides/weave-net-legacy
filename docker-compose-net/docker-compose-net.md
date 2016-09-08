@@ -3,7 +3,7 @@ layout: guides
 title: How to Use Docker Compose with Weave Net
 ---
 
-Docker Compose is used to configure multiple container apps. A Docker Compose file configures your application's services and with a single command creates and starts services. Depending on how you are using Weave Net, whether through the Docker API Proxy or by using the Weave Docker Plugin, the syntax of the Docker Compose file differs. This guide provides an overview of the different ways in which networking can be configured and also provides examples of the Docker Compose files for Weave Net. 
+Docker Compose is used to configure multiple containers. A Docker Compose file configures your application's services and with a single command `docker compose up` creates and starts services. Depending on how you are using Weave Net, whether through the Docker API Proxy or by using the Weave Docker Plugin, the syntax of the Docker Compose file differs. This guide provides an overview of the different ways in which networking can be configured and also provides examples of the Docker Compose files for Weave Net. 
 
 The following topics are discussed: 
 
@@ -17,18 +17,18 @@ The following topics are discussed:
 
 ##<a name="what-use"></a>What You Will Use
 
-* [Weave](http://weave.works)
-* [Weave Scope](http://weave.works/scope/index.html)
-* [Docker](http://docker.com)
-* [Docker Compose](https://www.docker.com/docker-compose)
+* [Weave Net](https://wwww.weave.works) to network your containers across multiple hosts. 
+* [Weave Scope](https://www.weave.works/scope/index.html) to visualize containers and to verify that everything is working correctly.
+* [Docker](https://www.docker.com/) to containize your applications. 
+* [Docker Compose](https://www.docker.com/docker-compose) to start multiple connected containers as a single unit. 
 
 ##<a name="before"></a>Before You Begin
 
-If you are using Windows, you can install [Docker for Windows](https://docs.docker.com/engine/installation/windows/), and if you are on a Mac, install [Docker for Mac](https://docs.docker.com/engine/installation/mac/) which provides all of the tools you need to complete this guide.
+If you are using OS X or Windows, install [Docker Toolbox](https://www.docker.com/toolbox), which provides all of the tools you need to complete this guide.
 
-For other operating systems, please install and configure the following separately before proceeding:
+For other operating systems, install and configure the following separately before proceeding:
 
-  - [`docker-machine`](http://docs.docker.com/machine/#installation) binary (_`>= 0.8.0`_)
+  - [`docker-machine`](http://docs.docker.com/machine/#installation) binary (_`>= 0.2.0`_)
   - [`docker`](https://docs.docker.com/installation/#installation) binary, at least the client (_`>= v1.6.x`_)
   - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (_`>= 4.3.x`_)
   - `curl` (_any version_)
@@ -38,40 +38,56 @@ For other operating systems, please install and configure the following separate
  There are two different ways that you can attach containers to a Weave network when using Compose (which method to use is 
  entirely up to you):
  
- **1.** The Weave Net Docker API Proxy. See [Integrating Docker via the API Proxy](https://www.weave.works/docs/net/latest/weave-docker-api/).  
+ **1.** The Weave Net Docker API Proxy. With the Weave Net proxy enabled, you can run normal Docker and Docker Compose commands through the proxy and have the resulting containers automatically configured with Weave networking and service discovery (automatic registration in WeaveDNS). If automatic registration and service discovery for containers are required with minimal configuration, then use the Weave Net Docker API Proxy. 
  
- **2.**  The Docker Network Plugin framework. The Docker Network Plugin is used when 
- Docker containers are started with the --net flag, for example: 
+The Weave Net Docker API Proxy also allows you to run more than one network at once.
  
- `docker run --net <docker-run-options>`
+This method is enabled after the proxy environment is set up after Weave is launched: 
  
- **Where,** 
+`eval $(weave env)`
  
+ See [Integrating Docker via the API Proxy](https://www.weave.works/docs/net/latest/weave-docker-api/).
+
+ **2.**  The Docker Network Plugin framework. If this method is chosen, Docker containers are attached to a Weave network using the Docker Plugin API and since you are using the Docker API framework, weaveDNS is not enabled.
+
+To use the Weave Docker Network Plugin run Docker containers with the `--net` flag, for example: 
+
+`docker run --net <docker-run-options>`
+
+**Where,** 
+
   * `<docker-run-options>` are the [docker run options](https://docs.docker.com/engine/reference/run/) 
   you give to your container on start 
- 
- >>**Note:** If a Docker container is started with the `--net` flag, then the Weave Docker API Proxy
- is automatically disabled and is not used to attach containers. See [Integrating Docker via the Network Plugin](https://www.weave.works/docs/net/latest/features/#plugin).
+
+See [Integrating Docker via the Network Plugin](https://www.weave.works/docs/net/latest/features/#plugin).
 
 
 ##<a name="setup-proxy"></a>Docker Compose and the Weave Net Docker API Proxy
 
 
-The following is a simple setup that shows how to configure docker-compose for Weave Net across two hosts using the Docker API proxy. You will launch the alpine using Docker Compose and then run 'ping' to test the connectivity between the two hosts. 
+The following is a simple setup that shows how to configure Docker Compose for Weave Net across two hosts using the Docker API proxy. You will launch the alpine container using Docker Compose and then run 'ping' to test the connectivity between the two hosts. 
 
-**1.** Create two hosts on Virtualbox with docker machine in two different terminal windows: 
+**1.** Clone the getting started repository:
+
+~~~bash
+git clone https://github.com/weaveworks/guides
+~~~
+
+**2.** Create two hosts on Virtualbox with docker machine in two different terminal windows: 
 
 ~~~bash
 docker-machine create -d virtualbox weave-compose-01
+eval $(docker-machine env weave-compose-01)
 ~~~
 
 And, in a new terminal window, create the other VM: 
 
 ~~~bash
 docker-machine create -d virtualbox weave-compose-02
+eval $(docker-machine env weave-compose-02)
 ~~~
 
-**2.** In order to peer hosts on Weave Net, the IP address of one of the VMs you just created must be known beforehand: 
+**3.** In order to peer hosts on Weave Net, the IP address of one of the VMs you just created must be known beforehand: 
 
 ~~~bash
 docker-machine ip weave-compose-02
@@ -79,7 +95,7 @@ docker-machine ip weave-compose-02
 
 Make a note of the IP address that appears. 
 
-**3.** Install and then launch Weave Net onto both VMs. From one terminal windown launch Weave: 
+**4.** Install and then launch Weave Net onto both VMs. From one terminal window launch Weave Net: 
 
 ~~~bash
 sudo curl -L git.io/weave -o /usr/local/bin/weave
@@ -87,7 +103,7 @@ sudo chmod +x /usr/local/bin/weave
 weave launch
 ~~~
 
-And in a second terminal launch Weave onto the other host, and pass the IP of the first host to it: 
+And in a second terminal launch Weave Net onto the other host, and pass the IP of the first host to it: 
 
 ~~~bash
 sudo curl -L git.io/weave -o /usr/local/bin/weave
@@ -95,35 +111,41 @@ sudo chmod +x /usr/local/bin/weave
 weave launch <ip address host-02>
 ~~~
 
-**4.** Setup the environment to run the Weave Docker API proxy: 
+**5.** Setup the environment to run the Weave Docker API proxy in one terminal and then do the same for the other terminal: 
 
 ~~~bash
+eval $(docker-compose env machine weave-compose-01)
 eval $(weave env)
 ~~~
 
-With the Weave environment set up, you can run regular Docker commands on the same command line from which you created VMs. If you are attaching containers to the Weave Network, this step is mandatory, unless you've opted to use the Weave Net Docker Plugin which is described below. 
+~~~bash
+eval $(docker-compose env machine weave-compose-02)
+eval $(weave env)
+~~~
 
-**5.** Run the Docker Compose file and direct each service to a host: 
+With the Weave Net proxy environment set up, you can run regular Docker commands on the same command line from which you created VMs. If you are attaching containers to the Weave Network, and you want to use weaveDNS to automatically discover containers, then this step is mandatory. 
+
+**6.** Run the Docker Compose file and direct each service to a host: 
 
 ~~~bash
 cd proxy-compose
 docker-compose up -d pingme
 ~~~
 
-Next, switch to the second terminal, and change to the compose-plugin sub-directory and run the compose file:
+Next, switch to the second terminal, and change to the proxy-compose sub-directory and run the compose file from there:
 
 ~~~bash
 cd proxy-compose
 docker-compose up -d pinger 
 ~~~
 
-6. If all has went well, you should see 'Hello, Weave!' printed on your command line. Pingme will keep resonding to the command sent by Pinger for 3600 seconds. 
+**7.** If all has went well, you should see 'Hello, Weave!' printed on your command line. Pingme will keep responding to the command sent by Pinger for 3600 seconds. You have connnected containers to the Weave network with the Weave Docker API Proxy, and as a result, containers were automatically connected and networked. 
 
 
 
 ###<a name="compose-proxy"></a>Docker Compose File Syntax for the Weave Docker API Proxy###
 
-The network_mode is set to "bridge" for this mode. 
+If you are using the Weave Docker API Proxy to connect containers, the network_mode is set to "bridge" for this mode. This tells Docker not to use any special networking for these containers, which results in the Weave Docker API Proxy being able to do its work to configure the containers on the Weave Network.
 
 ~~~bash
 version: '2'
@@ -147,7 +169,7 @@ services:
 
 ##<a name="setup-plugin"></a>Docker Compose and the Weave Net Docker Plugin
 
-**1.** Create two virtual machines with Docker-Machine and then obtain the IP of one of the machines. As described in steps 1 and 2 [above](#setup-proxy).
+**1.** Clone the Guides directory (if you haven't done so already) and then create two virtual machines with Docker-Machine and then obtain the IP of one of the machines. As described in steps 1 and 2 [above](#setup-proxy).
 
 **2.** To ensure that you are running the Weave Net Docker Plugin, launch Weave in one terminal: 
 
@@ -165,29 +187,28 @@ sudo chmod +x /usr/local/bin/weave
 weave launch <ip address host-02>
 ~~~
 
+Do not run eval `$(weave env)`. 
 
-Do not run eval `$(weave env)`. In fact, if you were launching containers manually with Docker run commands, using the `--net` flag automatically disables the proxy and Weave Net attaches containers to the Weave Net Docker Plugin network interface.
 
-
-**3.** Run the docker compose file and direct each app to a host: 
+**3.** Change to the `compose-plugin` directory,  run the docker compose file, and reference the other host: 
 
 ~~~bash
-cd proxy-compose
+cd compose-plugin
 docker-compose up -d pingme
 ~~~
 
 In the second terminal, change to the compose-plugin directory and run: 
 
 ~~~bash
-cd proxy-compose
+cd compose-plugin
 docker-compose up -d pinger
 ~~~
 
-**4.** If all has went well, you should see 'Hello, Weave!' printed on your command line. Pingme will keep resonding to the command sent by Pinger for 3600 seconds. 
+**4.** If all has went well, you should see 'Hello, Weave!' printed on your command line. Pingme will keep responding to the command sent by Pinger for 3600 seconds. 
 
 ###<a name="compose-plugin"></a>Docker Compose File Syntax for the Weave Docker Plugin
 
-To use the plugin, set `driver` to `weavemesh` and leave `networks` and `default`empty. 
+To use the Weave Docker Plugin, set `driver` to `weavemesh` and leave `networks` and `default` empty. This tells Docker to use the Weave Docker Network Plugin, which is called `weavemesh`.
 
 ~~~bash
 version: '2'
