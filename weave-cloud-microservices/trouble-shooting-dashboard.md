@@ -41,10 +41,10 @@ This tutorial will take approximately 15 minutes to complete:
 
 * [Weave](http://weave.works)
 * [Docker for Mac](https://docs.docker.com/docker-for-mac/docker-toolbox/)
-* [Weaveworks Sockshop](
-* [Kubernetes](
-* [Weave Net](
-* [Weave Cloud](
+* [Weaveworks Sockshop](https://github.com/microservices-demo)
+* [Kubernetes](http://kubernetes.io/)
+* [Weave Net](https://www.weave.works/products/weave-net/)
+* [Weave Cloud](https://cloud.weave.works)
 
 
 ##Before You Begin
@@ -63,7 +63,7 @@ For other operating systems, install and configure the following separately befo
 
 <h3 id="install-docker-for-mac">Installing Docker for Mac</h3>
 
-If you haven't installed Docker for Mac, please follow the installation instructions on <a href="https://docs.docker.com/docker-for-mac/" target="_blank"> Docker website </a>.
+If you haven't installed Docker for Mac, follow the installation instructions on <a href="https://docs.docker.com/docker-for-mac/" target="_blank"> Docker website </a>.
 
 Once it's running you will see <img alt="Docker Icon in the Mac OS menu bar" src="https://github.com/weaveworks/guides/blob/master/weave-cloud-and-docker-for-mac/docker-for-mac-menu-bar-icon.png"
 style="height: 1em;" /> in your menu bar.
@@ -127,7 +127,7 @@ To verify that everything installed correctly on your laptop sign up for Weave C
 ![Obtain service token for Weave Cloud](weave-cloud-token-screenshot.png)
 
 
-Return to your Docker Window and install and launch the Weave Cloud agents:
+Return to your Docker Window and install and launch the Weave Cloud probes:
 
 ~~~bash
 sudo curl --silent --location https://git.io/scope --output /usr/local/bin/scope
@@ -145,13 +145,15 @@ Weave Cloud controls allow you to stop, start and pause containers. They also en
 
 ##Set Up Droplets in Digital Ocean
 
-Move over to Digital Ocean and create two Ubuntu instances to set up Kubernetes, container networking with Weave Net and finally deploy the Sock shop onto. 
+Move over to Digital Ocean and create two Ubuntu instances to set up Kubernetes, container networking with Weave Net and then you will deploy the Sock Shop onto them. 
 
 ##Setting Up Kubernetes and Weave Net
 
 <h3 id="sign-up-to-weave-cloud">Adding an Additional Instance in Weave Cloud</h3>
 
-But before you start installing Kubernetes, create an additional instance running in Weave Cloud. This will assist you when you're deploying Kubernetes and also when you launch the Sock Shop on Kubernetes.  You can do this by selecting the 'Create New Instance' located in the menu bar. 
+But before you start installing Kubernetes, create an additional instance running in Weave Cloud. This will assist you when you're deploying Kubernetes and also will allow you to see the Sock Shop as it spins up on Kubernetes.  
+
+First, select 'Create New Instance' command located in the menu bar. 
 
 **1. Install and launch the Weave Scope probes onto each of your Ubuntu instances:
 
@@ -167,14 +169,14 @@ Next you'll move over to Digital Ocean and create two Ubuntu droplets and setup 
 
 This is by far the simplest way in which to install Kubernetes.  In a few commands, you will have deployed a complete Kubernetes cluster with a resilient and secure container network onto the Cloud Provider of your choice.
 
-[XXX add kubernetes instructions here XXX
-
-**Note:**  Ensure that you make a note of the `kubeadm` token that is generated when you initialize one of your servers as the `master`, you need it later on to join the nodes from one server to another: `kubeadm join --token <token id>
+##Set up a Kubernetes Cluster and Install the Sock Shop on it
 
 
-## Overview
+
+###Overview
 
 This quickstart shows you how to easily install a secure Kubernetes cluster on machines running Ubuntu 16.04 or CentOS 7.
+
 The installation uses a tool called `kubeadm` which is part of Kubernetes 1.4.
 
 This process works with local VMs, physical servers and/or cloud servers.
@@ -192,11 +194,6 @@ to be part of a larger provisioning system - or just for easy manual provisionin
 choice where you have your own infrastructure (e.g. bare metal), or where you have an existing
 orchestration system (e.g. Puppet) that you have to integrate with.
 
-If you are not constrained, other tools build on kubeadm to give you complete clusters:
-
-* On GCE, [Google Container Engine](https://cloud.google.com/container-engine/) gives you turn-key Kubernetes
-* On AWS, [kops](kops) makes installation and cluster management easy (and supports high availability)
-
 ## Prerequisites
 
 1. One or more machines running Ubuntu 16.04, CentOS 7 or HypriotOS v1.0.1
@@ -208,10 +205,10 @@ If you are not constrained, other tools build on kubeadm to give you complete cl
 * Install a secure Kubernetes cluster on your machines
 * Install a pod network on the cluster so that application components (pods) can talk to each other
 * Install a sample microservices application (a socks shop) on the cluster
+* View the result in Weave Cloud as you go along
 
-## Instructions
 
-### (1/4) Installing kubelet and kubeadm on your hosts
+### Installing kubelet and kubeadm on Your Hosts
 
 You will install the following packages on all the machines:
 
@@ -257,12 +254,12 @@ The kubelet is now restarting every few seconds, as it waits in a crashloop for 
 
 Note: `setenforce 0` will no longer be necessary on CentOS once [#33555](https://github.com/kubernetes/kubernetes/pull/33555) is included in a released version of `kubeadm`.
 
-### (2/4) Initializing your master
+### Initializing the Master
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 All of these components run in pods started by `kubelet`.
 
-Right now you can't run `kubeadm init` twice without turning down the cluster in between, see [Turndown](#turndown).
+Right now you can't run `kubeadm init` twice without turning down the cluster in between, see [Tear Down](#tear-down).
 
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
@@ -301,6 +298,7 @@ The output should look like:
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs.
 You will need this in a moment.
+
 The key included here is secret, keep it safe &mdash; anyone with this key can add authenticated nodes to your cluster.
 
 The key is used for mutual authentication between the master and the joining nodes.
@@ -315,31 +313,26 @@ If you want to be able to schedule pods on the master, for example if you want a
 
 This will remove the "dedicated" taint from any nodes that have it, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
 
-### (3/4) Installing a pod network
+###Installing Weave Net
 
 You must install a pod network add-on so that your pods can communicate with each other. 
 In the meantime, the kubenet network plugin doesn't work. Instead, CNI plugin networks are supported, those you see below.
-**It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up.**
 
-Several projects provide Kubernetes pod networks.
-You can see a complete list of available network add-ons on the [add-ons page](/docs/admin/addons/).
+**It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up.**
 
 By way of example, you can install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to the master and running:
 
     # kubectl apply -f https://git.io/weave-kube
     daemonset "weave-net" created
 
-If you prefer [Calico](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes/manifests/kubeadm) or [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm), please refer to their respective installation guides. 
 
-If you are on another architecture than amd64, you should use the flannel overlay network as described in [the multi-platform section](#kubeadm-is-multi-platform)
-
-NOTE: You can install **only one** pod network per cluster.
+**Note:** You can install **only one** pod network per cluster.
 
 Once a pod network has been installed, you can confirm that it is working by checking that the `kube-dns` pod is `Running` in the output of `kubectl get pods --all-namespaces`.
 
 And once the `kube-dns` pod is up and running, you can continue by joining your nodes.
 
-### (4/4) Joining your nodes
+###Joining Your Nodes
 
 The nodes are where your workloads (containers and pods, etc) run.
 If you want to add any new machines as nodes to your cluster, for each machine: SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
@@ -370,7 +363,7 @@ In order to get a kubectl on your laptop for example to talk to your cluster, yo
     # scp root@<master ip>:/etc/kubernetes/admin.conf .
     # kubectl --kubeconfig ./admin.conf get nodes
 
-### (Optional) Installing a sample application
+### Installing the Sock Shop
 
 As an example, install a sample microservices application, a socks shop, to put your cluster through its paces.
 To learn more about the sample microservices app, see the [GitHub README](https://github.com/microservices-demo/microservices-demo).
@@ -400,7 +393,12 @@ In the example above, this was `31869`, but it is a different port for you.
 
 If there is a firewall, make sure it exposes this port to the internet before you try to access it.
 
-## Tear down
+##Run the Load Test
+
+After the Sock Shop has completely deployed onto the cluster, run the same load test as we did above and then view the results in Weave Cloud. 
+
+
+<h3 id="tear-down">Tear Down </h3>
 
 * To uninstall the socks shop, run `kubectl delete namespace sock-shop` on the master.
 
@@ -416,37 +414,6 @@ If there is a firewall, make sure it exposes this port to the internet before yo
   If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init` or `kubeadm join`.
   <!-- *syntax-highlighting-hack -->
 
-## Explore other add-ons
-
-See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
-
-## What's next
-
-* Learn about `kubeadm`'s advanced usage on the [advanced reference doc](/docs/admin/kubeadm/)
-* Learn more about [Kubernetes concepts and kubectl in Kubernetes 101](/docs/user-guide/walkthrough/).
-
-## Feedback
-
-* Slack Channel: [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* Mailing List: [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
-* [GitHub Issues](https://github.com/kubernetes/kubernetes/issues): please tag `kubeadm` issues with `@kubernetes/sig-cluster-lifecycle`
-
-## kubeadm is multi-platform
-
-kubeadm deb packages and binaries are built for amd64, arm and arm64, following the [multi-platform proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/multi-platform.md).
-
-deb-packages are released for ARM and ARM 64-bit, but not RPMs (yet, reach out if there's interest).
-
-Anyway, ARM had some issues when making v1.4, see [#32517](https://github.com/kubernetes/kubernetes/pull/32517) [#33485](https://github.com/kubernetes/kubernetes/pull/33485), [#33117](https://github.com/kubernetes/kubernetes/pull/33117) and [#33376](https://github.com/kubernetes/kubernetes/pull/33376). 
-
-However, thanks to the PRs above, `kube-apiserver` works on ARM from the `v1.4.1` release, so make sure you're at least using `v1.4.1` when running on ARM 32-bit
-
-The multiarch flannel daemonset can be installed this way. Make sure you replace `ARCH=amd64` with `ARCH=arm` or `ARCH=arm64` if necessary.
-
-    # ARCH=amd64 curl -sSL https://raw.githubusercontent.com/luxas/flannel/update-daemonset/Documentation/kube-flannel.yml | sed "s/amd64/${ARCH}/g" | kubectl create -f -
-
-And obviously replace `ARCH=amd64` with `ARCH=arm` or `ARCH=arm64` depending on the platform you're running on.
-
 ## Limitations
 
 Please note: `kubeadm` is a work in progress and these limitations will be addressed in due course.
@@ -455,12 +422,15 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
    To set up kubeadm with CloudProvider integrations (it's experimental, but try), refer to the [kubeadm reference](/docs/admin/kubeadm/) document.
 
    Workaround: use the [NodePort feature of services](/docs/user-guide/services/#type-nodeport) for exposing applications to the internet.
+   
 1. The cluster created here has a single master, with a single `etcd` database running on it.
    This means that if the master fails, your cluster loses its configuration data and will need to be recreated from scratch.
+   
    Adding HA support (multiple `etcd` servers, multiple API servers, etc) to `kubeadm` is still a work-in-progress.
 
    Workaround: regularly [back up etcd](https://coreos.com/etcd/docs/latest/admin_guide.html).
    The `etcd` data directory configured by `kubeadm` is at `/var/lib/etcd` on the master.
+   
 1. `kubectl logs` is broken with `kubeadm` clusters due to [#22770](https://github.com/kubernetes/kubernetes/issues/22770).
 
    Workaround: use `docker logs` on the nodes where the containers are running as a workaround.
@@ -472,16 +442,8 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
 [ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11),
 
 
+##Run a Load Test on Sock Shop
 
-
-
-##Deploy the Sock Shop to Kubernetes
-
-Now that everything is setup you're ready to deploy the Sock Shop onto your two instances in Digital Ocean: 
-
-
-
-<h3 id="run-the-load-test">Running the Load Test</h3>
 
 To fully appreciate the topology of this app, you will need to run a load on the app. 
 
