@@ -8,20 +8,27 @@ title: Troubleshooting Microservices with Weave Cloud
 
 kubeadm join --token bed73b.290fdade7ec04860 45.55.57.4
 
-In this four part tutorial how to manage and deploy microservices to the cloud is described. For example, say you have been tasked with defining making your app Cloud Native. And by Cloud Native, you mean that your app must be deployed to the cloud, which anticipates the large influx of expected users, and as a result it must also be scalable.
+In this four part tutorial how to manage and deploy a microservices Cloud Native app is described.  For example, say you have been tasked with defining making your app Cloud Native. And by Cloud Native, you mean that your app must be deployed to the cloud, which anticipates the large influx of expected users, and as a result it must also be scalable.
 
-To satisfy these criterion, you've decided on the following: 
+To satisfy these criterion, you've decided on the following technological decisions: 
 
 * Docker Containers
 * Microservices-based architecture
 * Continuous Integration and Delivery
 * Kubernetes
 
-In addition to the above, you soon find that you'll need to monitor this system you're deploying and at the same time a microservices troubleshooting dashboard might help speed up development time and deployment.
-
 And while you want all of things to develop and deploy your app, you want to be able to do this quickly and without having to be the one who has to maintain a set of custom shell scripts connecting all of these processes together.
 
-The first part of this series focuses on the troubleshooting, deploying and verifying your app on your local laptop. 
+In addition to the above, monitoring this whole lifecycle will also be critical to understanding both the deployment and its function and maintenance. This is where a microservices troubleshooting dashboard provided by Weave Cloud will help to speed up deployment, development and maintenance of your Cloud Native app.
+
+
+Part 1 of this 4 part series focuses on the troubleshooting, deploying and verifying your app on your local laptop: the Troubleshooting Dashboard.
+
+Part 2 of 4 discusses Fast Iteration and Continuous Delivery with Weave Cloud
+
+Part 3 of 4 you will move onto Cloud Native Monitoring with Weave Cortex
+
+Part 4 of 4 Network Security and Policy with Weave Cloud will show you to how simply, yet powerfully secure your app or portions of your app. 
 
 To do this, you will use the Weaveworks sample app, 'The Sock Shop', deploy it to a couple of virtual machines running Docker and Kubernetes and then verify and troubleshoot any issues in Weave Cloud. 
 
@@ -39,19 +46,18 @@ This tutorial will take approximately 15 minutes to complete:
 
 ## What You Will Use
 
-* [Weave](http://weave.works)
+* [Weave Cloud](https://cloud.weave.works)
 * [Docker for Mac](https://docs.docker.com/docker-for-mac/docker-toolbox/)
 * [Weaveworks Sockshop](https://github.com/microservices-demo)
 * [Kubernetes](http://kubernetes.io/)
 * [Weave Net](https://www.weave.works/products/weave-net/)
-* [Weave Cloud](https://cloud.weave.works)
 
 
 ##Before You Begin
 
 Ensure that you have the following installed: 
 
-* Docker Toolbox(https://docs.docker.com/docker-for-mac/docker-toolbox/
+* Docker for Mac (https://docs.docker.com/docker-for-mac/docker-toolbox/
 * [Git](http://git-scm.com/downloads)
 
 For other operating systems, install and configure the following separately before proceeding:
@@ -101,22 +107,9 @@ docker-compose up -d user-db user catalogue-db catalogue rabbitmq queue-master c
 
 **Note:** If the shop doesn't come up right away or it gives you an error like `ERROR: for edge-router  Cannot start service edge-router:` because of a port in use, try going to `http://12.0.0.1` in your browser. 
 
-
-###Run Tests
-
-Next you will put some load on the app in order to simulate users in the Sock Shop:
-
-~~~~
-docker run weaveworksdemos/load-test -d 60 -h edge-router -c 3 -r 10
-Cleaning up
-docker-compose stop
-docker-compose rm -f
-~~~
-
-
 ###Verify the App in Weave Cloud
 
-Let's verify the app in Weave Cloud to see that everything deployed correctly and that all services are behaving as they should. We'll do this first on your laptop and then also view the pods as they are deploying right in verify it again after you've deployed the same app to Kubernetes in Digital Ocean. 
+Next, you'll verify the app in Weave Cloud to see that everything deployed correctly and that all services are behaving as they should. We'll do this first on your laptop and then also view the pods as they are deploying right in verify it again after you've deployed the same app to Kubernetes in Digital Ocean. 
 
 To verify that everything installed correctly on your laptop sign up for Weave Cloud:
 
@@ -127,10 +120,10 @@ To verify that everything installed correctly on your laptop sign up for Weave C
 ![Obtain service token for Weave Cloud](weave-cloud-token-screenshot.png)
 
 
-Return to your Docker Window and install and launch the Weave Cloud probes:
+Return to your Docker Window and launch the Weave Cloud probes:
 
 ~~~bash
-sudo curl --silent --location https://git.io/scope --output /usr/local/bin/scope
+curl --silent --location https://git.io/scope --output /usr/local/bin/scope
 sudo chmod +x /usr/local/bin/scope
 scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
 ~~~
@@ -142,6 +135,18 @@ scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
 **Note:** To set the Weave Cloud controls to read-only for all users, you can launch scope with the --probe.no-controls flag.  In this demo, you will be launching a terminal window and viewing messages between microservices, and so this flag is not necessary. However, you may want to keep this flag in mind when using Weave Cloud and sharing your infrastructure views with others outside of your organization.
 
 Weave Cloud controls allow you to stop, start and pause containers. They also enable you to launch a terminal and interact directly with your containers.
+
+<h3 id=run-tests> Run Tests</h3>
+
+Next you will put some load on the app in order to simulate users in the Sock Shop:
+
+~~~~
+docker run weaveworksdemos/load-test -d 60 -h edge-router -c 3 -r 10
+Cleaning up
+docker-compose stop
+docker-compose rm -f
+~~~
+
 
 ##Set Up Droplets in Digital Ocean
 
