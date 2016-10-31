@@ -5,19 +5,16 @@ title: Troubleshooting Microservices with Weave Cloud
 ---
 
 
+In this four part tutorial how to manage and deploy a microservices app to the cloud is described.  You may have been tasked with defining your app development pipeline to make the whole process and your app Cloud Native. And by Cloud Native, your app must be developed, built and easily updated in the cloud provider of your choice without having to disassemble and re-assemble the infrastructure each time a change is made or a new feature is added. You may also anticipate a large influx of users, and so your solution must also be scalable.
 
-kubeadm join --token bed73b.290fdade7ec04860 45.55.57.4
+To satisfy these criterion, you've decided on using the following: 
 
-In this four part tutorial how to manage and deploy a microservices Cloud Native app is described.  For example, say you have been tasked with defining making your app Cloud Native. And by Cloud Native, you mean that your app must be deployed to the cloud, which anticipates the large influx of expected users, and as a result it must also be scalable.
-
-To satisfy these criterion, you've decided on the following technological decisions: 
-
-* Docker Containers
 * Microservices-based architecture
+* Docker Containers
 * Continuous Integration and Delivery
-* Kubernetes
+* Kubernetes Clusters
 
-And while you want all of things to develop and deploy your app, you want to be able to do this quickly and without having to be the one who has to maintain a set of custom shell scripts connecting all of these processes together.
+And while you want all of those things to develop and deploy your app, you want to be able to do this quickly and without having to maintain a set of custom shell scripts that connects all of these processes together.
 
 In addition to the above, monitoring this whole lifecycle will also be critical to understanding both the deployment and its function and maintenance. This is where a microservices troubleshooting dashboard provided by Weave Cloud will help to speed up deployment, development and maintenance of your Cloud Native app.
 
