@@ -7,16 +7,16 @@ title: Troubleshooting Microservices with Weave Cloud
 
 In this four-part tutorial how to deploy, deliver, and monitor a secure microservices Cloud Native app is described.  
 
-In order to streamline your app development pipeline to make your app Cloud Native to develop code faster, the following will be incorporated: 
+To streamline your app development pipeline to make your app Cloud Native and develop code faster, the following will be incorporated: 
 
 * A microservices-based architecture
 * Docker Containers
 * Continuous Integration and Delivery
 * Kubernetes container orchestration
 
-A Cloud Native app gives you the freedom to focus on your code instead of maintaining cloud tools, and allows you to make rapid, incremental updates without having to disassemble and reassemble your infrastructure each time a new feature is added.  And while the ability to rapidly to deploy changes to your app is important, you will also want to be able to choose your favorite tools without maintaining a set of custom scripts. 
+A Cloud Native app gives you the freedom to focus on your code instead of maintaining cloud tools, where rapid, incremental updates can be made without having to disassemble and reassemble your infrastructure each time a new feature is added.  And while the ability to rapidly deploy changes to your app is important, the ability to choose your own source control system, deployment tools and container registry without having to maintain a set of custom scripts is also critical.
 
-With Weave Cloud, you can view, troubleshoot, and monitor your microservices in a convenient troublehooting dashboard all in one place. In conjunction with automated continuous delivery, Weave Cloud allows you to create higher quality code more rapidly.
+With Weave Cloud you can view and monitor your microservices all in one place in a convenient troubleshooting dashboard, and together with automated continuous delivery built with your favorite tools, Weave Cloud allows you to create higher quality code more rapidly.
 
 Part 1 discusses the Troubleshooting Dashboard and how to verify your app using the Weave Cloud dashboard on your local laptop with an app deployed to a production setup like Kubernetes running on Digital Ocean.
 
