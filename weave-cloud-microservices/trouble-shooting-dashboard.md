@@ -14,13 +14,13 @@ To streamline your app development pipeline to make your app Cloud Native and de
 * Continuous Integration and Delivery
 * Kubernetes container orchestration
 
-A Cloud Native app gives you the freedom to focus on your code instead of maintaining cloud tools, where rapid, incremental updates can be made without having to disassemble and reassemble your infrastructure each time a new feature is added.  And while the ability to rapidly deploy changes to your app is important, the ability to choose your own source control system, deployment tools and container registry without having to maintain a set of custom scripts is also critical.
+A Cloud Native app gives you the freedom to focus on your code instead of maintaining cloud tools, where rapid, incremental updates can be made without having to disassemble and reassemble your infrastructure each time a new feature is added.  And while the ability to rapidly deploy changes to your app is important, the freedom to choose your own source control system, deployment tools and container registry without having to maintain a set of custom scripts is also critical.
 
 With Weave Cloud you can view and monitor your microservices all in one place in a convenient troubleshooting dashboard, and together with automated continuous delivery built with your favorite tools, Weave Cloud allows you to create higher quality code more rapidly.
 
 Part 1 discusses the Troubleshooting Dashboard and how to verify your app using the Weave Cloud dashboard on your local laptop with an app deployed to a production setup like Kubernetes running on Digital Ocean.
 
-[Part 2] describes how to set up Fast Iteration and Continuous Delivery with Weave Cloud.
+[Part 2] describes how to setup Fast Iteration and Continuous Delivery with Weave Cloud.
 
 [Part 3] discusses how to configure Cloud Native Monitoring with Weave Cortex and view your app's metrics in the Weave Cloud dashboard. 
 
@@ -392,22 +392,6 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 After the Sock Shop has completely deployed onto the cluster, run the same load test as you did on your laptop and then view the results in Weave Cloud. 
 
 
-<h2 id="tear-down">Tear Down </h2>
-
-* To uninstall the socks shop, run `kubectl delete namespace sock-shop` on the master.
-
-* To undo what `kubeadm` did, simply delete the machines you created for this tutorial, or run the script below and then start over or uninstall the packages.
-
-  <br>
-  Reset local state:
-  <pre><code>systemctl stop kubelet;
-  docker rm -f -v $(docker ps -q);
-  find /var/lib/kubelet | xargs -n 1 findmnt -n -t tmpfs -o TARGET -T | uniq | xargs -r umount -v;
-  rm -r -f /etc/kubernetes /var/lib/kubelet /var/lib/etcd;
-  </code></pre>
-  If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init` or `kubeadm join`.
-  <!-- *syntax-highlighting-hack -->
-
 ## Limitations
 
 Please note: `kubeadm` is a work in progress and these limitations will be addressed in due course.
@@ -435,9 +419,30 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
 
 [ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11),
 
+<h2 id="tear-down">Tear Down </h2>
+
+Unless you are continuing onto part 2, then you may want to tear down the Sock Shop and also the Kubernetes cluster you just created.  If you made a mistep during the install instructions, it is recommended that you delete the entire cluster and begin again. 
+
+* To uninstall the socks shop, run `kubectl delete namespace sock-shop` on the master.
+
+* To undo what `kubeadm` did, simply delete the machines you created for this tutorial, or run the script below and then start over or uninstall the packages.
+
+  <br>
+  Reset local state:
+  <pre><code>systemctl stop kubelet;
+  docker rm -f -v $(docker ps -q);
+  find /var/lib/kubelet | xargs -n 1 findmnt -n -t tmpfs -o TARGET -T | uniq | xargs -r umount -v;
+  rm -r -f /etc/kubernetes /var/lib/kubelet /var/lib/etcd;
+  </code></pre>
+  If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init` or `kubeadm join`.
+  <!-- *syntax-highlighting-hack -->
 
 
+##Conclusions
 
+In this tutorial you learned how to verify your app deployed to your laptop with the same app that was deployed to a kubernetes cluster. The next next part of this series discusses how to configure "Contiuous Delivery with Weave Cloud".
+
+If you have any questions or comments you can reach out to us on our [Slack channel](https://slack.weave.works/) or through one of these other channels on [Help](https://www.weave.works/help/)
 
 
 
