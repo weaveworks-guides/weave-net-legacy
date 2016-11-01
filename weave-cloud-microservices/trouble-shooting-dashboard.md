@@ -5,29 +5,30 @@ title: Troubleshooting Microservices with Weave Cloud
 ---
 
 
-In this four part tutorial how to manage and deploy a microservices app to the cloud is described.  You may have been tasked with defining your app development pipeline to make the whole process and your app Cloud Native. And by Cloud Native, your app must be developed, built and easily updated in the cloud provider of your choice without having to disassemble and re-assemble the infrastructure each time a change is made or a new feature is added. You may also anticipate a large influx of users, and so your solution must also be scalable.
+In this four-part tutorial how to deploy, deliver, and monitor a secure microservices Cloud Native app is described.  
 
-To satisfy these criterion, you've decided on using the following: 
+You may have been tasked with streamlining and automating your app development pipeline to make your app Cloud Native. Making your app Cloud Native app gives you the freedom to focus on your code instead of maintaining cloud tools, where rapid and incremental updates can be made to your code without having to disassemble and reassemble your infrastructure each time a new feature is added. 
 
-* Microservices-based architecture
+To go faster, you've decided on using the following technologies: 
+
+* A microservices-based architecture
 * Docker Containers
 * Continuous Integration and Delivery
-* Kubernetes Clusters
+* Kubernetes container orchestration
 
-And while you want all of those things to develop and deploy your app, you want to be able to do this quickly and without having to maintain a set of custom shell scripts that connects all of these processes together.
+And while you want to use all of those technologies to deploy your app, you also want to be able to choose your favorite tools without having to maintain a set of custom scripts. 
 
-In addition to the above, monitoring this whole lifecycle will also be critical to understanding both the deployment and its function and maintenance. This is where a microservices troubleshooting dashboard provided by Weave Cloud will help to speed up deployment, development and maintenance of your Cloud Native app.
+With Weave Cloud, you can view, troubleshoot, and monitor your microservices all in one place in a convenient troublehooting dashboard. This allows you to create higher quality code more rapidly.   
 
+Part 1 focuses on deploying and verifying your app in your local laptop: the Troubleshooting Dashboard.
 
-Part 1 of this 4 part series focuses on the troubleshooting, deploying and verifying your app on your local laptop: the Troubleshooting Dashboard.
+Part 2 discusses Fast Iteration and Continuous Delivery with Weave Cloud
 
-Part 2 of 4 discusses Fast Iteration and Continuous Delivery with Weave Cloud
+Part 3 of 4 discusses Cloud Native Monitoring with Weave Cortex
 
-Part 3 of 4 you will move onto Cloud Native Monitoring with Weave Cortex
+Part 4 Network Security and Policy with Weave Cloud will show you to how simply, yet powerfully secure your app or portions of your app. 
 
-Part 4 of 4 Network Security and Policy with Weave Cloud will show you to how simply, yet powerfully secure your app or portions of your app. 
-
-To do this, you will use the Weaveworks sample app, 'The Sock Shop', deploy it to a couple of virtual machines running Docker and Kubernetes and then verify and troubleshoot any issues in Weave Cloud. 
+You will use the Weaveworks sample app, 'The Sock Shop', deploy it to a couple of virtual machines running Docker and Kubernetes and then verify and troubleshoot any issues in Weave Cloud. 
 
 Specifically, in this tutorial, you will: 
 
@@ -106,9 +107,9 @@ docker-compose up -d user-db user catalogue-db catalogue rabbitmq queue-master c
 
 ###Verify the App in Weave Cloud
 
-Next, you'll verify the app in Weave Cloud to see that everything deployed correctly and that all services are behaving as they should. We'll do this first on your laptop and then also view the pods as they are deploying right in verify it again after you've deployed the same app to Kubernetes in Digital Ocean. 
+Next, verify the deployed app using Weave Cloud and check that everything deployed correctly and that all services are behaving as they should. You will verify the app first on your laptop. Then you'll use Weave Cloud to view the Kubernetes pods as they get deployed, and again to verify the Sock Shop after it gets deployed to Kubernetes in Digital Ocean. 
 
-To verify that everything installed correctly on your laptop sign up for Weave Cloud:
+To check that everything installed correctly on your laptop, first sign up for Weave Cloud:
 
 1.  Go to <a href="https://cloud.weave.works" target="_blank"> Weave Cloud </a>
 2.  Sign up using either a Github, or Google account or use an email address.
@@ -117,7 +118,7 @@ To verify that everything installed correctly on your laptop sign up for Weave C
 ![Obtain service token for Weave Cloud](weave-cloud-token-screenshot.png)
 
 
-Return to your Docker Window and launch the Weave Cloud probes:
+Return to the Docker Window and then launch the Weave Cloud probes using the token you obtained above:
 
 ~~~bash
 curl --silent --location https://git.io/scope --output /usr/local/bin/scope
@@ -135,25 +136,33 @@ Weave Cloud controls allow you to stop, start and pause containers. They also en
 
 <h3 id=run-tests> Run Tests</h3>
 
-Next you will put some load on the app in order to simulate users in the Sock Shop:
+##Run a Load Test on the Sock Shop
 
-~~~~
-docker run weaveworksdemos/load-test -d 60 -h edge-router -c 3 -r 10
-Cleaning up
-docker-compose stop
-docker-compose rm -f
+
+To fully appreciate the topology of this app, you will need to run a load on the app. 
+
+Run a load test with the following:
+
+~~~bash
+docker run -ti --rm --name=LOAD_TEST \
+  --net=shop_external \
+  weaveworksdemos/load-test -h edge-router -r 100 -c 2
 ~~~
+
+With the load test running, you can observe the different services communicating by clicking on the Load Test container in Weave Cloud. From the metrics panel,  open Load Test's terminal to view the messages. With the load test running, the topology graph in Weave Cloud console will also form.
+
+![Weave Load Test](load-test-messages.png)
 
 
 ##Set Up Droplets in Digital Ocean
 
-Move over to Digital Ocean and create two Ubuntu instances to set up Kubernetes, container networking with Weave Net and then you will deploy the Sock Shop onto them. 
+Sign up for [Digital Ocean]( and create two Ubuntu instances to set up Kubernetes, add a container network using Weave Net and then deploy the Sock Shop onto them. 
 
 ##Setting Up Kubernetes and Weave Net
 
-<h3 id="sign-up-to-weave-cloud">Adding an Additional Instance in Weave Cloud</h3>
+<h3 id="sign-up-to-weave-cloud">Adding an Additional Instance to Weave Cloud</h3>
 
-But before you start installing Kubernetes, create an additional instance running in Weave Cloud. This will assist you when you're deploying Kubernetes and also will allow you to see the Sock Shop as it spins up on Kubernetes.  
+But before you start installing Kubernetes, create an additional instance in Weave Cloud. This extra instance assists you when you're deploying Kubernetes and also will allow you to see the Sock Shop as it spins up on Kubernetes. Also, you can use it to compare with the version you deployed to your laptap to check that they are the same. 
 
 First, select 'Create New Instance' command located in the menu bar. 
 
@@ -320,19 +329,19 @@ This will remove the "dedicated" taint from any nodes that have it, including th
 You must install a pod network add-on so that your pods can communicate with each other. 
 In the meantime, the kubenet network plugin doesn't work. Instead, CNI plugin networks are supported, those you see below.
 
-**It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up.**
+**You must add Weave Net before deploying any applications to your cluster and before `kube-dns` starts up.**
 
-By way of example, you can install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to the master and running:
+Install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to the master and running:
 
     # kubectl apply -f https://git.io/weave-kube
     daemonset "weave-net" created
 
 
-**Note:** You can install **only one** pod network per cluster.
+**Note:** Install **only one** pod network per cluster.
 
-Once a pod network has been installed, you can confirm that it is working by checking that the `kube-dns` pod is `Running` in the output of `kubectl get pods --all-namespaces`.
+Once a pod network is installed, confirm that it is working by checking that the `kube-dns` pod is `Running` in the output of `kubectl get pods --all-namespaces`.
 
-And once the `kube-dns` pod is up and running, you can continue by joining your nodes.
+And once the `kube-dns` pod is up and running, you can continue on to joining your nodes.
 
 ###Joining Your Nodes
 
@@ -373,7 +382,7 @@ To learn more about the sample microservices app, see the [GitHub README](https:
     # kubectl create namespace sock-shop
     # kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
 
-You can then find out the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
+You can then find the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
     # kubectl describe svc front-end -n sock-shop
     Name:                   front-end
@@ -397,7 +406,7 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 
 ##Run the Load Test
 
-After the Sock Shop has completely deployed onto the cluster, run the same load test as we did above and then view the results in Weave Cloud. 
+After the Sock Shop has completely deployed onto the cluster, run the same load test as you did on your laptop and then view the results in Weave Cloud. 
 
 
 <h3 id="tear-down">Tear Down </h3>
@@ -444,22 +453,7 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
 [ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11),
 
 
-##Run a Load Test on Sock Shop
 
-
-To fully appreciate the topology of this app, you will need to run a load on the app. 
-
-Run a load test with the following:
-
-~~~bash
-docker run -ti --rm --name=LOAD_TEST \
-  --net=shop_external \
-  weaveworksdemos/load-test -h edge-router -r 100 -c 2
-~~~
-
-With the load test running, you can observe the different services communicating by clicking on the Load Test container in Weave Cloud. From the metrics panel,  open Load Test's terminal to view the messages. With the load test running, the topology graph in Weave Cloud console will also form.
-
-![Weave Load Test](load-test-messages.png)
 
 
 
