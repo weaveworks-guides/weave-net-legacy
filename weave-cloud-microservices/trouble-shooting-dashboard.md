@@ -139,6 +139,20 @@ Weave Cloud controls allow you to stop, start and pause containers. They also en
 
 To fully appreciate the topology of this app, you will need to run a load on the app. 
 
+First you need to get the code here: 
+
+~~~
+git clone https://github.com/microservices-demo/load-test.git
+~~~
+
+And then build the Docker container, and finally run the test: 
+
+
+cd into the `load-test` directory
+
+`docker build -t load-test .` 
+
+
 Run a load test with the following:
 
 ~~~bash
