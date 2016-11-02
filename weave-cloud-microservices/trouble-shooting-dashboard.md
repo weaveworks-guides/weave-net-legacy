@@ -170,6 +170,8 @@ With the load test running, you can observe the different services communicating
 
 Sign up for [Digital Ocean]( and create two Ubuntu instances, where you'll deploy a Kubernetes cluster, add a container network using Weave Net and finally deploy the Sock Shop onto the cluster and verify this deployment with the one you just did on your laptop in Weave Cloud. 
 
+**Note:** It is recommended that each host have at least 4 gigabytes of memory in order to run this demo smoothly. 
+
 ###Create two Ubuntu Instances in Digital Ocean
 
 Next you'll move over to Digital Ocean and create two Ubuntu droplets Both machines should run Ubuntu 16.04
@@ -250,9 +252,6 @@ For each host in turn:
 ~~~
 
 
-The kubelet is now restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
-
-
 ### Initializing the Master
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
@@ -272,7 +271,7 @@ If you want to use a different interface, specify `--api-advertise-addresses=<ip
 
 Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to read more about the flags `kubeadm init` provides.
 
-This will download and install the cluster database and "control plane" components.
+This command downloads and installs the cluster database and the "control plane" components.
 This may take several minutes.
 
 The output should look like:
@@ -355,8 +354,8 @@ For example:
     * Certificate signing request sent to master and response
       received.
     * Kubelet informed of new secure connection details.
-    Run 'kubectl get nodes' on the master to see this machine join.
 ~~~
+    Run 'kubectl get nodes' on the master to see this machine join.
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
@@ -370,12 +369,14 @@ In order to get a kubectl on your laptop for example to talk to your cluster, yo
 ### Installing the Sock Shop
 
 As an example, install a sample microservices application, a socks shop, to put your cluster through its paces.
-To learn more about the sample microservices app, see the [GitHub README](https://github.com/microservices-demo/microservices-demo).
+To learn more about the sample microservices app, see the [microservices-demo README](https://github.com/microservices-demo/microservices-demo).
 
 ~~~
     # kubectl create namespace sock-shop
     # kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
 ~~~
+
+###Viewing the Sock Shop in Your Browser
 
 You can then find the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
@@ -401,10 +402,22 @@ In the example above, this was `31869`, but it is a different port for you.
 
 If there is a firewall, make sure it exposes this port to the internet before you try to access it.
 
+[sockshop screenshot]
+
+###Viewing the Result in Weave Cloud
+
+You can also view the result in Weave Cloud and also watch all of the pods as they join the cluster. 
+
+[weave cloud screenshot]
+
+
 ##Run the Load Test
 
 After the Sock Shop has completely deployed onto the cluster, run the same load test as you did on your laptop and then view the results in Weave Cloud. 
 
+~~~
+docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -h edge-router -r 100 -c 2 <host-ip:[port number]>
+~~~
 
 ## Limitations
 
@@ -441,15 +454,20 @@ Unless you are continuing onto part 2, then you may want to tear down the Sock S
 
 * To undo what `kubeadm` did, simply delete the machines you created for this tutorial, or run the script below and then start over or uninstall the packages.
 
-  <br>
-  Reset local state:
-  <pre><code>systemctl stop kubelet;
+  
+To reset local state run the following script:
+  
+~~~
+  systemctl stop kubelet;
   docker rm -f -v $(docker ps -q);
   find /var/lib/kubelet | xargs -n 1 findmnt -n -t tmpfs -o TARGET -T | uniq | xargs -r umount -v;
   rm -r -f /etc/kubernetes /var/lib/kubelet /var/lib/etcd;
-  </code></pre>
-  If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init` or `kubeadm join`.
-  <!-- *syntax-highlighting-hack -->
+~~~
+  
+####If You're Starting Over
+  
+If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init`on the master and `kubeadm join` on any of the nodes.
+
 
 
 ##Conclusions
