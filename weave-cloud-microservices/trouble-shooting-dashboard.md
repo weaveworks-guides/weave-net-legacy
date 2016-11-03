@@ -175,7 +175,7 @@ Sign up for [Digital Ocean]( and create two Ubuntu instances, where you'll deplo
 ###Create two Ubuntu Instances in Digital Ocean
 
 Next you'll move over to Digital Ocean and create two Ubuntu droplets Both machines should run Ubuntu 16.04
-with 1GB or more of RAM per machine (any less will leave little room for your apps).
+with 4GB or more of RAM per machine.
 
 This example uses Digital Ocean, but you can just as easily create these two instances in AWS or on whoever your favourite cloud provider is. 
 
@@ -183,17 +183,7 @@ This example uses Digital Ocean, but you can just as easily create these two ins
 
 Before you start installing Kubernetes, create an additional instance in Weave Cloud. This extra instance assists you when you're deploying Kubernetes and will also allow you to see the Sock Shop as it spins up on Kubernetes.  
 
-First, select 'Create New Instance' command located in the menu bar. 
-
-**1. Install and launch the Weave Scope probes onto each of your Ubuntu instances:
-
-~~~bash
-sudo curl --silent --location https://git.io/scope --output /usr/local/bin/scope
-sudo chmod +x /usr/local/bin/scope
-scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
-~~~
-
-If you return to the Weave Cloud interface, you should be able to view your two hosts networked and ready to go. 
+Select the 'Create New Instance' command located in the menu bar. 
 
 
 ##Set up a Kubernetes Cluster and Install the Sock Shop on it
@@ -241,15 +231,30 @@ For each host in turn:
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`):
 
 ~~~
-      # curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-      # cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
-      deb http://apt.kubernetes.io/ kubernetes-xenial main
-      EOF
-      # apt-get update
-      # # Install docker if you don't have it already.
-      # apt-get install -y docker.io
-      # apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+# curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+# cat <<EOF > /etc/apt/sources.list.d/kubernetes.list 
+deb http://apt.kubernetes.io/ kubernetes-xenial main 
+EOF
+# apt-get update
+# # Install docker if you don't have it already.
+# apt-get install -y docker.io
+# apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 ~~~
+
+**Note:**  You may have to re-run `apt-get update` and then run `apt-get install -y kubelet kubeadm kubectl kubernetes-cni` second time to ensure that the packages are properly downloaded. 
+
+###Install and Launch Weave Scope
+
+Install and launch the Weave Scope probes onto each of your Ubuntu instances:
+
+~~~bash
+sudo curl --silent --location https://git.io/scope --output /usr/local/bin/scope
+sudo chmod +x /usr/local/bin/scope
+scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
+~~~
+
+If you return to the Weave Cloud interface, you should be able to view your two hosts networked and ready to go. 
+
 
 
 ### Initializing the Master
@@ -394,7 +399,7 @@ You can then find the port that the [NodePort feature of services](/docs/user-gu
     Session Affinity:       None
 ~~~
 
-It takes several minutes to download and start all the containers, watch the output of `kubectl get pods -n sock-shop` to see when they're all up and running.
+It takes several minutes to download and start all the containers, watch the output of `kubectl get pods -n sock-shop` to see when they're all up and running. Or you can view the containers appearing on the screen as they get created in Weave Cloud. 
 
 Then go to the IP address of your cluster's master node in your browser, and specify the given port.
 So for example, `http://<master_ip>:<port>`.
@@ -469,13 +474,8 @@ To reset local state run the following script:
 If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init`on the master and `kubeadm join` on any of the nodes.
 
 
-
 ##Conclusions
 
 In this tutorial you learned how to verify your app deployed to your laptop with the same app that was deployed to a kubernetes cluster. The next next part of this series discusses how to configure "Contiuous Delivery with Weave Cloud".
 
 If you have any questions or comments you can reach out to us on our [Slack channel](https://slack.weave.works/) or through one of these other channels on [Help](https://www.weave.works/help/)
-
-
-
-
