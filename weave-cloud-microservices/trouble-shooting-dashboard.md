@@ -1,9 +1,7 @@
-
 ---
 layout: guides
 title: Troubleshooting Microservices with Weave Cloud
 ---
-
 
 In this four-part tutorial how to deploy, deliver, and monitor a secure microservices Cloud Native app is described.  
 
