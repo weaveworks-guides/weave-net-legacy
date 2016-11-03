@@ -12,8 +12,9 @@ https://www.weave.works/wp-admin/admin.php?page=dd_layouts_edit&action=edit&layo
 <h4>Test Drive Weave Products</h4>
 <p>These scenarios run entirely in your browser, but allow you to remotely control real servers dedicated to your test drive. Learn about Weave by trying a scenario!</p>
 
-<p>Note: All of these examples use Kubernetes, but Weave Cloud and most Weave open source projects work with other container orchestrators too. See the tags on the left to see guides for DC/OS, ECS, Docker Swarm and more.</p>
 <img src="katas.png" />
+
+<p>Note: All of these examples use Kubernetes, but Weave Cloud and most Weave open source projects work with other container orchestrators too. See the tags on the left to see guides for DC/OS, ECS, Docker Swarm and more.</p>
 
 <!--
 <section id="course-pathway" class="weave color-bar-layout">
@@ -58,13 +59,17 @@ https://www.weave.works/wp-admin/admin.php?page=dd_layouts_edit&action=edit&layo
 <!-- NEXT CELL -->
 
 <hr>
-<h4>Getting Started with Docker and Weave Net</h4>
-<p>After <a href="http://www.weave.works/install-weave-net/" target="_blank">installing Weave Net</a>, these three guides are the fastest way to get started with Docker and Weave Net:</p>
-<p><a href="http://www.weave.works/guides/part-1-launching-weave-net-with-docker-machine/">Part 1: Weave Net with Docker Machine</a></p>
-<p><a href="http://www.weave.works/guides/part-2-using-weave-with-docker-machine-and-swarm/">Part 2: Weave Net with Docker Machine and Swarm</a></p>
-<p><a href="http://www.weave.works/guides/part-3-creating-and-scaling-multi-host-docker-deployment-with-swarm-and-compose-using-weave/">Part 3: Scaling with Docker Swarm and Docker Compose</a></p>
-<p>&nbsp;</p>
-<h4>Getting Started with Docker and Weave Scope</h4>
-<p>After <a href="http://www.weave.works/install-weave-scope/" target="_blank">installing Weave Scope</a>, these guides are&nbsp;the fastest way to visualize your Docker containers and their interactions using Weave Scope</p>
-<p>Weave Cloud: <a href="http://www.weave.works/guides/using-weave-scope-cloud-service-to-visualize-and-monitor-docker-containers/">Visualizing Docker Containers With Weave Cloud</a></p>
-<p>Weave Scope:<a href="http://www.weave.works/guides/using-weave-scope-standalone-to-visualize-and-monitor-docker-containers/">Using Weave Scope to Visualize Docker Containers</a></p>
+
+<h3>Getting Started with Weave Cloud</h3>
+
+<h4>Part 1, Setup: Troubleshooting Dashboard</h4>
+<p>Verify your app using Weave Cloud + Weave Scope on your local laptop with an app deployed to a production setup like Kubernetes</p>
+
+<h4>Part 2, Deploy: Continuous Delivery</h4>
+<p>How to setup Fast Iteration and Continuous Delivery with Weave Cloud + Weave Flux.</p>
+
+<h4>Part 3, Monitor: Prometheus Monitoring</h4>
+<p>How to configure Cloud Native Monitoring with Weave Cloud + Weave Cortex, and view your app's metrics in the Weave Cloud dashboard.</p>
+
+<h4>Part 4, Secure: Container Firewalls</h4>
+<p>Network Security and Policy with Weave Cloud will show you to how secure your app by defining Kubernetes Network Policy.</p>
