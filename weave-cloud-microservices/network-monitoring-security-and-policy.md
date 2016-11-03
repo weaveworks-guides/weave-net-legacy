@@ -60,4 +60,6 @@ Now we'll use Kubernetes policy to secure the application.
 Let's start by finding out that the application is not yet secured.
 Supposed that a hacker is able to infiltrate ...
 
-
+Before - container A can talk to container B.
+Don't want it to be able to – apply policy.
+Oh look, now it can't (all through Scope).
