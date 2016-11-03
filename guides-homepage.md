@@ -62,14 +62,14 @@ https://www.weave.works/wp-admin/admin.php?page=dd_layouts_edit&action=edit&layo
 
 <h3>Getting Started with Weave Cloud</h3>
 
-<h4>Part 1, Setup: Troubleshooting Dashboard</h4>
+<h4><a href="weave-cloud-microservices/part1.md">Part 1, Setup: Troubleshooting Dashboard</a></h4>
 <p>Verify your app using Weave Cloud + Weave Scope on your local laptop with an app deployed to a production setup like Kubernetes</p>
 
-<h4>Part 2, Deploy: Continuous Delivery</h4>
+<h4><a href="weave-cloud-microservices/part1.md">Part 2, Deploy: Continuous Delivery</a></h4>
 <p>How to setup Fast Iteration and Continuous Delivery with Weave Cloud + Weave Flux.</p>
 
-<h4>Part 3, Monitor: Prometheus Monitoring</h4>
+<h4><a href="weave-cloud-microservices/part1.md">Part 3, Monitor: Prometheus Monitoring</a></h4>
 <p>How to configure Cloud Native Monitoring with Weave Cloud + Weave Cortex, and view your app's metrics in the Weave Cloud dashboard.</p>
 
-<h4>Part 4, Secure: Container Firewalls</h4>
+<h4><a href="weave-cloud-microservices/part1.md">Part 4, Secure: Container Firewalls</a></h4>
 <p>Network Security and Policy with Weave Cloud will show you to how secure your app by defining Kubernetes Network Policy.</p>
