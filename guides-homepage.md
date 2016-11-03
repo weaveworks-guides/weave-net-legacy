@@ -9,7 +9,7 @@ https://www.weave.works/wp-admin/admin.php?page=dd_layouts_edit&action=edit&layo
 
 <!-- NEXT CELL -->
 
-<h3>Test Drive Weave Cloud</h3>
+<h3>Test Drive Weave</h3>
 <p>These scenarios run entirely in your browser, but allow you to remotely control real servers dedicated to your test drive. Learn about Weave by trying a scenario!</p>
 
 <img src="katas.png" />
