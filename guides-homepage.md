@@ -10,8 +10,9 @@ https://www.weave.works/wp-admin/admin.php?page=dd_layouts_edit&action=edit&layo
 <!-- NEXT CELL -->
 
 <h4>Test Drive Weave Products</h4>
-<p>These scenarios run entirely in your browser, but allow you to remotely control real Docker resources. Learn about Weave products by trying a scenario!</p>
+<p>These scenarios run entirely in your browser, but allow you to remotely control real servers dedicated to your test drive. Learn about Weave by trying a scenario!</p>
 
+<p>Note: All of these examples use Kubernetes, but Weave Cloud and most Weave open source projects work with other container orchestrators too. See the tags on the left to browse those.</p>
 <img src="katas.png" />
 
 <!--
