@@ -5,7 +5,7 @@ title: Troubleshooting Microservices with Weave Cloud
 
 In this four-part tutorial how to deploy, deliver, and monitor a secure microservices Cloud Native app is described.  
 
-To streamline your app development pipeline to make your app Cloud Native and develop code faster, the following will be incorporated: 
+To streamline your app development pipeline and make your app Cloud Native to develop code faster, the following will be incorporated: 
 
 * A microservices-based architecture
 * Docker Containers
@@ -24,17 +24,17 @@ Part 1 discusses the Troubleshooting Dashboard and how to verify your app using 
 
 [Part 4] Network Security and Policy with Weave Cloud shows you to how simply, yet powerfully secure your app or portions of your app. 
 
-You will use the Weaveworks sample app, 'The Sock Shop', deploy it to a couple of virtual machines running Docker and Kubernetes and then verify and troubleshoot any issues in Weave Cloud. 
+You will use the Weaveworks sample app, [The Sock Shop](https://github.com/microservices-demo), deploy it to a couple of virtual machines running Docker and Kubernetes and then verify and troubleshoot any issues in Weave Cloud. 
 
 Specifically, in this tutorial, you will: 
 
-1. Set up Docker for Mac (if you haven't already done so)
-2. Deploy the Sockshop with Docker-compose
+1. Set up Docker for Mac (if you haven't already done so).
+2. Deploy the Sockshop with Docker-compose.
 3. Install Scope and verify your app on your laptop.
 3. Configure a Kubernetes cluster and at the same time install Weave Net onto Digital Ocean.
 4. Use Weave Cloud to watch the Kubernetes cluster deployment in Digital Ocean.
 5. Install the Sock Shop onto Kubernetes.
-5. Compare both apps, on your laptop and in the Kubernetes cluster on Digital Ocean
+5. Compare both apps, on your laptop and in the Kubernetes cluster on Digital Ocean.
 
 This tutorial will take approximately 15 minutes to complete. 
 
@@ -210,6 +210,7 @@ It is simple enough that you can easily integrate its use into your own automati
 See the full [`kubeadm` reference](/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
 
 **The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/getting-started-guides/kubeadm/#feedback)!
+
 Be sure to read the [limitations](#limitations); in particular note that kubeadm doesn't have great support for
 automatically configuring cloud providers.  Please refer to the specific cloud provider documentation or
 use another provisioning system.**
@@ -238,7 +239,7 @@ You will install the following packages on all the machines:
   You will only need this on the master, but it can be useful to have on the other nodes as well.
 * `kubeadm`: the command to bootstrap the cluster.
 
-For each host in turn:
+For each host:
 
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`):
 
@@ -370,7 +371,8 @@ For example:
       received.
     * Kubelet informed of new secure connection details.
 ~~~
-    Run 'kubectl get nodes' on the master to see this machine join.
+
+Run 'kubectl get nodes' on the master to see this machine join.
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
@@ -415,6 +417,7 @@ Or you can view the containers appearing on the screen as they get created in We
 
 Then go to the IP address of your cluster's master node in your browser, and specify the given port.
 So for example, `http://<master_ip>:<port>`.
+
 In the example above, this was `31869`, but it is a different port for you.
 
 If there is a firewall, make sure it exposes this port to the internet before you try to access it.
@@ -435,6 +438,10 @@ After the Sock Shop has completely deployed onto the cluster, run the same load 
 ~~~
 docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -h edge-router -r 100 -c 2 <host-ip:[port number]>
 ~~~
+
+Where, 
+
+*<host-ip:[port number]> is the IP of the master and the port number you see when you run `kubectl describe svc front-end -n sock-shop`
 
 ####<a name="limitations"></a>Limitations
 
@@ -479,7 +486,7 @@ To reset local state run the following script:
   rm -r -f /etc/kubernetes /var/lib/kubelet /var/lib/etcd;
 ~~~
 
-##<a name="recreate-cluster></a>Recreating the Cluster: Starting Over
+##<a name="recreate-cluster"></a>Recreating the Cluster: Starting Over
   
 If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init`on the master and `kubeadm join` on any of the nodes.
 
