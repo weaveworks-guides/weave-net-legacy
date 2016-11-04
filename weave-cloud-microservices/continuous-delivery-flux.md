@@ -3,6 +3,24 @@ layout: guides
 title: Continuous Delivery with Weave Flux
 ---
 
+# Continuous Delivery with Weave Flux
+
+<img src="setup.png" style="width:100%" />
+
+This is Part 2 of 4 of the Weave Cloud guides series.
+
+<div style="width:50%; float:left;">
+<a href="trouble-shooting-dashboard.md">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
+</div>
+<div style="width:50%; float:left; text-align:right;">
+<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 3 – Monitor: Prometheus Monitoring &laquo;</a>
+</div>
+<div style="clear:both;"></div>
+
+<div style="width:400px; float:right; text-align:right; border:1px solid red;">
+VIDEO GOES HERE
+</div>
+
 ## Set up
 
 
