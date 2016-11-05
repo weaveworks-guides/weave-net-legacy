@@ -27,14 +27,23 @@ VIDEO GOES HERE
 
 {"gitdown": "contents"}
 
-## Set up
 
-Create three droplets on D.O. with the Ubuntus. Do steps 1 through 4
-from https://lukemarsden.github.io/docs/getting-started-guides/kubeadm/ to get a Kubernetes cluster.
+## Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it
+
+If you have already done this as part of one of the other tutorials, you can skip this step.
+Otherwise, click "Details" below to see the instructions.
+
+<details>
+
+{"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop.md"}
+
+</details>
 
 
-Go to github and fork the microservices-demo repo to
-https://github.com/squaremo/microservices-demo.  Clone it locally.
+## Make the repositories your own
+
+Go to github and fork the microservices-demo repo to https://github.com/&lt;your-username&gt;/microservices-demo.
+Clone it locally.
 
 
 ## Get sockshop running
@@ -217,9 +226,21 @@ k8s-01$ fluxctl automate --service=default/front-end
 
 and change the front-end image again.
 
+
+
+## Tear Down
+
+<details>
+
+{"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop-teardown.md"}
+
+</details>
+
+
+
 # Conclusion
 
-What did we learn?
+TODO: What are they??
 
 <div style="width:50%; float:left;">
 <a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>

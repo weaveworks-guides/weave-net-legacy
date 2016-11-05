@@ -164,8 +164,6 @@ With the load test running, you can observe the different services communicating
 
 ## Tear Down
 
-Unless you are continuing onto part 2, then you may want to tear down the Sock Shop and also the Kubernetes cluster you just created.
-
 {"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop-teardown.md"}
 
 ## Conclusions

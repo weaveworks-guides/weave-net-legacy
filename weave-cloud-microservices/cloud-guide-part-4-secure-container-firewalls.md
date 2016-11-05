@@ -25,27 +25,29 @@ VIDEO GOES HERE
 {"gitdown": "contents"}
 
 
-## Introduction
+### Sign up for a Weave Cloud account
 
-In this guide, we're going to:
+Go to [Weave Cloud](https://cloud.weave.works/) and register for an account.
+You'll use the Weave Cloud token later to send metrics to Cortex.
 
-* [Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it](#deploy)
-* [Monitor the network in Weave Cortex, part of Weave Cloud](#monitor-network-cortex)
-* [Secure the application by applying Network Policy, which gets enforced by Weave Net](#secure-application)
 
-If you have already set up a Kubernetes cluster with Weave Net with one of the other guides, you can skip straight to one of these sections by clicking on the links above.
+## Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it
 
-<a name="deploy"></a>
-## Deploy Kubernetes
+If you have already done this as part of one of the other tutorials, you can skip this step.
+Otherwise, click "Details" below to see the instructions.
+
+<details>
+
+{"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop.md"}
+
+</details>
 
 ```
-TODO: include the deploying Kubernetes section from trouble-shooting-dashboard.md (factor that out into an include).
 XXX: instructions need to _not_ apply network policy yet.
 ```
 
 
-<a name="monitor-network-cortex"></a>
-## Monitor the network with Weave Cortex
+## Monitor the network with Weave Cortex, part of Weave Cloud
 
 Cortex is a hosted, scalable Prometheus Monitoring system built-in to Weave Cloud.
 Weave Net supports Prometheus monitoring.
@@ -57,11 +59,6 @@ As examples, we'll be able to see:
 * how many connections get made in total between all components as we apply a load test (so we can calculate the impact of a microservices architecture on the network)
 * how many connections get blocked when we apply some network policy
 * (TODO - maybe later) how many connection issues occur when a partial network partition between nodes in the cluster is experienced (and how Weave Net carries on working)
-
-### Sign up for a Weave Cloud account
-
-Go to [Weave Cloud](https://cloud.weave.works/) and register for an account.
-You'll use the Weave Cloud token later to send metrics to Cortex.
 
 ### Deploy socks shop
 
@@ -76,8 +73,7 @@ On the master:
 It takes several minutes to download and start all the containers, watch the output of `kubectl get pods -n sock-shop` to see when they're all up and running.
 
 
-<a name="secure-application"></a>
-## Secure the application with Weave Net
+## Secure the application by applying Network Policy, which gets enforced by Weave Net
 
 Now we'll use Kubernetes policy to secure the application.
 
@@ -88,6 +84,18 @@ Before - container A can talk to container B.
 Don't want it to be able to – apply policy.
 Oh look, now it can't (all through Scope).
 
+
+## Tear Down
+
+<details>
+
+{"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop-teardown.md"}
+
+</details>
+
+## Conclusions
+
+TODO: What are they??
 
 <div style="width:50%; float:left;">
 <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
