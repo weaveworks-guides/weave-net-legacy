@@ -5,7 +5,7 @@ title: Prometheus Monitoring with Weave Cortex
 
 # Monitor: Prometheus Monitoring with Weave Cortex
 
-<img src="monitor.png" style="width:100%; border:1em solid #32324b;" />
+<img src="images/monitor.png" style="width:100%; border:1em solid #32324b;" />
 
 This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 In this guide we'll see how to configure Cloud Native Monitoring with Weave Cloud and Weave Cortex, and view your app's metrics in the Weave Cloud monitoring dashboard. This example uses Kubernetes.</p>

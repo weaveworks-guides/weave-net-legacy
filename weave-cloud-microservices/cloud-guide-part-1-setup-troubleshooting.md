@@ -5,7 +5,7 @@ title: Troubleshooting Microservices with Weave Cloud
 
 # Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope
 
-<img src="setup.png" style="width:100%; border:1em solid #32324b;" />
+<img src="images/setup.png" style="width:100%; border:1em solid #32324b;" />
 
 This is Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In this part, we'll see how to set up, verify and troubleshoot your app with Weave Cloud and Weave Scope.
 * We'll start on your local laptop using Docker Compose in development.

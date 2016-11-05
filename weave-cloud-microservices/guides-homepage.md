@@ -12,7 +12,7 @@ https://www.weave.works/wp-admin/admin.php?page=dd_layouts_edit&action=edit&layo
 <h3>Test Drive Weave</h3>
 <p>These "Test Drive" scenarios run entirely in your browser, but allow you to remotely control real servers dedicated to you for the duration of the test drive. You don't have to download anything. Learn about Weave by trying a scenario!</p>
 
-<img src="katas.png" />
+<img src="images/katas.png" />
 
 <p>**Note:** These these examples use Kubernetes, but Weave Cloud and most of the Weave open source projects work with other container orchestrators too. See the tags on the left to see guides for DC/OS, ECS, Docker Swarm and more.</p>
 
@@ -63,7 +63,7 @@ https://www.weave.works/wp-admin/admin.php?page=dd_layouts_edit&action=edit&layo
 <h3>Getting Started with Weave</h3>
 These guides show you how to get started with Weave on your own infrastructure.
 
-<img src="all-diagrams.png" style="width:100%; border:1em solid #32324b;" />
+<img src="images/all-diagrams.png" style="width:100%; border:1em solid #32324b;" />
 
 We'll cover getting started with Weave Cloud and show how to use it together with our open source projects: Scope for troubleshooting, Flux for deployment, Cortex for monitoring and Net for container networks & firewalls.
 

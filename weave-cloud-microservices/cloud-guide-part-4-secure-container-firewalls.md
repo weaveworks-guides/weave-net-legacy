@@ -5,7 +5,7 @@ title: Network Monitoring, Security and Policy
 
 # Secure: Container Firewalls & Network Monitoring
 
-<img src="secure.png" style="width:100%; border:1em solid #32324b;" />
+<img src="images/secure.png" style="width:100%; border:1em solid #32324b;" />
 
 This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 In this guide we'll see how to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net. Also, how to monitor your Weave Net network in Weave Cloud with Weave Cortex.
