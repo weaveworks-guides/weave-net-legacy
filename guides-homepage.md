@@ -78,3 +78,19 @@ We'll cover getting started with Weave Cloud and show how to use it together wit
 
 <h4><a href="weave-cloud-microservices/network-monitoring-security-and-policy.md">Part 4 &ndash; Secure: Container Firewalls</a></h4>
 <p>How to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net. Also, how to monitor your Weave Net network in Weave Cloud with Weave Cortex.</p>
+
+<!-- guides & katacodas will live at the following URLs:
+
+https://www.weave.works/guides/cloud-guide-part-1-setup-troubleshooting/
+https://www.weave.works/guides/cloud-testdrive-part-1-setup-troubleshooting/
+
+https://www.weave.works/guides/cloud-guide-part-2-deploy-continuous-delivery/
+https://www.weave.works/guides/cloud-testdrive-part-2-deploy-continuous-delivery/
+
+https://www.weave.works/guides/cloud-guide-part-3-monitor-prometheus-monitoring/
+https://www.weave.works/guides/cloud-testdrive-part-3-monitor-prometheus-monitoring/
+
+https://www.weave.works/guides/cloud-guide-part-4-secure-container-firewalls/
+https://www.weave.works/guides/cloud-testdrive-part-4-secure-container-firewalls/
+
+-->

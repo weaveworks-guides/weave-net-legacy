@@ -3,7 +3,7 @@ layout: guides
 title: Network Monitoring, Security and Policy
 ---
 
-# Secure: Container Firewalls & Network Monitoring
+<h1 id="secure-container-firewalls-network-monitoring">Secure: Container Firewalls &amp; Network Monitoring</h1>
 
 <img src="secure.png" style="width:100%; border:1em solid #32324b;" />
 
@@ -18,7 +18,7 @@ This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 VIDEO GOES HERE
 </div></center>
 
-## Introduction
+<h2 id="secure-container-firewalls-network-monitoring-introduction">Introduction</h2>
 
 In this guide, we're going to:
 
@@ -29,7 +29,7 @@ In this guide, we're going to:
 If you have already set up a Kubernetes cluster with Weave Net with one of the other guides, you can skip straight to one of these sections by clicking on the links above.
 
 <a name="deploy"></a>
-## Deploy Kubernetes
+<h2 id="secure-container-firewalls-network-monitoring-deploy-kubernetes">Deploy Kubernetes</h2>
 
 ```
 TODO: include the deploying Kubernetes section from trouble-shooting-dashboard.md (factor that out into an include).
@@ -38,7 +38,7 @@ XXX: instructions need to _not_ apply network policy yet.
 
 
 <a name="monitor-network-cortex"></a>
-## Monitor the network with Weave Cortex
+<h2 id="secure-container-firewalls-network-monitoring-monitor-the-network-with-weave-cortex">Monitor the network with Weave Cortex</h2>
 
 Cortex is a hosted, scalable Prometheus Monitoring system built-in to Weave Cloud.
 Weave Net supports Prometheus monitoring.
@@ -51,12 +51,12 @@ As examples, we'll be able to see:
 * how many connections get blocked when we apply some network policy
 * (TODO - maybe later) how many connection issues occur when a partial network partition between nodes in the cluster is experienced (and how Weave Net carries on working)
 
-### Sign up for a Weave Cloud account
+<h3 id="secure-container-firewalls-network-monitoring-monitor-the-network-with-weave-cortex-sign-up-for-a-weave-cloud-account">Sign up for a Weave Cloud account</h3>
 
 Go to [Weave Cloud](https://cloud.weave.works/) and register for an account.
 You'll use the Weave Cloud token later to send metrics to Cortex.
 
-### Deploy socks shop
+<h3 id="secure-container-firewalls-network-monitoring-monitor-the-network-with-weave-cortex-deploy-socks-shop">Deploy socks shop</h3>
 
 On the master:
 
@@ -70,7 +70,7 @@ It takes several minutes to download and start all the containers, watch the out
 
 
 <a name="secure-application"></a>
-## Secure the application with Weave Net
+<h2 id="secure-container-firewalls-network-monitoring-secure-the-application-with-weave-net">Secure the application with Weave Net</h2>
 
 Now we'll use Kubernetes policy to secure the application.
 

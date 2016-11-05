@@ -3,7 +3,7 @@ layout: guides
 title: Prometheus Monitoring with Weave Cortex
 ---
 
-# Monitor: Prometheus Monitoring with Weave Cortex
+<h1 id="monitor-prometheus-monitoring-with-weave-cortex">Monitor: Prometheus Monitoring with Weave Cortex</h1>
 
 <img src="monitor.png" style="width:100%; border:1em solid #32324b;" />
 
@@ -19,7 +19,7 @@ This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 VIDEO GOES HERE
 </div></center>
 
-## Introduction
+<h2 id="monitor-prometheus-monitoring-with-weave-cortex-introduction">Introduction</h2>
 
 Microservices environments by nature are dynamic and are in a state of constant change especially if they are running inside containers. They may also be spread across multiple clouds or they may be spanning both a data center and a cloud which can make monitoring a challenge.  And since these systems tend to be in a state of constant change with containers going down and spinning back up again, traditional monitoring systems which are typically server-focused, don't work well with dynamic systems.
 
@@ -65,14 +65,14 @@ This guide contains the following topics:
      * [Recreating the Cluster: Starting Over](#recreate-cluster)
      * [Conclusions](#conclusion)
 
-##<a name="what"></a>What You Will Use
+<h2 id="monitor-prometheus-monitoring-with-weave-cortex-a-name-what-a-what-you-will-use"><a name="what"></a>What You Will Use</h2>
 
 * [Weave Cloud](https://cloud.weave.works)
 * [Kubernetes](http://kubernetes.io/)
 * [Weaveworks Sockshop](https://github.com/microservices-demo)
 * [Weave Net](https://www.weave.works/products/weave-net/)
 
-##<a name="weave-cloud"></a>Sign Up for Weave Cloud
+<h2 id="monitor-prometheus-monitoring-with-weave-cortex-a-name-weave-cloud-a-sign-up-for-weave-cloud"><a name="weave-cloud"></a>Sign Up for Weave Cloud</h2>
 
 Before you can use Cortex to monitor apps, you will need to sign up for a Weave Cloud account.
 
@@ -84,13 +84,13 @@ Before you can use Cortex to monitor apps, you will need to sign up for a Weave 
 
 **Note:** If you are continuing on from the previous example you can use your Cloud token to set up Prometheus Monitoring below.
 
-##<a name="do-droplets"></a>Set Up Droplets in Digital Ocean
+<h2 id="monitor-prometheus-monitoring-with-weave-cortex-a-name-do-droplets-a-set-up-droplets-in-digital-ocean"><a name="do-droplets"></a>Set Up Droplets in Digital Ocean</h2>
 
 Sign up for [Digital Ocean]( and create two Ubuntu instances, where you'll deploy a Kubernetes cluster, add a container network using Weave Net and finally deploy the Sock Shop onto the cluster and verify this deployment with the one you just did on your laptop in Weave Cloud.
 
 **Note:** It is recommended that each host have at least 4 gigabytes of memory in order to run this demo smoothly.
 
-###<a name="ubuntu"></a>Create Two Ubuntu Instances in Digital Ocean
+<h3 id="monitor-prometheus-monitoring-with-weave-cortex-a-name-do-droplets-a-set-up-droplets-in-digital-ocean-a-name-ubuntu-a-create-two-ubuntu-instances-in-digital-ocean"><a name="ubuntu"></a>Create Two Ubuntu Instances in Digital Ocean</h3>
 
 Next you'll move over to Digital Ocean and create two Ubuntu droplets Both machines should run Ubuntu 16.04
 with 4GB or more of RAM per machine.
@@ -103,7 +103,7 @@ Before you start installing Kubernetes, create an additional instance in Weave C
 
 Select the 'Create New Instance' command located in the menu bar.
 
-##<a name="kubernetes"></a>Set up a Kubernetes Cluster
+<h2 id="monitor-prometheus-monitoring-with-weave-cortex-a-name-kubernetes-a-set-up-a-kubernetes-cluster"><a name="kubernetes"></a>Set up a Kubernetes Cluster</h2>
 
 This is by far the simplest way in which to install Kubernetes.  In a few commands, you will have deployed a complete Kubernetes cluster with a resilient and secure container network onto the Cloud Provider of your choice.
 
@@ -124,7 +124,7 @@ to be part of a larger provisioning system - or just for easy manual provisionin
 choice where you have your own infrastructure (e.g. bare metal), or where you have an existing
 orchestration system (e.g. Puppet) that you have to integrate with.
 
-###<a name="objectives"></a>Objectives
+<h3 id="monitor-prometheus-monitoring-with-weave-cortex-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-objectives-a-objectives"><a name="objectives"></a>Objectives</h3>
 
 * Install a secure Kubernetes cluster on your machines
 * Install a pod network on the cluster so that application components (pods) can talk to each other
@@ -132,7 +132,7 @@ orchestration system (e.g. Puppet) that you have to integrate with.
 * View the result in Weave Cloud as you go along
 
 
-###<a name="kubeadm-hosts"></a>Installing kubelet and kubeadm on Your Hosts
+<h3 id="monitor-prometheus-monitoring-with-weave-cortex-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-kubeadm-hosts-a-installing-kubelet-and-kubeadm-on-your-hosts"><a name="kubeadm-hosts"></a>Installing kubelet and kubeadm on Your Hosts</h3>
 
 You will install the following packages on all the machines:
 
@@ -148,19 +148,19 @@ For each host in turn:
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`):
 
 ~~~
-# curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-# cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
+<h1 id="curl-s-https-packages-cloud-google-com-apt-doc-apt-key-gpg-apt-key-add">curl -s <a href="https://packages.cloud.google.com/apt/doc/apt-key.gpg">https://packages.cloud.google.com/apt/doc/apt-key.gpg</a> | apt-key add -</h1>
+<h1 id="cat-eof-etc-apt-sources-list-d-kubernetes-list">cat &lt;<EOF > /etc/apt/sources.list.d/kubernetes.list</h1>
 deb http://apt.kubernetes.io/ kubernetes-xenial main
 EOF
-# apt-get update
-# # Install docker if you don't have it already.
-# apt-get install -y docker.io
-# apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+<h1 id="apt-get-update">apt-get update</h1>
+<h1 id="install-docker-if-you-don-t-have-it-already"> id="install-docker-if-you-don-t-have-it-already-">Install docker if you don&#39;t have it already.<</h1>
+<h1 id="apt-get-install-y-docker-io">apt-get install -y docker.io</h1>
+<h1 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni">apt-get install -y kubelet kubeadm kubectl kubernetes-cni</h1>
 ~~~
 
 **Note:**  You may have to re-run `apt-get update` and then run `apt-get install -y kubelet kubeadm kubectl kubernetes-cni` second time to ensure that the packages are properly downloaded.
 
-###<a name="master"></a>Initializing the Master
+<h3 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-master-a-initializing-the-master"><a name="master"></a>Initializing the Master</h3>
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 
@@ -223,7 +223,7 @@ If you want to be able to schedule pods on the master, for example if you want a
 
 This will remove the "dedicated" taint from any nodes that have it, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
 
-###<a name="weave-net"></a>Installing Weave Net
+<h3 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-weave-net-a-installing-weave-net"><a name="weave-net"></a>Installing Weave Net</h3>
 
 You must install a pod network so that your pods can communicate with each other.
 In the meantime, the kubenet network plugin doesn't work. Instead, CNI plugin networks are supported, those you see below.
@@ -243,7 +243,7 @@ Once a pod network is installed, confirm that it is working by checking that the
 
 And once the `kube-dns` pod is up and running, you can continue on to joining your nodes.
 
-###<a name="join-nodes"></a>Joining Your Nodes
+<h3 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-join-nodes-a-joining-your-nodes"><a name="join-nodes"></a>Joining Your Nodes</h3>
 
 The nodes are where your workloads (containers and pods, etc) run.
 If you want to add any new machines as nodes to your cluster, for each machine: SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
@@ -267,14 +267,14 @@ For example:
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
-###<a name="cluster-other-machine"></a>(Optional) Control your cluster from machines other than the master
+<h3 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-cluster-other-machine-a-optional-control-your-cluster-from-machines-other-than-the-master"><a name="cluster-other-machine"></a>(Optional) Control your cluster from machines other than the master</h3>
 
 In order to get a kubectl on your laptop for example to talk to your cluster, you need to copy the `KubeConfig` file from your master to your laptop like this:
 
     # scp root@<master ip>:/etc/kubernetes/admin.conf .
     # kubectl --kubeconfig ./admin.conf get nodes
 
-##<a name="demo-kubernetes"></a>Installing the Sock Shop
+<h2 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-demo-kubernetes-a-installing-the-sock-shop"><a name="demo-kubernetes"></a>Installing the Sock Shop</h2>
 
 As an example, install a sample microservices application, a socks shop, to put your cluster through its paces.
 To learn more about the sample microservices app, see the [microservices-demo README](https://github.com/microservices-demo/microservices-demo).
@@ -284,7 +284,7 @@ To learn more about the sample microservices app, see the [microservices-demo RE
     # kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
 ~~~
 
-###Viewing the Sock Shop in Your Browser
+<h3 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-demo-kubernetes-a-installing-the-sock-shop-viewing-the-sock-shop-in-your-browser">Viewing the Sock Shop in Your Browser</h3>
 
 You can then find the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
@@ -312,7 +312,7 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 
 [sockshop screenshot]
 
-##<a name="cortex"></a>Configuring Cortex for Your Production Environment
+<h2 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-cortex-a-configuring-cortex-for-your-production-environment"><a name="cortex"></a>Configuring Cortex for Your Production Environment</h2>
 
 Next you are going to enable Cortex to start pushing metrics to Weave Cloud.
 
@@ -344,7 +344,7 @@ kube-dns             1         1         1            1           18h
 weave-cortex-agent   1         1         1            1           4h
 ~~~
 
-##<a name="load-test-cluster"></a>Run the Load Test
+<h2 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-load-test-cluster-a-run-the-load-test"><a name="load-test-cluster"></a>Run the Load Test</h2>
 
 After the Sock Shop has completely deployed onto the cluster, run the same load test as you did on your laptop and then view the results in Weave Cloud.
 
@@ -352,7 +352,7 @@ After the Sock Shop has completely deployed onto the cluster, run the same load 
 docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -h edge-router -r 100 -c 2 <host-ip:[port number]>
 ~~~
 
-##<a name="metrics-cortex"></a>Viewing Sock Shop Metrics in Weave Cortex
+<h2 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-metrics-cortex-a-viewing-sock-shop-metrics-in-weave-cortex"><a name="metrics-cortex"></a>Viewing Sock Shop Metrics in Weave Cortex</h2>
 
 Go back to the Weave Cloud Dashboard and click the [graph icon] from the header bar. You should see the Cortex GUI where you can display metrics from the Sock Shop app.
 
@@ -360,7 +360,7 @@ Cortex by default displays a number of metrics at the top that have already been
 
 
 
-##<a name="queries-cortex"></a>Running Queries with the Prometheus Query Language
+<h2 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-queries-cortex-a-running-queries-with-the-prometheus-query-language"><a name="queries-cortex"></a>Running Queries with the Prometheus Query Language</h2>
 
 You can also build your own queries using the Prometheus Query Language builder. For example you can view metrics by Nodes, Kubernetes or Weave Net.
 
@@ -368,7 +368,7 @@ For more information on using the Prometheus Query Language, see [Prometheus Que
 
 As an example select `IP address space exhaustion in %` and press the Execute button, where you should see the following:
 
-##<a name="limitations"></a>Limitations
+<h2 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-limitations-a-limitations"><a name="limitations"></a>Limitations</h2>
 
 Please note: `kubeadm` is a work in progress and these limitations will be addressed in due course.
 
@@ -411,12 +411,12 @@ To reset the local state run the following script:
   rm -r -f /etc/kubernetes /var/lib/kubelet /var/lib/etcd;
 ~~~
 
-##<a name="recreate-cluster"></a>Recreating the Cluster: Starting Over
+<h2 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-recreate-cluster-a-recreating-the-cluster-starting-over"><a name="recreate-cluster"></a>Recreating the Cluster: Starting Over</h2>
 
 If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init`on the master and `kubeadm join` on any of the nodes.
 
 
-##<a name="conclusion"></a>Conclusions
+<h2 id="apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-conclusion-a-conclusions"><a name="conclusion"></a>Conclusions</h2>
 
 
 

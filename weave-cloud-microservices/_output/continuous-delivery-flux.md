@@ -3,7 +3,7 @@ layout: guides
 title: Continuous Delivery with Weave Flux
 ---
 
-# Deploy: Continuous Delivery with Weave Flux
+<h1 id="deploy-continuous-delivery-with-weave-flux">Deploy: Continuous Delivery with Weave Flux</h1>
 
 <img src="deploy.png" style="width:100%; border:1em solid #32324b;" />
 
@@ -21,7 +21,7 @@ This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 VIDEO GOES HERE
 </div></center>
 
-## Set up
+<h2 id="deploy-continuous-delivery-with-weave-flux-set-up">Set up</h2>
 
 Create three droplets on D.O. with the Ubuntus. Do steps 1 through 4
 from https://lukemarsden.github.io/docs/getting-started-guides/kubeadm/ to get a Kubernetes cluster.
@@ -31,7 +31,7 @@ Go to github and fork the microservices-demo repo to
 https://github.com/squaremo/microservices-demo.  Clone it locally.
 
 
-## Get sockshop running
+<h2 id="deploy-continuous-delivery-with-weave-flux-get-sockshop-running">Get sockshop running</h2>
 
 
 On lead node (ssh -A root@...), since there's no convenient way to run
@@ -57,7 +57,7 @@ k8s-01$ kubectl describe service front-end
 ```
 
 
-## Set up frontend image build
+<h2 id="deploy-continuous-delivery-with-weave-flux-set-up-frontend-image-build">Set up frontend image build</h2>
 
 
 There are lots of ways of doing this! Here's one example. It can be done ahead of
@@ -88,7 +88,7 @@ Locally, change the environment entry `GROUP` in `microservices-front-end/.travi
 can go back and see it all happen in travis-ci.
 
 
-## Getting fluxy running
+<h2 id="deploy-continuous-delivery-with-weave-flux-getting-fluxy-running">Getting fluxy running</h2>
 
 
 This is largely taken from
@@ -165,7 +165,7 @@ $ fluxctl list-services
 [[to remove a network policy on default: kubectl annotate namespace default net.beta.kubernetes.io/network-policy-]
 
 
-## Demo proper
+<h2 id="deploy-continuous-delivery-with-weave-flux-demo-proper">Demo proper</h2>
 
 
 Oh no, we have to update the front-end to have a different button!
