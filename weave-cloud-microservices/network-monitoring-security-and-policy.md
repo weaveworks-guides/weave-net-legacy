@@ -18,6 +18,12 @@ This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 VIDEO GOES HERE
 </div></center>
 
+
+## Contents
+
+{"gitdown": "contents"}
+
+
 ## Introduction
 
 In this guide, we're going to:

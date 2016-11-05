@@ -21,6 +21,11 @@ This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 VIDEO GOES HERE
 </div></center>
 
+
+## Contents
+
+{"gitdown": "contents"}
+
 ## Set up
 
 Create three droplets on D.O. with the Ubuntus. Do steps 1 through 4

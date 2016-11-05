@@ -20,6 +20,39 @@ This is Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In 
 VIDEO GOES HERE
 </div></center>
 
+<h2 id="setup-troubleshooting-dashboard-with-weave-scope-contents">Contents</h2>
+
+* [Setup: Troubleshooting Dashboard with Weave Scope](#setup-troubleshooting-dashboard-with-weave-scope)
+    * [Contents](#setup-troubleshooting-dashboard-with-weave-scope-contents)
+    * [Set up](#setup-troubleshooting-dashboard-with-weave-scope-set-up)
+    * [What You Will Use](#setup-troubleshooting-dashboard-with-weave-scope-what-you-will-use)
+    * [Before You Begin](#setup-troubleshooting-dashboard-with-weave-scope-before-you-begin)
+    * [If you're on a Mac](#setup-troubleshooting-dashboard-with-weave-scope-if-you-re-on-a-mac)
+    * [Sign Up for Weave Cloud](#setup-troubleshooting-dashboard-with-weave-scope-sign-up-for-weave-cloud)
+        * [Launch the Weave Cloud Probes](#setup-troubleshooting-dashboard-with-weave-scope-sign-up-for-weave-cloud-launch-the-weave-cloud-probes)
+    * [Deploying the Socks Shop](#setup-troubleshooting-dashboard-with-weave-scope-deploying-the-socks-shop)
+        * [Run a Load Test on the Sock Shop](#setup-troubleshooting-dashboard-with-weave-scope-deploying-the-socks-shop-run-a-load-test-on-the-sock-shop)
+* [Deploying the app to "production" on Kubernetes](#deploying-the-app-to-production-on-kubernetes)
+    * [Set Up Droplets in Digital Ocean](#deploying-the-app-to-production-on-kubernetes-set-up-droplets-in-digital-ocean)
+        * [Create two Ubuntu Instances](#deploying-the-app-to-production-on-kubernetes-set-up-droplets-in-digital-ocean-create-two-ubuntu-instances)
+        * [Adding an Additional Instance to Weave Cloud](#deploying-the-app-to-production-on-kubernetes-set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud)
+    * [Set up a Kubernetes Cluster](#deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster)
+        * [Objectives](#deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-objectives)
+        * [Installing kubelet and kubeadm on Your Hosts](#deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts)
+        * [Install and Launch Weave Scope](#deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-install-and-launch-weave-scope)
+        * [Initializing the Master](#deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-initializing-the-master)
+        * [Installing Weave Net](#deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-installing-weave-net)
+        * [Joining Your Nodes](#deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-joining-your-nodes)
+        * [(Optional) Control Your Cluster From Machines Other Than The Master](#deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master)
+        * [Installing the Sock Shop onto Kubernetes](#deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes)
+        * [Viewing the Sock Shop in Your Browser](#deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser)
+        * [Viewing the Result in Weave Cloud](#deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud)
+        * [Run the Load Test on the Cluster](#deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster)
+    * [Tear Down](#deploying-the-app-to-production-on-kubernetes-tear-down)
+    * [Recreating the Cluster: Starting Over](#deploying-the-app-to-production-on-kubernetes-recreating-the-cluster-starting-over)
+    * [Conclusions](#deploying-the-app-to-production-on-kubernetes-conclusions)
+
+
 <h2 id="setup-troubleshooting-dashboard-with-weave-scope-set-up">Set up</h2>
 
 In this four-part tutorial how to deploy, deliver, and monitor a secure microservices Cloud Native app is described.
@@ -57,37 +90,7 @@ Specifically, in this tutorial, you will:
 
 This tutorial will take approximately 15 minutes to complete.
 
-This guide contains the following topics:
-
- * [What You Will Use](#what)
- * [Before You Begin](#before)
- * [Installing Docker for Mac](#installing-mac)
- * [Sign Up for Weave Cloud](#weave-cloud)
-     * [Launch the Weave Cloud Probes](#cloud-probes)
- * [Deploying the Socks Shop](#deploy-the-demo-app)
- * [Run a Load on the Sock Shop](#load-test)
- * [Set Up Droplets in Digital Ocean](#do-droplets)
-     * [Create two Ubuntu Instances](#ubuntu)
-     * [Adding an Additional Instance to Weave Cloud](#add-instance)
- * [Set Up a Kubernetes Cluster](#kubernetes)
-     * [Objectives](#objectives)
-     * [Installing kubelet and kubeadm on Your Hosts](#kubeadm-hosts)
-     * [Install and Launch Weave Scope](#weave-probes)
-     * [Initializing the Master](#master)
-     * [Installing Weave Net](#weave-net)
-     * [Joining Your Nodes](#join-nodes)
-     * [(Optional) Control Your Cluster From Machines Other Than the Master](#cluster-other-machine)
-     * [Installing the Sock Shop onto Kubernetes](#demo-kubernetes)
-     * [Viewing the Sock Shop in Your Browser](#view-browser)
-     * [Viewing the Result in Weave Cloud](#view-cloud)
-     * [Run the Load Test on the Cluster](#load-test-cluster)
-     * [Limitations](#limitations)
-     * [Tear Down](#tear-down)
-     * [Recreating the Cluster: Starting Over](#recreate-cluster)
-     * [Conclusions](#conclusion)
-
-
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-what-a-what-you-will-use"><a name="what"></a>What You Will Use</h2>
+<h2 id="setup-troubleshooting-dashboard-with-weave-scope-what-you-will-use">What You Will Use</h2>
 
 * [Weave Cloud](https://cloud.weave.works)
 * [Docker for Mac](https://docs.docker.com/docker-for-mac/docker-toolbox/)
@@ -95,29 +98,23 @@ This guide contains the following topics:
 * [Kubernetes](http://kubernetes.io/)
 * [Weave Net](https://www.weave.works/products/weave-net/)
 
+<!-- TODO deduplicate this wrt the docker for mac guide... -->
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-before-a-before-you-begin"><a name="before"></a>Before You Begin</h2>
+<h2 id="setup-troubleshooting-dashboard-with-weave-scope-before-you-begin">Before You Begin</h2>
 
 Ensure that you have the following installed:
 
-* [Docker for Mac](https://docs.docker.com/docker-for-mac/docker-toolbox/)
+* [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/)
+  * Note that this guide also works with [Docker for Mac](https://docs.docker.com/docker-for-mac/)
 * [Git](http://git-scm.com/downloads)
 
-For other operating systems, install and configure the following separately before proceeding:
+<h2 id="setup-troubleshooting-dashboard-with-weave-scope-if-you-re-on-a-mac">If you&#39;re on a Mac</h2>
 
-* docker-machine binary (>= 0.2.0)
-* docker binary, at least the client (>= v1.6.x)
-* VirtualBox (>= 4.3.x)
-* curl (any version)
+If you haven't installed Docker for Mac before, follow the installation instructions on <a href="https://docs.docker.com/docker-for-mac/" target="_blank">Docker website </a>. <!-- lkj_ -->
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-installing-mac-a-installing-docker-for-mac"><a name="installing-mac"></a>Installing Docker for Mac</h2>
+Once it's running you will see <img alt="Docker Icon in the Mac OS menu bar" src="/wp-content/uploads/docker-for-mac-menu-bar-icon.png" style="height: 1em; display:inline-block;" /> in your menu bar.
 
-If you haven't installed Docker for Mac, follow the installation instructions on <a href="https://docs.docker.com/docker-for-mac/" target="_blank">Docker website </a>. <!-- lkj_ -->
-
-Once it's running you will see <img alt="Docker Icon in the Mac OS menu bar" src="https://github.com/weaveworks/guides/blob/master/weave-cloud-and-docker-for-mac/docker-for-mac-menu-bar-icon.png"
-style="height: 1em;" /> in your menu bar.
-
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-weave-cloud-a-sign-up-for-weave-cloud"><a name="weave-cloud"></a>Sign Up for Weave Cloud</h2>
+<h2 id="setup-troubleshooting-dashboard-with-weave-scope-sign-up-for-weave-cloud">Sign Up for Weave Cloud</h2>
 
 Next, use Weave Cloud to verify what was just deployed to your laptop and check that everything deployed correctly and that all services are behaving as they should. You will verify the app first on your laptop. Then you'll use Weave Cloud to view the Kubernetes pods as they get deployed, and again to verify the Sock Shop after it gets deployed to Kubernetes in Digital Ocean.
 
@@ -129,7 +126,7 @@ To check that everything installed correctly on your laptop, first sign up for W
 
 ![Obtain service token for Weave Cloud](weave-cloud-token-screenshot.png)
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-weave-cloud-a-sign-up-for-weave-cloud-a-name-cloud-probes-a-launch-the-weave-cloud-probes"><a name="cloud-probes"></a>Launch the Weave Cloud Probes</h3>
+<h3 id="setup-troubleshooting-dashboard-with-weave-scope-sign-up-for-weave-cloud-launch-the-weave-cloud-probes">Launch the Weave Cloud Probes</h3>
 
 Launch the Weave Cloud probes using the token you obtained when you signed up for Weave Cloud:
 
@@ -147,7 +144,7 @@ scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
 
 Weave Cloud controls allow you to stop, start and pause containers. They also enable you to launch a terminal and interact directly with your containers.
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-deploy-the-demo-app-a-deploying-the-socks-shop"><a name="deploy-the-demo-app"></a>Deploying the Socks Shop</h2>
+<h2 id="setup-troubleshooting-dashboard-with-weave-scope-deploying-the-socks-shop">Deploying the Socks Shop</h2>
 
 To deploy The Socks Shop:
 
@@ -165,10 +162,12 @@ chmod +x /usr/local/bin/docker-compose
 ~~~
 
 
-**3. In the repo you just cloned, cd into:**
+**3. Change into the right directory in the repo you just cloned:**
+
+<!-- XXX this doesn't work any more :/ -->
 
 ~~~
-microservices-demo/deploy/docker-only
+cd microservices-demo/deploy/docker-only
 ~~~
 
 
@@ -180,7 +179,7 @@ docker-compose up -d
 
 **Note:** If the shop doesn't come up right away or it gives you an error like `ERROR: for edge-router  Cannot start service edge-router:` because of a port in use, try going to `http://127.0.0.1` in your browser.
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-deploy-the-demo-app-a-deploying-the-socks-shop-a-name-load-test-a-run-a-load-test-on-the-sock-shop"><a name="load-test"></a>Run a Load Test on the Sock Shop</h3>
+<h3 id="setup-troubleshooting-dashboard-with-weave-scope-deploying-the-socks-shop-run-a-load-test-on-the-sock-shop">Run a Load Test on the Sock Shop</h3>
 
 To fully appreciate the topology of this app, you will need to run a load on the app.
 
@@ -192,32 +191,33 @@ docker run -ti --rm --name=LOAD_TEST \
   weaveworksdemos/load-test -h edge-router -r 100 -c 2
 ~~~
 
-With the load test running, you can observe the different services communicating by clicking on the Load Test container in Weave Cloud. From the metrics panel,  open Load Test's terminal to view the messages. With the load test running, the topology graph in Weave Cloud console will also form.
+With the load test running, you can observe the different services communicating by clicking on the Load Test container in Weave Cloud. From the metrics panel, open the load test's terminal to view the messages. With the load test running, the topology graph in Weave Cloud console will also form.
 
 ![Weave Load Test](load-test-messages.png)
 
+<h1 id="deploying-the-app-to-production-on-kubernetes">Deploying the app to &quot;production&quot; on Kubernetes</h1>
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-do-droplets-a-set-up-droplets-in-digital-ocean"><a name="do-droplets"></a>Set Up Droplets in Digital Ocean</h2>
+**Note:** This example uses Digital Ocean, but you can just as easily create these two instances in AWS or whatever your favorite cloud provider is.
 
-Sign up for [Digital Ocean](https://digitalocean.com) and create two Ubuntu instances, where you'll deploy a Kubernetes cluster, add a container network using Weave Net and finally deploy the Sock Shop onto the cluster and verify this deployment with the one you just did on your laptop in Weave Cloud.
+<h2 id="deploying-the-app-to-production-on-kubernetes-set-up-droplets-in-digital-ocean">Set Up Droplets in Digital Ocean</h2>
+
+Sign up for [Digital Ocean](https://digitalocean.com) and create three Ubuntu instances, where you'll deploy a Kubernetes cluster, add a container network using Weave Net and finally deploy the Sock Shop onto the cluster and verify this deployment with the one you just did on your laptop in Weave Cloud.
 
 **Note:** It is recommended that each host have at least 4 gigabytes of memory in order to run this demo smoothly.
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-do-droplets-a-set-up-droplets-in-digital-ocean-a-name-ubuntu-a-create-two-ubuntu-instances"><a name="ubuntu"></a>Create two Ubuntu Instances</h3>
+<h3 id="deploying-the-app-to-production-on-kubernetes-set-up-droplets-in-digital-ocean-create-two-ubuntu-instances">Create two Ubuntu Instances</h3>
 
-Next you'll move over to Digital Ocean and create two Ubuntu droplets Both machines should run Ubuntu 16.04
-with 4GB or more of RAM per machine.
+Next you'll move over to Digital Ocean and create two Ubuntu droplets.
+Both machines should run Ubuntu 16.04 with 4GB or more of RAM per machine.
 
-This example uses Digital Ocean, but you can just as easily create these two instances in AWS or whatever your favorite cloud provider is.
-
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-do-droplets-a-set-up-droplets-in-digital-ocean-a-name-add-instance-a-adding-an-additional-instance-to-weave-cloud"><a name="add-instance"></a>Adding an Additional Instance to Weave Cloud</h3>
+<h3 id="deploying-the-app-to-production-on-kubernetes-set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud">Adding an Additional Instance to Weave Cloud</h3>
 
 Before you start installing Kubernetes, create an additional instance in Weave Cloud. This extra instance assists you when you're deploying Kubernetes and will also allow you to see the Sock Shop as it spins up on Kubernetes.  
 
 Select the 'Create New Instance' command located in the menu bar.
 
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-kubernetes-a-set-up-a-kubernetes-cluster"><a name="kubernetes"></a>Set up a Kubernetes Cluster</h2>
+<h2 id="deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster">Set up a Kubernetes Cluster</h2>
 
 This is by far the simplest way in which to install Kubernetes.  In a few commands, you will have deployed a complete Kubernetes cluster with a resilient and secure container network onto the Cloud Provider of your choice.
 
@@ -228,14 +228,14 @@ It is simple enough that you can easily integrate its use into your own automati
 
 See the full [`kubeadm` reference](http://kubernetes.io/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-objectives-a-objectives"><a name="objectives"></a>Objectives</h3>
+<h3 id="deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-objectives">Objectives</h3>
 
 * Install a secure Kubernetes cluster on your machines
 * Install a pod network on the cluster so that application components (pods) can talk to each other
 * Install a sample microservices application (a socks shop) on the cluster
 * View the result in Weave Cloud as you go along
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-kubeadm-hosts-a-installing-kubelet-and-kubeadm-on-your-hosts"><a name="kubeadm-hosts"></a> Installing kubelet and kubeadm on Your Hosts</h3>
+<h3 id="deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts">Installing kubelet and kubeadm on Your Hosts</h3>
 
 You will install the following packages on all the machines:
 
@@ -266,7 +266,7 @@ apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
 **Note:** You may have to re-run `apt-get update` and then run `apt-get install -y kubelet kubeadm kubectl kubernetes-cni` second time to ensure that the packages are properly downloaded.
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-weave-probes-a-install-and-launch-weave-scope"><a name="weave-probes"></a>Install and Launch Weave Scope</h3>
+<h3 id="deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-install-and-launch-weave-scope">Install and Launch Weave Scope</h3>
 
 Install and launch the Weave Scope probes onto each of your Ubuntu instances:
 
@@ -278,7 +278,7 @@ scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
 
 If you return to the Weave Cloud interface, you can click on the `Hosts` button and view your two Ubuntu hosts networked ready to go.
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-master-a-initializing-the-master"><a name="master"></a>Initializing the Master</h3>
+<h3 id="deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-initializing-the-master">Initializing the Master</h3>
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 
@@ -339,7 +339,7 @@ If you want to be able to schedule pods on the master, for example if you want a
 
 This will remove the "dedicated" taint from any nodes that have it, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-weave-net-a-installing-weave-net"><a name="weave-net"></a>Installing Weave Net</h3>
+<h3 id="deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-installing-weave-net">Installing Weave Net</h3>
 
 You must install a pod network so that your pods can communicate with each other. This guide shows you how to install Weave Net.
 
@@ -358,32 +358,36 @@ Once a pod network is installed, confirm that it is working by checking that the
 
 And once the `kube-dns` pod is up and running, you can continue on to joining your nodes.
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-join-nodes-a-joining-your-nodes"><a name="join-nodes"></a>Joining Your Nodes</h3>
+<h3 id="deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-joining-your-nodes">Joining Your Nodes</h3>
 
 The nodes are where your workloads (containers and pods, etc) run.
 If you want to add any new machines as nodes to your cluster, for each machine: SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
 For example:
 
 ~~~
-    # kubeadm join --token <token> <master-ip>
-    <util/tokens> validating provided token
-    <node/discovery> created cluster info discovery client, requesting info from "http://X.X.X.X:9898/cluster-info/v1/?token-id=0f8588"
-    <node/discovery> cluster info object received, verifying signature using given token
-    <node/discovery> cluster info signature and contents are valid, will use API endpoints [https://X.X.X.X:443]
-    <node/csr> created API client to obtain unique certificate for this node, generating keys and certificate signing request
-    <node/csr> received signed certificate from the API server, generating kubelet configuration
-    <util/kubeconfig> created "/etc/kubernetes/kubelet.conf"
-    Node join complete:
-    * Certificate signing request sent to master and response
-      received.
-    * Kubelet informed of new secure connection details.
+kubeadm join --token <token> <master-ip>
+~~~
+
+The output should look like:
+~~~
+<util/tokens> validating provided token
+<node/discovery> created cluster info discovery client, requesting info from "http://X.X.X.X:9898/cluster-info/v1/?token-id=0f8588"
+<node/discovery> cluster info object received, verifying signature using given token
+<node/discovery> cluster info signature and contents are valid, will use API endpoints [https://X.X.X.X:443]
+<node/csr> created API client to obtain unique certificate for this node, generating keys and certificate signing request
+<node/csr> received signed certificate from the API server, generating kubelet configuration
+<util/kubeconfig> created "/etc/kubernetes/kubelet.conf"
+Node join complete:
+* Certificate signing request sent to master and response
+  received.
+* Kubelet informed of new secure connection details.
 ~~~
 
 Run 'kubectl get nodes' on the master to see this machine join.
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-cluster-other-machine-a-optional-control-your-cluster-from-machines-other-than-the-master"><a name="cluster-other-machine"></a> (Optional) Control Your Cluster From Machines Other Than The Master</h3>
+<h3 id="deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master">(Optional) Control Your Cluster From Machines Other Than The Master</h3>
 
 In order to get kubectl on (for example) your laptop to talk to your cluster, you need to copy the `kubeconfig` file from your master to your laptop like this:
 
@@ -392,7 +396,7 @@ scp root@<master ip>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ~~~
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-demo-kubernetes-a-installing-the-sock-shop-onto-kubernetes"><a name="demo-kubernetes"></a>Installing the Sock Shop onto Kubernetes</h3>
+<h3 id="deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes">Installing the Sock Shop onto Kubernetes</h3>
 
 As an example, install a sample microservices application, a socks shop, to put your cluster through its paces.
 To learn more about the sample microservices app, see the [microservices-demo README](https://github.com/microservices-demo/microservices-demo).
@@ -402,7 +406,7 @@ kubectl create namespace sock-shop
 kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
 ~~~
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-view-browser-a-viewing-the-sock-shop-in-your-browser"><a name="view-browser"></a>Viewing the Sock Shop in Your Browser</h3>
+<h3 id="deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser">Viewing the Sock Shop in Your Browser</h3>
 
 You can then find the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
@@ -433,14 +437,14 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 
 [sockshop screenshot]
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-view-cloud-a-viewing-the-result-in-weave-cloud"><a name="view-cloud"></a>Viewing the Result in Weave Cloud</h3>
+<h3 id="deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud">Viewing the Result in Weave Cloud</h3>
 
 You can also view the result in Weave Cloud and also watch all of the pods as they join the cluster.
 
 [weave cloud screenshot]
 
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-load-test-cluster-a-run-the-load-test-on-the-cluster"><a name="load-test-cluster"></a>Run the Load Test on the Cluster</h3>
+<h3 id="deploying-the-app-to-production-on-kubernetes-set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster">Run the Load Test on the Cluster</h3>
 
 After the Sock Shop has completely deployed onto the cluster, run the same load test as you did on your laptop and then view the results in Weave Cloud.
 
@@ -452,9 +456,12 @@ Where,
 
 * `<host-ip:[port number]>` is the IP of the master and the port number you see when you run `kubectl describe svc front-end -n sock-shop`
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-tear-down-a-tear-down"><a name="tear-down"></a>Tear Down</h2>
 
-Unless you are continuing onto part 2, then you may want to tear down the Sock Shop and also the Kubernetes cluster you just created.  If you made a mistep during the install instructions, it is recommended that you delete the entire cluster and begin again.
+<h2 id="deploying-the-app-to-production-on-kubernetes-tear-down">Tear Down</h2>
+
+Unless you are continuing onto part 2, then you may want to tear down the Sock Shop and also the Kubernetes cluster you just created.
+
+If you made a mistep during the install instructions, it is recommended that you delete the entire cluster and begin again.
 
 * To uninstall the socks shop, run `kubectl delete namespace sock-shop` on the master.
 
@@ -469,11 +476,12 @@ find /var/lib/kubelet | xargs -n 1 findmnt -n -t tmpfs -o TARGET -T | uniq | xar
 rm -r -f /etc/kubernetes /var/lib/kubelet /var/lib/etcd;
 ~~~
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-a-name-recreate-cluster-a-recreating-the-cluster-starting-over"><a name="recreate-cluster"></a>Recreating the Cluster: Starting Over</h2>
+<h2 id="deploying-the-app-to-production-on-kubernetes-recreating-the-cluster-starting-over">Recreating the Cluster: Starting Over</h2>
 
 If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init`on the master and `kubeadm join` on any of the nodes.
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-conclusions">Conclusions</h2>
+
+<h2 id="deploying-the-app-to-production-on-kubernetes-conclusions">Conclusions</h2>
 
 In this tutorial you learned how to verify your app deployed to your laptop with the same tools (Weave Scope) that you can use when your app is deployed to a Kubernetes cluster. The next next part of this series discusses how to configure "Continuous Delivery with Weave Cloud".
 

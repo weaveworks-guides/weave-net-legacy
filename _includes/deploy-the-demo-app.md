@@ -1,6 +1,6 @@
 ### Deploy the Demo App
 
-In this guide you will deploy a miscroservices app that [we have built](demo-app). The app is a full-blown
+In this guide you will deploy a microservices app that [we have built](demo-app). The app is a full-blown
 online store, which sells socks.
 
 Get the code:
@@ -19,4 +19,3 @@ Once the app has been loaded in your browser, you can test the functionality. Th
 self-explanatory. Login using `user1`/`password1`, put an item in the basket and proceed to checkout.
 
 [demo-app]: https://github.com/weaveworks/weaveDemo
-

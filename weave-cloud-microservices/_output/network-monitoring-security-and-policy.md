@@ -18,6 +18,20 @@ This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 VIDEO GOES HERE
 </div></center>
 
+
+<h2 id="secure-container-firewalls-network-monitoring-contents">Contents</h2>
+
+* [Secure: Container Firewalls & Network Monitoring](#secure-container-firewalls-network-monitoring)
+    * [Contents](#secure-container-firewalls-network-monitoring-contents)
+    * [Introduction](#secure-container-firewalls-network-monitoring-introduction)
+    * [Deploy Kubernetes](#secure-container-firewalls-network-monitoring-deploy-kubernetes)
+    * [Monitor the network with Weave Cortex](#secure-container-firewalls-network-monitoring-monitor-the-network-with-weave-cortex)
+        * [Sign up for a Weave Cloud account](#secure-container-firewalls-network-monitoring-monitor-the-network-with-weave-cortex-sign-up-for-a-weave-cloud-account)
+        * [Deploy socks shop](#secure-container-firewalls-network-monitoring-monitor-the-network-with-weave-cortex-deploy-socks-shop)
+    * [Secure the application with Weave Net](#secure-container-firewalls-network-monitoring-secure-the-application-with-weave-net)
+
+
+
 <h2 id="secure-container-firewalls-network-monitoring-introduction">Introduction</h2>
 
 In this guide, we're going to:

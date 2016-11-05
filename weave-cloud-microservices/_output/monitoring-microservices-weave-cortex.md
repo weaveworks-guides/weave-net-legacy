@@ -19,6 +19,41 @@ This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 VIDEO GOES HERE
 </div></center>
 
+
+<h2 id="monitor-prometheus-monitoring-with-weave-cortex-contents">Contents</h2>
+
+* [Monitor: Prometheus Monitoring with Weave Cortex](#monitor-prometheus-monitoring-with-weave-cortex)
+    * [Contents](#monitor-prometheus-monitoring-with-weave-cortex-contents)
+    * [Introduction](#monitor-prometheus-monitoring-with-weave-cortex-introduction)
+    * [<a name="what"></a>What You Will Use](#monitor-prometheus-monitoring-with-weave-cortex-a-name-what-a-what-you-will-use)
+    * [<a name="weave-cloud"></a>Sign Up for Weave Cloud](#monitor-prometheus-monitoring-with-weave-cortex-a-name-weave-cloud-a-sign-up-for-weave-cloud)
+    * [<a name="do-droplets"></a>Set Up Droplets in Digital Ocean](#monitor-prometheus-monitoring-with-weave-cortex-a-name-do-droplets-a-set-up-droplets-in-digital-ocean)
+        * [<a name="ubuntu"></a>Create Two Ubuntu Instances in Digital Ocean](#monitor-prometheus-monitoring-with-weave-cortex-a-name-do-droplets-a-set-up-droplets-in-digital-ocean-a-name-ubuntu-a-create-two-ubuntu-instances-in-digital-ocean)
+    * [<a name="kubernetes"></a>Set up a Kubernetes Cluster](#monitor-prometheus-monitoring-with-weave-cortex-a-name-kubernetes-a-set-up-a-kubernetes-cluster)
+        * [<a name="objectives"></a>Objectives](#monitor-prometheus-monitoring-with-weave-cortex-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-objectives-a-objectives)
+        * [<a name="kubeadm-hosts"></a>Installing kubelet and kubeadm on Your Hosts](#monitor-prometheus-monitoring-with-weave-cortex-a-name-kubernetes-a-set-up-a-kubernetes-cluster-a-name-kubeadm-hosts-a-installing-kubelet-and-kubeadm-on-your-hosts)
+* [curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -](#curl-s-https-packages-cloud-google-com-apt-doc-apt-key-gpg-apt-key-add)
+* [cat <<EOF > /etc/apt/sources.list.d/kubernetes.list](#cat-eof-etc-apt-sources-list-d-kubernetes-list)
+* [apt-get update](#apt-get-update)
+* [# Install docker if you don't have it already.](#install-docker-if-you-don-t-have-it-already)
+* [apt-get install -y docker.io](#apt-get-install-y-docker-io)
+* [apt-get install -y kubelet kubeadm kubectl kubernetes-cni](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni)
+    * [<a name="master"></a>Initializing the Master](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-master-a-initializing-the-master)
+    * [<a name="weave-net"></a>Installing Weave Net](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-weave-net-a-installing-weave-net)
+    * [<a name="join-nodes"></a>Joining Your Nodes](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-join-nodes-a-joining-your-nodes)
+    * [<a name="cluster-other-machine"></a>(Optional) Control your cluster from machines other than the master](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-cluster-other-machine-a-optional-control-your-cluster-from-machines-other-than-the-master)
+    * [<a name="demo-kubernetes"></a>Installing the Sock Shop](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-demo-kubernetes-a-installing-the-sock-shop)
+        * [Viewing the Sock Shop in Your Browser](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-demo-kubernetes-a-installing-the-sock-shop-viewing-the-sock-shop-in-your-browser)
+    * [<a name="cortex"></a>Configuring Cortex for Your Production Environment](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-cortex-a-configuring-cortex-for-your-production-environment)
+    * [<a name="load-test-cluster"></a>Run the Load Test](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-load-test-cluster-a-run-the-load-test)
+    * [<a name="metrics-cortex"></a>Viewing Sock Shop Metrics in Weave Cortex](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-metrics-cortex-a-viewing-sock-shop-metrics-in-weave-cortex)
+    * [<a name="queries-cortex"></a>Running Queries with the Prometheus Query Language](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-queries-cortex-a-running-queries-with-the-prometheus-query-language)
+    * [<a name="limitations"></a>Limitations](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-limitations-a-limitations)
+    * [<a name="recreate-cluster"></a>Recreating the Cluster: Starting Over](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-recreate-cluster-a-recreating-the-cluster-starting-over)
+    * [<a name="conclusion"></a>Conclusions](#apt-get-install-y-kubelet-kubeadm-kubectl-kubernetes-cni-a-name-conclusion-a-conclusions)
+
+
+
 <h2 id="monitor-prometheus-monitoring-with-weave-cortex-introduction">Introduction</h2>
 
 Microservices environments by nature are dynamic and are in a state of constant change especially if they are running inside containers. They may also be spread across multiple clouds or they may be spanning both a data center and a cloud which can make monitoring a challenge.  And since these systems tend to be in a state of constant change with containers going down and spinning back up again, traditional monitoring systems which are typically server-focused, don't work well with dynamic systems.

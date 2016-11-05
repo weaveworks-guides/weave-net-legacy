@@ -21,6 +21,18 @@ This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 VIDEO GOES HERE
 </div></center>
 
+
+<h2 id="deploy-continuous-delivery-with-weave-flux-contents">Contents</h2>
+
+* [Deploy: Continuous Delivery with Weave Flux](#deploy-continuous-delivery-with-weave-flux)
+    * [Contents](#deploy-continuous-delivery-with-weave-flux-contents)
+    * [Set up](#deploy-continuous-delivery-with-weave-flux-set-up)
+    * [Get sockshop running](#deploy-continuous-delivery-with-weave-flux-get-sockshop-running)
+    * [Set up frontend image build](#deploy-continuous-delivery-with-weave-flux-set-up-frontend-image-build)
+    * [Getting fluxy running](#deploy-continuous-delivery-with-weave-flux-getting-fluxy-running)
+    * [Demo proper](#deploy-continuous-delivery-with-weave-flux-demo-proper)
+
+
 <h2 id="deploy-continuous-delivery-with-weave-flux-set-up">Set up</h2>
 
 Create three droplets on D.O. with the Ubuntus. Do steps 1 through 4
