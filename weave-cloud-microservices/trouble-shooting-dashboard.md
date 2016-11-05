@@ -3,7 +3,7 @@ layout: guides
 title: Troubleshooting Microservices with Weave Cloud
 ---
 
-# Setup: Troubleshooting Dashboard with Weave Scope
+# Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope
 
 <img src="setup.png" style="width:100%; border:1em solid #32324b;" />
 
@@ -12,7 +12,7 @@ This is Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In 
 * Then we'll see how to set up Kubernetes for production, including Weave Net, and then deploy your application to it.
 
 <div style="width:50%; float:right; text-align:right;">
-<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 2 – Monitor: Prometheus Monitoring &raquo;</a>
+<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
 <div style="clear:both;"></div>
 
@@ -75,9 +75,9 @@ This tutorial will take approximately 15 minutes to complete.
 
 Ensure that you have the following installed:
 
+* [Git](http://git-scm.com/downloads)
 * [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/)
   * Note that this guide also works with [Docker for Mac](https://docs.docker.com/docker-for-mac/)
-* [Git](http://git-scm.com/downloads)
 
 ## If you're on a Mac
 
@@ -125,15 +125,7 @@ git clone https://github.com/microservices-demo/microservices-demo.git
 ~~~
 
 
-**2. Get the latest version of docker-compose file:**
-
-~~~
-curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-~~~
-
-
-**3. Change into the right directory in the repo you just cloned:**
+**2. Change into the right directory in the repo you just cloned:**
 
 <!-- XXX this doesn't work any more :/ -->
 
@@ -142,7 +134,7 @@ cd microservices-demo/deploy/docker-only
 ~~~
 
 
-**4. Run the Sock Shop and display it in your browser:
+**3. Run the Sock Shop and display it in your browser:**
 
 ~~~
 docker-compose up -d
@@ -152,7 +144,7 @@ docker-compose up -d
 
 ### Run a Load Test on the Sock Shop
 
-To fully appreciate the topology of this app, you will need to run a load on the app.
+To fully appreciate the topology of this app in Weave Scope (the graph of your containers visible in Weave Cloud), you will need to run a load on the app.
 
 Run a load test with the following:
 
@@ -181,7 +173,7 @@ Unless you are continuing onto part 2, then you may want to tear down the Sock S
 In this tutorial you learned how to verify your app deployed to your laptop with the same tools (Weave Scope) that you can use when your app is deployed to a Kubernetes cluster. The next next part of this series discusses how to configure "Continuous Delivery with Weave Cloud".
 
 <div style="width:50%; float:right; text-align:right;">
-<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 2 – Monitor: Prometheus Monitoring &raquo;</a>
+<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
 <div style="clear:both;"></div>
 

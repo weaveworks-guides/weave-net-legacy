@@ -9,5 +9,5 @@ for X in *.md; do
 	docker run -ti -v $GIT_ROOT:/guides \
 		-w /guides$GIT_SUFFIX_PATH lmarsden/gitdown \
 		./$X \
-		--output-file ./_output/$X
+		--output-file ./_output/_$X
 done

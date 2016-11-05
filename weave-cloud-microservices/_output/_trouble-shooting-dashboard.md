@@ -3,7 +3,7 @@ layout: guides
 title: Troubleshooting Microservices with Weave Cloud
 ---
 
-<h1 id="setup-troubleshooting-dashboard-with-weave-scope">Setup: Troubleshooting Dashboard with Weave Scope</h1>
+<h1 id="setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope">Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope</h1>
 
 <img src="setup.png" style="width:100%; border:1em solid #32324b;" />
 
@@ -12,7 +12,7 @@ This is Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In 
 * Then we'll see how to set up Kubernetes for production, including Weave Net, and then deploy your application to it.
 
 <div style="width:50%; float:right; text-align:right;">
-<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 2 – Monitor: Prometheus Monitoring &raquo;</a>
+<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
 <div style="clear:both;"></div>
 
@@ -20,18 +20,18 @@ This is Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In 
 VIDEO GOES HERE
 </div></center>
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-contents">Contents</h2>
+<h2 id="setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-contents">Contents</h2>
 
-* [Setup: Troubleshooting Dashboard with Weave Scope](#setup-troubleshooting-dashboard-with-weave-scope)
-    * [Contents](#setup-troubleshooting-dashboard-with-weave-scope-contents)
-    * [Set up](#setup-troubleshooting-dashboard-with-weave-scope-set-up)
-    * [What You Will Use](#setup-troubleshooting-dashboard-with-weave-scope-what-you-will-use)
-    * [Before You Begin](#setup-troubleshooting-dashboard-with-weave-scope-before-you-begin)
-    * [If you're on a Mac](#setup-troubleshooting-dashboard-with-weave-scope-if-you-re-on-a-mac)
-    * [Sign Up for Weave Cloud](#setup-troubleshooting-dashboard-with-weave-scope-sign-up-for-weave-cloud)
-        * [Launch the Weave Cloud Probes](#setup-troubleshooting-dashboard-with-weave-scope-sign-up-for-weave-cloud-launch-the-weave-cloud-probes)
-    * [Deploying the Socks Shop](#setup-troubleshooting-dashboard-with-weave-scope-deploying-the-socks-shop)
-        * [Run a Load Test on the Sock Shop](#setup-troubleshooting-dashboard-with-weave-scope-deploying-the-socks-shop-run-a-load-test-on-the-sock-shop)
+* [Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope](#setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope)
+    * [Contents](#setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-contents)
+    * [Set up](#setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-set-up)
+    * [What You Will Use](#setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-what-you-will-use)
+    * [Before You Begin](#setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-before-you-begin)
+    * [If you're on a Mac](#setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-if-you-re-on-a-mac)
+    * [Sign Up for Weave Cloud](#setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-sign-up-for-weave-cloud)
+        * [Launch the Weave Cloud Probes](#setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-sign-up-for-weave-cloud-launch-the-weave-cloud-probes)
+    * [Deploying the Socks Shop](#setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-deploying-the-socks-shop)
+        * [Run a Load Test on the Sock Shop](#setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-deploying-the-socks-shop-run-a-load-test-on-the-sock-shop)
 * [Deploying the app to "production" on Kubernetes](#deploying-the-app-to-production-on-kubernetes)
     * [Set Up Droplets in Digital Ocean](#deploying-the-app-to-production-on-kubernetes-set-up-droplets-in-digital-ocean)
         * [Create two Ubuntu Instances](#deploying-the-app-to-production-on-kubernetes-set-up-droplets-in-digital-ocean-create-two-ubuntu-instances)
@@ -53,7 +53,7 @@ VIDEO GOES HERE
     * [Conclusions](#deploying-the-app-to-production-on-kubernetes-conclusions)
 
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-set-up">Set up</h2>
+<h2 id="setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-set-up">Set up</h2>
 
 In this four-part tutorial how to deploy, deliver, and monitor a secure microservices Cloud Native app is described.
 
@@ -90,7 +90,7 @@ Specifically, in this tutorial, you will:
 
 This tutorial will take approximately 15 minutes to complete.
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-what-you-will-use">What You Will Use</h2>
+<h2 id="setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-what-you-will-use">What You Will Use</h2>
 
 * [Weave Cloud](https://cloud.weave.works)
 * [Docker for Mac](https://docs.docker.com/docker-for-mac/docker-toolbox/)
@@ -100,21 +100,21 @@ This tutorial will take approximately 15 minutes to complete.
 
 <!-- TODO deduplicate this wrt the docker for mac guide... -->
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-before-you-begin">Before You Begin</h2>
+<h2 id="setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-before-you-begin">Before You Begin</h2>
 
 Ensure that you have the following installed:
 
+* [Git](http://git-scm.com/downloads)
 * [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/)
   * Note that this guide also works with [Docker for Mac](https://docs.docker.com/docker-for-mac/)
-* [Git](http://git-scm.com/downloads)
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-if-you-re-on-a-mac">If you&#39;re on a Mac</h2>
+<h2 id="setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-if-you-re-on-a-mac">If you&#39;re on a Mac</h2>
 
 If you haven't installed Docker for Mac before, follow the installation instructions on <a href="https://docs.docker.com/docker-for-mac/" target="_blank">Docker website </a>. <!-- lkj_ -->
 
 Once it's running you will see <img alt="Docker Icon in the Mac OS menu bar" src="/wp-content/uploads/docker-for-mac-menu-bar-icon.png" style="height: 1em; display:inline-block;" /> in your menu bar.
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-sign-up-for-weave-cloud">Sign Up for Weave Cloud</h2>
+<h2 id="setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-sign-up-for-weave-cloud">Sign Up for Weave Cloud</h2>
 
 Next, use Weave Cloud to verify what was just deployed to your laptop and check that everything deployed correctly and that all services are behaving as they should. You will verify the app first on your laptop. Then you'll use Weave Cloud to view the Kubernetes pods as they get deployed, and again to verify the Sock Shop after it gets deployed to Kubernetes in Digital Ocean.
 
@@ -126,7 +126,7 @@ To check that everything installed correctly on your laptop, first sign up for W
 
 ![Obtain service token for Weave Cloud](weave-cloud-token-screenshot.png)
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-sign-up-for-weave-cloud-launch-the-weave-cloud-probes">Launch the Weave Cloud Probes</h3>
+<h3 id="setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-sign-up-for-weave-cloud-launch-the-weave-cloud-probes">Launch the Weave Cloud Probes</h3>
 
 Launch the Weave Cloud probes using the token you obtained when you signed up for Weave Cloud:
 
@@ -144,7 +144,7 @@ scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
 
 Weave Cloud controls allow you to stop, start and pause containers. They also enable you to launch a terminal and interact directly with your containers.
 
-<h2 id="setup-troubleshooting-dashboard-with-weave-scope-deploying-the-socks-shop">Deploying the Socks Shop</h2>
+<h2 id="setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-deploying-the-socks-shop">Deploying the Socks Shop</h2>
 
 To deploy The Socks Shop:
 
@@ -154,15 +154,7 @@ git clone https://github.com/microservices-demo/microservices-demo.git
 ~~~
 
 
-**2. Get the latest version of docker-compose file:**
-
-~~~
-curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-~~~
-
-
-**3. Change into the right directory in the repo you just cloned:**
+**2. Change into the right directory in the repo you just cloned:**
 
 <!-- XXX this doesn't work any more :/ -->
 
@@ -171,7 +163,7 @@ cd microservices-demo/deploy/docker-only
 ~~~
 
 
-**4. Run the Sock Shop and display it in your browser:
+**3. Run the Sock Shop and display it in your browser:**
 
 ~~~
 docker-compose up -d
@@ -179,9 +171,9 @@ docker-compose up -d
 
 **Note:** If the shop doesn't come up right away or it gives you an error like `ERROR: for edge-router  Cannot start service edge-router:` because of a port in use, try going to `http://127.0.0.1` in your browser.
 
-<h3 id="setup-troubleshooting-dashboard-with-weave-scope-deploying-the-socks-shop-run-a-load-test-on-the-sock-shop">Run a Load Test on the Sock Shop</h3>
+<h3 id="setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope-deploying-the-socks-shop-run-a-load-test-on-the-sock-shop">Run a Load Test on the Sock Shop</h3>
 
-To fully appreciate the topology of this app, you will need to run a load on the app.
+To fully appreciate the topology of this app in Weave Scope (the graph of your containers visible in Weave Cloud), you will need to run a load on the app.
 
 Run a load test with the following:
 
@@ -486,7 +478,7 @@ If you wish to start over, run `systemctl start kubelet` followed by `kubeadm in
 In this tutorial you learned how to verify your app deployed to your laptop with the same tools (Weave Scope) that you can use when your app is deployed to a Kubernetes cluster. The next next part of this series discusses how to configure "Continuous Delivery with Weave Cloud".
 
 <div style="width:50%; float:right; text-align:right;">
-<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 2 – Monitor: Prometheus Monitoring &raquo;</a>
+<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
 <div style="clear:both;"></div>
 
