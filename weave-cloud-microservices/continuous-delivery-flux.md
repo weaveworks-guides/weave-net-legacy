@@ -3,26 +3,25 @@ layout: guides
 title: Continuous Delivery with Weave Flux
 ---
 
-# Continuous Delivery with Weave Flux
+# Deploy: Continuous Delivery with Weave Flux
 
-<img src="setup.png" style="width:100%" />
+<img src="deploy.png" style="width:100%; border:1em solid #32324b;" />
 
-This is Part 2 of 4 of the Weave Cloud guides series.
+This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 
 <div style="width:50%; float:left;">
-<a href="trouble-shooting-dashboard.md">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
+<a href="trouble-shooting-dashboard.md">&laquo; Go to previous part: Part 2 – </a>
 </div>
 <div style="width:50%; float:left; text-align:right;">
-<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 3 – Monitor: Prometheus Monitoring &laquo;</a>
+<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 4 –  &raquo;</a>
 </div>
 <div style="clear:both;"></div>
 
-<div style="width:400px; float:right; text-align:right; border:1px solid red;">
-VIDEO GOES HERE
-</div>
-
 ## Set up
 
+<div style="width:300px; float:right; text-align:right; border:1px solid red; margin-left:1em;">
+VIDEO GOES HERE
+</div>
 
 Create three droplets on D.O. with the Ubuntus. Do steps 1 through 4
 from https://lukemarsden.github.io/docs/getting-started-guides/kubeadm/ to get a Kubernetes cluster.

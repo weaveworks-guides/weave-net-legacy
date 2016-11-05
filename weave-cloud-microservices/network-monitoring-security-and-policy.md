@@ -3,6 +3,23 @@ layout: guides
 title: Network Monitoring, Security and Policy
 ---
 
+# Secure: Container Firewalls & Network Monitoring
+
+<img src="secure.png" style="width:100%; border:1em solid #32324b;" />
+
+This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
+
+<div style="width:50%; float:left;">
+<a href="trouble-shooting-dashboard.md">&laquo; Go to previous part: Part 3 – Setup: Troubleshooting Dashboard</a>
+</div>
+<div style="clear:both;"></div>
+
+## Introduction
+
+<div style="width:300px; float:right; text-align:right; border:1px solid red; margin-left:1em;">
+VIDEO GOES HERE
+</div>
+
 In this guide, we're going to:
 
 * [Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it](#deploy)

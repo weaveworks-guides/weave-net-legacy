@@ -10,11 +10,11 @@ https://www.weave.works/wp-admin/admin.php?page=dd_layouts_edit&action=edit&layo
 <!-- NEXT CELL -->
 
 <h3>Test Drive Weave</h3>
-<p>These scenarios run entirely in your browser, but allow you to remotely control real servers dedicated to your test drive. You don't have to download anything. Learn about Weave by trying a scenario!</p>
+<p>These "Test Drive" scenarios run entirely in your browser, but allow you to remotely control real servers dedicated to you for the duration of the test drive. You don't have to download anything. Learn about Weave by trying a scenario!</p>
 
 <img src="katas.png" />
 
-<p>Note: All of these examples use Kubernetes, but Weave Cloud and most Weave open source projects work with other container orchestrators too. See the tags on the left to see guides for DC/OS, ECS, Docker Swarm and more.</p>
+<p>**Note:** These these examples use Kubernetes, but Weave Cloud and most of the Weave open source projects work with other container orchestrators too. See the tags on the left to see guides for DC/OS, ECS, Docker Swarm and more.</p>
 
 <!--
 <section id="course-pathway" class="weave color-bar-layout">
@@ -60,16 +60,21 @@ https://www.weave.works/wp-admin/admin.php?page=dd_layouts_edit&action=edit&layo
 
 <hr>
 
-<h3>Getting Started with Weave Cloud</h3>
+<h3>Getting Started with Weave</h3>
+These guides show you how to get started with Weave on your own infrastructure.
+
+<img src="weave-cloud-microservices/all-diagrams.png" style="width:100%; border:1em solid #32324b;" />
+
+We'll cover getting started with Weave Cloud and show how to use it together with our open source projects: Scope for troubleshooting, Flux for deployment, Cortex for monitoring and Net for container networks & firewalls.
 
 <h4><a href="weave-cloud-microservices/trouble-shooting-dashboard.md">Part 1 &ndash; Setup: Troubleshooting Dashboard</a></h4>
-<p>How to verify and troubleshoot your app on your local laptop with Docker Compose and with the same app deployed to a production setup like Kubernetes</p>
+<p>How to set up, verify and troubleshoot your app with Weave Cloud and Weave Scope in development and production. This example uses Docker Compose in development and Kubernetes for production.</p>
 
 <h4><a href="weave-cloud-microservices/continuous-delivery-flux.md">Part 2 &ndash; Deploy: Continuous Delivery</a></h4>
-<p>How to setup Fast Iteration and Continuous Delivery with Weave Cloud + Weave Flux.</p>
+<p>How to achieve fast iteration and Continuous Delivery with Weave Cloud and Weave Flux, which connects the output of your CI system into your container orchestrator. This example uses Kubernetes.</p>
 
 <h4><a href="weave-cloud-microservices/monitoring-microservices-weave-cortex.md">Part 3 &ndash; Monitor: Prometheus Monitoring</a></h4>
-<p>How to configure Cloud Native Monitoring with Weave Cloud + Weave Cortex, and view your app's metrics in the Weave Cloud dashboard.</p>
+<p>How to configure Cloud Native Monitoring with Weave Cloud and Weave Cortex, and view your app's metrics in the Weave Cloud monitoring dashboard. This example uses Kubernetes.</p>
 
 <h4><a href="weave-cloud-microservices/network-monitoring-security-and-policy.md">Part 4 &ndash; Secure: Container Firewalls</a></h4>
-<p>How to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net. Also, how to monitor your network in Weave Cloud + Weave Cortex.</p>
+<p>How to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net. Also, how to monitor your Weave Net network in Weave Cloud with Weave Cortex.</p>
