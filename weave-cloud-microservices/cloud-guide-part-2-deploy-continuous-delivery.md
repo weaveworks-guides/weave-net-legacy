@@ -7,13 +7,13 @@ title: Continuous Delivery with Weave Flux
 
 <img src="deploy.png" style="width:100%; border:1em solid #32324b;" />
 
-This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
+This is Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 
 <div style="width:50%; float:left;">
-<a href="trouble-shooting-dashboard.md">&laquo; Go to previous part: Part 2 – </a>
+<a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
 </div>
 <div style="width:50%; float:left; text-align:right;">
-<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 4 –  &raquo;</a>
+<a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;</a>
 </div>
 <div style="clear:both;"></div>
 
@@ -215,3 +215,19 @@ k8s-01$ fluxctl automate --service=default/front-end
 
 
 and change the front-end image again.
+
+# Conclusion
+
+What did we learn?
+
+<div style="width:50%; float:left;">
+<a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
+</div>
+<div style="width:50%; float:left; text-align:right;">
+<a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;</a>
+</div>
+<div style="clear:both;"></div>
+
+<p></p>
+
+{"gitdown": "include", "file": "./includes/slack-us.md"}

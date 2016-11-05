@@ -63,20 +63,20 @@ https://www.weave.works/wp-admin/admin.php?page=dd_layouts_edit&action=edit&layo
 <h3>Getting Started with Weave</h3>
 These guides show you how to get started with Weave on your own infrastructure.
 
-<img src="weave-cloud-microservices/all-diagrams.png" style="width:100%; border:1em solid #32324b;" />
+<img src="all-diagrams.png" style="width:100%; border:1em solid #32324b;" />
 
 We'll cover getting started with Weave Cloud and show how to use it together with our open source projects: Scope for troubleshooting, Flux for deployment, Cortex for monitoring and Net for container networks & firewalls.
 
-<h4><a href="weave-cloud-microservices/trouble-shooting-dashboard.md">Part 1 &ndash; Setup: Troubleshooting Dashboard</a></h4>
+<h4><a href="/guides/cloud-guide-part-1-setup-troubleshooting/">Part 1 &ndash; Setup: Troubleshooting Dashboard</a></h4>
 <p>How to set up, verify and troubleshoot your app with Weave Cloud and Weave Scope in development and production. This example uses Docker Compose in development and Kubernetes for production.</p>
 
-<h4><a href="weave-cloud-microservices/continuous-delivery-flux.md">Part 2 &ndash; Deploy: Continuous Delivery</a></h4>
+<h4><a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Part 2 &ndash; Deploy: Continuous Delivery</a></h4>
 <p>How to achieve fast iteration and Continuous Delivery with Weave Cloud and Weave Flux, which connects the output of your CI system into your container orchestrator. This example uses Kubernetes.</p>
 
-<h4><a href="weave-cloud-microservices/monitoring-microservices-weave-cortex.md">Part 3 &ndash; Monitor: Prometheus Monitoring</a></h4>
+<h4><a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">Part 3 &ndash; Monitor: Prometheus Monitoring</a></h4>
 <p>How to configure Cloud Native Monitoring with Weave Cloud and Weave Cortex, and view your app's metrics in the Weave Cloud monitoring dashboard. This example uses Kubernetes.</p>
 
-<h4><a href="weave-cloud-microservices/network-monitoring-security-and-policy.md">Part 4 &ndash; Secure: Container Firewalls</a></h4>
+<h4><a href="/guides/cloud-guide-part-4-secure-container-firewalls/">Part 4 &ndash; Secure: Container Firewalls</a></h4>
 <p>How to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net. Also, how to monitor your Weave Net network in Weave Cloud with Weave Cortex.</p>
 
 <!-- guides & katacodas will live at the following URLs:

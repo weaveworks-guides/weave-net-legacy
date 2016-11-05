@@ -7,7 +7,7 @@ title: Prometheus Monitoring with Weave Cortex
 
 <img src="monitor.png" style="width:100%; border:1em solid #32324b;" />
 
-This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
+This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 
 <div style="width:50%; float:left;">
 <a href="trouble-shooting-dashboard.md">&laquo; Go to previous part: Part 3 – Deploy: Continuous Delivery with Weave Flux</a>

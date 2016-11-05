@@ -12,7 +12,7 @@ This is Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In 
 * Then we'll see how to set up Kubernetes for production, including Weave Net, and then deploy your application to it.
 
 <div style="width:50%; float:right; text-align:right;">
-<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
+<a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
 <div style="clear:both;"></div>
 
@@ -51,8 +51,8 @@ You will use the Weaveworks sample app, [The Sock Shop](https://github.com/micro
 
 Specifically, in this tutorial, you will:
 
-1. Set up Docker for Mac (if you haven't already done so).
-2. Deploy the Sockshop with Docker-compose.
+1. Set up Docker or Docker for Mac on your local machine (if you haven't already done so).
+2. Deploy the sock shop with Docker Compose.
 3. Install Scope and verify your app on your laptop.
 3. Configure a Kubernetes cluster and at the same time install Weave Net onto Digital Ocean.
 4. Use Weave Cloud to watch the Kubernetes cluster deployment in Digital Ocean.
@@ -173,10 +173,10 @@ Unless you are continuing onto part 2, then you may want to tear down the Sock S
 In this tutorial you learned how to verify your app deployed to your laptop with the same tools (Weave Scope) that you can use when your app is deployed to a Kubernetes cluster. The next next part of this series discusses how to configure "Continuous Delivery with Weave Cloud".
 
 <div style="width:50%; float:right; text-align:right;">
-<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
+<a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
 <div style="clear:both;"></div>
 
 <p></p>
 
-If you have any questions or comments you can reach out to us on our [Slack channel](https://slack.weave.works/) or through one of these other channels on [Help](https://www.weave.works/help/).
+{"gitdown": "include", "file": "./includes/slack-us.md"}
