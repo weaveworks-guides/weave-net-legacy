@@ -8,9 +8,10 @@ title: Network Monitoring, Security and Policy
 <img src="secure.png" style="width:100%; border:1em solid #32324b;" />
 
 This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
+In this guide we'll see how to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net. Also, how to monitor your Weave Net network in Weave Cloud with Weave Cortex.
 
 <div style="width:50%; float:left;">
-<a href="trouble-shooting-dashboard.md">&laquo; Go to previous part: Part 3 – Setup: Troubleshooting Dashboard</a>
+<a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
 </div>
 <div style="clear:both;"></div>
 
@@ -86,3 +87,13 @@ Supposed that a hacker is able to infiltrate ...
 Before - container A can talk to container B.
 Don't want it to be able to – apply policy.
 Oh look, now it can't (all through Scope).
+
+
+<div style="width:50%; float:left;">
+<a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
+</div>
+<div style="clear:both;"></div>
+
+<p></p>
+
+{"gitdown": "include", "file": "./includes/slack-us.md"}

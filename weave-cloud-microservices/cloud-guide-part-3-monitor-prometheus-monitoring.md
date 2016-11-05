@@ -8,12 +8,16 @@ title: Prometheus Monitoring with Weave Cortex
 <img src="monitor.png" style="width:100%; border:1em solid #32324b;" />
 
 This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
+In this guide we'll see how to configure Cloud Native Monitoring with Weave Cloud and Weave Cortex, and view your app's metrics in the Weave Cloud monitoring dashboard. This example uses Kubernetes.</p>
 
 <div style="width:50%; float:left;">
-<a href="trouble-shooting-dashboard.md">&laquo; Go to previous part: Part 3 – Deploy: Continuous Delivery with Weave Flux</a>
+<a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
 </div>
-
+<div style="width:50%; float:left; text-align:right;">
+<a href="/guides/cloud-guide-part-4-secure-container-firewalls/">Go to next part: Part 4 – Secure: Container Firewalls &raquo;</a>
+</div>
 <div style="clear:both;"></div>
+
 
 <center><div style="width:300px; display:inline-block; border:1px solid red; margin-top:2em;">
 VIDEO GOES HERE
@@ -424,6 +428,14 @@ If you wish to start over, run `systemctl start kubelet` followed by `kubeadm in
 
 ##<a name="conclusion"></a>Conclusions
 
+<div style="width:50%; float:left;">
+<a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
+</div>
+<div style="width:50%; float:left; text-align:right;">
+<a href="/guides/cloud-guide-part-4-secure-container-firewalls/">Go to next part: Part 4 – Secure: Container Firewalls &raquo;</a>
+</div>
+<div style="clear:both;"></div>
 
+<p></p>
 
-If you have any questions or comments you can reach out to us on our [Slack channel](https://slack.weave.works/) or through one of these other channels on [Help](https://www.weave.works/help/)
+{"gitdown": "include", "file": "./includes/slack-us.md"}

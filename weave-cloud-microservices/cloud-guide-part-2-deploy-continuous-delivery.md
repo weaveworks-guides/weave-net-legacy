@@ -8,6 +8,7 @@ title: Continuous Delivery with Weave Flux
 <img src="deploy.png" style="width:100%; border:1em solid #32324b;" />
 
 This is Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
+In this guide we'll see how to achieve fast iteration and Continuous Delivery with Weave Cloud and Weave Flux, which connects the output of your CI system into your container orchestrator. This example uses Kubernetes.
 
 <div style="width:50%; float:left;">
 <a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>

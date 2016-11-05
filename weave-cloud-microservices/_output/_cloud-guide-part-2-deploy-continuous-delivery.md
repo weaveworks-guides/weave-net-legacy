@@ -7,13 +7,14 @@ title: Continuous Delivery with Weave Flux
 
 <img src="deploy.png" style="width:100%; border:1em solid #32324b;" />
 
-This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
+This is Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
+In this guide we'll see how to achieve fast iteration and Continuous Delivery with Weave Cloud and Weave Flux, which connects the output of your CI system into your container orchestrator. This example uses Kubernetes.
 
 <div style="width:50%; float:left;">
-<a href="trouble-shooting-dashboard.md">&laquo; Go to previous part: Part 2 – </a>
+<a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
 </div>
 <div style="width:50%; float:left; text-align:right;">
-<a href="monitoring-microservices-weave-cortex.md">Go to next part: Part 4 –  &raquo;</a>
+<a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;</a>
 </div>
 <div style="clear:both;"></div>
 
@@ -31,6 +32,7 @@ VIDEO GOES HERE
     * [Set up frontend image build](#deploy-continuous-delivery-with-weave-flux-set-up-frontend-image-build)
     * [Getting fluxy running](#deploy-continuous-delivery-with-weave-flux-getting-fluxy-running)
     * [Demo proper](#deploy-continuous-delivery-with-weave-flux-demo-proper)
+* [Conclusion](#conclusion)
 
 
 <h2 id="deploy-continuous-delivery-with-weave-flux-set-up">Set up</h2>
@@ -222,3 +224,20 @@ k8s-01$ fluxctl automate --service=default/front-end
 
 
 and change the front-end image again.
+
+<h1 id="conclusion">Conclusion</h1>
+
+What did we learn?
+
+<div style="width:50%; float:left;">
+<a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
+</div>
+<div style="width:50%; float:left; text-align:right;">
+<a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;</a>
+</div>
+<div style="clear:both;"></div>
+
+<p></p>
+
+If you have any questions or comments you can reach out to us on our [Slack channel](https://slack.weave.works/) or through one of these other channels on [Help](https://www.weave.works/help/).
+
