@@ -13,8 +13,8 @@ In this guide we'll see how to achieve fast iteration and Continuous Delivery wi
 </div>
 <div style="clear:both;"></div>
 
-<center><div style="width:300px; display:inline-block; border:1px solid red; margin-top:2em;">
-VIDEO GOES HERE
+<center><div style="width:530px; display:inline-block; margin-top:2em;">
+<iframe width="530" height="298" src="https://www.youtube.com/embed/CKHXYtU1n8Y?modestbranding=1&autohide=0&showinfo=0&controls=1&rel=0" frameborder="0" allowfullscreen></iframe>
 </div></center>
 
 
@@ -26,13 +26,18 @@ VIDEO GOES HERE
 ## Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it
 
 If you have already done this as part of one of the other tutorials, you can skip this step.
-Otherwise, click "Details" below to see the instructions.
+Otherwise, click "Details" below to see the instructions for setting up a Kubernetes cluster and deploying the socks shop to it.
 
 XXX-START-DETAILS-BLOCK
 
 {"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop.md"}
 
 XXX-END-DETAILS-BLOCK
+
+## TODO
+
+fluxd does stuff with kubernetes, in the user’s cluster. fluxsvc answers API calls.
+
 
 
 ## Make the repositories your own
@@ -187,8 +192,7 @@ front-end-dep.yaml to use quay.io/squaremo/front-end, appending the
 tag (check quay.io for the tags if it's not on screen somewhere).
 
 
-You have to apply this using kubectl, but it would be nice if fluxy
-could do it for you.
+You have to apply this using kubectl, but it would be nice if fluxy could do it for you, because then you can also turn on automatic deployment (continuous delivery).
 
 
 ```

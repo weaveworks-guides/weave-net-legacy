@@ -15,8 +15,8 @@ In this way, you can view your app, network & container orchestrator metrics in 
 <div style="clear:both;"></div>
 
 
-<center><div style="width:300px; display:inline-block; border:1px solid red; margin-top:2em;">
-VIDEO GOES HERE
+<center><div style="width:530px; display:inline-block; margin-top:2em;">
+<iframe width="530" height="298" src="https://www.youtube.com/embed/Fqwj3ibe5So?modestbranding=1&autohide=0&showinfo=0&controls=1&rel=0" frameborder="0" allowfullscreen></iframe>
 </div></center>
 
 

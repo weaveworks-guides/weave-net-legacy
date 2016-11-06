@@ -10,8 +10,8 @@ In this guide we'll see how to secure your app by defining Kubernetes Network Po
 </div>
 <div style="clear:both;"></div>
 
-<center><div style="width:300px; display:inline-block; border:1px solid red; margin-top:2em;">
-VIDEO GOES HERE
+<center><div style="width:530px; display:inline-block; margin-top:2em;">
+<iframe width="530" height="298" src="https://www.youtube.com/embed/3qRRP3fQBTs?modestbranding=1&autohide=0&showinfo=0&controls=1&rel=0" frameborder="0" allowfullscreen></iframe>
 </div></center>
 
 

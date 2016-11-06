@@ -11,8 +11,8 @@ This is Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In 
 </div>
 <div style="clear:both;"></div>
 
-<center><div style="width:300px; display:inline-block; border:1px solid red; margin-top:2em;">
-VIDEO GOES HERE
+<center><div style="width:530px; display:inline-block; margin-top:2em;">
+<iframe width="530" height="298" src="https://www.youtube.com/embed/6fb-dmrKTOU?modestbranding=1&autohide=0&showinfo=0&controls=1&rel=0" frameborder="0" allowfullscreen></iframe>
 </div></center>
 
 ## Contents
@@ -34,25 +34,17 @@ A Cloud Native app gives you the freedom to focus on your code instead of mainta
 
 With Weave Cloud you can view and monitor your microservices all in one place in a convenient troubleshooting dashboard, and together with automated continuous delivery built with your favorite tools, Weave Cloud allows you to create higher quality code more rapidly.
 
-Part 1 discusses the Troubleshooting Dashboard and how to verify your app using the Weave Cloud dashboard on your local laptop with an app deployed to a production setup like Kubernetes running on Digital Ocean.
-
-[Part 2] describes how to setup Fast Iteration and Continuous Delivery with Weave Cloud.
-
-[Part 3] discusses how to configure Cloud Native Monitoring with Weave Cortex as well as viewing and querying your app's metrics from the Weave Cloud dashboard.
-
-[Part 4] Network Security and Policy with Weave Cloud shows you to how simply, yet powerfully secure your app or portions of your app.
-
 You will use the Weaveworks sample app, [The Sock Shop](https://github.com/microservices-demo), deploy it to a couple of virtual machines running Docker and Kubernetes and then verify and troubleshoot any issues in Weave Cloud.
 
 Specifically, in this tutorial, you will:
 
 1. Set up Docker or Docker for Mac on your local machine (if you haven't already done so).
 2. Deploy the sock shop with Docker Compose.
-3. Install Scope and verify your app on your laptop.
+3. Install Scope and verify your app that's running on your laptop in Weave Cloud.
 3. Configure a Kubernetes cluster and at the same time install Weave Net onto Digital Ocean.
 4. Use Weave Cloud to watch the Kubernetes cluster deployment in Digital Ocean.
 5. Install the Sock Shop onto Kubernetes.
-5. Compare both apps, on your laptop and in the Kubernetes cluster on Digital Ocean.
+5. Compare both apps, on your laptop and in the Kubernetes cluster on Digital Ocean, using Weave Scope in Weave Cloud.
 
 This tutorial will take approximately 15 minutes to complete.
 
@@ -95,6 +87,8 @@ To check that everything installed correctly on your laptop, first sign up for W
 ### Launch the Weave Cloud Probes
 
 Launch the Weave Cloud probes using the token you obtained when you signed up for Weave Cloud:
+
+<!-- TODO maybe this should use the k8s scope yaml in the launcher -->
 
 ~~~bash
 curl --silent --location https://git.io/scope --output /usr/local/bin/scope
