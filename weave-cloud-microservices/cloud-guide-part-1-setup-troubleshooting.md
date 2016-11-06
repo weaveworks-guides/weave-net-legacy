@@ -1,4 +1,4 @@
-# Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope
+<!-- Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope -->
 
 <img src="images/setup.png" style="width:100%; border:1em solid #32324b;" />
 

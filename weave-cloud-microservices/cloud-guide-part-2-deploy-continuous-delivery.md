@@ -1,4 +1,4 @@
-# Deploy: Continuous Delivery with Weave Flux
+<!-- Deploy: Continuous Delivery with Weave Flux -->
 
 <img src="images/deploy.png" style="width:100%; border:1em solid #32324b;" />
 

@@ -1,4 +1,4 @@
-# Monitor: Prometheus Monitoring with Weave Cortex
+<!-- Monitor: Prometheus Monitoring with Weave Cortex -->
 
 <img src="images/monitor.png" style="width:100%; border:1em solid #32324b;" />
 

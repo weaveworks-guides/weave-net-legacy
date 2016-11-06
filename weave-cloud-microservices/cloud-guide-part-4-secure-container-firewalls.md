@@ -1,4 +1,4 @@
-# Secure: Container Networks, Firewalls & Network Monitoring
+<!-- Secure: Container Networks, Firewalls & Network Monitoring -->
 
 <img src="images/secure.png" style="width:100%; border:1em solid #32324b;" />
 
