@@ -82,20 +82,20 @@ We'll cover getting started with Weave Cloud and show how to use it together wit
 <!-- guides & katacodas will live at the following URLs:
 
 https://www.weave.works/guides/cloud-guide-part-1-setup-troubleshooting/
+    https://dev-weavewww.pantheonsite.io/wp-admin/post.php?post=6205&action=edit
 https://www.weave.works/guides/cloud-testdrive-part-1-setup-troubleshooting/
-https://dev-weavewww.pantheonsite.io/wp-admin/post.php?post=6205&action=edit
 
 https://www.weave.works/guides/cloud-guide-part-2-deploy-continuous-delivery/
+    https://dev-weavewww.pantheonsite.io/wp-admin/post.php?post=6208&action=edit
 https://www.weave.works/guides/cloud-testdrive-part-2-deploy-continuous-delivery/
-https://dev-weavewww.pantheonsite.io/wp-admin/post.php?post=6208&action=edit
 
 https://www.weave.works/guides/cloud-guide-part-3-monitor-prometheus-monitoring/
+    https://dev-weavewww.pantheonsite.io/wp-admin/post.php?post=6210&action=edit
 https://www.weave.works/guides/cloud-testdrive-part-3-monitor-prometheus-monitoring/
-https://dev-weavewww.pantheonsite.io/wp-admin/post.php?post=6210&action=edit
 
 https://www.weave.works/guides/cloud-guide-part-4-secure-container-firewalls/
+    https://dev-weavewww.pantheonsite.io/wp-admin/post.php?post=6211&action=edit
 https://www.weave.works/guides/cloud-testdrive-part-4-secure-container-firewalls/
-https://dev-weavewww.pantheonsite.io/wp-admin/post.php?post=6211&action=edit
 
 -->
 
