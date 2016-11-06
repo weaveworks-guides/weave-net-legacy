@@ -70,11 +70,11 @@ Before you can use Cortex to monitor apps, you will need to sign up for a Weave 
 If you have already done this as part of one of the other tutorials, you can skip this step.
 Otherwise, click "Details" below to see the instructions.
 
-<details>
+XXX-START-DETAILS-BLOCK
 
 {"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop.md"}
 
-</details>
+XXX-END-DETAILS-BLOCK
 
 
 
@@ -139,11 +139,11 @@ As an example select `IP address space exhaustion in %` and press the Execute bu
 
 ## Tear Down
 
-<details>
+XXX-START-DETAILS-BLOCK
 
 {"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop-teardown.md"}
 
-</details>
+XXX-END-DETAILS-BLOCK
 
 ## Conclusions
 

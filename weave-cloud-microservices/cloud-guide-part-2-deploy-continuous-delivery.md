@@ -28,11 +28,11 @@ VIDEO GOES HERE
 If you have already done this as part of one of the other tutorials, you can skip this step.
 Otherwise, click "Details" below to see the instructions.
 
-<details>
+XXX-START-DETAILS-BLOCK
 
 {"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop.md"}
 
-</details>
+XXX-END-DETAILS-BLOCK
 
 
 ## Make the repositories your own
@@ -225,11 +225,11 @@ and change the front-end image again.
 
 ## Tear Down
 
-<details>
+XXX-START-DETAILS-BLOCK
 
 {"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop-teardown.md"}
 
-</details>
+XXX-END-DETAILS-BLOCK
 
 
 
