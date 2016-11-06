@@ -61,7 +61,7 @@ https://www.weave.works/wp-admin/admin.php?page=dd_layouts_edit&action=edit&layo
 <hr>
 
 <h3>Getting Started with Weave</h3>
-These guides show you how to get started with Weave on your own infrastructure.
+These guides show you how to get started with all the Weave tools on your own infrastructure, from Docker on your laptop to a production cluster that we'll show you how to set up.
 
 <img src="images/all-diagrams.png" style="width:100%; border:1em solid #32324b;" />
 
