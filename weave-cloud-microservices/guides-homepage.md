@@ -63,12 +63,12 @@ https://www.weave.works/wp-admin/admin.php?page=dd_layouts_edit&action=edit&layo
 <h3>Getting Started with Weave</h3>
 These guides show you how to get started with all the Weave tools on your own infrastructure, from Docker on your laptop to a production cluster that we'll show you how to set up.
 
-<img src="images/all-diagrams.png" style="width:100%; border:1em solid #32324b;" />
+<img src="/wp-content/uploads/all-diagrams.png" style="width:100%; border:1em solid #32324b;" />
 
 We'll cover getting started with Weave Cloud and show how to use it together with our open source projects: Scope for troubleshooting, Flux for deployment, Cortex for monitoring and Net for container networks & firewalls.
 
 <h4><a href="/guides/cloud-guide-part-1-setup-troubleshooting/">Part 1 &ndash; Setup: Troubleshooting Dashboard</a></h4>
-<p>How to set up, verify and troubleshoot your app with Weave Cloud and Weave Scope in development and production. This example uses Docker Compose in development and Kubernetes for production.</p>
+<p>How to set up, verify and troubleshoot your app with Weave Cloud and Weave Scope in development and production. This example uses Docker Compose in development and Kubernetes with Weave Net for production.</p>
 
 <h4><a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Part 2 &ndash; Deploy: Continuous Delivery</a></h4>
 <p>How to achieve fast iteration and Continuous Delivery with Weave Cloud and Weave Flux, which connects the output of your CI system into your container orchestrator. This example uses Kubernetes.</p>
