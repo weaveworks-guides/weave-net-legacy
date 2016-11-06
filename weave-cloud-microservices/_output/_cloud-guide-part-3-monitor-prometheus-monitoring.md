@@ -1,8 +1,3 @@
----
-layout: guides
-title: Prometheus Monitoring with Weave Cortex
----
-
 <h1 id="monitor-prometheus-monitoring-with-weave-cortex">Monitor: Prometheus Monitoring with Weave Cortex</h1>
 
 <img src="images/monitor.png" style="width:100%; border:1em solid #32324b;" />

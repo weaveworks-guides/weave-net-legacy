@@ -1,8 +1,3 @@
----
-layout: guides
-title: Continuous Delivery with Weave Flux
----
-
 <h1 id="deploy-continuous-delivery-with-weave-flux">Deploy: Continuous Delivery with Weave Flux</h1>
 
 <img src="images/deploy.png" style="width:100%; border:1em solid #32324b;" />

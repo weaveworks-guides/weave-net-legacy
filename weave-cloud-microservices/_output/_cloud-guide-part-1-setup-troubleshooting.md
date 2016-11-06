@@ -1,8 +1,3 @@
----
-layout: guides
-title: Troubleshooting Microservices with Weave Cloud
----
-
 <h1 id="setup-troubleshooting-dashboard-with-weave-cloud-and-weave-scope">Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope</h1>
 
 <img src="images/setup.png" style="width:100%; border:1em solid #32324b;" />
