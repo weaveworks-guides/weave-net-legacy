@@ -94,3 +94,19 @@ https://www.weave.works/guides/cloud-guide-part-4-secure-container-firewalls/
 https://www.weave.works/guides/cloud-testdrive-part-4-secure-container-firewalls/
 
 -->
+
+<!--
+old content:
+
+<hr>
+<h4>Getting Started with Docker and Weave Net</h4>
+<p>After <a href="http://www.weave.works/install-weave-net/" target="_blank">installing Weave Net</a>, these three guides are the fastest way to get started with Docker and Weave Net:</p>
+<p><a href="http://www.weave.works/guides/part-1-launching-weave-net-with-docker-machine/">Part 1: Weave Net with Docker Machine</a></p>
+<p><a href="http://www.weave.works/guides/part-2-using-weave-with-docker-machine-and-swarm/">Part 2: Weave Net with Docker Machine and Swarm</a></p>
+<p><a href="http://www.weave.works/guides/part-3-creating-and-scaling-multi-host-docker-deployment-with-swarm-and-compose-using-weave/">Part 3: Scaling with Docker Swarm and Docker Compose</a></p>
+<p>&nbsp;</p>
+<h4>Getting Started with Docker and Weave Scope</h4>
+<p>After <a href="http://www.weave.works/install-weave-scope/" target="_blank">installing Weave Scope</a>, these guides are&nbsp;the fastest way to visualize your Docker containers and their interactions using Weave Scope</p>
+<p>Weave Cloud: <a href="http://www.weave.works/guides/using-weave-scope-cloud-service-to-visualize-and-monitor-docker-containers/">Visualizing Docker Containers With Weave Cloud</a></p>
+<p>Weave Scope:<a href="http://www.weave.works/guides/using-weave-scope-standalone-to-visualize-and-monitor-docker-containers/">Using Weave Scope to Visualize Docker Containers</a></p>
+-->
