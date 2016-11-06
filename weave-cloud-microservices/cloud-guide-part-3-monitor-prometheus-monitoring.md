@@ -3,7 +3,8 @@
 <img src="images/monitor.png" style="width:100%; border:1em solid #32324b;" />
 
 This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
-In this guide we'll see how to configure Cloud Native Monitoring with Weave Cloud and Weave Cortex, and view your app's metrics in the Weave Cloud monitoring dashboard. This example uses Kubernetes.</p>
+In this guide we'll see how to configure monitoring with Weave Cloud and Weave Cortex, a Prometheus-powered monitoring service.
+In this way, you can view your app, network & container orchestrator metrics in the Weave Cloud monitoring dashboard. This example uses Kubernetes.</p>
 
 <div style="width:50%; float:left;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
