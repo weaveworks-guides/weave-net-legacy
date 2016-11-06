@@ -56,7 +56,7 @@ You'll use the Weave Cloud token later to send metrics to Cortex.
 If you have already done this as part of one of the other tutorials, you can skip this step.
 Otherwise, click "Details" below to see the instructions.
 
-<details>
+XXX-START-DETAILS-BLOCK
 
 **Note:** This example uses Digital Ocean, but you can just as easily create these two instances in AWS or whatever your favorite cloud provider is.
 
@@ -318,7 +318,7 @@ Where,
 * `<host-ip:[port number]>` is the IP of the master and the port number you see when you run `kubectl describe svc front-end -n sock-shop`
 
 
-</details>
+XXX-END-DETAILS-BLOCK
 
 ```
 XXX: instructions need to _not_ apply network policy yet.
@@ -365,7 +365,7 @@ Oh look, now it can't (all through Scope).
 
 <h2 id="secure-container-networks-firewalls-network-monitoring-tear-down">Tear Down</h2>
 
-<details>
+XXX-START-DETAILS-BLOCK
 
 Unless you are continuing onto another guide, or going to use the cluster for your own app, you may want to tear down the Sock Shop and also the Kubernetes cluster you created.
 
@@ -389,7 +389,7 @@ rm -r -f /etc/kubernetes /var/lib/kubelet /var/lib/etcd;
 If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init` on the master and `kubeadm join` on any of the nodes.
 
 
-</details>
+XXX-END-DETAILS-BLOCK
 
 <h2 id="secure-container-networks-firewalls-network-monitoring-conclusions">Conclusions</h2>
 

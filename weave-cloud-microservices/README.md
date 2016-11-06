@@ -10,3 +10,5 @@ Use Atom editor with 'Markdown Preview Plus' to open one of the `_output/_*.md` 
 Right click on the HTML preview and 'Save as HTML...'
 
 Run `convert.py _output/_file.md.html`
+
+If you do this for all the files, you can run: `for X in _output/*.md.html; do ./convert.py $X; done`
