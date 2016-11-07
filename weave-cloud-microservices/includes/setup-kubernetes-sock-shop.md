@@ -200,7 +200,11 @@ curl -sSL 'https://cloud.weave.works/launch/k8s/weavescope.yaml?service-token=<Y
 
 You should fetch `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` from [Weave Cloud](https://cloud.weave.works/).
 
-If you return to the Weave Cloud interface, you can click on the `Hosts` button and view your cluster ready to go. Then as you follow the next steps you can then watch the socks shop come up in [Weave Cloud](https://cloud.weave.works/). Once you see the probes connect you can click "View Instance" to see your hosts, containers, pods etc. Ensure that System Containers are selected from the left hand corner.
+Return to the Weave Cloud interface, select View Instance and click on the `Hosts` button to view the cluster ready to go.
+
+As you follow the next steps you can then watch the socks shop come up in [Weave Cloud](https://cloud.weave.works/). 
+
+Ensure that 'System Containers' are selected from the filters in the left hand corner to see all of the Kubernetes processes.
 
 <img src="images/kubernetes-weave-cloud.png" style="width:100%;" />
 
