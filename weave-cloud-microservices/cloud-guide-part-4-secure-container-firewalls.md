@@ -1,18 +1,21 @@
 <!-- Secure: Container Firewalls -->
 
-<img src="images/secure.png" style="width:100%; border:1em solid #32324b;" />
+
 
 This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 In this guide we'll see how to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net.
 
-<div style="width:50%; float:left;">
+<div style="width:50%; padding: 10px float:left;">
 <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
 </div>
 <div style="clear:both;"></div>
 
-<center><div style="width:530px; display:inline-block; margin-top:2em;">
+<img src="images/secure.png" style="width:100%; border:1em solid #32324b;" />
+
+<center><div style="width:530px; padding: 10px; display:inline-block; margin-top:2em;">
 <iframe width="530" height="298" src="https://www.youtube.com/embed/3qRRP3fQBTs?modestbranding=1&autohide=0&showinfo=0&controls=1&rel=0" frameborder="0" allowfullscreen></iframe>
 </div></center>
+
 
 
 ## Contents
@@ -24,6 +27,8 @@ In this guide we'll see how to secure your app by defining Kubernetes Network Po
 
 Go to [Weave Cloud](https://cloud.weave.works/) and register for an account.
 You'll use the Weave Cloud token later to send metrics to Cortex.
+
+<img src="images/weave-cloud-token.png" style="width:100%;" />
 
 
 ## Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it
@@ -51,6 +56,7 @@ wget http://shipping
 ~~~
 
 You should get:
+
 ~~~
 wget: server returned error: HTTP/1.1 404
 ~~~
@@ -83,13 +89,14 @@ XXX-END-DETAILS-BLOCK
 
 ## Conclusions
 
-We've seen that Kubernetes network policy allows you to define flexible and dynamic security policies, and Weave Net allows you to enforce them.
+You've seen that Kubernetes network policy allows you to define flexible and dynamic security policies, and Weave Net allows you to enforce them.
+<p></p>
 
-<div style="width:50%; float:left;">
+{"gitdown": "include", "file": "./includes/slack-us.md"}
+
+<div style="width:50%; padding: 10px; float:left;">
 <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
 </div>
 <div style="clear:both;"></div>
 
 <p></p>
-
-{"gitdown": "include", "file": "./includes/slack-us.md"}

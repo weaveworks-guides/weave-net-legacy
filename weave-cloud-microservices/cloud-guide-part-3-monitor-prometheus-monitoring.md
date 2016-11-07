@@ -1,18 +1,21 @@
 <!-- Monitor: Prometheus Monitoring with Weave Cortex -->
 
-<img src="images/monitor.png" style="width:100%; border:1em solid #32324b;" />
+
 
 This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
-In this guide we'll see how to configure monitoring with Weave Cloud and Weave Cortex, a Prometheus-powered monitoring service.
+In this guide you will see how to configure monitoring with Weave Cloud and Weave Cortex, a Prometheus-powered monitoring service.
+
 In this way, you can view your app, network & container orchestrator metrics in the Weave Cloud monitoring dashboard. This example uses Kubernetes.</p>
 
-<div style="width:50%; float:left;">
+<div style="width:50%; padding: 10px; float:left;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
 </div>
-<div style="width:50%; float:left; text-align:right;">
+<div style="width:50%; padding: 10px; float:left; text-align:right;">
 <a href="/guides/cloud-guide-part-4-secure-container-firewalls/">Go to next part: Part 4 – Secure: Container Firewalls &raquo;</a>
 </div>
 <div style="clear:both;"></div>
+
+<img src="images/monitor.png" style="width:100%; border:1em solid #32324b;" />
 
 
 <center><div style="width:530px; display:inline-block; margin-top:2em;">
@@ -56,14 +59,13 @@ This tutorial will take approximately 15 minutes to complete.
 
 Before you can use Cortex to monitor apps, you will need to sign up for a Weave Cloud account.
 
-1.  Go to <a href="https://cloud.weave.works" target="_blank"> Weave Cloud </a>
+1.  Go to <a href="https://cloud.weave.works" target="_blank"> Weave Cloud </a> <!-- lkj_ -->
 2.  Sign up using either a Github, or Google account or use an email address.
 3.  Make a note of the cloud service token from the User settings screen:
 
-![Obtain service token for Weave Cloud](weave-cloud-token-screenshot.png)
+<img src="images/weave-cloud-token.png" style="width:100%;" />
 
 **Note:** If you are continuing on from one of the other guides in this series you can use your Cloud token to set up Prometheus Monitoring below.
-
 
 
 ## Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it
@@ -82,7 +84,7 @@ XXX-END-DETAILS-BLOCK
 
 Next you are going to enable Cortex to start pushing metrics to Weave Cloud.
 
-**1** Log onto the master Kubernetes node and run the following to get the cortex.yml file and also update the file with your Weave Cloud token:
+**1.** Log onto the master Kubernetes node and run the following to get the cortex.yml file and also update the file with your Weave Cloud token:
 
 <!-- TODO replace this with the proper yaml generator -->
 
@@ -90,9 +92,9 @@ Next you are going to enable Cortex to start pushing metrics to Weave Cloud.
 curl -sL https://gist.githubusercontent.com/errordeveloper/b2f92741b9fd45fd58e2bcd2870a8b5f/raw/c02cab79d9dde52c1f855c19399bfb222dd55235/cortex.yaml | sed 's/INSERT_TOKEN_HERE/[your-weave-cloud-token]/' | kubectl create -n kube-system -f -
 ~~~
 
-Where,
+**Where**,
 
-* [your-weave-cloud-token] is the token you obtained when you signed up for Weave Cloud above.
+* [`your-weave-cloud-token`] is the token you obtained when you signed up for Weave Cloud above.
 
 
 Cortex runs in its own Docker container and it may take a few minutes for it to download and appear on the server. You can watch for it to appear in the Troubleshooting Dashboard:
@@ -114,9 +116,13 @@ weave-cortex-agent   1         1         1            1           4h
 
 ## Viewing Sock Shop Metrics in Weave Cortex
 
-Go back to the Weave Cloud Dashboard and click the [graph icon] from the header bar. You should see the Cortex GUI where you can display metrics from the Sock Shop app.
+Go back to the Weave Cloud Dashboard and click the chart icon from the header bar. You should see the Cortex GUI where you can display metrics from the Sock Shop app.
 
-Cortex by default displays a number of metrics at the top that have already been detected by the system. Select `process_cpu_seconds_total` from the Detected Metrics section of Prometheus System Queries, where you should see something similar to the screen capture shown below:
+<img src="images/weave-cloud-snippet.png" style="width:50%;" />
+
+Cortex by default displays a number of metrics at the top that have already been detected by the system. Select `process` then `open` and `fds` and from the Detected Metrics section of Prometheus System Queries, and click `execute` where you should see something similar to the screen capture shown below (note this is a stacked view of the chart):
+
+<img src="images/cortex-detected-metrics.png" style="width:100%;" />
 
 
 ## Run the Load Test
@@ -155,17 +161,16 @@ XXX-END-DETAILS-BLOCK
 
 ## Conclusions
 
-We've seen how you can use Weave Cortex to monitor your application, your cluster and your network in Weave Cloud.
-
+You've seen how Weave Cortex can be used to monitor your application, your cluster and your network in Weave Cloud.
+<p></p>
+{"gitdown": "include", "file": "./includes/slack-us.md"}
 
 <div style="width:50%; float:left;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
 </div>
-<div style="width:50%; float:left; text-align:right;">
+<div style="width:50%; padding: 10px; float:left; text-align:right;">
 <a href="/guides/cloud-guide-part-4-secure-container-firewalls/">Go to next part: Part 4 – Secure: Container Firewalls &raquo;</a>
 </div>
 <div style="clear:both;"></div>
 
 <p></p>
-
-{"gitdown": "include", "file": "./includes/slack-us.md"}

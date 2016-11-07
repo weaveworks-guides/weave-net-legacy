@@ -1,15 +1,21 @@
 <!-- Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope -->
 
-<img src="images/setup.png" style="width:100%; border:1em solid #32324b;" />
+This is Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In this part, you will see how to set up, verify and troubleshoot your app with Weave Cloud and Weave Scope.
+* You will start on your local laptop using Docker Compose in development.
+* Then you'll move on to set up Kubernetes for production, including Weave Net, and deploy your application to it.
 
-This is Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In this part, we'll see how to set up, verify and troubleshoot your app with Weave Cloud and Weave Scope.
-* We'll start on your local laptop using Docker Compose in development.
-* Then we'll see how to set up Kubernetes for production, including Weave Net, and then deploy your application to it.
 
-<div style="width:50%; float:right; text-align:right;">
+<div style="width:50%; padding: 10px; float:right; text-align:right;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
 <div style="clear:both;"></div>
+
+
+
+
+<img src="images/setup.png" style="width:100%; border:1em solid #32324b;" />
+
+
 
 <center><div style="width:530px; display:inline-block; margin-top:2em;">
 <iframe width="530" height="298" src="https://www.youtube.com/embed/6fb-dmrKTOU?modestbranding=1&autohide=0&showinfo=0&controls=1&rel=0" frameborder="0" allowfullscreen></iframe>
@@ -161,12 +167,12 @@ With the load test running, you can observe the different services communicating
 ## Conclusions
 
 In this tutorial you learned how to verify your app deployed to your laptop with the same tools (Weave Scope) that you can use when your app is deployed to a Kubernetes cluster. The next next part of this series discusses how to configure "Continuous Delivery with Weave Cloud".
+<p></p>
+{"gitdown": "include", "file": "./includes/slack-us.md"}
 
-<div style="width:50%; float:right; text-align:right;">
+<div style="width:50%; padding: 10px; float:right; text-align:right;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
 <div style="clear:both;"></div>
 
 <p></p>
-
-{"gitdown": "include", "file": "./includes/slack-us.md"}
