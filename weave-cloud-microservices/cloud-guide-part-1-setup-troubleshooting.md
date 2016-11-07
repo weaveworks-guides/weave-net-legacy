@@ -116,16 +116,15 @@ git clone https://github.com/microservices-demo/microservices-demo.git
 
 **2. Change into the right directory in the repo you just cloned:**
 
-<!-- XXX this doesn't work any more :/ -->
-
 ~~~
-cd microservices-demo/deploy/docker-only
+cd microservices-demo/deploy/docker-compose
 ~~~
 
 
 **3. Run the Sock Shop and display it in your browser:**
 
 ~~~
+docker network create mynetwork
 docker-compose up -d
 ~~~
 
