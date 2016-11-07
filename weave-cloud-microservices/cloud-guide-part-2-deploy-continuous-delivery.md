@@ -43,7 +43,7 @@ In this tutorial, we will put ourselves in the position of a developer on a devo
 
 In particular, we'll change the colour of a button on the frontend of the user's app, a socks shop.
 
-## Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it
+## Deploy a Kubernetes cluster with Weave Net and then deploy the application to it
 
 If you have already done this as part of one of the other tutorials, you can skip this step.
 Otherwise, click "Details" below to see the instructions for setting up a Kubernetes cluster and deploying the socks shop to it.
@@ -54,198 +54,271 @@ XXX-START-DETAILS-BLOCK
 
 XXX-END-DETAILS-BLOCK
 
-XXX Are we deploying a version of the socks shop that we can deploy to here?
-
 
 ## Fork the repositories
 
-In order to 
+You will need a GitHub account for this step.
 
+In order to modify the socks shop, you need to fork (at least) two repositories:
 
+* [https://github.com/microservices-demo/front-end](https://github.com/microservices-demo/front-end) - the front-end of the application. We will update the color of one of the buttons in this example.
+* [https://github.com/microservices-demo/microservices-demo](https://github.com/microservices-demo/microservices-demo) - the repo that stores the Kubernetes manifests for the application. Flux will update this repository.
 
-Go to github and fork the microservices-demo repo to https://github.com/&lt;your-username&gt;/microservices-demo.
-Clone it locally.
+Go to each GitHub repository and click "Fork" in the top right hand corner, and fork the repository to your own GitHub account.
 
+## Shut down the socks shop running on the Kubernetes cluster
 
-## Get sockshop running
+If you followed the instructions above, there will already be a socks shop running on your Kubernetes cluster. Let's remove that, so that we can deploy a copy from our own fork.
 
+## Get a container registry account
 
-On lead node (ssh -A root@...), since there's no convenient way to run
-kubectl otherwise:
+You can use any container registry, such as Docker Hub or Google Container Registry. In this example, we'll use Quay.io.
 
+Sign up for a [Quay.io](https://quay.io) account, and record the username that it gives you. When you log in, you'll be able to see it under "Users and Organizations" on the right hand side of the Repositories page.
 
-```
-k8s-01$ export YOURUSERNAME=XXX # replace this with your github username
-k8s-01$ git clone git@github.com:$YOURUSERNAME/microservices-demo
-k8s-01$ cd microservices-demo/deploy/kubernetes
-k8s-01$ kubectl apply -f manifests/
-```
+Make an empty Quay.io repository called `front-end`. We'll configure Travis to push here later.
 
+## Get a continuous integration account
 
-(fix problem with mysql in catalogue-db)
+If you already have your own CI system, you can use that instead. All that Flux needs is that something creates a container image and pushes it to the registry whenever you push to GitHub.
 
+The example we'll use here is [Travis CI](https://travis-ci.org/). Sign up for an account if you haven't got one already, and hook it up to your GitHub account. Click the `+` button next to "My Repositories" and toggle on the button for `<YOUR_GITHUB_USERNAME>/front-end` so that Travis automatically runs builds for the repo.
 
-Find NodePort and put with host IP to get address; put in browser.
+## Configure .travis.yml file
 
-
-```
-k8s-01$ kubectl describe service front-end
-```
-
-
-## Set up frontend image build
-
-
-There are lots of ways of doing this! Here's one example. It can be done ahead of
-time, to some extent.
-
-
-Fork the front-end repo to `$YOURUSERNAME/front-end`. Clone it locally.
-
+Replace the `.travis.yml` file in your fork of the `front-end` repo so that it contains exactly the following, with `<YOUR_QUAY_USERNAME>` replaced with your Quay.io username:
 
 ```
-local$ git clone git@github.com:$YOURUSERNAME/front-end
+language: node_js
+
+sudo: required
+
+node_js:
+  - "0.10.32"
+
+services:
+  - docker
+
+before_install:
+  - sudo apt-get install -y make
+  - make test-image deps
+
+env:
+  - GROUP=quay.io/<YOUR_QUAY_USERNAME> COMMIT=$TRAVIS_COMMIT TAG=$TRAVIS_TAG REPO=front-end;
+
+script:
+  - make test
+
+after_success:
+  - set -e
+  - if [ -z "$DOCKER_PASS" ]; then echo "Build triggered by external PR. Skipping docker push" && exit 0; fi
+  - docker login quay.io -u $DOCKER_USER -p $DOCKER_PASS;
+  - ./scripts/build.sh
+  - ./test/container.sh
+  - ./scripts/push.sh
 ```
 
-
-Sign up for quay.io. Make an empty repository called
-$YOURUSERNAME/front-end. Create a robot account (`ci_push_pull`) and give
-it write permissions to that repo.
-
-
-Connect up to TravisCI. In http://travis-ci.org/, sign in, find the
-repo and switch it on. Supply environment entries for DOCKER_USER and
-DOCKER_PASS by copying them from the robot in quay.io.
-
-
-Locally, change the environment entry `GROUP` in `microservices-front-end/.travis.yml` to
-`quay.io/$YOURUSERNAME`, change `docker login ...` to `docker login quay.io
-...`, and remove the bastion gubbins. Commit that and push. Now you
-can go back and see it all happen in travis-ci.
-
-
-## Getting fluxy running
-
-
-This is largely taken from
-https://github.com/weaveworks/fluxy/blob/master/deploy/README.md. Some of it can be done ahead of time.
-
-
-Generate a deploy key for our repo, on the master node, and create a secret in Kubernetes for it:
-
-
+Commit and push this change to your fork of the `front-end` repo. You can do this on your workstation using your favourite text editor.
 ```
-k8s-01$ ssh-keygen -f id-fluxy
-...
-k8s-01$ kubectl create secret generic fluxy-repo-key --from-file=id-rsa=id-fluxy
-...
-k8s-01$ cat id-fluxy.pub
-...
+git commit -m "Update .travis.yml to refer to my quay.io account." .travis.yml
+git push
 ```
 
 
-Go to the $YOURUSERNAME/microservices-demo repo on github, click settings, deploy
-keys (on the left at present). Add a key, paste the public key from
-above in, check `Allow write access` box.
+## Configure robot account in Quay.io
+
+Log into Quay.io, and create a robot account (`ci_push_pull`) and give it write permissions to that repo.
+
+Connect up to TravisCI. In http://travis-ci.org/, sign in, find the repo and switch it on. Supply environment entries for `DOCKER_USER` and `DOCKER_PASS` by copying them from the robot account in quay.io.
 
 
-Add fluxy config into the microservices-demo repository (for now I am copying across my
-local configuration and modifying. The idea is soon you'll be able to
-download it from cloud.weave.works, and provide keys some other way).
+## Getting flux running
 
+Log into the master Kubernetes node.
 
-```
-local$ cp $FLUXY_REPO/deploy/fluxy-*.yaml deploy/kubernetes/manifests/
-```
+Deploy Flux to your Kubernetes cluster:
+~~~
+kubectl apply -f https://gist.githubusercontent.com/errordeveloper/0e92c0223ac40a9df68df8e402ca873c/raw/2eaf7a567d75a41faf7a6712aded3d6fa6ad13ff/flux.yaml
+~~~
 
-
-Changed fluxy-deployment.yaml: imagePullPolicy to "IfNotPresent" and
-image to "weaveworks/fluxy:master"; args:
-
-
-```
- - --repo-url=git@github.com:$YOURUSERNAME/microservices-demo
- - --repo-path=deploy/kubernetes/manifests
-```
-
-
-Also change weaveworks/fluxy to weaveworks/fluxy:master.
-
-
-You may want to prepare some of this ahead of time, or not even show
-it.
-
-
-I commit these to the repo locally, pushed them to
-$YOURUSERNAME/microservices-demo, and pulled from the master host then
-applied them.
-
+We'll generate a deploy key for our repo, and configure Flux with it:
 
 ```
-k8s-01$ git pull
-k8s-01$ kubectl apply -f manifests/fluxy-deployment.yaml -f manifests/fluxy-service.yaml
+ssh-keygen -f id-rsa-flux
 ```
 
-
-For now we use the kubernetes proxy to reach fluxy. I copied a fluxctl
-binary to the master host, since it's not publicly available.
-
-
+Install the `fluxctl` binary on the master:
 ```
-$ export FLUX_URL=http://localhost:8080/api/v1/proxy/namespaces/default/services/fluxy
-$ fluxctl list-services
-...
+curl -o /usr/local/bin/fluxctl -sSL https://github.com/weaveworks/flux/releases/download/master-6cc08e4/fluxctl-linux-amd64
+chmod +x /usr/local/bin/fluxctl
 ```
 
-
-[[to remove a network policy on default: kubectl annotate namespace default net.beta.kubernetes.io/network-policy-]
-
-
-## Demo proper
-
-
-Oh no, we have to update the front-end to have a different button!
-First, let's switch to using our fork of the front-end image.
-
-
-Edit the config in microservices-demo locally and change the image for
-front-end-dep.yaml to use quay.io/squaremo/front-end, appending the
-tag (check quay.io for the tags if it's not on screen somewhere).
-
-
-You have to apply this using kubectl, but it would be nice if fluxy could do it for you, because then you can also turn on automatic deployment (continuous delivery).
-
+Now open a file called `flux.conf` in your favourite text editor, on the server, and paste the following config into it, replacing `<YOUR_GITHUB_USERNAME>` with your GitHub username:
 
 ```
-k8s-01$ git pull
-k8s-01$ kubectl apply -f deploy/kubernetes/manifests/front-end-dep.yaml
-k8s-01$ kubectl get pods
+git:
+  URL: git@github.com:<YOUR_GITHUB_USERNAME>/microservices-demo
+  path: deploy/kubernetes/manifests
+  branch: master
+  key: |
+         -----BEGIN RSA PRIVATE KEY-----
+         ZNsnTooXXGagxg5a3vqsGPgoHH1KvqE5my+v7uYhRxbHi5uaTNEWnD46ci06PyBz
+         zSS6I+zgkdsQk7Pj2DNNzBS6n08gl8OJX073JgKPqlfqDSxmZ37XWdGMlkeIuS21
+         nwli0jsXVMKO7LYl+b5a0N5ia9cqUDEut1eeKN+hwDbZeYdT/oGBsNFgBRTvgQhK
+         ... contents of id-rsa-flux file from above ...
+         -----END RSA PRIVATE KEY-----
+slack:
+  hookURL: ""
+  username: ""
+registry:
+  auths: {}
 ```
 
+Copy the private key you created earlier. To view it, run `cat id-rsa-flux`. Be careful to get the indentation right.
 
-Now we're ready to do something with fluxctl. Let's make another
-front-end image. Edit microservices-front-end/public/index.html,
-commit and push. Watch it bubble through travis to quay.io.
-
-
+Configure access to Flux via the Kubernetes API:
 ```
-k8s-01$ fluxctl list-images --service=default/front-end
-... # shows quay.io/squaremo/front-end as the image repo
-k8s-01$ fluxctl release --service=default/front-end --update-all-images
-...
+export FLUX_URL=http://localhost:8080/api/v1/proxy/namespaces/default/services/fluxy
 ```
 
+Load this config into Flux with:
+```
+fluxctl set-config --file=flux.conf
+```
 
-If that worked, we can automate it:
+There is no need to specify auth for your registry because Flux will be polling a public registry.
 
+XXX-START-DETAILS-BLOCK
+
+However if you do want to configure it to use a private registry, use the following stanza:
+```
+registry:
+  auths:
+    "<address-of-registry>":
+      auth: "<base64-encoded-user:password>"
+```
+
+An example of `<address-of-registry>` is `https://index.docker.io/v1/`.  You can copy `<base64-encoded-user:password>` from your `~/.docker/config.json`.
+
+XXX-END-DETAILS-BLOCK
+
+## Configure deploy key on GitHub
+
+This allows Flux to read and write to the repo with the Kubernetes manifests in it.
+
+Go to the `<YOUR_GITHUB_USERNAME>/microservices-demo` repo on github, click settings, deploy keys (on the left at present). Add a key, paste the public key from above in, check `Allow write access` box. (Run `cat id-rsa-flux.pub` to get this out.)
+
+
+## Modify the front-end manifest to point to your container image
+
+Start by logging in to the Kubernetes master node. We'll run the rest of the demo from there for convenience, but you could also run it from your laptop. Use `ssh -A` to enable the SSH agent so that you can use your GitHub SSH key from your workstation.
+
+```
+git clone git@github.com:<YOUR_GITHUB_USERNAME>/microservices-demo
+cd microservices-demo/deploy/kubernetes
+```
+
+Let's modify the front-end manifest so that it refers to the container image that we'll be using. Using your favorite editor, open up `deploy/kubernetes/manifests/front-end-dep.yaml`, and update the `image` line.
+
+Change it from:
+```
+        image: weaveworksdemos/front-end
+```
+To:
+```
+        image: quay.io/$YOUR_QUAY_USERNAME/front-end:latest
+```
+
+where `$YOUR_QUAY_USERNAME` is your Quay.io username.
+It's important that you specify a tag here, because Flux won't work unless you do. For now we'll specify `:latest` but Flux will replace that with a specific version every time it does a release.
+
+Commit and push this change to your GitHub fork:
+```
+git commit -m "Update front-end to refer to my fork." front-end-dep.yaml
+git push
+```
+
+Commit that and push. Now you should see [Travis-CI](https://travis-ci.org/) build the image and push it to [Quay.io](https://quay.io).
+
+Now let's deploy the socks shop to Kubernetes. This is the last time we'll have to run `kubectl` in this demo: after this, everything can be controlled and automated via Flux.
+
+```
+cd ~/microservices-demo/deploy/kubernetes
+kubectl apply -f manifests
+```
+
+Now wait for the socks shop to deploy, and find the NodePort in the usual way:
+~~~
+kubectl describe svc front-end -n sock-shop
+~~~
+
+
+## Let's make a change!
+
+Let's suppose we want to change the color of one of the buttons on the socks shop. On your workstation, or wherever you have `front-end` checked out:
+
+```
+cd front-end
+sed -i "" s/3386e1/red/ ./public/css/style.blue.css
+```
+
+Of course, you can make any change you like. Now push the change:
+
+```
+git commit -am "Change button to red."
+git push
+```
+
+You can now go to Travis and watch the change get turned into a Docker image.
+
+Once a new image is in Quay.io, you can use Flux to see what's available:
+
+```
+fluxctl list-images --service=default/front-end
+```
+
+And then deploy it:
+
+```
+fluxctl release --service=default/front-end --update-all-images
+```
+
+Once that's finished, reload the socks shop and you'll see the buttons have changed to red!
+
+So that's useful for manually gated changes, but it's even better to do continuous delivery. We can turn that on easily:
 
 ```
 k8s-01$ fluxctl automate --service=default/front-end
 ```
 
+Then change the front-end again, maybe blue this time?
 
-and change the front-end image again.
+```
+cd front-end
+sed -i "" s/red/blue/ ./public/css/style.blue.css
+```
 
+Of course, you can make any change you like. Now push the change:
+
+```
+git commit -am "Change button to blue."
+git push
+```
+
+Now watch Travis, Quay and `fluxctl history` to see the deploy happening automatically.
+
+
+## Slack integration
+
+You can also set up Slack integration by specifying a Slack webhook in the `hookURL` configuration variable, and choose the name of your bot in `username`. Edit `flux.conf` accordingly and then run:
+
+~~~
+fluxctl set-config --file=flux.conf
+~~~
+
+Flux will then let you know in Slack, in the channels you configure in the webhook, whenever it's doing a release.
+
+<!-- TODO is the above accurate? @squaremo -->
 
 
 ## Tear Down
@@ -257,10 +330,19 @@ XXX-START-DETAILS-BLOCK
 XXX-END-DETAILS-BLOCK
 
 
-
 # Conclusion
 
-TODO: What are they??
+We've seen how we can automate continuous delivery while maintaining best practice, storing Kubernetes manifests in version control, with Weave Flux.
+
+Developers now only have to be able to push to `git` to deploy changes to your Kubernetes clusters.
+
+See the [Flux README](https://github.com/weaveworks/flux) and `fluxctl --help` for more details on other commands.
+
+
+# Coming soon
+
+Weave Cloud will soon include a UI to view and configure your Flux deploys, and you'll be able to configure Flux with a service token.
+
 
 <div style="width:50%; float:left;">
 <a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>

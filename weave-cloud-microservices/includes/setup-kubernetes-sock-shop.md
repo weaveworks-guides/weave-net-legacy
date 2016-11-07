@@ -223,7 +223,7 @@ Switch to the `sock-shop` namespace at the bottom left of your browser window in
 
 ### Viewing the Sock Shop in Your Browser
 
-You can then find the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
+You can then find the port that the cluster allocated for the front-end service by running:
 
 ~~~
 kubectl describe svc front-end -n sock-shop
