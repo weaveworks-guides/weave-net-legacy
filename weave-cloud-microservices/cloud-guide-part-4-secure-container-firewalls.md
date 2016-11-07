@@ -1,9 +1,9 @@
-<!-- Secure: Container Networks, Firewalls & Network Monitoring -->
+<!-- Secure: Container Firewalls -->
 
 <img src="images/secure.png" style="width:100%; border:1em solid #32324b;" />
 
 This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
-In this guide we'll see how to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net. Also, how to monitor your Weave Net network in Weave Cloud with Weave Cortex.
+In this guide we'll see how to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net.
 
 <div style="width:50%; float:left;">
 <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
@@ -37,23 +37,7 @@ XXX-START-DETAILS-BLOCK
 
 XXX-END-DETAILS-BLOCK
 
-```
-XXX: instructions need to _not_ apply network policy yet.
-```
 
-
-## Monitor the network with Weave Cortex, part of Weave Cloud
-
-Cortex is a hosted, scalable Prometheus Monitoring system built-in to Weave Cloud.
-Weave Net supports Prometheus monitoring.
-
-Here we'll use Cortex and Net together to monitor the health of the Weave Network.
-As examples, we'll be able to see:
-
-* how many IP addresses are allocated to containers as a percentage of available IP addresses on the Weave Network
-* how many connections get made in total between all components as we apply a load test (so we can calculate the impact of a microservices architecture on the network)
-* how many connections get blocked when we apply some network policy
-* (TODO - maybe later) how many connection issues occur when a partial network partition between nodes in the cluster is experienced (and how Weave Net carries on working)
 
 ### Deploy socks shop
 

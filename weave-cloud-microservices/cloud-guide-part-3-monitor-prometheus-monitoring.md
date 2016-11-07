@@ -78,7 +78,6 @@ XXX-START-DETAILS-BLOCK
 XXX-END-DETAILS-BLOCK
 
 
-
 ## Configuring Cortex for Your Production Environment
 
 Next you are going to enable Cortex to start pushing metrics to Weave Cloud.
@@ -125,8 +124,10 @@ Cortex by default displays a number of metrics at the top that have already been
 You may wish to run a load test to see the metrics in Weave Cortex change as load is applied to the application.
 
 ~~~
-docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -h edge-router -r 100 -c 2 <host-ip:[port number]>
+docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -r 100 -c 2 -h <host-ip:[port number]>
 ~~~
+
+<!-- TODO include a sample query here -->
 
 
 ## Running Queries with the Prometheus Query Language
@@ -136,6 +137,12 @@ You can also build your own queries using the Prometheus Query Language builder.
 For more information on using the Prometheus Query Language, see [Prometheus Query Examples](https://prometheus.io/docs/querying/examples/)
 
 As an example select `IP address space exhaustion in %` and press the Execute button, where you should see the following:
+
+## Monitor the network with Weave Cortex, part of Weave Cloud
+
+Weave Net supports Prometheus monitoring, so you can monitor your Weave Net network in Weave Cloud.
+
+Simply go to the Cortex page in Weave Cloud and you'll see network specific metrics, such as IP address exhaustion.
 
 
 ## Tear Down
@@ -148,7 +155,8 @@ XXX-END-DETAILS-BLOCK
 
 ## Conclusions
 
-TODO: What are they??
+We've seen how you can use Weave Cortex to monitor your application, your cluster and your network in Weave Cloud.
+
 
 <div style="width:50%; float:left;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
