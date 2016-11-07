@@ -70,7 +70,7 @@ Ensure that you have the following installed:
 
 If you haven't installed Docker for Mac before, follow the installation instructions on <a href="https://docs.docker.com/docker-for-mac/" target="_blank">Docker website </a>. <!-- lkj_ -->
 
-Once it's running you will see <img alt="Docker Icon in the Mac OS menu bar" src="/wp-content/uploads/docker-for-mac-menu-bar-icon.png" style="height: 1em; display:inline-block;" /> in your menu bar.
+Once it's running you will see <img alt="Docker Icon in the Mac OS menu bar "<img src="images/docker-for-mac-menu-bar-icon.png" style="height: 1em; display:inline-block;" /> in your menu bar.
 
 ## Sign Up for Weave Cloud
 
@@ -82,7 +82,7 @@ To check that everything installed correctly on your laptop, first sign up for W
 2.  Sign up using either a Github, or Google account or use an email address.
 3.  Obtain the cloud service token from the User settings screen:
 
-![Obtain service token for Weave Cloud](weave-cloud-token-screenshot.png)
+<img src="images/weave-cloud-token.png" style="width:100%;" />
 
 ### Launch the Weave Cloud Probes
 
@@ -109,26 +109,30 @@ Weave Cloud controls allow you to stop, start and pause containers. They also en
 To deploy The Socks Shop:
 
 **1. Get the code:**
-~~~
+
+
+~~~bash
 git clone https://github.com/microservices-demo/microservices-demo.git
 ~~~
 
 
 **2. Change into the right directory in the repo you just cloned:**
 
-~~~
+~~~bash
 cd microservices-demo/deploy/docker-compose
 ~~~
 
 
 **3. Run the Sock Shop and display it in your browser:**
 
-~~~
+~~~bash
 docker network create mynetwork
 docker-compose up -d
 ~~~
 
 **Note:** If the shop doesn't come up right away or it gives you an error like `ERROR: for edge-router  Cannot start service edge-router:` because of a port in use, try going to `http://127.0.0.1` in your browser.
+
+<img src="images/socks-shop.png" style="width:100%;" />
 
 ### Run a Load Test on the Sock Shop
 
@@ -144,7 +148,7 @@ docker run -ti --rm --name=LOAD_TEST \
 
 With the load test running, you can observe the different services communicating by clicking on the Load Test container in Weave Cloud. From the metrics panel, open the load test's terminal to view the messages. With the load test running, the topology graph in Weave Cloud console will also form.
 
-![Weave Load Test](load-test-messages.png)
+<img src="images/load-test-messages.png" style="width:100%;" />
 
 # Deploying the app to "production" on Kubernetes
 
