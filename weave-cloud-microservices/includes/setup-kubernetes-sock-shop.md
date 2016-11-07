@@ -197,7 +197,7 @@ kubectl --kubeconfig ./admin.conf get nodes
 Install and launch the Weave Scope probes onto your Kubernetes cluster. From the master:
 
 ~~~bash
-curl -sSL 'https://cloud.weave.works/launch/k8s/weavescope.yaml?service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>' |sed s/50m/500m/ |kubectl apply -f - 
+curl -sSL 'https://cloud.weave.works/launch/k8s/weavescope.yaml?service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>' |sed s/50m/500m/ |kubectl apply -f -
 ~~~
 
 You should fetch `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` from [Weave Cloud](https://cloud.weave.works/).
@@ -255,13 +255,13 @@ In the example above, this was `31869`, but it is a different port for you.
 
 If there is a firewall, make sure it exposes this port to the internet before you try to access it.
 
-[sockshop screenshot]
+<img src="images/socks-shop.png" style="width:100%;" />
 
 ### Viewing the Result in Weave Cloud
 
 You can also view the result in [Weave Cloud](https://cloud.weave.works/) and also watch all of the pods as they join the cluster.
 
-[weave cloud screenshot]
+<img src="images/kubernetes-sock-shop.png" style="width:100%;" />
 
 
 ### Run the Load Test on the Cluster
