@@ -38,30 +38,40 @@ XXX-START-DETAILS-BLOCK
 XXX-END-DETAILS-BLOCK
 
 
-### Deploy socks shop
-
-On the master:
-
-```
-# kubectl create namespace sock-shop
-# git clone https://github.com/microservices-demo/microservices-demo
-# kubectl apply -n sock-shop -f microservices-demo/manifests
-```
-
-It takes several minutes to download and start all the containers, watch the output of `kubectl get pods -n sock-shop` to see when they're all up and running.
-
-
 ## Secure the application by applying Network Policy, which gets enforced by Weave Net
 
-Now we'll use Kubernetes policy to secure the application.
+In the above guide, you should have deployed the socks shop.  However, the different components are not isolated.
 
-Let's start by finding out that the application is not yet secured.
-Supposed that a hacker is able to infiltrate ...
+Let's start by testing that. Load up [Weave Cloud](https://cloud.weave.works/) and make sure you're in the containers view, then observe that the catalogue service can talk to the shipping service.
 
-Before - container A can talk to container B.
-Don't want it to be able to – apply policy.
-Oh look, now it can't (all through Scope).
+Select "catalogue" and click the `>_` icon. This will load up a shell. Then type the following:
 
+~~~
+wget http://shipping
+~~~
+
+You should get:
+~~~
+wget: server returned error: HTTP/1.1 404
+~~~
+
+This is not good! The catalogue service can speak to the shipping service. For a hacker who managed to infiltrate the catalogue service, they could now get direct access to the shipping service and attack that too.
+
+So, let's apply some network policy. SSH into the master, or where ever you run run `kubectl`:
+
+~~~
+cd microservices-demo
+kubectl apply -f deploy/kubernetes/manifests-policy/
+~~~
+
+Now run the wget inside the terminal in Weave Cloud again:
+~~~
+wget http://shipping
+~~~
+
+And you'll see the connection just times out. Those packets are being dropped. The app is now more secure!
+
+You can [take a look at the network policy itself](https://github.com/microservices-demo/microservices-demo/tree/master/deploy/kubernetes/manifests-policy) and learn about [Kubernetes network policy](http://kubernetes.io/docs/user-guide/networkpolicies/) to learn how to write your own policy for your app.
 
 ## Tear Down
 
@@ -73,7 +83,7 @@ XXX-END-DETAILS-BLOCK
 
 ## Conclusions
 
-TODO: What are they??
+We've seen that Kubernetes network policy allows you to define flexible and dynamic security policies, and Weave Net allows you to enforce them.
 
 <div style="width:50%; float:left;">
 <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
