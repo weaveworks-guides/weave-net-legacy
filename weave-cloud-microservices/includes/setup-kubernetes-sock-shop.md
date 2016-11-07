@@ -175,9 +175,9 @@ Node join complete:
 * Certificate signing request sent to master and response
   received.
 * Kubelet informed of new secure connection details.
-~~~
 
-Run 'kubectl get nodes' on the master to see this machine join.
+Run `kubectl get nodes` on the master to see this machine join.
+~~~
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
