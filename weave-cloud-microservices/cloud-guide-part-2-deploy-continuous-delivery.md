@@ -56,13 +56,12 @@ XXX-END-DETAILS-BLOCK
 
 XXX Are we deploying a version of the socks shop that we can deploy to here?
 
-## TODO
 
-fluxd does stuff with kubernetes, in the user’s cluster. fluxsvc answers API calls.
+## Fork the repositories
+
+In order to 
 
 
-
-## Make the repositories your own
 
 Go to github and fork the microservices-demo repo to https://github.com/&lt;your-username&gt;/microservices-demo.
 Clone it locally.

@@ -38,7 +38,6 @@ XXX-START-DETAILS-BLOCK
 XXX-END-DETAILS-BLOCK
 
 
-
 ### Deploy socks shop
 
 On the master:

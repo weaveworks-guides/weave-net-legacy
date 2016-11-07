@@ -214,7 +214,9 @@ On the master, run:
 
 ~~~
 kubectl create namespace sock-shop
-kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
+git clone https://github.com/microservices-demo/microservices-demo
+cd microservices-demo
+kubectl apply -n sock-shop -f deploy/kubernetes/manifests
 ~~~
 
 Switch to the `sock-shop` namespace at the bottom left of your browser window in Weave Cloud when in any of the Kubernetes-specific views (pods, replica sets, deployments & services).
@@ -265,6 +267,7 @@ You can also view the result in [Weave Cloud](https://cloud.weave.works/) and al
 ### Run the Load Test on the Cluster
 
 After the Sock Shop has completely deployed onto the cluster, run a load test from your local machine and view the results in Weave Cloud.
+You should see the architecture of the application "emerge" as different pieces join up.
 
 ~~~
 docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -r 10000 -c 20 -h <host-ip:[port number]>
