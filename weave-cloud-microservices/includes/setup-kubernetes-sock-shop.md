@@ -202,7 +202,7 @@ You should fetch `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` from [Weave Cloud](https://c
 
 Return to the Weave Cloud interface, select View Instance and click on the `Hosts` button to view the cluster ready to go.
 
-As you follow the next steps you can then watch the socks shop come up in [Weave Cloud](https://cloud.weave.works/). 
+As you follow the next steps you can then watch the socks shop come up in [Weave Cloud](https://cloud.weave.works/).
 
 Ensure that 'System Containers' are selected from the filters in the left hand corner to see all of the Kubernetes processes.
 
@@ -210,7 +210,7 @@ Ensure that 'System Containers' are selected from the filters in the left hand c
 
 ### Installing the Sock Shop onto Kubernetes
 
-As an example, install a sample microservices application, a socks shop, to put your cluster through its paces. To learn more about the sample microservices app, see the [microservices-demo README](https://github.com/microservices-demo/microservices-demo).
+To put your cluster through its paces, install the sample microservices application, Socks Shop. To learn more about the sample microservices app, refer to the [microservices-demo README](https://github.com/microservices-demo/microservices-demo).
 
 On the master, run:
 
