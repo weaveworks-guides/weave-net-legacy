@@ -1,9 +1,10 @@
-<h1 id="monitor-prometheus-monitoring-with-weave-cortex">Monitor: Prometheus Monitoring with Weave Cortex</h1>
+<!-- Monitor: Prometheus Monitoring with Weave Cortex -->
 
 <img src="images/monitor.png" style="width:100%; border:1em solid #32324b;" />
 
 This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
-In this guide we'll see how to configure Cloud Native Monitoring with Weave Cloud and Weave Cortex, and view your app's metrics in the Weave Cloud monitoring dashboard. This example uses Kubernetes.</p>
+In this guide we'll see how to configure monitoring with Weave Cloud and Weave Cortex, a Prometheus-powered monitoring service.
+In this way, you can view your app, network & container orchestrator metrics in the Weave Cloud monitoring dashboard. This example uses Kubernetes.</p>
 
 <div style="width:50%; float:left;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
@@ -14,46 +15,45 @@ In this guide we'll see how to configure Cloud Native Monitoring with Weave Clou
 <div style="clear:both;"></div>
 
 
-<center><div style="width:300px; display:inline-block; border:1px solid red; margin-top:2em;">
-VIDEO GOES HERE
+<center><div style="width:530px; display:inline-block; margin-top:2em;">
+<iframe width="530" height="298" src="https://www.youtube.com/embed/Fqwj3ibe5So?modestbranding=1&autohide=0&showinfo=0&controls=1&rel=0" frameborder="0" allowfullscreen></iframe>
 </div></center>
 
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-contents">Contents</h2>
+<h2 id="contents">Contents</h2>
 
-* [Monitor: Prometheus Monitoring with Weave Cortex](#monitor-prometheus-monitoring-with-weave-cortex)
-    * [Contents](#monitor-prometheus-monitoring-with-weave-cortex-contents)
-    * [Introduction](#monitor-prometheus-monitoring-with-weave-cortex-introduction)
-    * [What You Will Use](#monitor-prometheus-monitoring-with-weave-cortex-what-you-will-use)
-    * [Sign Up for Weave Cloud](#monitor-prometheus-monitoring-with-weave-cortex-sign-up-for-weave-cloud)
-    * [Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it](#monitor-prometheus-monitoring-with-weave-cortex-deploy-a-kubernetes-cluster-with-weave-net-and-then-deploy-a-sample-application-the-socks-shop-to-it)
-    * [Set Up Droplets in Digital Ocean](#monitor-prometheus-monitoring-with-weave-cortex-set-up-droplets-in-digital-ocean)
-        * [Create two Ubuntu Instances](#monitor-prometheus-monitoring-with-weave-cortex-set-up-droplets-in-digital-ocean-create-two-ubuntu-instances)
-        * [Adding an Additional Instance to Weave Cloud](#monitor-prometheus-monitoring-with-weave-cortex-set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud)
-    * [Set up a Kubernetes Cluster](#monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster)
-        * [Objectives](#monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-objectives)
-        * [Installing kubelet and kubeadm on Your Hosts](#monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts)
-        * [Install and Launch Weave Scope](#monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-install-and-launch-weave-scope)
-        * [Initializing the Master](#monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-initializing-the-master)
-        * [Installing Weave Net](#monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-installing-weave-net)
-        * [Joining Your Nodes](#monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-joining-your-nodes)
-        * [(Optional) Control Your Cluster From Machines Other Than The Master](#monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master)
-        * [Installing the Sock Shop onto Kubernetes](#monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes)
-        * [Viewing the Sock Shop in Your Browser](#monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser)
-        * [Viewing the Result in Weave Cloud](#monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud)
-        * [Run the Load Test on the Cluster](#monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster)
-    * [Configuring Cortex for Your Production Environment](#monitor-prometheus-monitoring-with-weave-cortex-configuring-cortex-for-your-production-environment)
-    * [Viewing Sock Shop Metrics in Weave Cortex](#monitor-prometheus-monitoring-with-weave-cortex-viewing-sock-shop-metrics-in-weave-cortex)
-    * [Run the Load Test](#monitor-prometheus-monitoring-with-weave-cortex-run-the-load-test)
-    * [Running Queries with the Prometheus Query Language](#monitor-prometheus-monitoring-with-weave-cortex-running-queries-with-the-prometheus-query-language)
-    * [Tear Down](#monitor-prometheus-monitoring-with-weave-cortex-tear-down)
-    * [Recreating the Cluster: Starting Over](#monitor-prometheus-monitoring-with-weave-cortex-recreating-the-cluster-starting-over)
-    * [Conclusions](#monitor-prometheus-monitoring-with-weave-cortex-conclusions)
+* [Contents](#contents)
+* [Introduction](#introduction)
+* [What You Will Use](#what-you-will-use)
+* [Sign Up for Weave Cloud](#sign-up-for-weave-cloud)
+* [Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it](#deploy-a-kubernetes-cluster-with-weave-net-and-then-deploy-a-sample-application-the-socks-shop-to-it)
+* [Set Up Droplets in Digital Ocean](#set-up-droplets-in-digital-ocean)
+    * [Create two Ubuntu Instances](#set-up-droplets-in-digital-ocean-create-two-ubuntu-instances)
+    * [Adding an Additional Instance to Weave Cloud](#set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud)
+* [Set up a Kubernetes Cluster](#set-up-a-kubernetes-cluster)
+    * [Objectives](#set-up-a-kubernetes-cluster-objectives)
+    * [Installing kubelet and kubeadm on Your Hosts](#set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts)
+    * [Install and Launch Weave Scope](#set-up-a-kubernetes-cluster-install-and-launch-weave-scope)
+    * [Initializing the Master](#set-up-a-kubernetes-cluster-initializing-the-master)
+    * [Installing Weave Net](#set-up-a-kubernetes-cluster-installing-weave-net)
+    * [Joining Your Nodes](#set-up-a-kubernetes-cluster-joining-your-nodes)
+    * [(Optional) Control Your Cluster From Machines Other Than The Master](#set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master)
+    * [Installing the Sock Shop onto Kubernetes](#set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes)
+    * [Viewing the Sock Shop in Your Browser](#set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser)
+    * [Viewing the Result in Weave Cloud](#set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud)
+    * [Run the Load Test on the Cluster](#set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster)
+* [Configuring Cortex for Your Production Environment](#configuring-cortex-for-your-production-environment)
+* [Viewing Sock Shop Metrics in Weave Cortex](#viewing-sock-shop-metrics-in-weave-cortex)
+* [Run the Load Test](#run-the-load-test)
+* [Running Queries with the Prometheus Query Language](#running-queries-with-the-prometheus-query-language)
+* [Tear Down](#tear-down)
+* [Recreating the Cluster: Starting Over](#recreating-the-cluster-starting-over)
+* [Conclusions](#conclusions)
 
 
 <!-- TODO have "sign up for weave cloud" instructions here -->
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-introduction">Introduction</h2>
+<h2 id="introduction">Introduction</h2>
 
 Microservices environments by nature are dynamic and are in a state of constant change especially if they are running inside containers. They may also be spread across multiple clouds or they may be spanning both a data center and a cloud which can make monitoring a challenge.  And since these systems tend to be in a state of constant change with containers going down and spinning back up again, traditional monitoring systems which are typically server-focused, don't work well with dynamic systems.
 
@@ -72,14 +72,14 @@ Specifically, in this tutorial, you will:
 
 This tutorial will take approximately 15 minutes to complete.
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-what-you-will-use">What You Will Use</h2>
+<h2 id="what-you-will-use">What You Will Use</h2>
 
 * [Weave Cloud](https://cloud.weave.works)
 * [Kubernetes](http://kubernetes.io/)
 * [Weaveworks Sockshop](https://github.com/microservices-demo)
 * [Weave Net](https://www.weave.works/products/weave-net/)
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-sign-up-for-weave-cloud">Sign Up for Weave Cloud</h2>
+<h2 id="sign-up-for-weave-cloud">Sign Up for Weave Cloud</h2>
 
 Before you can use Cortex to monitor apps, you will need to sign up for a Weave Cloud account.
 
@@ -93,7 +93,7 @@ Before you can use Cortex to monitor apps, you will need to sign up for a Weave 
 
 
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-deploy-a-kubernetes-cluster-with-weave-net-and-then-deploy-a-sample-application-the-socks-shop-to-it">Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it</h2>
+<h2 id="deploy-a-kubernetes-cluster-with-weave-net-and-then-deploy-a-sample-application-the-socks-shop-to-it">Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it</h2>
 
 If you have already done this as part of one of the other tutorials, you can skip this step.
 Otherwise, click "Details" below to see the instructions.
@@ -102,25 +102,25 @@ XXX-START-DETAILS-BLOCK
 
 **Note:** This example uses Digital Ocean, but you can just as easily create these two instances in AWS or whatever your favorite cloud provider is.
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-droplets-in-digital-ocean">Set Up Droplets in Digital Ocean</h2>
+<h2 id="set-up-droplets-in-digital-ocean">Set Up Droplets in Digital Ocean</h2>
 
 Sign up for [Digital Ocean](https://digitalocean.com) and create three Ubuntu instances, where you'll deploy a Kubernetes cluster, add a container network using Weave Net and finally deploy the Sock Shop onto the cluster and verify this deployment with the one you just did on your laptop in Weave Cloud.
 
 **Note:** It is recommended that each host have at least 4 gigabytes of memory in order to run this demo smoothly.
 
-<h3 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-droplets-in-digital-ocean-create-two-ubuntu-instances">Create two Ubuntu Instances</h3>
+<h3 id="set-up-droplets-in-digital-ocean-create-two-ubuntu-instances">Create two Ubuntu Instances</h3>
 
 Next you'll move over to Digital Ocean and create two Ubuntu droplets.
 Both machines should run Ubuntu 16.04 with 4GB or more of RAM per machine.
 
-<h3 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud">Adding an Additional Instance to Weave Cloud</h3>
+<h3 id="set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud">Adding an Additional Instance to Weave Cloud</h3>
 
 Before you start installing Kubernetes, create an additional instance in Weave Cloud. This extra instance assists you when you're deploying Kubernetes and will also allow you to see the Sock Shop as it spins up on Kubernetes.  
 
 Select the 'Create New Instance' command located in the menu bar.
 
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster">Set up a Kubernetes Cluster</h2>
+<h2 id="set-up-a-kubernetes-cluster">Set up a Kubernetes Cluster</h2>
 
 This is by far the simplest way in which to install Kubernetes.  In a few commands, you will have deployed a complete Kubernetes cluster with a resilient and secure container network onto the Cloud Provider of your choice.
 
@@ -131,14 +131,14 @@ It is simple enough that you can easily integrate its use into your own automati
 
 See the full [`kubeadm` reference](http://kubernetes.io/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
 
-<h3 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-objectives">Objectives</h3>
+<h3 id="set-up-a-kubernetes-cluster-objectives">Objectives</h3>
 
 * Install a secure Kubernetes cluster on your machines
 * Install a pod network on the cluster so that application components (pods) can talk to each other
 * Install a sample microservices application (a socks shop) on the cluster
 * View the result in Weave Cloud as you go along
 
-<h3 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts">Installing kubelet and kubeadm on Your Hosts</h3>
+<h3 id="set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts">Installing kubelet and kubeadm on Your Hosts</h3>
 
 You will install the following packages on all the machines:
 
@@ -169,7 +169,7 @@ apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
 **Note:** You may have to re-run `apt-get update` and then run `apt-get install -y kubelet kubeadm kubectl kubernetes-cni` second time to ensure that the packages are properly downloaded.
 
-<h3 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-install-and-launch-weave-scope">Install and Launch Weave Scope</h3>
+<h3 id="set-up-a-kubernetes-cluster-install-and-launch-weave-scope">Install and Launch Weave Scope</h3>
 
 Install and launch the Weave Scope probes onto each of your Ubuntu instances:
 
@@ -181,7 +181,7 @@ scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
 
 If you return to the Weave Cloud interface, you can click on the `Hosts` button and view your two Ubuntu hosts networked ready to go.
 
-<h3 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-initializing-the-master">Initializing the Master</h3>
+<h3 id="set-up-a-kubernetes-cluster-initializing-the-master">Initializing the Master</h3>
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 
@@ -242,7 +242,7 @@ If you want to be able to schedule pods on the master, for example if you want a
 
 This will remove the "dedicated" taint from any nodes that have it, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
 
-<h3 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-installing-weave-net">Installing Weave Net</h3>
+<h3 id="set-up-a-kubernetes-cluster-installing-weave-net">Installing Weave Net</h3>
 
 You must install a pod network so that your pods can communicate with each other. This guide shows you how to install Weave Net.
 
@@ -261,7 +261,7 @@ Once a pod network is installed, confirm that it is working by checking that the
 
 And once the `kube-dns` pod is up and running, you can continue on to joining your nodes.
 
-<h3 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-joining-your-nodes">Joining Your Nodes</h3>
+<h3 id="set-up-a-kubernetes-cluster-joining-your-nodes">Joining Your Nodes</h3>
 
 The nodes are where your workloads (containers and pods, etc) run.
 If you want to add any new machines as nodes to your cluster, for each machine: SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
@@ -290,7 +290,7 @@ Run 'kubectl get nodes' on the master to see this machine join.
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
-<h3 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master">(Optional) Control Your Cluster From Machines Other Than The Master</h3>
+<h3 id="set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master">(Optional) Control Your Cluster From Machines Other Than The Master</h3>
 
 In order to get kubectl on (for example) your laptop to talk to your cluster, you need to copy the `kubeconfig` file from your master to your laptop like this:
 
@@ -299,7 +299,7 @@ scp root@<master ip>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ~~~
 
-<h3 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes">Installing the Sock Shop onto Kubernetes</h3>
+<h3 id="set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes">Installing the Sock Shop onto Kubernetes</h3>
 
 As an example, install a sample microservices application, a socks shop, to put your cluster through its paces.
 To learn more about the sample microservices app, see the [microservices-demo README](https://github.com/microservices-demo/microservices-demo).
@@ -309,7 +309,7 @@ kubectl create namespace sock-shop
 kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
 ~~~
 
-<h3 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser">Viewing the Sock Shop in Your Browser</h3>
+<h3 id="set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser">Viewing the Sock Shop in Your Browser</h3>
 
 You can then find the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
@@ -340,14 +340,14 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 
 [sockshop screenshot]
 
-<h3 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud">Viewing the Result in Weave Cloud</h3>
+<h3 id="set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud">Viewing the Result in Weave Cloud</h3>
 
 You can also view the result in Weave Cloud and also watch all of the pods as they join the cluster.
 
 [weave cloud screenshot]
 
 
-<h3 id="monitor-prometheus-monitoring-with-weave-cortex-set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster">Run the Load Test on the Cluster</h3>
+<h3 id="set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster">Run the Load Test on the Cluster</h3>
 
 After the Sock Shop has completely deployed onto the cluster, run the same load test as you did on your laptop and then view the results in Weave Cloud.
 
@@ -364,7 +364,7 @@ XXX-END-DETAILS-BLOCK
 
 
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-configuring-cortex-for-your-production-environment">Configuring Cortex for Your Production Environment</h2>
+<h2 id="configuring-cortex-for-your-production-environment">Configuring Cortex for Your Production Environment</h2>
 
 Next you are going to enable Cortex to start pushing metrics to Weave Cloud.
 
@@ -398,14 +398,14 @@ kube-dns             1         1         1            1           18h
 weave-cortex-agent   1         1         1            1           4h
 ~~~
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-viewing-sock-shop-metrics-in-weave-cortex">Viewing Sock Shop Metrics in Weave Cortex</h2>
+<h2 id="viewing-sock-shop-metrics-in-weave-cortex">Viewing Sock Shop Metrics in Weave Cortex</h2>
 
 Go back to the Weave Cloud Dashboard and click the [graph icon] from the header bar. You should see the Cortex GUI where you can display metrics from the Sock Shop app.
 
 Cortex by default displays a number of metrics at the top that have already been detected by the system. Select `process_cpu_seconds_total` from the Detected Metrics section of Prometheus System Queries, where you should see something similar to the screen capture shown below:
 
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-run-the-load-test">Run the Load Test</h2>
+<h2 id="run-the-load-test">Run the Load Test</h2>
 
 You may wish to run a load test to see the metrics in Weave Cortex change as load is applied to the application.
 
@@ -414,7 +414,7 @@ docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -h edge-router -
 ~~~
 
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-running-queries-with-the-prometheus-query-language">Running Queries with the Prometheus Query Language</h2>
+<h2 id="running-queries-with-the-prometheus-query-language">Running Queries with the Prometheus Query Language</h2>
 
 You can also build your own queries using the Prometheus Query Language builder. For example you can view metrics by Nodes, Kubernetes or Weave Net.
 
@@ -423,7 +423,7 @@ For more information on using the Prometheus Query Language, see [Prometheus Que
 As an example select `IP address space exhaustion in %` and press the Execute button, where you should see the following:
 
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-tear-down">Tear Down</h2>
+<h2 id="tear-down">Tear Down</h2>
 
 XXX-START-DETAILS-BLOCK
 
@@ -444,14 +444,14 @@ find /var/lib/kubelet | xargs -n 1 findmnt -n -t tmpfs -o TARGET -T | uniq | xar
 rm -r -f /etc/kubernetes /var/lib/kubelet /var/lib/etcd;
 ~~~
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-recreating-the-cluster-starting-over">Recreating the Cluster: Starting Over</h2>
+<h2 id="recreating-the-cluster-starting-over">Recreating the Cluster: Starting Over</h2>
 
 If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init` on the master and `kubeadm join` on any of the nodes.
 
 
 XXX-END-DETAILS-BLOCK
 
-<h2 id="monitor-prometheus-monitoring-with-weave-cortex-conclusions">Conclusions</h2>
+<h2 id="conclusions">Conclusions</h2>
 
 TODO: What are they??
 
@@ -466,3 +466,4 @@ TODO: What are they??
 <p></p>
 
 If you have any questions or comments you can reach out to us on our [Slack channel](https://slack.weave.works/) or through one of these other channels on [Help](https://www.weave.works/help/).
+

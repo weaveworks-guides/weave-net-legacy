@@ -22,6 +22,26 @@ In this guide we'll see how to achieve fast iteration and Continuous Delivery wi
 
 {"gitdown": "contents"}
 
+## Introduction
+
+Weave Flux enables every developer on your team to push changes to a Kubernetes cluster as simply as a `git push`, while maintaining best practice of version controlling all of the cluster configuration (Kubernetes manifests) as you go by automatically modifying the manifests to include new versions.
+
+It interacts with three things:
+1. Your container registry, where typically your CI system (or something/someone else) pushes or builds container images.
+1. Your version control system, where you store your Kubernetes manifests.
+1. Your Kubernetes deployment, where you run a Flux agent (`fluxd`), in order to do the deployments (releases).
+
+It does this by:
+1. Watching a container image registry for changes.
+1. When a new image arrives, consulting its deployment policy, which for each service (container image) can either be "manual" or "automatic". This policy can be modified by running `fluxctl automate`.
+1. If it's configured to automatically deploy a change, it proceeds immediately. If not, it waits for the user to run `fluxctl release`.
+1. When doing a release, it clones the latest version of the Kubernetes manifests from version control, updates the manifest for the new image, makes a commit and pushes the change back to version control. It then applies the change to your cluster.
+
+This automates an otherwise manual and error-prone two-step process of updating the Kubernetes manifest in version control and applying the changes to the cluster.
+
+In this tutorial, we will put ourselves in the position of a developer on a devops team, and watch a code change go from code on their laptop to code in version control, through the CI system which builds a container image and pushes it to the registry, at which point Flux takes over and, because the service was configured to automatically deploy with `fluxctl automate`, automatically modify the Kubernetes manifest in version control and also deploy the change to the user's cluster.
+
+In particular, we'll change the colour of a button on the frontend of the user's app, a socks shop.
 
 ## Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it
 
@@ -33,6 +53,8 @@ XXX-START-DETAILS-BLOCK
 {"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop.md"}
 
 XXX-END-DETAILS-BLOCK
+
+XXX Are we deploying a version of the socks shop that we can deploy to here?
 
 ## TODO
 

@@ -1,4 +1,4 @@
-<h1 id="deploy-continuous-delivery-with-weave-flux">Deploy: Continuous Delivery with Weave Flux</h1>
+<!-- Deploy: Continuous Delivery with Weave Flux -->
 
 <img src="images/deploy.png" style="width:100%; border:1em solid #32324b;" />
 
@@ -13,70 +13,70 @@ In this guide we'll see how to achieve fast iteration and Continuous Delivery wi
 </div>
 <div style="clear:both;"></div>
 
-<center><div style="width:300px; display:inline-block; border:1px solid red; margin-top:2em;">
-VIDEO GOES HERE
+<center><div style="width:530px; display:inline-block; margin-top:2em;">
+<iframe width="530" height="298" src="https://www.youtube.com/embed/CKHXYtU1n8Y?modestbranding=1&autohide=0&showinfo=0&controls=1&rel=0" frameborder="0" allowfullscreen></iframe>
 </div></center>
 
 
-<h2 id="deploy-continuous-delivery-with-weave-flux-contents">Contents</h2>
+<h2 id="contents">Contents</h2>
 
-* [Deploy: Continuous Delivery with Weave Flux](#deploy-continuous-delivery-with-weave-flux)
-    * [Contents](#deploy-continuous-delivery-with-weave-flux-contents)
-    * [Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it](#deploy-continuous-delivery-with-weave-flux-deploy-a-kubernetes-cluster-with-weave-net-and-then-deploy-a-sample-application-the-socks-shop-to-it)
-    * [Set Up Droplets in Digital Ocean](#deploy-continuous-delivery-with-weave-flux-set-up-droplets-in-digital-ocean)
-        * [Create two Ubuntu Instances](#deploy-continuous-delivery-with-weave-flux-set-up-droplets-in-digital-ocean-create-two-ubuntu-instances)
-        * [Adding an Additional Instance to Weave Cloud](#deploy-continuous-delivery-with-weave-flux-set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud)
-    * [Set up a Kubernetes Cluster](#deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster)
-        * [Objectives](#deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-objectives)
-        * [Installing kubelet and kubeadm on Your Hosts](#deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts)
-        * [Install and Launch Weave Scope](#deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-install-and-launch-weave-scope)
-        * [Initializing the Master](#deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-initializing-the-master)
-        * [Installing Weave Net](#deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-installing-weave-net)
-        * [Joining Your Nodes](#deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-joining-your-nodes)
-        * [(Optional) Control Your Cluster From Machines Other Than The Master](#deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master)
-        * [Installing the Sock Shop onto Kubernetes](#deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes)
-        * [Viewing the Sock Shop in Your Browser](#deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser)
-        * [Viewing the Result in Weave Cloud](#deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud)
-        * [Run the Load Test on the Cluster](#deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster)
-    * [Make the repositories your own](#deploy-continuous-delivery-with-weave-flux-make-the-repositories-your-own)
-    * [Get sockshop running](#deploy-continuous-delivery-with-weave-flux-get-sockshop-running)
-    * [Set up frontend image build](#deploy-continuous-delivery-with-weave-flux-set-up-frontend-image-build)
-    * [Getting fluxy running](#deploy-continuous-delivery-with-weave-flux-getting-fluxy-running)
-    * [Demo proper](#deploy-continuous-delivery-with-weave-flux-demo-proper)
-    * [Tear Down](#deploy-continuous-delivery-with-weave-flux-tear-down)
-    * [Recreating the Cluster: Starting Over](#deploy-continuous-delivery-with-weave-flux-recreating-the-cluster-starting-over)
+* [Contents](#contents)
+* [Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it](#deploy-a-kubernetes-cluster-with-weave-net-and-then-deploy-a-sample-application-the-socks-shop-to-it)
+* [Set Up Droplets in Digital Ocean](#set-up-droplets-in-digital-ocean)
+    * [Create two Ubuntu Instances](#set-up-droplets-in-digital-ocean-create-two-ubuntu-instances)
+    * [Adding an Additional Instance to Weave Cloud](#set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud)
+* [Set up a Kubernetes Cluster](#set-up-a-kubernetes-cluster)
+    * [Objectives](#set-up-a-kubernetes-cluster-objectives)
+    * [Installing kubelet and kubeadm on Your Hosts](#set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts)
+    * [Install and Launch Weave Scope](#set-up-a-kubernetes-cluster-install-and-launch-weave-scope)
+    * [Initializing the Master](#set-up-a-kubernetes-cluster-initializing-the-master)
+    * [Installing Weave Net](#set-up-a-kubernetes-cluster-installing-weave-net)
+    * [Joining Your Nodes](#set-up-a-kubernetes-cluster-joining-your-nodes)
+    * [(Optional) Control Your Cluster From Machines Other Than The Master](#set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master)
+    * [Installing the Sock Shop onto Kubernetes](#set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes)
+    * [Viewing the Sock Shop in Your Browser](#set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser)
+    * [Viewing the Result in Weave Cloud](#set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud)
+    * [Run the Load Test on the Cluster](#set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster)
+* [TODO](#todo)
+* [Make the repositories your own](#make-the-repositories-your-own)
+* [Get sockshop running](#get-sockshop-running)
+* [Set up frontend image build](#set-up-frontend-image-build)
+* [Getting fluxy running](#getting-fluxy-running)
+* [Demo proper](#demo-proper)
+* [Tear Down](#tear-down)
+* [Recreating the Cluster: Starting Over](#recreating-the-cluster-starting-over)
 * [Conclusion](#conclusion)
 
 
 
-<h2 id="deploy-continuous-delivery-with-weave-flux-deploy-a-kubernetes-cluster-with-weave-net-and-then-deploy-a-sample-application-the-socks-shop-to-it">Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it</h2>
+<h2 id="deploy-a-kubernetes-cluster-with-weave-net-and-then-deploy-a-sample-application-the-socks-shop-to-it">Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it</h2>
 
 If you have already done this as part of one of the other tutorials, you can skip this step.
-Otherwise, click "Details" below to see the instructions.
+Otherwise, click "Details" below to see the instructions for setting up a Kubernetes cluster and deploying the socks shop to it.
 
 XXX-START-DETAILS-BLOCK
 
 **Note:** This example uses Digital Ocean, but you can just as easily create these two instances in AWS or whatever your favorite cloud provider is.
 
-<h2 id="deploy-continuous-delivery-with-weave-flux-set-up-droplets-in-digital-ocean">Set Up Droplets in Digital Ocean</h2>
+<h2 id="set-up-droplets-in-digital-ocean">Set Up Droplets in Digital Ocean</h2>
 
 Sign up for [Digital Ocean](https://digitalocean.com) and create three Ubuntu instances, where you'll deploy a Kubernetes cluster, add a container network using Weave Net and finally deploy the Sock Shop onto the cluster and verify this deployment with the one you just did on your laptop in Weave Cloud.
 
 **Note:** It is recommended that each host have at least 4 gigabytes of memory in order to run this demo smoothly.
 
-<h3 id="deploy-continuous-delivery-with-weave-flux-set-up-droplets-in-digital-ocean-create-two-ubuntu-instances">Create two Ubuntu Instances</h3>
+<h3 id="set-up-droplets-in-digital-ocean-create-two-ubuntu-instances">Create two Ubuntu Instances</h3>
 
 Next you'll move over to Digital Ocean and create two Ubuntu droplets.
 Both machines should run Ubuntu 16.04 with 4GB or more of RAM per machine.
 
-<h3 id="deploy-continuous-delivery-with-weave-flux-set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud">Adding an Additional Instance to Weave Cloud</h3>
+<h3 id="set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud">Adding an Additional Instance to Weave Cloud</h3>
 
 Before you start installing Kubernetes, create an additional instance in Weave Cloud. This extra instance assists you when you're deploying Kubernetes and will also allow you to see the Sock Shop as it spins up on Kubernetes.  
 
 Select the 'Create New Instance' command located in the menu bar.
 
 
-<h2 id="deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster">Set up a Kubernetes Cluster</h2>
+<h2 id="set-up-a-kubernetes-cluster">Set up a Kubernetes Cluster</h2>
 
 This is by far the simplest way in which to install Kubernetes.  In a few commands, you will have deployed a complete Kubernetes cluster with a resilient and secure container network onto the Cloud Provider of your choice.
 
@@ -87,14 +87,14 @@ It is simple enough that you can easily integrate its use into your own automati
 
 See the full [`kubeadm` reference](http://kubernetes.io/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
 
-<h3 id="deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-objectives">Objectives</h3>
+<h3 id="set-up-a-kubernetes-cluster-objectives">Objectives</h3>
 
 * Install a secure Kubernetes cluster on your machines
 * Install a pod network on the cluster so that application components (pods) can talk to each other
 * Install a sample microservices application (a socks shop) on the cluster
 * View the result in Weave Cloud as you go along
 
-<h3 id="deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts">Installing kubelet and kubeadm on Your Hosts</h3>
+<h3 id="set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts">Installing kubelet and kubeadm on Your Hosts</h3>
 
 You will install the following packages on all the machines:
 
@@ -125,7 +125,7 @@ apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
 **Note:** You may have to re-run `apt-get update` and then run `apt-get install -y kubelet kubeadm kubectl kubernetes-cni` second time to ensure that the packages are properly downloaded.
 
-<h3 id="deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-install-and-launch-weave-scope">Install and Launch Weave Scope</h3>
+<h3 id="set-up-a-kubernetes-cluster-install-and-launch-weave-scope">Install and Launch Weave Scope</h3>
 
 Install and launch the Weave Scope probes onto each of your Ubuntu instances:
 
@@ -137,7 +137,7 @@ scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
 
 If you return to the Weave Cloud interface, you can click on the `Hosts` button and view your two Ubuntu hosts networked ready to go.
 
-<h3 id="deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-initializing-the-master">Initializing the Master</h3>
+<h3 id="set-up-a-kubernetes-cluster-initializing-the-master">Initializing the Master</h3>
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 
@@ -198,7 +198,7 @@ If you want to be able to schedule pods on the master, for example if you want a
 
 This will remove the "dedicated" taint from any nodes that have it, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
 
-<h3 id="deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-installing-weave-net">Installing Weave Net</h3>
+<h3 id="set-up-a-kubernetes-cluster-installing-weave-net">Installing Weave Net</h3>
 
 You must install a pod network so that your pods can communicate with each other. This guide shows you how to install Weave Net.
 
@@ -217,7 +217,7 @@ Once a pod network is installed, confirm that it is working by checking that the
 
 And once the `kube-dns` pod is up and running, you can continue on to joining your nodes.
 
-<h3 id="deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-joining-your-nodes">Joining Your Nodes</h3>
+<h3 id="set-up-a-kubernetes-cluster-joining-your-nodes">Joining Your Nodes</h3>
 
 The nodes are where your workloads (containers and pods, etc) run.
 If you want to add any new machines as nodes to your cluster, for each machine: SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
@@ -246,7 +246,7 @@ Run 'kubectl get nodes' on the master to see this machine join.
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
-<h3 id="deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master">(Optional) Control Your Cluster From Machines Other Than The Master</h3>
+<h3 id="set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master">(Optional) Control Your Cluster From Machines Other Than The Master</h3>
 
 In order to get kubectl on (for example) your laptop to talk to your cluster, you need to copy the `kubeconfig` file from your master to your laptop like this:
 
@@ -255,7 +255,7 @@ scp root@<master ip>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ~~~
 
-<h3 id="deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes">Installing the Sock Shop onto Kubernetes</h3>
+<h3 id="set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes">Installing the Sock Shop onto Kubernetes</h3>
 
 As an example, install a sample microservices application, a socks shop, to put your cluster through its paces.
 To learn more about the sample microservices app, see the [microservices-demo README](https://github.com/microservices-demo/microservices-demo).
@@ -265,7 +265,7 @@ kubectl create namespace sock-shop
 kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
 ~~~
 
-<h3 id="deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser">Viewing the Sock Shop in Your Browser</h3>
+<h3 id="set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser">Viewing the Sock Shop in Your Browser</h3>
 
 You can then find the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
@@ -296,14 +296,14 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 
 [sockshop screenshot]
 
-<h3 id="deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud">Viewing the Result in Weave Cloud</h3>
+<h3 id="set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud">Viewing the Result in Weave Cloud</h3>
 
 You can also view the result in Weave Cloud and also watch all of the pods as they join the cluster.
 
 [weave cloud screenshot]
 
 
-<h3 id="deploy-continuous-delivery-with-weave-flux-set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster">Run the Load Test on the Cluster</h3>
+<h3 id="set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster">Run the Load Test on the Cluster</h3>
 
 After the Sock Shop has completely deployed onto the cluster, run the same load test as you did on your laptop and then view the results in Weave Cloud.
 
@@ -318,14 +318,19 @@ Where,
 
 XXX-END-DETAILS-BLOCK
 
+<h2 id="todo">TODO</h2>
 
-<h2 id="deploy-continuous-delivery-with-weave-flux-make-the-repositories-your-own">Make the repositories your own</h2>
+fluxd does stuff with kubernetes, in the user’s cluster. fluxsvc answers API calls.
+
+
+
+<h2 id="make-the-repositories-your-own">Make the repositories your own</h2>
 
 Go to github and fork the microservices-demo repo to https://github.com/&lt;your-username&gt;/microservices-demo.
 Clone it locally.
 
 
-<h2 id="deploy-continuous-delivery-with-weave-flux-get-sockshop-running">Get sockshop running</h2>
+<h2 id="get-sockshop-running">Get sockshop running</h2>
 
 
 On lead node (ssh -A root@...), since there's no convenient way to run
@@ -351,7 +356,7 @@ k8s-01$ kubectl describe service front-end
 ```
 
 
-<h2 id="deploy-continuous-delivery-with-weave-flux-set-up-frontend-image-build">Set up frontend image build</h2>
+<h2 id="set-up-frontend-image-build">Set up frontend image build</h2>
 
 
 There are lots of ways of doing this! Here's one example. It can be done ahead of
@@ -382,7 +387,7 @@ Locally, change the environment entry `GROUP` in `microservices-front-end/.travi
 can go back and see it all happen in travis-ci.
 
 
-<h2 id="deploy-continuous-delivery-with-weave-flux-getting-fluxy-running">Getting fluxy running</h2>
+<h2 id="getting-fluxy-running">Getting fluxy running</h2>
 
 
 This is largely taken from
@@ -459,7 +464,7 @@ $ fluxctl list-services
 [[to remove a network policy on default: kubectl annotate namespace default net.beta.kubernetes.io/network-policy-]
 
 
-<h2 id="deploy-continuous-delivery-with-weave-flux-demo-proper">Demo proper</h2>
+<h2 id="demo-proper">Demo proper</h2>
 
 
 Oh no, we have to update the front-end to have a different button!
@@ -471,8 +476,7 @@ front-end-dep.yaml to use quay.io/squaremo/front-end, appending the
 tag (check quay.io for the tags if it's not on screen somewhere).
 
 
-You have to apply this using kubectl, but it would be nice if fluxy
-could do it for you.
+You have to apply this using kubectl, but it would be nice if fluxy could do it for you, because then you can also turn on automatic deployment (continuous delivery).
 
 
 ```
@@ -507,7 +511,7 @@ and change the front-end image again.
 
 
 
-<h2 id="deploy-continuous-delivery-with-weave-flux-tear-down">Tear Down</h2>
+<h2 id="tear-down">Tear Down</h2>
 
 XXX-START-DETAILS-BLOCK
 
@@ -528,7 +532,7 @@ find /var/lib/kubelet | xargs -n 1 findmnt -n -t tmpfs -o TARGET -T | uniq | xar
 rm -r -f /etc/kubernetes /var/lib/kubelet /var/lib/etcd;
 ~~~
 
-<h2 id="deploy-continuous-delivery-with-weave-flux-recreating-the-cluster-starting-over">Recreating the Cluster: Starting Over</h2>
+<h2 id="recreating-the-cluster-starting-over">Recreating the Cluster: Starting Over</h2>
 
 If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init` on the master and `kubeadm join` on any of the nodes.
 

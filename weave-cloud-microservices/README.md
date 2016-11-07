@@ -9,6 +9,6 @@ Use Atom editor with 'Markdown Preview Plus' to open one of the `_output/_*.md` 
 
 Right click on the HTML preview and 'Save as HTML...'
 
-Run `convert.py _output/_file.md.html`
+Run `convert.py _output/_file.md.html`, this will output the final html file as e.g. `_output/_file.html`. This is the one you should copy and paste into Wordpress.
 
 If you do this for all the files, you can run: `for X in _output/*.md.html; do ./convert.py $X; done`
