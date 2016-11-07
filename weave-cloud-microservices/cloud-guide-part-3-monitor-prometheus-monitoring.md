@@ -142,8 +142,6 @@ You can also build your own queries using the Prometheus Query Language builder.
 
 For more information on using the Prometheus Query Language, see [Prometheus Query Examples](https://prometheus.io/docs/querying/examples/)
 
-As an example select `IP address space exhaustion in %` and press the Execute button, where you should see the following:
-
 ## Monitor the network with Weave Cortex, part of Weave Cloud
 
 Weave Net supports Prometheus monitoring, so you can monitor your Weave Net network in Weave Cloud.
