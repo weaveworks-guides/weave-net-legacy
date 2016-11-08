@@ -142,7 +142,7 @@ git push
 
 ## Configure Robot Account in Quay.io
 
-Log into Quay.io, and create a robot account (`ci_push_pull`) and then give it write permissions to that repo.
+Log into Quay.io, and create a robot account (`ci_push_pull`) and then give it Admin permissions to that repo.
 
 Connect up to TravisCI. In http://travis-ci.org/, sign in, find the repo and switch it on. Supply environment entries for `DOCKER_USER` and `DOCKER_PASS` by copying them from the robot account in quay.io.
 
