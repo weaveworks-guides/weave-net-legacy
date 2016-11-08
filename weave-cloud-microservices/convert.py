@@ -10,11 +10,11 @@ Open it in Atom and copy and paste it into Wordpress.
     """
     sys.exit(1)
 html = open(sys.argv[1]).read()
-start = "<body class='markdown-preview' data-use-github-style>"
+start = "<body class='markdown-preview'>"
 end = "</html>"
 html = html.split(start)[1]
 html = html.split(end)[0]
-html = html.replace("/Users/luke/Projects/Weave/guides/weave-cloud-microservices/_output/images/", "/wp-content/uploads/")
+html = html.replace("/Users/anitab/Documents/Weaveworks/website/guides/weave-cloud-microservices/_output/images/", "/wp-content/uploads/")
 html = html.replace("XXX-START-DETAILS-BLOCK", "<details style='margin-left: 1em; border-left: 1px solid gray; padding-left: 1em;'>")
 html = html.replace("XXX-END-DETAILS-BLOCK", "</details>")
 f = open(sys.argv[1].replace(".md.html", ".html"), 'w')
