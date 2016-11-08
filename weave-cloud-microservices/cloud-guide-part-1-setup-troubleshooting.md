@@ -59,7 +59,7 @@ This tutorial will take approximately 15 minutes to complete.
 
 * [Weave Cloud](https://cloud.weave.works)
 * [Docker for Mac](https://docs.docker.com/docker-for-mac/docker-toolbox/)
-* [Weaveworks Sockshop](https://github.com/microservices-demo)
+* [Weaveworks Microservices Demo (Sock Shop)](https://github.com/microservices-demo)
 * [Kubernetes](http://kubernetes.io/)
 * [Weave Net](https://www.weave.works/products/weave-net/)
 
@@ -171,7 +171,7 @@ In this tutorial you learned how to verify your app deployed to your laptop with
 <p></p>
 {"gitdown": "include", "file": "./includes/slack-us.md"}
 
-<div style="width:50%; padding: 10px; float:right; text-align:right; font-weight: 700>
+<div style="width:50%; padding: 10px; float:right; text-align:right; font-weight: 700;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
 <div style="clear:both;"></div>
