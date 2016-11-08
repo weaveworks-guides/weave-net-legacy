@@ -3,7 +3,7 @@
 
 
 This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
-In this guide we'll see how to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net.
+In this guide, how to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net is demonstrated.
 
 <div style="width:50%; padding: 10px float:left;font-weight: 700;";">
 <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
@@ -11,6 +11,11 @@ In this guide we'll see how to secure your app by defining Kubernetes Network Po
 <div style="clear:both;"></div>
 
 <img src="images/secure.png" style="width:100%; border:1em solid #32324b;" />
+
+<p></p>
+Securing segments of your app is simple with the application of Kubernetes-based policy that is enforced by Weave Net. Simple add namespaces to the policy yaml files to create software firewalls.
+
+## A Video Overview
 
 <center><div style="width:530px; padding: 10px; display:inline-block; margin-top:2em;">
 <iframe width="530" height="298" src="https://www.youtube.com/embed/3qRRP3fQBTs?modestbranding=1&autohide=0&showinfo=0&controls=1&rel=0" frameborder="0" allowfullscreen></iframe>

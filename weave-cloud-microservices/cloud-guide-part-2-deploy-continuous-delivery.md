@@ -12,9 +12,11 @@ This is Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In 
 
 
 <img src="images/deploy.png" style="width:100%; border:1em solid #32324b;" />
+<p></p>
 
+Continuous Delivery with Weave Flux manages change between your container registry, where typically your CI system pushes or builds a Docker container image, and your version control system that keeps track of your Kubernetes manifests.  Flux tracks and acts on the changes between these systems without you having to disassemble and reassemble your infrastructure each time a new feature is added to your app. 
 
-
+##A Video Overview
 
 <center><div style="width:530px; display:inline-block; margin-top:2em;">
 <iframe width="530" height="298" src="https://www.youtube.com/embed/CKHXYtU1n8Y?modestbranding=1&autohide=0&showinfo=0&controls=1&rel=0" frameborder="0" allowfullscreen></iframe>
@@ -28,14 +30,6 @@ This is Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In 
 ## Introduction
 
 Weave Flux enables every developer on your team to push changes to a Kubernetes cluster as simply as a `git push`, while maintaining best practices in version controlling all of the cluster configuration (Kubernetes manifests) as you go by automatically modifying the manifests to include new versions.
-
-Continuous Delivery with Weave Flux interacts with the following three things:
-
- **1.**  Your container registry, where typically your CI system (or something/someone else) pushes or builds container images.
-
- **2.**  Your version control system, where you store your Kubernetes manifests.
-
- **3.**  Your Kubernetes deployment, where you run a Flux agent (`fluxd`), in order to do the deployments (releases).
 
 And it does this by:
 
