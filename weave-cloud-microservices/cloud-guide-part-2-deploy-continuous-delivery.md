@@ -37,17 +37,7 @@ Continuous Delivery with Weave Flux interacts with the following three things:
 
  **3.**  Your Kubernetes deployment, where you run a Flux agent (`fluxd`), in order to do the deployments (releases).
 
-And it does this by:
-
- **1.**  Watching a container image registry for changes.
-
- **2.**  When a new image arrives, consulting its deployment policy, which for each service (container image) can either be "manual" or "automatic". This policy can be modified by running `fluxctl automate`.
-
- **3.**  If it's configured to automatically deploy a change, it proceeds immediately. If not, it waits for the user to run `fluxctl release`.
-
- **4.**  When doing a release, fluxy clones the latest version of the Kubernetes manifests from version control, updates the manifest for the new image, makes a commit and pushes the change back to version control. It then applies the change to your cluster.
-
-This automates an otherwise manual and error-prone two-step process of updating the Kubernetes manifest in version control and applying the changes to the cluster.
+When there's a new version of an image pushed to the image registry, Flux will help you release it to Kubernetes, and write the updated configuration back to your source control. You can choose to automate this process per-service.
 
 In this tutorial, you will put yourself in the position of a developer on a devops team, and watch a code change go from code on a laptop to code in version control, through the CI system which builds a container image and pushes it to the registry, after which Flux takes over and, because the service was configured to automatically deploy with `fluxctl automate`, automatically modifies the Kubernetes manifest in version control and then deploys the change to the user's cluster.
 
