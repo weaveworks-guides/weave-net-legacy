@@ -10,7 +10,7 @@ This is Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In 
 
 <img src="images/setup.png" style="width:100%; border:1em solid #32324b;" />
 <p></p>
-You will begin by deploying an app to your local development laptop using Docker Compose, and then you'll move on to a more production type environment where you'll set up a Kubernetes cluster that networks containers with Weave Net, and deploy your application to it.
+You will begin by deploying an app to your local development laptop using Docker Compose, and then move on to a more production type environment where you'll set up a Kubernetes cluster that networks containers with Weave Net, and deploy your application to it.
 
 
 ##A Video Overview
@@ -36,11 +36,11 @@ To streamline your app development pipeline and make your app Cloud Native to de
 
 A Cloud Native app gives you the freedom to focus on your code instead of maintaining cloud tools, where rapid, incremental updates can be made without having to disassemble and reassemble your infrastructure each time a new feature is added.  And while the ability to rapidly deploy changes to your app is important, the freedom to choose your own source control system, deployment tools and container registry without having to maintain a set of custom scripts is also critical.
 
-With Weave Cloud you can view and monitor your microservices all in one place in a convenient troubleshooting dashboard, and together with automated continuous delivery built with your favorite tools, Weave Cloud allows you to create higher quality code more rapidly.
+With Weave Cloud you view and monitor your microservices from one convenient troubleshooting dashboard, and together with automated continuous delivery built with your favorite tools, Weave Cloud allows you to create higher quality code more rapidly.
 
 You will use the Weaveworks sample app, [The Sock Shop](https://github.com/microservices-demo), deploy it to a couple of virtual machines running Docker and Kubernetes and then verify and troubleshoot any issues in Weave Cloud.
 
-Specifically, in this tutorial, you will:
+In this tutorial, you will:
 
 1. Set up Docker or Docker for Mac on your local machine (if you haven't already done so).
 2. Deploy the sock shop with Docker Compose.
@@ -74,13 +74,13 @@ Ensure that you have the following installed:
 
 If you haven't installed Docker for Mac before, follow the installation instructions on <a href="https://docs.docker.com/docker-for-mac/" target="_blank">Docker website </a>. <!-- lkj_ -->
 
-Once it's running you will see <img alt="Docker Icon in the Mac OS menu bar "<img src="images/docker-for-mac-menu-bar-icon.png" style="height: 1em; display:inline-block;" /> in your menu bar.
+Once it's running you will see <img src="images/docker-for-mac-menu-bar-icon.png" style="height: 1em; display:inline-block;" /> in your menu bar.
 
 ## Sign Up for Weave Cloud
 
-Next, use Weave Cloud to verify what was just deployed to your laptop and check that everything deployed correctly and that all services are behaving as they should. You will verify the app first on your laptop. Then you'll use Weave Cloud to view the Kubernetes pods as they get deployed, and again to verify the Sock Shop after it gets deployed to Kubernetes in Digital Ocean.
+Signup for Weave Cloud and use it to verify what you deployed to your laptop to ensure that everything deployed correctly and that all services are behaving as they should. You will verify the app first on your laptop. Then you'll use Weave Cloud to view the Kubernetes pods as they get deployed, and again to verify the Sock Shop after it gets deployed to Kubernetes in Digital Ocean.
 
-To check that everything installed correctly on your laptop, first sign up for Weave Cloud:
+First sign up for Weave Cloud:
 
 1.  Go to <a href="https://cloud.weave.works" target="_blank"> Weave Cloud </a> <!-- lkj_ -->
 2.  Sign up using either a Github, or Google account or use an email address.
