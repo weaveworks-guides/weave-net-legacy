@@ -18,7 +18,7 @@ Securing segments of your app is simple with the application of Kubernetes-based
 ## A Video Overview
 
 <center><div style="width:530px; padding: 10px; display:inline-block; margin-top:2em;">
-<iframe width="530" height="298" src="https://www.youtube.com/embed/3qRRP3fQBTs?modestbranding=1&autohide=0&showinfo=0&controls=1&rel=0" frameborder="0" allowfullscreen></iframe>
+<iframe src="https://player.vimeo.com/video/190563581" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div></center>
 
 

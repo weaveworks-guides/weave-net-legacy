@@ -24,7 +24,7 @@ View your app, network & container orchestrator metrics in the Weave Cloud monit
 ##A Video Overview
 
 <center><div style="width:530px; display:inline-block; margin-top:2em;">
-<iframe width="530" height="298" src="https://www.youtube.com/embed/Fqwj3ibe5So?modestbranding=1&autohide=0&showinfo=0&controls=1&rel=0" frameborder="0" allowfullscreen></iframe>
+<iframe src="https://player.vimeo.com/video/190563580" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div></center>
 
 

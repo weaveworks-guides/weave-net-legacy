@@ -16,8 +16,8 @@ You will begin by deploying an app to your local development laptop using Docker
 ##A Video Overview
 
 <center><div style="width:530px; display:inline-block; margin-top:2em;">
-<iframe width="530" height="298" src="https://www.youtube.com/embed/6fb-dmrKTOU?modestbranding=1&autohide=0&showinfo=0&controls=1&rel=0" frameborder="0" allowfullscreen></iframe>
-</div></center>
+<iframe src="https://player.vimeo.com/video/190563578" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</center>
 
 ## Contents
 
