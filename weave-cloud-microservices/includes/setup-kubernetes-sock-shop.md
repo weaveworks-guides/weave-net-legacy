@@ -206,7 +206,7 @@ As you follow the next steps you can then watch the socks shop come up in [Weave
 
 Ensure that 'System Containers' are selected from the filters in the left hand corner to see all of the Kubernetes processes.
 
-<img src="images/kubernetes-weave-cloud.png" style="width:100%;" />
+<img src="images/kubernetes-weave-cloud-2.png" style="width:100%;" />
 
 ### Installing the Sock Shop onto Kubernetes
 
@@ -222,6 +222,9 @@ kubectl apply -n sock-shop -f deploy/kubernetes/manifests
 ~~~
 
 Switch to the `sock-shop` namespace at the bottom left of your browser window in Weave Cloud when in any of the Kubernetes-specific views (pods, replica sets, deployments & services).
+
+<img src="images/sock-shop-kubernetes.png" style="width:100%;" />
+
 
 ### Viewing the Sock Shop in Your Browser
 
@@ -261,8 +264,6 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 ### Viewing the Result in Weave Cloud
 
 You can also view the result in [Weave Cloud](https://cloud.weave.works/) and also watch all of the pods as they join the cluster.
-
-<img src="images/kubernetes-sock-shop.png" style="width:100%;" />
 
 
 ### Run the Load Test on the Cluster
