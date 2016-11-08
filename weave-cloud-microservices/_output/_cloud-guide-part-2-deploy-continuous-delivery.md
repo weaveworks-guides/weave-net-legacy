@@ -21,35 +21,62 @@ In this guide we'll see how to achieve fast iteration and Continuous Delivery wi
 <h2 id="contents">Contents</h2>
 
 * [Contents](#contents)
-* [Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it](#deploy-a-kubernetes-cluster-with-weave-net-and-then-deploy-a-sample-application-the-socks-shop-to-it)
+* [Introduction](#introduction)
+* [Deploy a Kubernetes cluster with Weave Net and then deploy the application to it](#deploy-a-kubernetes-cluster-with-weave-net-and-then-deploy-the-application-to-it)
 * [Set Up Droplets in Digital Ocean](#set-up-droplets-in-digital-ocean)
-    * [Create two Ubuntu Instances](#set-up-droplets-in-digital-ocean-create-two-ubuntu-instances)
+    * [Create three Ubuntu Instances](#set-up-droplets-in-digital-ocean-create-three-ubuntu-instances)
     * [Adding an Additional Instance to Weave Cloud](#set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud)
-* [Set up a Kubernetes Cluster](#set-up-a-kubernetes-cluster)
-    * [Objectives](#set-up-a-kubernetes-cluster-objectives)
-    * [Installing kubelet and kubeadm on Your Hosts](#set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts)
-    * [Install and Launch Weave Scope](#set-up-a-kubernetes-cluster-install-and-launch-weave-scope)
-    * [Initializing the Master](#set-up-a-kubernetes-cluster-initializing-the-master)
-    * [Installing Weave Net](#set-up-a-kubernetes-cluster-installing-weave-net)
-    * [Joining Your Nodes](#set-up-a-kubernetes-cluster-joining-your-nodes)
-    * [(Optional) Control Your Cluster From Machines Other Than The Master](#set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master)
-    * [Installing the Sock Shop onto Kubernetes](#set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes)
-    * [Viewing the Sock Shop in Your Browser](#set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser)
-    * [Viewing the Result in Weave Cloud](#set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud)
-    * [Run the Load Test on the Cluster](#set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster)
-* [TODO](#todo)
-* [Make the repositories your own](#make-the-repositories-your-own)
-* [Get sockshop running](#get-sockshop-running)
-* [Set up frontend image build](#set-up-frontend-image-build)
-* [Getting fluxy running](#getting-fluxy-running)
-* [Demo proper](#demo-proper)
+* [Set up a Kubernetes Cluster with kubeadm](#set-up-a-kubernetes-cluster-with-kubeadm)
+    * [Objectives](#set-up-a-kubernetes-cluster-with-kubeadm-objectives)
+    * [Installing kubelet and kubeadm on Your Hosts](#set-up-a-kubernetes-cluster-with-kubeadm-installing-kubelet-and-kubeadm-on-your-hosts)
+    * [Initializing the Master](#set-up-a-kubernetes-cluster-with-kubeadm-initializing-the-master)
+    * [Installing Weave Net](#set-up-a-kubernetes-cluster-with-kubeadm-installing-weave-net)
+    * [Joining Your Nodes](#set-up-a-kubernetes-cluster-with-kubeadm-joining-your-nodes)
+    * [(Optional) Control Your Cluster From Machines Other Than The Master](#set-up-a-kubernetes-cluster-with-kubeadm-optional-control-your-cluster-from-machines-other-than-the-master)
+    * [Install and Launch Weave Scope](#set-up-a-kubernetes-cluster-with-kubeadm-install-and-launch-weave-scope)
+    * [Installing the Sock Shop onto Kubernetes](#set-up-a-kubernetes-cluster-with-kubeadm-installing-the-sock-shop-onto-kubernetes)
+    * [Viewing the Sock Shop in Your Browser](#set-up-a-kubernetes-cluster-with-kubeadm-viewing-the-sock-shop-in-your-browser)
+    * [Viewing the Result in Weave Cloud](#set-up-a-kubernetes-cluster-with-kubeadm-viewing-the-result-in-weave-cloud)
+    * [Run the Load Test on the Cluster](#set-up-a-kubernetes-cluster-with-kubeadm-run-the-load-test-on-the-cluster)
+* [Fork the repositories](#fork-the-repositories)
+* [Shut down the socks shop running on the Kubernetes cluster](#shut-down-the-socks-shop-running-on-the-kubernetes-cluster)
+* [Get a container registry account](#get-a-container-registry-account)
+* [Get a continuous integration account](#get-a-continuous-integration-account)
+* [Configure .travis.yml file](#configure-travis-yml-file)
+* [Configure robot account in Quay.io](#configure-robot-account-in-quay-io)
+* [Getting flux running](#getting-flux-running)
+* [Configure deploy key on GitHub](#configure-deploy-key-on-github)
+* [Modify the front-end manifest to point to your container image](#modify-the-front-end-manifest-to-point-to-your-container-image)
+* [Let's make a change!](#let-s-make-a-change)
+* [Slack integration](#slack-integration)
 * [Tear Down](#tear-down)
 * [Recreating the Cluster: Starting Over](#recreating-the-cluster-starting-over)
 * [Conclusion](#conclusion)
+* [Coming soon](#coming-soon)
 
 
+<h2 id="introduction">Introduction</h2>
 
-<h2 id="deploy-a-kubernetes-cluster-with-weave-net-and-then-deploy-a-sample-application-the-socks-shop-to-it">Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it</h2>
+Weave Flux enables every developer on your team to push changes to a Kubernetes cluster as simply as a `git push`, while maintaining best practice of version controlling all of the cluster configuration (Kubernetes manifests) as you go by automatically modifying the manifests to include new versions.
+
+It interacts with three things:
+1. Your container registry, where typically your CI system (or something/someone else) pushes or builds container images.
+1. Your version control system, where you store your Kubernetes manifests.
+1. Your Kubernetes deployment, where you run a Flux agent (`fluxd`), in order to do the deployments (releases).
+
+It does this by:
+1. Watching a container image registry for changes.
+1. When a new image arrives, consulting its deployment policy, which for each service (container image) can either be "manual" or "automatic". This policy can be modified by running `fluxctl automate`.
+1. If it's configured to automatically deploy a change, it proceeds immediately. If not, it waits for the user to run `fluxctl release`.
+1. When doing a release, it clones the latest version of the Kubernetes manifests from version control, updates the manifest for the new image, makes a commit and pushes the change back to version control. It then applies the change to your cluster.
+
+This automates an otherwise manual and error-prone two-step process of updating the Kubernetes manifest in version control and applying the changes to the cluster.
+
+In this tutorial, we will put ourselves in the position of a developer on a devops team, and watch a code change go from code on their laptop to code in version control, through the CI system which builds a container image and pushes it to the registry, at which point Flux takes over and, because the service was configured to automatically deploy with `fluxctl automate`, automatically modify the Kubernetes manifest in version control and also deploy the change to the user's cluster.
+
+In particular, we'll change the colour of a button on the frontend of the user's app, a socks shop.
+
+<h2 id="deploy-a-kubernetes-cluster-with-weave-net-and-then-deploy-the-application-to-it">Deploy a Kubernetes cluster with Weave Net and then deploy the application to it</h2>
 
 If you have already done this as part of one of the other tutorials, you can skip this step.
 Otherwise, click "Details" below to see the instructions for setting up a Kubernetes cluster and deploying the socks shop to it.
@@ -60,23 +87,24 @@ XXX-START-DETAILS-BLOCK
 
 <h2 id="set-up-droplets-in-digital-ocean">Set Up Droplets in Digital Ocean</h2>
 
-Sign up for [Digital Ocean](https://digitalocean.com) and create three Ubuntu instances, where you'll deploy a Kubernetes cluster, add a container network using Weave Net and finally deploy the Sock Shop onto the cluster and verify this deployment with the one you just did on your laptop in Weave Cloud.
+Sign up or log into [Digital Ocean](https://digitalocean.com) and create three Ubuntu 16.04 instances, where you'll deploy a Kubernetes cluster, add a container network using Weave Net and finally deploy the Sock Shop onto the cluster and verify this deployment with the one you just did on your laptop in Weave Cloud.
 
 **Note:** It is recommended that each host have at least 4 gigabytes of memory in order to run this demo smoothly.
 
-<h3 id="set-up-droplets-in-digital-ocean-create-two-ubuntu-instances">Create two Ubuntu Instances</h3>
+<h3 id="set-up-droplets-in-digital-ocean-create-three-ubuntu-instances">Create three Ubuntu Instances</h3>
 
-Next you'll move over to Digital Ocean and create two Ubuntu droplets.
+Next you'll move over to Digital Ocean and create three Ubuntu 16.04 droplets.
 Both machines should run Ubuntu 16.04 with 4GB or more of RAM per machine.
 
 <h3 id="set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud">Adding an Additional Instance to Weave Cloud</h3>
 
-Before you start installing Kubernetes, create an additional instance in Weave Cloud. This extra instance assists you when you're deploying Kubernetes and will also allow you to see the Sock Shop as it spins up on Kubernetes.  
+Sign up or log into [Weave Cloud](https://cloud.weave.works/).
+
+Before you start installing Kubernetes, you may wish to [create an additional instance in Weave Cloud](https://cloud.weave.works/instances/create). This extra instance provides a separate "workspace" for this cluster, and in it you will be able to see the Sock Shop as it spins up on Kubernetes.
 
 Select the 'Create New Instance' command located in the menu bar.
 
-
-<h2 id="set-up-a-kubernetes-cluster">Set up a Kubernetes Cluster</h2>
+<h2 id="set-up-a-kubernetes-cluster-with-kubeadm">Set up a Kubernetes Cluster with kubeadm</h2>
 
 This is by far the simplest way in which to install Kubernetes.  In a few commands, you will have deployed a complete Kubernetes cluster with a resilient and secure container network onto the Cloud Provider of your choice.
 
@@ -87,25 +115,18 @@ It is simple enough that you can easily integrate its use into your own automati
 
 See the full [`kubeadm` reference](http://kubernetes.io/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
 
-<h3 id="set-up-a-kubernetes-cluster-objectives">Objectives</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-objectives">Objectives</h3>
 
 * Install a secure Kubernetes cluster on your machines
-* Install a pod network on the cluster so that application components (pods) can talk to each other
+* Install Weave Net as a pod network on the cluster so that application components (pods) can talk to each other
 * Install a sample microservices application (a socks shop) on the cluster
 * View the result in Weave Cloud as you go along
 
-<h3 id="set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts">Installing kubelet and kubeadm on Your Hosts</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-installing-kubelet-and-kubeadm-on-your-hosts">Installing kubelet and kubeadm on Your Hosts</h3>
 
-You will install the following packages on all the machines:
+You will install the required packages on all the machines.
 
-* `docker`: the container runtime, which Kubernetes depends on. v1.11.2 is recommended, but v1.10.3 and v1.12.1 are known to work as well.
-* `kubelet`: the most core component of Kubernetes.
-  It runs on all of the machines in your cluster and does things like starting pods and containers.
-* `kubectl`: the command to control the cluster once it's running.
-  You will only need this on the master, but it can be useful to have on the other nodes as well.
-* `kubeadm`: the command to bootstrap the cluster.
-
-For each host:
+For each machine:
 
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`):
 
@@ -117,27 +138,17 @@ EOF
 apt-get update
 ~~~
 
-Install docker if you don't have it already. You can also use the [official Docker packages](https://docs.docker.com/engine/installation/).
+Install docker if you don't have it already. You can also use the [official Docker packages](https://docs.docker.com/engine/installation/) instead of `docker.io` here.
 ~~~
 apt-get install -y docker.io
+~~~
+
+Install the Kubernetes packages:
+~~~
 apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 ~~~
 
-**Note:** You may have to re-run `apt-get update` and then run `apt-get install -y kubelet kubeadm kubectl kubernetes-cni` second time to ensure that the packages are properly downloaded.
-
-<h3 id="set-up-a-kubernetes-cluster-install-and-launch-weave-scope">Install and Launch Weave Scope</h3>
-
-Install and launch the Weave Scope probes onto each of your Ubuntu instances:
-
-~~~bash
-sudo curl --silent --location https://git.io/scope --output /usr/local/bin/scope
-sudo chmod +x /usr/local/bin/scope
-scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
-~~~
-
-If you return to the Weave Cloud interface, you can click on the `Hosts` button and view your two Ubuntu hosts networked ready to go.
-
-<h3 id="set-up-a-kubernetes-cluster-initializing-the-master">Initializing the Master</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-initializing-the-master">Initializing the Master</h3>
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 
@@ -147,7 +158,11 @@ Right now you can't run `kubeadm init` twice without turning down the cluster in
 
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
-     # kubeadm init
+~~~
+kubeadm init
+~~~
+
+This will take a few minutes, so be patient.
 
 **Note:** this will autodetect the network interface to advertise the master on as the interface with the default gateway.
 
@@ -190,15 +205,19 @@ By default, your cluster will not schedule pods on the master for security reaso
 If you want to be able to schedule pods on the master, for example if you want a single-machine Kubernetes cluster for development, run:
 
 ~~~
-    # kubectl taint nodes --all dedicated-
-    node "test-01" tainted
-    taint key="dedicated" and effect="" not found.
-    taint key="dedicated" and effect="" not found.
+kubectl taint nodes --all dedicated-
+~~~
+
+The output will be:
+~~~
+node "test-01" tainted
+taint key="dedicated" and effect="" not found.
+taint key="dedicated" and effect="" not found.
 ~~~
 
 This will remove the "dedicated" taint from any nodes that have it, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
 
-<h3 id="set-up-a-kubernetes-cluster-installing-weave-net">Installing Weave Net</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-installing-weave-net">Installing Weave Net</h3>
 
 You must install a pod network so that your pods can communicate with each other. This guide shows you how to install Weave Net.
 
@@ -208,6 +227,9 @@ Install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to t
 
 ~~~
 kubectl apply -f https://git.io/weave-kube
+~~~
+The output will be:
+~~~
 daemonset "weave-net" created
 ~~~
 
@@ -217,7 +239,7 @@ Once a pod network is installed, confirm that it is working by checking that the
 
 And once the `kube-dns` pod is up and running, you can continue on to joining your nodes.
 
-<h3 id="set-up-a-kubernetes-cluster-joining-your-nodes">Joining Your Nodes</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-joining-your-nodes">Joining Your Nodes</h3>
 
 The nodes are where your workloads (containers and pods, etc) run.
 If you want to add any new machines as nodes to your cluster, for each machine: SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
@@ -246,7 +268,7 @@ Run 'kubectl get nodes' on the master to see this machine join.
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
-<h3 id="set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master">(Optional) Control Your Cluster From Machines Other Than The Master</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-optional-control-your-cluster-from-machines-other-than-the-master">(Optional) Control Your Cluster From Machines Other Than The Master</h3>
 
 In order to get kubectl on (for example) your laptop to talk to your cluster, you need to copy the `kubeconfig` file from your master to your laptop like this:
 
@@ -255,22 +277,45 @@ scp root@<master ip>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ~~~
 
-<h3 id="set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes">Installing the Sock Shop onto Kubernetes</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-install-and-launch-weave-scope">Install and Launch Weave Scope</h3>
+
+Install and launch the Weave Scope probes onto your Kubernetes cluster. From the master:
+
+~~~bash
+curl -sSL 'https://cloud.weave.works/launch/k8s/weavescope.yaml?service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>' |sed s/50m/500m/ |kubectl apply -f - 
+~~~
+
+You should fetch `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` from [Weave Cloud](https://cloud.weave.works/).
+
+If you return to the Weave Cloud interface, you can click on the `Hosts` button and view your cluster ready to go.
+Then as you follow the next steps you can then watch the socks shop come up in [Weave Cloud](https://cloud.weave.works/). Once you see the probes connect you can click "View Instance" to see your hosts, containers, pods etc.
+
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-installing-the-sock-shop-onto-kubernetes">Installing the Sock Shop onto Kubernetes</h3>
 
 As an example, install a sample microservices application, a socks shop, to put your cluster through its paces.
 To learn more about the sample microservices app, see the [microservices-demo README](https://github.com/microservices-demo/microservices-demo).
 
+On the master, run:
+
 ~~~
 kubectl create namespace sock-shop
-kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
+git clone https://github.com/microservices-demo/microservices-demo
+cd microservices-demo
+kubectl apply -n sock-shop -f deploy/kubernetes/manifests
 ~~~
 
-<h3 id="set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser">Viewing the Sock Shop in Your Browser</h3>
+Switch to the `sock-shop` namespace at the bottom left of your browser window in Weave Cloud when in any of the Kubernetes-specific views (pods, replica sets, deployments & services).
 
-You can then find the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-viewing-the-sock-shop-in-your-browser">Viewing the Sock Shop in Your Browser</h3>
+
+You can then find the port that the cluster allocated for the front-end service by running:
 
 ~~~
 kubectl describe svc front-end -n sock-shop
+~~~
+
+The output should look like:
+~~~
 Name:                   front-end
 Namespace:              sock-shop
 Labels:                 name=front-end
@@ -287,8 +332,9 @@ It takes several minutes to download and start all of the containers, watch the 
 
 Or you can view the containers appearing on the screen as they get created in Weave Cloud.
 
-Then go to the IP address of your cluster's master node in your browser, and specify the given port.
+Then go to the IP address of any of your cluster's machines in your browser, and specify the given port.
 So for example, `http://<master_ip>:<port>`.
+You can find the IP address of the machines in the DigitalOcean dashboard.
 
 In the example above, this was `31869`, but it is a different port for you.
 
@@ -296,19 +342,20 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 
 [sockshop screenshot]
 
-<h3 id="set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud">Viewing the Result in Weave Cloud</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-viewing-the-result-in-weave-cloud">Viewing the Result in Weave Cloud</h3>
 
-You can also view the result in Weave Cloud and also watch all of the pods as they join the cluster.
+You can also view the result in [Weave Cloud](https://cloud.weave.works/) and also watch all of the pods as they join the cluster.
 
 [weave cloud screenshot]
 
 
-<h3 id="set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster">Run the Load Test on the Cluster</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-run-the-load-test-on-the-cluster">Run the Load Test on the Cluster</h3>
 
-After the Sock Shop has completely deployed onto the cluster, run the same load test as you did on your laptop and then view the results in Weave Cloud.
+After the Sock Shop has completely deployed onto the cluster, run a load test from your local machine and view the results in Weave Cloud.
+You should see the architecture of the application "emerge" as different pieces join up.
 
 ~~~
-docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -h edge-router -r 100 -c 2 <host-ip:[port number]>
+docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -r 10000 -c 20 -h <host-ip:[port number]>
 ~~~
 
 Where,
@@ -318,197 +365,271 @@ Where,
 
 XXX-END-DETAILS-BLOCK
 
-<h2 id="todo">TODO</h2>
 
-fluxd does stuff with kubernetes, in the user’s cluster. fluxsvc answers API calls.
+<h2 id="fork-the-repositories">Fork the repositories</h2>
 
+You will need a GitHub account for this step.
 
+In order to modify the socks shop, you need to fork (at least) two repositories:
 
-<h2 id="make-the-repositories-your-own">Make the repositories your own</h2>
+* [https://github.com/microservices-demo/front-end](https://github.com/microservices-demo/front-end) - the front-end of the application. We will update the color of one of the buttons in this example.
+* [https://github.com/microservices-demo/microservices-demo](https://github.com/microservices-demo/microservices-demo) - the repo that stores the Kubernetes manifests for the application. Flux will update this repository.
 
-Go to github and fork the microservices-demo repo to https://github.com/&lt;your-username&gt;/microservices-demo.
-Clone it locally.
+Go to each GitHub repository and click "Fork" in the top right hand corner, and fork the repository to your own GitHub account.
 
+<h2 id="shut-down-the-socks-shop-running-on-the-kubernetes-cluster">Shut down the socks shop running on the Kubernetes cluster</h2>
 
-<h2 id="get-sockshop-running">Get sockshop running</h2>
+If you followed the instructions above, there will already be a socks shop running on your Kubernetes cluster. Let's remove that, so that we can deploy a copy from our own fork.
 
+<h2 id="get-a-container-registry-account">Get a container registry account</h2>
 
-On lead node (ssh -A root@...), since there's no convenient way to run
-kubectl otherwise:
+You can use any container registry, such as Docker Hub or Google Container Registry. In this example, we'll use Quay.io.
 
+Sign up for a [Quay.io](https://quay.io) account, and record the username that it gives you. When you log in, you'll be able to see it under "Users and Organizations" on the right hand side of the Repositories page.
 
-```
-k8s-01$ export YOURUSERNAME=XXX # replace this with your github username
-k8s-01$ git clone git@github.com:$YOURUSERNAME/microservices-demo
-k8s-01$ cd microservices-demo/deploy/kubernetes
-k8s-01$ kubectl apply -f manifests/
-```
+Make an empty Quay.io repository called `front-end`. We'll configure Travis to push here later.
 
+<h2 id="get-a-continuous-integration-account">Get a continuous integration account</h2>
 
-(fix problem with mysql in catalogue-db)
+If you already have your own CI system, you can use that instead. All that Flux needs is that something creates a container image and pushes it to the registry whenever you push to GitHub.
 
+The example we'll use here is [Travis CI](https://travis-ci.org/). Sign up for an account if you haven't got one already, and hook it up to your GitHub account. Click the `+` button next to "My Repositories" and toggle on the button for `<YOUR_GITHUB_USERNAME>/front-end` so that Travis automatically runs builds for the repo.
 
-Find NodePort and put with host IP to get address; put in browser.
+<h2 id="configure-travis-yml-file">Configure .travis.yml file</h2>
 
-
-```
-k8s-01$ kubectl describe service front-end
-```
-
-
-<h2 id="set-up-frontend-image-build">Set up frontend image build</h2>
-
-
-There are lots of ways of doing this! Here's one example. It can be done ahead of
-time, to some extent.
-
-
-Fork the front-end repo to `$YOURUSERNAME/front-end`. Clone it locally.
-
+Replace the `.travis.yml` file in your fork of the `front-end` repo so that it contains exactly the following, with `<YOUR_QUAY_USERNAME>` replaced with your Quay.io username:
 
 ```
-local$ git clone git@github.com:$YOURUSERNAME/front-end
+language: node_js
+
+sudo: required
+
+node_js:
+  - "0.10.32"
+
+services:
+  - docker
+
+before_install:
+  - sudo apt-get install -y make
+  - make test-image deps
+
+env:
+  - GROUP=quay.io/<YOUR_QUAY_USERNAME> COMMIT=$TRAVIS_COMMIT TAG=$TRAVIS_TAG REPO=front-end;
+
+script:
+  - make test
+
+after_success:
+  - set -e
+  - if [ -z "$DOCKER_PASS" ]; then echo "Build triggered by external PR. Skipping docker push" && exit 0; fi
+  - docker login quay.io -u $DOCKER_USER -p $DOCKER_PASS;
+  - ./scripts/build.sh
+  - ./test/container.sh
+  - ./scripts/push.sh
 ```
 
-
-Sign up for quay.io. Make an empty repository called
-$YOURUSERNAME/front-end. Create a robot account (`ci_push_pull`) and give
-it write permissions to that repo.
-
-
-Connect up to TravisCI. In http://travis-ci.org/, sign in, find the
-repo and switch it on. Supply environment entries for DOCKER_USER and
-DOCKER_PASS by copying them from the robot in quay.io.
-
-
-Locally, change the environment entry `GROUP` in `microservices-front-end/.travis.yml` to
-`quay.io/$YOURUSERNAME`, change `docker login ...` to `docker login quay.io
-...`, and remove the bastion gubbins. Commit that and push. Now you
-can go back and see it all happen in travis-ci.
-
-
-<h2 id="getting-fluxy-running">Getting fluxy running</h2>
-
-
-This is largely taken from
-https://github.com/weaveworks/fluxy/blob/master/deploy/README.md. Some of it can be done ahead of time.
-
-
-Generate a deploy key for our repo, on the master node, and create a secret in Kubernetes for it:
-
-
+Commit and push this change to your fork of the `front-end` repo. You can do this on your workstation using your favourite text editor.
 ```
-k8s-01$ ssh-keygen -f id-fluxy
-...
-k8s-01$ kubectl create secret generic fluxy-repo-key --from-file=id-rsa=id-fluxy
-...
-k8s-01$ cat id-fluxy.pub
-...
+git commit -m "Update .travis.yml to refer to my quay.io account." .travis.yml
+git push
 ```
 
 
-Go to the $YOURUSERNAME/microservices-demo repo on github, click settings, deploy
-keys (on the left at present). Add a key, paste the public key from
-above in, check `Allow write access` box.
+<h2 id="configure-robot-account-in-quay-io">Configure robot account in Quay.io</h2>
+
+Log into Quay.io, and create a robot account (`ci_push_pull`) and give it write permissions to that repo.
+
+Connect up to TravisCI. In http://travis-ci.org/, sign in, find the repo and switch it on. Supply environment entries for `DOCKER_USER` and `DOCKER_PASS` by copying them from the robot account in quay.io.
 
 
-Add fluxy config into the microservices-demo repository (for now I am copying across my
-local configuration and modifying. The idea is soon you'll be able to
-download it from cloud.weave.works, and provide keys some other way).
+<h2 id="getting-flux-running">Getting flux running</h2>
 
+Log into the master Kubernetes node.
 
-```
-local$ cp $FLUXY_REPO/deploy/fluxy-*.yaml deploy/kubernetes/manifests/
-```
+Deploy Flux to your Kubernetes cluster:
+~~~
+kubectl apply -f https://gist.githubusercontent.com/errordeveloper/0e92c0223ac40a9df68df8e402ca873c/raw/2eaf7a567d75a41faf7a6712aded3d6fa6ad13ff/flux.yaml
+~~~
 
-
-Changed fluxy-deployment.yaml: imagePullPolicy to "IfNotPresent" and
-image to "weaveworks/fluxy:master"; args:
-
-
-```
- - --repo-url=git@github.com:$YOURUSERNAME/microservices-demo
- - --repo-path=deploy/kubernetes/manifests
-```
-
-
-Also change weaveworks/fluxy to weaveworks/fluxy:master.
-
-
-You may want to prepare some of this ahead of time, or not even show
-it.
-
-
-I commit these to the repo locally, pushed them to
-$YOURUSERNAME/microservices-demo, and pulled from the master host then
-applied them.
-
+We'll generate a deploy key for our repo, and configure Flux with it:
 
 ```
-k8s-01$ git pull
-k8s-01$ kubectl apply -f manifests/fluxy-deployment.yaml -f manifests/fluxy-service.yaml
+ssh-keygen -f id-rsa-flux
 ```
 
-
-For now we use the kubernetes proxy to reach fluxy. I copied a fluxctl
-binary to the master host, since it's not publicly available.
-
-
+Install the `fluxctl` binary on the master:
 ```
-$ export FLUX_URL=http://localhost:8080/api/v1/proxy/namespaces/default/services/fluxy
-$ fluxctl list-services
-...
+curl -o /usr/local/bin/fluxctl -sSL https://github.com/weaveworks/flux/releases/download/master-6cc08e4/fluxctl-linux-amd64
+chmod +x /usr/local/bin/fluxctl
 ```
 
-
-[[to remove a network policy on default: kubectl annotate namespace default net.beta.kubernetes.io/network-policy-]
-
-
-<h2 id="demo-proper">Demo proper</h2>
-
-
-Oh no, we have to update the front-end to have a different button!
-First, let's switch to using our fork of the front-end image.
-
-
-Edit the config in microservices-demo locally and change the image for
-front-end-dep.yaml to use quay.io/squaremo/front-end, appending the
-tag (check quay.io for the tags if it's not on screen somewhere).
-
-
-You have to apply this using kubectl, but it would be nice if fluxy could do it for you, because then you can also turn on automatic deployment (continuous delivery).
-
+Now open a file called `flux.conf` in your favourite text editor, on the server, and paste the following config into it, replacing `<YOUR_GITHUB_USERNAME>` with your GitHub username:
 
 ```
-k8s-01$ git pull
-k8s-01$ kubectl apply -f deploy/kubernetes/manifests/front-end-dep.yaml
-k8s-01$ kubectl get pods
+git:
+  URL: git@github.com:<YOUR_GITHUB_USERNAME>/microservices-demo
+  path: deploy/kubernetes/manifests
+  branch: master
+  key: |
+         -----BEGIN RSA PRIVATE KEY-----
+         ZNsnTooXXGagxg5a3vqsGPgoHH1KvqE5my+v7uYhRxbHi5uaTNEWnD46ci06PyBz
+         zSS6I+zgkdsQk7Pj2DNNzBS6n08gl8OJX073JgKPqlfqDSxmZ37XWdGMlkeIuS21
+         nwli0jsXVMKO7LYl+b5a0N5ia9cqUDEut1eeKN+hwDbZeYdT/oGBsNFgBRTvgQhK
+         ... contents of id-rsa-flux file from above ...
+         -----END RSA PRIVATE KEY-----
+slack:
+  hookURL: ""
+  username: ""
+registry:
+  auths: {}
 ```
 
+Copy the private key you created earlier. To view it, run `cat id-rsa-flux`. Be careful to get the indentation right.
 
-Now we're ready to do something with fluxctl. Let's make another
-front-end image. Edit microservices-front-end/public/index.html,
-commit and push. Watch it bubble through travis to quay.io.
-
-
+Configure access to Flux via the Kubernetes API:
 ```
-k8s-01$ fluxctl list-images --service=default/front-end
-... # shows quay.io/squaremo/front-end as the image repo
-k8s-01$ fluxctl release --service=default/front-end --update-all-images
-...
+export FLUX_URL=http://localhost:8080/api/v1/proxy/namespaces/default/services/fluxy
 ```
 
+Load this config into Flux with:
+```
+fluxctl set-config --file=flux.conf
+```
 
-If that worked, we can automate it:
+There is no need to specify auth for your registry because Flux will be polling a public registry.
 
+XXX-START-DETAILS-BLOCK
+
+However if you do want to configure it to use a private registry, use the following stanza:
+```
+registry:
+  auths:
+    "<address-of-registry>":
+      auth: "<base64-encoded-user:password>"
+```
+
+An example of `<address-of-registry>` is `https://index.docker.io/v1/`.  You can copy `<base64-encoded-user:password>` from your `~/.docker/config.json`.
+
+XXX-END-DETAILS-BLOCK
+
+<h2 id="configure-deploy-key-on-github">Configure deploy key on GitHub</h2>
+
+This allows Flux to read and write to the repo with the Kubernetes manifests in it.
+
+Go to the `<YOUR_GITHUB_USERNAME>/microservices-demo` repo on github, click settings, deploy keys (on the left at present). Add a key, paste the public key from above in, check `Allow write access` box. (Run `cat id-rsa-flux.pub` to get this out.)
+
+
+<h2 id="modify-the-front-end-manifest-to-point-to-your-container-image">Modify the front-end manifest to point to your container image</h2>
+
+Start by logging in to the Kubernetes master node. We'll run the rest of the demo from there for convenience, but you could also run it from your laptop. Use `ssh -A` to enable the SSH agent so that you can use your GitHub SSH key from your workstation.
+
+```
+git clone git@github.com:<YOUR_GITHUB_USERNAME>/microservices-demo
+cd microservices-demo/deploy/kubernetes
+```
+
+Let's modify the front-end manifest so that it refers to the container image that we'll be using. Using your favorite editor, open up `deploy/kubernetes/manifests/front-end-dep.yaml`, and update the `image` line.
+
+Change it from:
+```
+        image: weaveworksdemos/front-end
+```
+To:
+```
+        image: quay.io/$YOUR_QUAY_USERNAME/front-end:latest
+```
+
+where `$YOUR_QUAY_USERNAME` is your Quay.io username.
+It's important that you specify a tag here, because Flux won't work unless you do. For now we'll specify `:latest` but Flux will replace that with a specific version every time it does a release.
+
+Commit and push this change to your GitHub fork:
+```
+git commit -m "Update front-end to refer to my fork." front-end-dep.yaml
+git push
+```
+
+Commit that and push. Now you should see [Travis-CI](https://travis-ci.org/) build the image and push it to [Quay.io](https://quay.io).
+
+Now let's deploy the socks shop to Kubernetes. This is the last time we'll have to run `kubectl` in this demo: after this, everything can be controlled and automated via Flux.
+
+```
+cd ~/microservices-demo/deploy/kubernetes
+kubectl apply -f manifests
+```
+
+Now wait for the socks shop to deploy, and find the NodePort in the usual way:
+~~~
+kubectl describe svc front-end -n sock-shop
+~~~
+
+
+<h2 id="let-s-make-a-change">Let&#39;s make a change!</h2>
+
+Let's suppose we want to change the color of one of the buttons on the socks shop. On your workstation, or wherever you have `front-end` checked out:
+
+```
+cd front-end
+sed -i "" s/3386e1/red/ ./public/css/style.blue.css
+```
+
+Of course, you can make any change you like. Now push the change:
+
+```
+git commit -am "Change button to red."
+git push
+```
+
+You can now go to Travis and watch the change get turned into a Docker image.
+
+Once a new image is in Quay.io, you can use Flux to see what's available:
+
+```
+fluxctl list-images --service=default/front-end
+```
+
+And then deploy it:
+
+```
+fluxctl release --service=default/front-end --update-all-images
+```
+
+Once that's finished, reload the socks shop and you'll see the buttons have changed to red!
+
+So that's useful for manually gated changes, but it's even better to do continuous delivery. We can turn that on easily:
 
 ```
 k8s-01$ fluxctl automate --service=default/front-end
 ```
 
+Then change the front-end again, maybe blue this time?
 
-and change the front-end image again.
+```
+cd front-end
+sed -i "" s/red/blue/ ./public/css/style.blue.css
+```
 
+Of course, you can make any change you like. Now push the change:
+
+```
+git commit -am "Change button to blue."
+git push
+```
+
+Now watch Travis, Quay and `fluxctl history` to see the deploy happening automatically.
+
+
+<h2 id="slack-integration">Slack integration</h2>
+
+You can also set up Slack integration by specifying a Slack webhook in the `hookURL` configuration variable, and choose the name of your bot in `username`. Edit `flux.conf` accordingly and then run:
+
+~~~
+fluxctl set-config --file=flux.conf
+~~~
+
+Flux will then let you know in Slack, in the channels you configure in the webhook, whenever it's doing a release.
+
+<!-- TODO is the above accurate? @squaremo -->
 
 
 <h2 id="tear-down">Tear Down</h2>
@@ -540,10 +661,19 @@ If you wish to start over, run `systemctl start kubelet` followed by `kubeadm in
 XXX-END-DETAILS-BLOCK
 
 
-
 <h1 id="conclusion">Conclusion</h1>
 
-TODO: What are they??
+We've seen how we can automate continuous delivery while maintaining best practice, storing Kubernetes manifests in version control, with Weave Flux.
+
+Developers now only have to be able to push to `git` to deploy changes to your Kubernetes clusters.
+
+See the [Flux README](https://github.com/weaveworks/flux) and `fluxctl --help` for more details on other commands.
+
+
+<h1 id="coming-soon">Coming soon</h1>
+
+Weave Cloud will soon include a UI to view and configure your Flux deploys, and you'll be able to configure Flux with a service token.
+
 
 <div style="width:50%; float:left;">
 <a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>

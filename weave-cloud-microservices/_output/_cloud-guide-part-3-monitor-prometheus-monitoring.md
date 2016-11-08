@@ -28,24 +28,25 @@ In this way, you can view your app, network & container orchestrator metrics in 
 * [Sign Up for Weave Cloud](#sign-up-for-weave-cloud)
 * [Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it](#deploy-a-kubernetes-cluster-with-weave-net-and-then-deploy-a-sample-application-the-socks-shop-to-it)
 * [Set Up Droplets in Digital Ocean](#set-up-droplets-in-digital-ocean)
-    * [Create two Ubuntu Instances](#set-up-droplets-in-digital-ocean-create-two-ubuntu-instances)
+    * [Create three Ubuntu Instances](#set-up-droplets-in-digital-ocean-create-three-ubuntu-instances)
     * [Adding an Additional Instance to Weave Cloud](#set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud)
-* [Set up a Kubernetes Cluster](#set-up-a-kubernetes-cluster)
-    * [Objectives](#set-up-a-kubernetes-cluster-objectives)
-    * [Installing kubelet and kubeadm on Your Hosts](#set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts)
-    * [Install and Launch Weave Scope](#set-up-a-kubernetes-cluster-install-and-launch-weave-scope)
-    * [Initializing the Master](#set-up-a-kubernetes-cluster-initializing-the-master)
-    * [Installing Weave Net](#set-up-a-kubernetes-cluster-installing-weave-net)
-    * [Joining Your Nodes](#set-up-a-kubernetes-cluster-joining-your-nodes)
-    * [(Optional) Control Your Cluster From Machines Other Than The Master](#set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master)
-    * [Installing the Sock Shop onto Kubernetes](#set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes)
-    * [Viewing the Sock Shop in Your Browser](#set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser)
-    * [Viewing the Result in Weave Cloud](#set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud)
-    * [Run the Load Test on the Cluster](#set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster)
+* [Set up a Kubernetes Cluster with kubeadm](#set-up-a-kubernetes-cluster-with-kubeadm)
+    * [Objectives](#set-up-a-kubernetes-cluster-with-kubeadm-objectives)
+    * [Installing kubelet and kubeadm on Your Hosts](#set-up-a-kubernetes-cluster-with-kubeadm-installing-kubelet-and-kubeadm-on-your-hosts)
+    * [Initializing the Master](#set-up-a-kubernetes-cluster-with-kubeadm-initializing-the-master)
+    * [Installing Weave Net](#set-up-a-kubernetes-cluster-with-kubeadm-installing-weave-net)
+    * [Joining Your Nodes](#set-up-a-kubernetes-cluster-with-kubeadm-joining-your-nodes)
+    * [(Optional) Control Your Cluster From Machines Other Than The Master](#set-up-a-kubernetes-cluster-with-kubeadm-optional-control-your-cluster-from-machines-other-than-the-master)
+    * [Install and Launch Weave Scope](#set-up-a-kubernetes-cluster-with-kubeadm-install-and-launch-weave-scope)
+    * [Installing the Sock Shop onto Kubernetes](#set-up-a-kubernetes-cluster-with-kubeadm-installing-the-sock-shop-onto-kubernetes)
+    * [Viewing the Sock Shop in Your Browser](#set-up-a-kubernetes-cluster-with-kubeadm-viewing-the-sock-shop-in-your-browser)
+    * [Viewing the Result in Weave Cloud](#set-up-a-kubernetes-cluster-with-kubeadm-viewing-the-result-in-weave-cloud)
+    * [Run the Load Test on the Cluster](#set-up-a-kubernetes-cluster-with-kubeadm-run-the-load-test-on-the-cluster)
 * [Configuring Cortex for Your Production Environment](#configuring-cortex-for-your-production-environment)
 * [Viewing Sock Shop Metrics in Weave Cortex](#viewing-sock-shop-metrics-in-weave-cortex)
 * [Run the Load Test](#run-the-load-test)
 * [Running Queries with the Prometheus Query Language](#running-queries-with-the-prometheus-query-language)
+* [Monitor the network with Weave Cortex, part of Weave Cloud](#monitor-the-network-with-weave-cortex-part-of-weave-cloud)
 * [Tear Down](#tear-down)
 * [Recreating the Cluster: Starting Over](#recreating-the-cluster-starting-over)
 * [Conclusions](#conclusions)
@@ -104,23 +105,24 @@ XXX-START-DETAILS-BLOCK
 
 <h2 id="set-up-droplets-in-digital-ocean">Set Up Droplets in Digital Ocean</h2>
 
-Sign up for [Digital Ocean](https://digitalocean.com) and create three Ubuntu instances, where you'll deploy a Kubernetes cluster, add a container network using Weave Net and finally deploy the Sock Shop onto the cluster and verify this deployment with the one you just did on your laptop in Weave Cloud.
+Sign up or log into [Digital Ocean](https://digitalocean.com) and create three Ubuntu 16.04 instances, where you'll deploy a Kubernetes cluster, add a container network using Weave Net and finally deploy the Sock Shop onto the cluster and verify this deployment with the one you just did on your laptop in Weave Cloud.
 
 **Note:** It is recommended that each host have at least 4 gigabytes of memory in order to run this demo smoothly.
 
-<h3 id="set-up-droplets-in-digital-ocean-create-two-ubuntu-instances">Create two Ubuntu Instances</h3>
+<h3 id="set-up-droplets-in-digital-ocean-create-three-ubuntu-instances">Create three Ubuntu Instances</h3>
 
-Next you'll move over to Digital Ocean and create two Ubuntu droplets.
+Next you'll move over to Digital Ocean and create three Ubuntu 16.04 droplets.
 Both machines should run Ubuntu 16.04 with 4GB or more of RAM per machine.
 
 <h3 id="set-up-droplets-in-digital-ocean-adding-an-additional-instance-to-weave-cloud">Adding an Additional Instance to Weave Cloud</h3>
 
-Before you start installing Kubernetes, create an additional instance in Weave Cloud. This extra instance assists you when you're deploying Kubernetes and will also allow you to see the Sock Shop as it spins up on Kubernetes.  
+Sign up or log into [Weave Cloud](https://cloud.weave.works/).
+
+Before you start installing Kubernetes, you may wish to [create an additional instance in Weave Cloud](https://cloud.weave.works/instances/create). This extra instance provides a separate "workspace" for this cluster, and in it you will be able to see the Sock Shop as it spins up on Kubernetes.
 
 Select the 'Create New Instance' command located in the menu bar.
 
-
-<h2 id="set-up-a-kubernetes-cluster">Set up a Kubernetes Cluster</h2>
+<h2 id="set-up-a-kubernetes-cluster-with-kubeadm">Set up a Kubernetes Cluster with kubeadm</h2>
 
 This is by far the simplest way in which to install Kubernetes.  In a few commands, you will have deployed a complete Kubernetes cluster with a resilient and secure container network onto the Cloud Provider of your choice.
 
@@ -131,25 +133,18 @@ It is simple enough that you can easily integrate its use into your own automati
 
 See the full [`kubeadm` reference](http://kubernetes.io/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
 
-<h3 id="set-up-a-kubernetes-cluster-objectives">Objectives</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-objectives">Objectives</h3>
 
 * Install a secure Kubernetes cluster on your machines
-* Install a pod network on the cluster so that application components (pods) can talk to each other
+* Install Weave Net as a pod network on the cluster so that application components (pods) can talk to each other
 * Install a sample microservices application (a socks shop) on the cluster
 * View the result in Weave Cloud as you go along
 
-<h3 id="set-up-a-kubernetes-cluster-installing-kubelet-and-kubeadm-on-your-hosts">Installing kubelet and kubeadm on Your Hosts</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-installing-kubelet-and-kubeadm-on-your-hosts">Installing kubelet and kubeadm on Your Hosts</h3>
 
-You will install the following packages on all the machines:
+You will install the required packages on all the machines.
 
-* `docker`: the container runtime, which Kubernetes depends on. v1.11.2 is recommended, but v1.10.3 and v1.12.1 are known to work as well.
-* `kubelet`: the most core component of Kubernetes.
-  It runs on all of the machines in your cluster and does things like starting pods and containers.
-* `kubectl`: the command to control the cluster once it's running.
-  You will only need this on the master, but it can be useful to have on the other nodes as well.
-* `kubeadm`: the command to bootstrap the cluster.
-
-For each host:
+For each machine:
 
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`):
 
@@ -161,27 +156,17 @@ EOF
 apt-get update
 ~~~
 
-Install docker if you don't have it already. You can also use the [official Docker packages](https://docs.docker.com/engine/installation/).
+Install docker if you don't have it already. You can also use the [official Docker packages](https://docs.docker.com/engine/installation/) instead of `docker.io` here.
 ~~~
 apt-get install -y docker.io
+~~~
+
+Install the Kubernetes packages:
+~~~
 apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 ~~~
 
-**Note:** You may have to re-run `apt-get update` and then run `apt-get install -y kubelet kubeadm kubectl kubernetes-cni` second time to ensure that the packages are properly downloaded.
-
-<h3 id="set-up-a-kubernetes-cluster-install-and-launch-weave-scope">Install and Launch Weave Scope</h3>
-
-Install and launch the Weave Scope probes onto each of your Ubuntu instances:
-
-~~~bash
-sudo curl --silent --location https://git.io/scope --output /usr/local/bin/scope
-sudo chmod +x /usr/local/bin/scope
-scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
-~~~
-
-If you return to the Weave Cloud interface, you can click on the `Hosts` button and view your two Ubuntu hosts networked ready to go.
-
-<h3 id="set-up-a-kubernetes-cluster-initializing-the-master">Initializing the Master</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-initializing-the-master">Initializing the Master</h3>
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 
@@ -191,7 +176,11 @@ Right now you can't run `kubeadm init` twice without turning down the cluster in
 
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
-     # kubeadm init
+~~~
+kubeadm init
+~~~
+
+This will take a few minutes, so be patient.
 
 **Note:** this will autodetect the network interface to advertise the master on as the interface with the default gateway.
 
@@ -234,15 +223,19 @@ By default, your cluster will not schedule pods on the master for security reaso
 If you want to be able to schedule pods on the master, for example if you want a single-machine Kubernetes cluster for development, run:
 
 ~~~
-    # kubectl taint nodes --all dedicated-
-    node "test-01" tainted
-    taint key="dedicated" and effect="" not found.
-    taint key="dedicated" and effect="" not found.
+kubectl taint nodes --all dedicated-
+~~~
+
+The output will be:
+~~~
+node "test-01" tainted
+taint key="dedicated" and effect="" not found.
+taint key="dedicated" and effect="" not found.
 ~~~
 
 This will remove the "dedicated" taint from any nodes that have it, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
 
-<h3 id="set-up-a-kubernetes-cluster-installing-weave-net">Installing Weave Net</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-installing-weave-net">Installing Weave Net</h3>
 
 You must install a pod network so that your pods can communicate with each other. This guide shows you how to install Weave Net.
 
@@ -252,6 +245,9 @@ Install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to t
 
 ~~~
 kubectl apply -f https://git.io/weave-kube
+~~~
+The output will be:
+~~~
 daemonset "weave-net" created
 ~~~
 
@@ -261,7 +257,7 @@ Once a pod network is installed, confirm that it is working by checking that the
 
 And once the `kube-dns` pod is up and running, you can continue on to joining your nodes.
 
-<h3 id="set-up-a-kubernetes-cluster-joining-your-nodes">Joining Your Nodes</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-joining-your-nodes">Joining Your Nodes</h3>
 
 The nodes are where your workloads (containers and pods, etc) run.
 If you want to add any new machines as nodes to your cluster, for each machine: SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
@@ -290,7 +286,7 @@ Run 'kubectl get nodes' on the master to see this machine join.
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
-<h3 id="set-up-a-kubernetes-cluster-optional-control-your-cluster-from-machines-other-than-the-master">(Optional) Control Your Cluster From Machines Other Than The Master</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-optional-control-your-cluster-from-machines-other-than-the-master">(Optional) Control Your Cluster From Machines Other Than The Master</h3>
 
 In order to get kubectl on (for example) your laptop to talk to your cluster, you need to copy the `kubeconfig` file from your master to your laptop like this:
 
@@ -299,22 +295,45 @@ scp root@<master ip>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ~~~
 
-<h3 id="set-up-a-kubernetes-cluster-installing-the-sock-shop-onto-kubernetes">Installing the Sock Shop onto Kubernetes</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-install-and-launch-weave-scope">Install and Launch Weave Scope</h3>
+
+Install and launch the Weave Scope probes onto your Kubernetes cluster. From the master:
+
+~~~bash
+curl -sSL 'https://cloud.weave.works/launch/k8s/weavescope.yaml?service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>' |sed s/50m/500m/ |kubectl apply -f - 
+~~~
+
+You should fetch `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` from [Weave Cloud](https://cloud.weave.works/).
+
+If you return to the Weave Cloud interface, you can click on the `Hosts` button and view your cluster ready to go.
+Then as you follow the next steps you can then watch the socks shop come up in [Weave Cloud](https://cloud.weave.works/). Once you see the probes connect you can click "View Instance" to see your hosts, containers, pods etc.
+
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-installing-the-sock-shop-onto-kubernetes">Installing the Sock Shop onto Kubernetes</h3>
 
 As an example, install a sample microservices application, a socks shop, to put your cluster through its paces.
 To learn more about the sample microservices app, see the [microservices-demo README](https://github.com/microservices-demo/microservices-demo).
 
+On the master, run:
+
 ~~~
 kubectl create namespace sock-shop
-kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
+git clone https://github.com/microservices-demo/microservices-demo
+cd microservices-demo
+kubectl apply -n sock-shop -f deploy/kubernetes/manifests
 ~~~
 
-<h3 id="set-up-a-kubernetes-cluster-viewing-the-sock-shop-in-your-browser">Viewing the Sock Shop in Your Browser</h3>
+Switch to the `sock-shop` namespace at the bottom left of your browser window in Weave Cloud when in any of the Kubernetes-specific views (pods, replica sets, deployments & services).
 
-You can then find the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-viewing-the-sock-shop-in-your-browser">Viewing the Sock Shop in Your Browser</h3>
+
+You can then find the port that the cluster allocated for the front-end service by running:
 
 ~~~
 kubectl describe svc front-end -n sock-shop
+~~~
+
+The output should look like:
+~~~
 Name:                   front-end
 Namespace:              sock-shop
 Labels:                 name=front-end
@@ -331,8 +350,9 @@ It takes several minutes to download and start all of the containers, watch the 
 
 Or you can view the containers appearing on the screen as they get created in Weave Cloud.
 
-Then go to the IP address of your cluster's master node in your browser, and specify the given port.
+Then go to the IP address of any of your cluster's machines in your browser, and specify the given port.
 So for example, `http://<master_ip>:<port>`.
+You can find the IP address of the machines in the DigitalOcean dashboard.
 
 In the example above, this was `31869`, but it is a different port for you.
 
@@ -340,19 +360,20 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 
 [sockshop screenshot]
 
-<h3 id="set-up-a-kubernetes-cluster-viewing-the-result-in-weave-cloud">Viewing the Result in Weave Cloud</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-viewing-the-result-in-weave-cloud">Viewing the Result in Weave Cloud</h3>
 
-You can also view the result in Weave Cloud and also watch all of the pods as they join the cluster.
+You can also view the result in [Weave Cloud](https://cloud.weave.works/) and also watch all of the pods as they join the cluster.
 
 [weave cloud screenshot]
 
 
-<h3 id="set-up-a-kubernetes-cluster-run-the-load-test-on-the-cluster">Run the Load Test on the Cluster</h3>
+<h3 id="set-up-a-kubernetes-cluster-with-kubeadm-run-the-load-test-on-the-cluster">Run the Load Test on the Cluster</h3>
 
-After the Sock Shop has completely deployed onto the cluster, run the same load test as you did on your laptop and then view the results in Weave Cloud.
+After the Sock Shop has completely deployed onto the cluster, run a load test from your local machine and view the results in Weave Cloud.
+You should see the architecture of the application "emerge" as different pieces join up.
 
 ~~~
-docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -h edge-router -r 100 -c 2 <host-ip:[port number]>
+docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -r 10000 -c 20 -h <host-ip:[port number]>
 ~~~
 
 Where,
@@ -361,7 +382,6 @@ Where,
 
 
 XXX-END-DETAILS-BLOCK
-
 
 
 <h2 id="configuring-cortex-for-your-production-environment">Configuring Cortex for Your Production Environment</h2>
@@ -410,8 +430,10 @@ Cortex by default displays a number of metrics at the top that have already been
 You may wish to run a load test to see the metrics in Weave Cortex change as load is applied to the application.
 
 ~~~
-docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -h edge-router -r 100 -c 2 <host-ip:[port number]>
+docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -r 100 -c 2 -h <host-ip:[port number]>
 ~~~
+
+<!-- TODO include a sample query here -->
 
 
 <h2 id="running-queries-with-the-prometheus-query-language">Running Queries with the Prometheus Query Language</h2>
@@ -421,6 +443,12 @@ You can also build your own queries using the Prometheus Query Language builder.
 For more information on using the Prometheus Query Language, see [Prometheus Query Examples](https://prometheus.io/docs/querying/examples/)
 
 As an example select `IP address space exhaustion in %` and press the Execute button, where you should see the following:
+
+<h2 id="monitor-the-network-with-weave-cortex-part-of-weave-cloud">Monitor the network with Weave Cortex, part of Weave Cloud</h2>
+
+Weave Net supports Prometheus monitoring, so you can monitor your Weave Net network in Weave Cloud.
+
+Simply go to the Cortex page in Weave Cloud and you'll see network specific metrics, such as IP address exhaustion.
 
 
 <h2 id="tear-down">Tear Down</h2>
@@ -453,7 +481,8 @@ XXX-END-DETAILS-BLOCK
 
 <h2 id="conclusions">Conclusions</h2>
 
-TODO: What are they??
+We've seen how you can use Weave Cortex to monitor your application, your cluster and your network in Weave Cloud.
+
 
 <div style="width:50%; float:left;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
