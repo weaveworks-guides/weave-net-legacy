@@ -7,10 +7,10 @@ In this guide you will see how to configure monitoring with Weave Cloud and Weav
 
 In this way, you can view your app, network & container orchestrator metrics in the Weave Cloud monitoring dashboard. This example uses Kubernetes.</p>
 
-<div style="width:50%; padding: 10px; float:left; font-weight: 700>
+<div style="width:50%; padding: 10px; float:left; font-weight: 700;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
 </div>
-<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700>
+<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
 <a href="/guides/cloud-guide-part-4-secure-container-firewalls/">Go to next part: Part 4 – Secure: Container Firewalls &raquo;</a>
 </div>
 <div style="clear:both;"></div>
@@ -163,10 +163,10 @@ You've seen how Weave Cortex can be used to monitor your application, your clust
 <p></p>
 {"gitdown": "include", "file": "./includes/slack-us.md"}
 
-<div style="width:50%; float:left; font-weight: 700>
+<div style="width:50%; float:left; font-weight: 700;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
 </div>
-<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700>
+<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
 <a href="/guides/cloud-guide-part-4-secure-container-firewalls/">Go to next part: Part 4 – Secure: Container Firewalls &raquo;</a>
 </div>
 <div style="clear:both;"></div>

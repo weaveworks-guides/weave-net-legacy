@@ -1,11 +1,12 @@
 <!-- Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope -->
 
 This is Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In this part, you will see how to set up, verify and troubleshoot your app with Weave Cloud and Weave Scope.
+
 * You will start on your local laptop using Docker Compose in development.
 * Then you'll move on to set up Kubernetes for production, including Weave Net, and deploy your application to it.
 
 
-<div style="width:50%; padding: 10px; float:right; text-align:right; font-weight: 700">
+<div style="width:50%; padding: 10px; float:right; text-align:right; font-weight:700;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
 <div style="clear:both;"></div>

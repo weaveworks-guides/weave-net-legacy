@@ -2,10 +2,10 @@
 
 This is Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In this guide, you'll see how to achieve fast iteration and Continuous Delivery with Weave Cloud and Weave Flux, which connects the output of your CI system into your container orchestrator. This example uses Kubernetes.
 
-<div style="width:50%; padding: 10px; float:left; font-weight: 700>
+<div style="width:50%; padding: 10px; float:left; font-weight: 700;>
 <a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
 </div>
-<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700>
+<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
 <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;</a>
 </div>
 <div style="clear:both;"></div>
@@ -367,10 +367,10 @@ Weave Cloud will soon include a UI to view and configure your Flux deploys, and 
 <p></p>
 {"gitdown": "include", "file": "./includes/slack-us.md"}
 
-<div style="width:50%; padding: 10px; float:left;font-weight: 700>
+<div style="width:50%; padding: 10px; float:left;font-weight: 700;">
 <a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
 </div>
-<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700>
+<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
 <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;</a>
 </div>
 <div style="clear:both;"></div>

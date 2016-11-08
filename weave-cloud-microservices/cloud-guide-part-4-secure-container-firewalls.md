@@ -5,7 +5,7 @@
 This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 In this guide we'll see how to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net.
 
-<div style="width:50%; padding: 10px float:left;font-weight: 700>
+<div style="width:50%; padding: 10px float:left;font-weight: 700;";">
 <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
 </div>
 <div style="clear:both;"></div>
@@ -94,7 +94,7 @@ You've seen that Kubernetes network policy allows you to define flexible and dyn
 
 {"gitdown": "include", "file": "./includes/slack-us.md"}
 
-<div style="width:50%; padding: 10px; float:left;font-weight: 700>
+<div style="width:50%; padding: 10px; float:left;font-weight: 700;">
 <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
 </div>
 <div style="clear:both;"></div>
