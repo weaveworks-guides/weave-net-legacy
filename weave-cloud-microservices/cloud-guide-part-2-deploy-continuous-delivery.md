@@ -80,7 +80,7 @@ Go to each GitHub repository and click "Fork" in the top right hand corner, and 
 If you followed the instructions above, there will already be a socks shop running on your Kubernetes cluster. First remove that, so that you can deploy a copy from your own fork:
 
 ~~~
-kubectl delete --all pods -n sock-shop
+kubectl delete namespace sock-shop
 ~~~
 
 
