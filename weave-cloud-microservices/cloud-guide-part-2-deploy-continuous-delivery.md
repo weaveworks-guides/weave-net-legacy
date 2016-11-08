@@ -39,7 +39,7 @@ And it does this by:
 
  **3.**  If it's configured to automatically deploy a change, it proceeds immediately. If not, it waits for the user to run `fluxctl release`.
 
- **4.**  When doing a release, fluxy clones the latest version of the Kubernetes manifests from version control, updates the manifest for the new image, makes a commit and pushes the change back to version control. It then applies the change to your cluster.
+ **4.**  When doing a release, flux clones the latest version of the Kubernetes manifests from version control, updates the manifest for the new image, makes a commit and pushes the change back to version control. It then applies the change to your cluster.
 
 This automates an otherwise manual and error-prone two-step process of updating the Kubernetes manifest in version control and applying the changes to the cluster.
 
@@ -147,7 +147,7 @@ Log into the master Kubernetes node.
 
 Deploy Flux to your Kubernetes cluster:
 ~~~
-kubectl apply -f https://gist.githubusercontent.com/errordeveloper/0e92c0223ac40a9df68df8e402ca873c/raw/2eaf7a567d75a41faf7a6712aded3d6fa6ad13ff/flux.yaml
+kubectl apply -f 'https://cloud.weave.works/k8s/flux.yaml'
 ~~~
 
 Next, generate a deploy key for your repo, and configure Flux with it:
@@ -188,7 +188,7 @@ Copy the private key you created earlier. To view it, run `cat id-rsa-flux`. Be 
 
 Configure access to Flux via the Kubernetes API:
 ```
-export FLUX_URL=http://localhost:8080/api/v1/proxy/namespaces/default/services/fluxy
+export FLUX_URL=http://localhost:8080/api/v1/proxy/namespaces/default/services/flux
 ```
 
 Load this config into Flux with:

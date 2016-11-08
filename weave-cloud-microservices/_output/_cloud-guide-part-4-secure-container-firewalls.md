@@ -18,7 +18,9 @@ Securing segments of your app is simple with the application of Kubernetes-based
 <h2 id="a-video-overview">A Video Overview</h2>
 
 <center><div style="width:530px; padding: 10px; display:inline-block; margin-top:2em;">
+
 <iframe src="https://player.vimeo.com/video/190563581" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
 </div></center>
 
 

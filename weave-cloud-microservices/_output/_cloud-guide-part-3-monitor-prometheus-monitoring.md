@@ -402,7 +402,7 @@ Next, enable Cortex to start pushing metrics to Weave Cloud.
 <!-- TODO replace this with the proper yaml generator -->
 
 ~~~
-curl -sL https://gist.githubusercontent.com/errordeveloper/b2f92741b9fd45fd58e2bcd2870a8b5f/raw/c02cab79d9dde52c1f855c19399bfb222dd55235/cortex.yaml | sed 's/INSERT_TOKEN_HERE/[your-weave-cloud-token]/' | kubectl create -n kube-system -f -
+kubectl -n kube-system apply -f 'https://cloud.weave.works/k8s/cortex.yaml?t=<your-weave-cloud-token>'
 ~~~
 
 **Where**,
@@ -415,16 +415,18 @@ Cortex runs in its own Docker container and it may take a few minutes for it to 
 **2.** Or check that Cortex is running on one of the Kubernetes nodes with:
 
 ~~~
-kubectl get deployments -n kube-system
+kubectl get pods -n kube-system -l weave-cloud-component=cortex
 ~~~
 
 Where you should see something similar to:
 
 ~~~
-NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-kube-discovery       1         1         1            1           18h
-kube-dns             1         1         1            1           18h
-weave-cortex-agent   1         1         1            1           4h
+NAME                                 READY     STATUS    RESTARTS   AGE
+weave-cortex-agent-459196232-a83mc   1/1       Running   0          10s
+weave-cortex-node-exporter-clofd     1/1       Running   0          12s
+weave-cortex-node-exporter-jeyrt     1/1       Running   0          12s
+weave-cortex-node-exporter-klp2h     1/1       Running   0          12s
+weave-cortex-node-exporter-uqwx5     1/1       Running   0          12s
 ~~~
 
 <h2 id="viewing-sock-shop-metrics-in-weave-cortex">Viewing Sock Shop Metrics in Weave Cortex</h2>
