@@ -39,13 +39,13 @@ Continuous Delivery with Weave Flux interacts with the following three things:
 
 And it does this by:
 
-**1.**  Watching a container image registry for changes.
+ **1.**  Watching a container image registry for changes.
 
-**2.**  When a new image arrives, consulting its deployment policy, which for each service (container image) can either be "manual" or "automatic". This policy can be modified by running `fluxctl automate`.
+ **2.**  When a new image arrives, consulting its deployment policy, which for each service (container image) can either be "manual" or "automatic". This policy can be modified by running `fluxctl automate`.
 
-**3.**  If it's configured to automatically deploy a change, it proceeds immediately. If not, it waits for the user to run `fluxctl release`.
+ **3.**  If it's configured to automatically deploy a change, it proceeds immediately. If not, it waits for the user to run `fluxctl release`.
 
-**4.**  When doing a release, fluxy clones the latest version of the Kubernetes manifests from version control, updates the manifest for the new image, makes a commit and pushes the change back to version control. It then applies the change to your cluster.
+ **4.**  When doing a release, fluxy clones the latest version of the Kubernetes manifests from version control, updates the manifest for the new image, makes a commit and pushes the change back to version control. It then applies the change to your cluster.
 
 This automates an otherwise manual and error-prone two-step process of updating the Kubernetes manifest in version control and applying the changes to the cluster.
 
@@ -77,7 +77,12 @@ Go to each GitHub repository and click "Fork" in the top right hand corner, and 
 
 ## Shut Down The Socks Shop Running on the Kubernetes Cluster
 
-If you followed the instructions above, there will already be a socks shop running on your Kubernetes cluster. First remove that, so that you can deploy a copy from your own fork.
+If you followed the instructions above, there will already be a socks shop running on your Kubernetes cluster. First remove that, so that you can deploy a copy from your own fork:
+
+~~~
+kubectl delete --all pods -n sock-shop
+~~~
+
 
 ## Get a Container Registry Account
 
