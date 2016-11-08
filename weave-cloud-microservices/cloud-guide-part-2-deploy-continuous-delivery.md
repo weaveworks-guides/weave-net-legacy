@@ -147,7 +147,7 @@ Log into the master Kubernetes node.
 
 Deploy Flux to your Kubernetes cluster:
 ~~~
-kubectl apply -f https://gist.githubusercontent.com/errordeveloper/0e92c0223ac40a9df68df8e402ca873c/raw/2eaf7a567d75a41faf7a6712aded3d6fa6ad13ff/flux.yaml
+kubectl apply -f 'https://cloud.weave.works/k8s/flux.yaml'
 ~~~
 
 Next, generate a deploy key for your repo, and configure Flux with it:
