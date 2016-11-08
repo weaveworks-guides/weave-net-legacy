@@ -220,7 +220,7 @@ An example of `<address-of-registry>` is `https://index.docker.io/v1/`.  You can
 
 XXX-END-DETAILS-BLOCK
 
-## Configure The Deploy Dey on GitHub
+## Configure The Deploy Key on GitHub
 
 This allows Flux to read and write to the repo with the Kubernetes manifests in it.
 
