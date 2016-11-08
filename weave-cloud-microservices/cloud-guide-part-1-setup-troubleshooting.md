@@ -170,7 +170,7 @@ In this tutorial you learned how to verify your app deployed to your laptop with
 <p></p>
 {"gitdown": "include", "file": "./includes/slack-us.md"}
 
-<div style="width:50%; padding: 10px; float:right; text-align:right;">
+<div style="width:50%; padding: 10px; float:right; text-align:right; font-weight: 700>
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
 <div style="clear:both;"></div>
