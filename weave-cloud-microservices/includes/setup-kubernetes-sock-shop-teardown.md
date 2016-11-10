@@ -6,6 +6,8 @@ If you made a mistep during the install instructions, it is recommended that you
 
 * To uninstall Kubernetes on the machines, simply delete the machines you created for this tutorial, or run the script below and then start over or uninstall the packages.
 
+* To uninstall a daemon set run `kubectl delete ds <agent-name>`. 
+
 To reset local state run the following script:
 
 ~~~
