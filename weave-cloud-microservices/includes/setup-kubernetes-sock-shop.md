@@ -2,7 +2,7 @@
 
 ## Set Up Droplets in Digital Ocean
 
-Sign up or log into [Digital Ocean](https://digitalocean.com) and create three Ubuntu 16.04 instances, where you'll deploy a Kubernetes cluster, add a container network using Weave Net and finally deploy the Sock Shop onto the cluster and verify this deployment with the one you just did on your laptop in Weave Cloud.
+Sign up or log into [Digital Ocean](https://digitalocean.com) and create three Ubuntu 16.04 instances, where you'll deploy a Kubernetes cluster, add a container network using Weave Net and finally deploy the Sock Shop onto the cluster.
 
 **Note:** It is recommended that each host have at least 4 gigabytes of memory in order to run this demo smoothly.
 
