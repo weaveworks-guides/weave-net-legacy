@@ -133,12 +133,24 @@ git push
 
 Log into Quay.io, and create a robot account (`ci_push_pull`) and then give it Admin permissions to that repo.
 
-Next, set up TravisCI. In http://travis-ci.org/, sign in, find the repo and switch it on. Supply environment entries for `DOCKER_USER` and `DOCKER_PASS` by copying them from the robot account in quay.io.
+Next, set up TravisCI. In http://travis-ci.org/, sign in, find the front-end repo and switch it on.
+
+Supply environment entries for `DOCKER_USER` and `DOCKER_PASS` by copying them from the robot account in quay.io.
+
+These variables can be found by clicking on the robot account's settings and then credentials. Then selecting 'Docker Login'.
+
+`DOCKER_USER=<"user-name+robot-account">`
+`DOCKER_PASS=<"Quay.io-key">`
+
+Where,
+
+* `<"user-name+ci_push_pull">` is your name with the + sign and the name of the robot account.
+* `<"Quay.io-key">` is the key found in the Docker Login dialog.
 
 
 ## Getting Flux Running
 
-There are two parts of Flux that must be configured and installed: the Flux Daemon and the Flux Service.  The Flux daemon is deployed to the cluster and it listens for changes being pushed through git and updates the cluster accordingly. `fluxctl` is the command line utility and it allows you to send requests and commands to the daemon. The flux daemon is deployed first to the cluster and afterwards, `fluxctl` is downloaded and set up the. 
+There are two parts of Flux that must be configured and installed: the Flux Daemon and the Flux Service.  The Flux daemon is deployed to the cluster and it listens for changes being pushed through git and updates the cluster accordingly. `fluxctl` is the command line utility and it allows you to send requests and commands to the daemon. The flux daemon is deployed first to the cluster and afterwards, `fluxctl` is downloaded and set up the.
 
 Log onto the master Kubernetes node, and create the following .yaml file using your favourite editor:
 
@@ -212,8 +224,8 @@ Copy the following into the `flux.conf`:
 * Copy the private key you created earlier into the private key section of the file. To view the key, run `cat id-rsa-flux`. **Ensure that the indentation is correct.**
 * In the Registry section, copy the authorization details from Quay robot account (`ci_push_pull`) you created earlier. You can find those details by selecting `view credentials` from the robot account you created in Quay.io.
 
-
 Configure access to Flux via the Kubernetes API:
+
 ```
 export FLUX_URL=<weave-cloud-token`
 ```
@@ -289,6 +301,8 @@ git push
 ```
 
 Commit that and push. Now you should see [Travis-CI](https://travis-ci.org/) build the image and push it to [Quay.io](https://quay.io).
+
+##Deploy the Sock Shop to Kubernetes
 
 Now let's deploy the socks shop to Kubernetes. This is the last time you will have to run `kubectl` in this demo: after this, everything can be controlled and automated via Flux.
 
