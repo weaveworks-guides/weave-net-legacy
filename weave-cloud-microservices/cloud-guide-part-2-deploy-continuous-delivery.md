@@ -133,18 +133,42 @@ git push
 
 Log into Quay.io, and create a robot account (`ci_push_pull`) and then give it Admin permissions to that repo.
 
-Connect up to TravisCI. In http://travis-ci.org/, sign in, find the repo and switch it on. Supply environment entries for `DOCKER_USER` and `DOCKER_PASS` by copying them from the robot account in quay.io.
+Next, set up TravisCI. In http://travis-ci.org/, sign in, find the repo and switch it on. Supply environment entries for `DOCKER_USER` and `DOCKER_PASS` by copying them from the robot account in quay.io.
 
 
 ## Getting Flux Running
 
-Log into the master Kubernetes node.
-
-Deploy Flux to your Kubernetes cluster:
+Log onto the master Kubernetes node, and create the following .yaml file using your favourite editor:
 
 ~~~
-kubectl apply -f 'https://cloud.weave.works/k8s/flux.yaml'
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: fluxd
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: fluxd
+    spec:
+      containers:
+      - name: fluxd
+        image: quay.io/weaveworks/fluxd:master-6cc08e4
+        imagePullPolicy: IfNotPresent
+        args:
+        - --token=INSERTTOKENHERE
 ~~~
+Insert your Weave Cloud token at `INSERTTOKENHERE` and then save the file as `fluxd-dep.yaml`
+
+Now you're ready to deploy Deploy the Flux daemon to your Kubernetes cluster:
+
+~~~
+kubectl apply -f ./fluxd-dep.yaml
+~~~
+
+### Generate Keys for Your Repo
 
 Next, generate a deploy key for your repo, and configure Flux with it:
 
