@@ -14,7 +14,7 @@ This is Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In 
 <img src="images/deploy.png" style="width:100%; border:1em solid #32324b;" />
 <p></p>
 
-Continuous Delivery with Weave Flux manages change between your container registry, where typically your CI system pushes or builds a Docker container image, and your version control system that keeps track of your Kubernetes manifests.  Flux tracks and acts on the changes between these systems without you having to disassemble and reassemble your infrastructure each time a  new feature is added to your app.
+Continuous Delivery (CD) with Weave Flux manages change between your container registry, where typically your Continuous Integration (CI) system pushes or builds a Docker container image, and where the version control system keeps track of your Kubernetes manifests.  Flux tracks and acts on the changes between these systems without you having to disassemble and reassemble your infrastructure each time a new feature is added to your app.
 
 ##A Video Overview
 
@@ -24,9 +24,9 @@ Continuous Delivery with Weave Flux manages change between your container regist
 
 ## Introduction
 
-Weave Flux enables every developer on your team to push changes to a Kubernetes cluster as simply as a `git push`, while maintaining best practices in version controlling all of the cluster configuration (Kubernetes manifests) as you go by automatically modifying the manifests to include new versions.
+Weave Flux enables every developer on your team to push changes to a Kubernetes cluster as simply as a `git push`, while at the same time maintains a best practices approach by version controlling all of the cluster configuration (Kubernetes manifests) as you go, and by automatically modifying the manifests to include any new versions.
 
-And it does this by:
+Flux does this by:
 
  **1.**  Watching a container image registry for changes.
 
@@ -36,11 +36,11 @@ And it does this by:
 
  **4.**  When doing a release, flux clones the latest version of the Kubernetes manifests from version control, updates the manifest for the new image, makes a commit and pushes the change back to version control. It then applies the change to your cluster.
 
-This automates an otherwise manual and error-prone two-step process of updating the Kubernetes manifest in version control and applying the changes to the cluster.
+This deployment pipeline automates an otherwise manual and error-prone two-step process of updating the Kubernetes manifest in version control and applying the changes to the cluster.
 
-In this tutorial, you will put yourself in the position of a developer on a devops team, and watch a code change go from code on a laptop to code in version control, through the CI system which builds a container image and pushes it to the registry, after which Flux takes over and, because the service was configured to automatically deploy with `fluxctl automate`, automatically modifies the Kubernetes manifest in version control and then deploys the change to the user's cluster.
+In this tutorial, you will put yourself in the position of a developer on a devops team, where you will watch a code change go from your laptop to code in version control, and on through the CI system which automatically builds a container image and pushes it to the registry, after which Flux takes over and, because the service was configured to deploy with `fluxctl automate`, it automatically modifies the Kubernetes manifest in version control and then deploys the change to your Kubernetes cluster.
 
-In particular, you will change the colour of a button on the frontend of the user's app, a socks shop.
+In particular, you will change the colour of a button on the frontend of the user's app, a Socks Shop.
 
 ## Deploy a Kubernetes Cluster with Weave Net and the Sample App
 
