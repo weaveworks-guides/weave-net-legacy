@@ -14,7 +14,7 @@ This is Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In 
 <img src="images/deploy.png" style="width:100%; border:1em solid #32324b;" />
 <p></p>
 
-Continuous Delivery (CD) with Weave Flux manages change between your container registry, where typically your Continuous Integration (CI) system pushes or builds a Docker container image, and where the version control system keeps track of your Kubernetes manifests.  Flux tracks and acts on the changes between these systems without you having to disassemble and reassemble your infrastructure each time a new feature is added to your app.
+Continuous Delivery with Weave Flux manages change between your container registry, where your CI system pushes or builds a Docker container image, and your version control system that keeps track of your Kubernetes manifests. Flux tracks and acts on changes between these systems without you having to disassemble and reassemble your infrastructure each time a new feature is added to your app.
 
 ##A Video Overview
 
@@ -44,7 +44,7 @@ In particular, you will change the colour of a button on the frontend of the use
 
 ## Deploy a Kubernetes Cluster with Weave Net and the Sample App
 
-If you have already done this as part of one of the other tutorials, you can skip this step. Otherwise, click "Details" below to see the instructions for setting up a Kubernetes cluster and deploying the socks shop to it.
+If you have already done this as part of one of the other tutorials, you can skip this step. Otherwise, click "Details" below to see how to set up a Kubernetes cluster and deploy the Socks Shop demo app to it.
 
 XXX-START-DETAILS-BLOCK
 
@@ -57,7 +57,7 @@ XXX-END-DETAILS-BLOCK
 
 You will need a GitHub account for this step.
 
-In order to modify the socks shop, you need to fork (at least) two repositories:
+In order to modify the Socks Shop, you need to fork (at least) two repositories:
 
 * [https://github.com/microservices-demo/front-end](https://github.com/microservices-demo/front-end) - the front-end of the application. We will update the color of one of the buttons in this example.
 *  [https://github.com/microservices-demo/microservices-demo](https://github.com/microservices-demo/microservices-demo) - the repo that stores the Kubernetes manifests for the application. Flux will update this repository.
