@@ -14,18 +14,13 @@ This is Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In 
 <img src="images/deploy.png" style="width:100%; border:1em solid #32324b;" />
 <p></p>
 
-Continuous Delivery with Weave Flux manages change between your container registry, where typically your CI system pushes or builds a Docker container image, and your version control system that keeps track of your Kubernetes manifests.  Flux tracks and acts on the changes between these systems without you having to disassemble and reassemble your infrastructure each time a new feature is added to your app.
+Continuous Delivery with Weave Flux manages change between your container registry, where typically your CI system pushes or builds a Docker container image, and your version control system that keeps track of your Kubernetes manifests.  Flux tracks and acts on the changes between these systems without you having to disassemble and reassemble your infrastructure each time a  new feature is added to your app.
 
 ##A Video Overview
 
 <center><div style="width:530px; display:inline-block; margin-top:2em;">
 <iframe src="https://player.vimeo.com/video/190563579" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div></center>
-
-
-## Contents
-
-{"gitdown": "contents"}
 
 ## Introduction
 
@@ -47,7 +42,7 @@ In this tutorial, you will put yourself in the position of a developer on a devo
 
 In particular, you will change the colour of a button on the frontend of the user's app, a socks shop.
 
-## Deploy a Kubernetes Cluster with Weave Net and Then Deploy the Application to it
+## Deploy a Kubernetes Cluster with Weave Net and the Sample App
 
 If you have already done this as part of one of the other tutorials, you can skip this step. Otherwise, click "Details" below to see the instructions for setting up a Kubernetes cluster and deploying the socks shop to it.
 
@@ -146,6 +141,7 @@ Connect up to TravisCI. In http://travis-ci.org/, sign in, find the repo and swi
 Log into the master Kubernetes node.
 
 Deploy Flux to your Kubernetes cluster:
+
 ~~~
 kubectl apply -f 'https://cloud.weave.works/k8s/flux.yaml'
 ~~~
