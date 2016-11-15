@@ -138,6 +138,8 @@ Next, set up TravisCI. In http://travis-ci.org/, sign in, find the repo and swit
 
 ## Getting Flux Running
 
+There are two parts of Flux that must be configured and installed: the Flux Daemon and the Flux Service.  The Flux daemon is deployed to the cluster and it listens for changes being pushed through git and updates the cluster accordingly. `fluxctl` is the command line utility and it allows you to send requests and commands to the daemon. The flux daemon is deployed first to the cluster and afterwards, `fluxctl` is downloaded and set up the. 
+
 Log onto the master Kubernetes node, and create the following .yaml file using your favourite editor:
 
 ~~~
@@ -168,22 +170,22 @@ Now you're ready to deploy Deploy the Flux daemon to your Kubernetes cluster:
 kubectl apply -f ./fluxd-dep.yaml
 ~~~
 
-### Generate Keys for Your Repo
 
-Next, generate a deploy key for your repo, and configure Flux with it:
+Next, generate a PGP key for your repo, which will be used by Flux to communicate between your repo and your cluster:
 
 ```
 ssh-keygen -f id-rsa-flux
 ```
 
-Install the `fluxctl` binary on the master:
+
+First, install the `fluxctl` binary onto the master node:
 
 ```
 curl -o /usr/local/bin/fluxctl -sSL https://github.com/weaveworks/flux/releases/download/master-6cc08e4/fluxctl-linux-amd64
 chmod +x /usr/local/bin/fluxctl
 ```
 
-Now open a file called `flux.conf` in your favourite text editor, on the server, and paste the following config into it, replacing `<YOUR_GITHUB_USERNAME>` with your GitHub username:
+Next create a file on the master node called `flux.conf` using your favourite text editor:
 
 ```
 git:
@@ -204,20 +206,30 @@ registry:
   auths: {}
 ```
 
-Copy the private key you created earlier. To view it, run `cat id-rsa-flux`. Be careful to get the indentation right.
+Copy the following into the `flux.conf`:
+
+* Replace `<YOUR_GITHUB_USERNAME>` with your GitHub username.
+* Copy the private key you created earlier into the private key section of the file. To view the key, run `cat id-rsa-flux`. **Ensure that the indentation is correct.**
+* In the Registry section, copy the authorization details from Quay robot account (`ci_push_pull`) you created earlier. You can find those details by selecting `view credentials` from the robot account you created in Quay.io.
+
 
 Configure access to Flux via the Kubernetes API:
 ```
-export FLUX_URL=http://localhost:8080/api/v1/proxy/namespaces/default/services/flux
+export FLUX_URL=<weave-cloud-token`
 ```
 
-Load this config into Flux with:
+Load this config into Flux using:
 
 ```
 fluxctl set-config --file=flux.conf
 ```
+Check that all went well by running:
 
-There is no need to specify auth for your registry since Flux will poll a public registry.
+~~~
+fluxctl list-services
+~~~
+
+<!--There is no need to specify auth for your registry since Flux will poll a public registry. -->
 
 XXX-START-DETAILS-BLOCK
 
@@ -263,9 +275,11 @@ To:
         image: quay.io/$YOUR_QUAY_USERNAME/front-end:latest
 ```
 
-where `$YOUR_QUAY_USERNAME` is your Quay.io username.
+Where,
 
-It's important that you specify a tag here, because Flux won't work unless you do. For now, specify `:latest` but Flux will replace that with a specific version every time it does a release.
+* `$YOUR_QUAY_USERNAME` is your Quay.io username.
+
+It's important that you specify a tag for the image. Flux will not recognize it if you don't. In this example, specify `:latest` however, keep in mind that Flux replaces that tag with a specific version every time it does a release.
 
 Commit and push this change to your GitHub fork:
 
@@ -295,7 +309,7 @@ Let's suppose we want to change the color of one of the buttons on the socks sho
 
 ```
 cd front-end
-sed -i "" s/3386e1/red/ ./public/css/style.blue.css
+sed -i s/3386e1/red/ ./public/css/style.blue.css
 ```
 
 Of course, you can make any change you like. Now push the change:
