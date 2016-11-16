@@ -16,7 +16,7 @@ In Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a> you will 
 
 Continuous Delivery with Weave Flux speeds up and streamlines the software development pipeline. With Weave Flux change is managed between your container registry, where Docker images are built and pushed, and your version control system, which stores not only the code, but also the Kubernetes manifests.
 
-Flux tracks and acts on changes between these systems without you having to disassemble and reassemble your infrastructure each time a new feature is added to your app. Developers can then spend their time developing code and continue to `git push` changes without having to worry about the cloud infrastructure itself.
+Flux tracks and acts on changes between these systems without you having to disassemble and reassemble your infrastructure each time a new feature is added to your app. This means you can spend more time developing code and less on configuring cloud infrastructure.
 
 ##A Video Overview
 
