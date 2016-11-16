@@ -22,12 +22,6 @@ Securing segments of your app is simple with the application of Kubernetes-based
 </div></center>
 
 
-
-## Contents
-
-{"gitdown": "contents"}
-
-
 ### Sign up for a Weave Cloud account
 
 Go to [Weave Cloud](https://cloud.weave.works/) and register for an account.
@@ -36,7 +30,7 @@ You'll use the Weave Cloud token later to send metrics to Cortex.
 <img src="images/weave-cloud-token.png" style="width:100%;" />
 
 
-## Deploy a Kubernetes cluster with Weave Net and then deploy a sample application (the socks shop) to it
+## Deploy a Kubernetes Cluster with Weave Net and the Sample App
 
 If you have already done this as part of one of the other tutorials, you can skip this step.
 Otherwise, click "Details" below to see the instructions.
@@ -48,7 +42,7 @@ XXX-START-DETAILS-BLOCK
 XXX-END-DETAILS-BLOCK
 
 
-## Secure the application by applying Network Policy, which gets enforced by Weave Net
+## Apply a Network Policy, and Enforce with Weave Net
 
 In the above guide, you should have deployed the socks shop.  However, the different components are not isolated.
 

@@ -10,6 +10,7 @@ This is Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>. In 
 
 <img src="images/setup.png" style="width:100%; border:1em solid #32324b;" />
 <p></p>
+
 You will begin by deploying an app to your local development laptop using Docker Compose, and then move on to a more production type environment where you'll set up a Kubernetes cluster that networks containers with Weave Net, and deploy your application to it.
 
 
@@ -19,11 +20,7 @@ You will begin by deploying an app to your local development laptop using Docker
 <iframe src="https://player.vimeo.com/video/190563578" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </center>
 
-## Contents
-
-{"gitdown": "contents"}
-
-## Set up
+## Introduction: Setup and Troubleshoot
 
 In this four-part tutorial how to deploy, deliver, and monitor a secure microservices Cloud Native app is described.
 
@@ -42,23 +39,29 @@ You will use the Weaveworks sample app, [The Sock Shop](https://github.com/micro
 
 In this tutorial, you will:
 
-1. Set up Docker or Docker for Mac on your local machine (if you haven't already done so).
-2. Deploy the sock shop with Docker Compose.
-3. Install Scope and verify your app that's running on your laptop in Weave Cloud.
-3. Configure a Kubernetes cluster and at the same time install Weave Net onto Digital Ocean.
-4. Use Weave Cloud to watch the Kubernetes cluster deployment in Digital Ocean.
-5. Install the Sock Shop onto Kubernetes.
-5. Compare both apps, on your laptop and in the Kubernetes cluster on Digital Ocean, using Weave Scope in Weave Cloud.
+**1.** Set up Docker or Docker for Mac on your local machine (if you haven't already done so).
+
+**2.** Deploy the sock shop with Docker Compose.
+
+**3.** Install Scope and verify your app that's running on your laptop in Weave Cloud.
+
+**4.** Configure a Kubernetes cluster and at the same time install Weave Net onto Digital Ocean.
+
+**5.** Use Weave Cloud to watch the Kubernetes cluster deployment in Digital Ocean.
+
+**6.** Install the Sock Shop onto Kubernetes.
+
+**7.** Compare both apps, on your laptop and in the Kubernetes cluster on Digital Ocean, using Weave Scope in Weave Cloud.
 
 This tutorial will take approximately 15 minutes to complete.
 
 ## What You Will Use
 
-* [Weave Cloud](https://cloud.weave.works)
-* [Docker for Mac](https://docs.docker.com/docker-for-mac/docker-toolbox/)
-* [Weaveworks Microservices Demo (Sock Shop)](https://github.com/microservices-demo)
-* [Kubernetes](http://kubernetes.io/)
-* [Weave Net](https://www.weave.works/products/weave-net/)
+ * [Weave Cloud](https://cloud.weave.works)
+ * [Docker for Mac](https://docs.docker.com/docker-for-mac/docker-toolbox/)
+ * [Weaveworks Microservices Demo (Sock Shop)](https://github.com/microservices-demo)
+ * [Kubernetes](http://kubernetes.io/)
+ * [Weave Net](https://www.weave.works/products/weave-net/)
 
 <!-- TODO deduplicate this wrt the docker for mac guide... -->
 
@@ -66,9 +69,9 @@ This tutorial will take approximately 15 minutes to complete.
 
 Ensure that you have the following installed:
 
-* [Git](http://git-scm.com/downloads)
-* [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/)
-  * Note that this guide also works with [Docker for Mac](https://docs.docker.com/docker-for-mac/)
+ * [Git](http://git-scm.com/downloads)
+ * [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/)
+   * Note that this guide also works with [Docker for Mac](https://docs.docker.com/docker-for-mac/)
 
 ## If you're on a Mac
 
