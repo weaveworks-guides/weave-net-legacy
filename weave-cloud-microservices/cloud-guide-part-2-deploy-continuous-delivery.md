@@ -260,9 +260,9 @@ XXX-END-DETAILS-BLOCK
 
 ## Configure The Deploy Key on GitHub
 
-This allows Flux to read and write to the repo with the Kubernetes manifests in it.
+Configure the deploy keys for the front-end repository in Github. This allows Flux to read and write to the repo with the Kubernetes manifests in it.
 
-Go to the `<YOUR_GITHUB_USERNAME>/microservices-demo` repo on github, click settings, and deploy keys (on the left at present). Add a key, and then paste your public key that generated from above (Run `cat id-rsa-flux.pub`).  Check the `Allow write access` box.
+Go to the `<YOUR_GITHUB_USERNAME>/microservices-demo` repo on github, click `Settings` from the Setting tab on the top of the repo. Then select `Deploy Keys` from the left-hand menu. Click `Add a key`, and then paste your public key that was generated from above (Run `cat id-rsa-flux.pub`).  Be sure to check the `Allow write access` box.
 
 ## Modify the Front-end Manifest to Point to Your Container Image
 
