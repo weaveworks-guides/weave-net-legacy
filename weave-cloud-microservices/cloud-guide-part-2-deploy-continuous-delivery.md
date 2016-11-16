@@ -338,13 +338,13 @@ Go to Travis and watch the change get turned into a Docker image.
 Once a new image is in Quay.io, you can use Flux to see what's available:
 
 ```
-fluxctl list-images --service=default/front-end
+fluxctl list-images --service=sock-shop/front-end
 ```
 
 And then deploy it:
 
 ```
-fluxctl release --service=default/front-end --update-all-images
+fluxctl release --service=sock-shop/front-end --update-all-images
 ```
 
 Once that's finished, reload the socks shop and you'll see the buttons have changed to red!
@@ -352,7 +352,7 @@ Once that's finished, reload the socks shop and you'll see the buttons have chan
 So that's useful for manually gated changes, but it's even better to do continuous delivery. You can turn that on easily by running:
 
 ```
-k8s-01$ fluxctl automate --service=default/front-end
+k8s-01$ fluxctl automate --service=sock-shop/front-end
 ```
 
 Then change the front-end again, maybe blue this time?
