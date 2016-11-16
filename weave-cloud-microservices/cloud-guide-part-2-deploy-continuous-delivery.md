@@ -87,7 +87,7 @@ If you already have your own CI system, you can use that instead. All that Flux 
 
 The example used here is [Travis CI](https://travis-ci.org/). Sign up for an account if you haven't got one already, and then hook it up to your GitHub account. Click the `+` button next to "My Repositories" and toggle on the button for `<YOUR_GITHUB_USERNAME>/front-end` so that Travis automatically runs builds for the repo.
 
-## Configure .travis.yml File
+## Edit the travis.yml File
 
 Replace the `.travis.yml` file in your fork of the `front-end` repo so that it contains exactly the following, with `<YOUR_QUAY_USERNAME>` replaced with your Quay.io username:
 
@@ -129,7 +129,7 @@ git push
 ```
 
 
-## Configure Robot Account in Quay.io
+## Configure a Robot Account in Quay.io
 
 Log into Quay.io, and create a robot account (`ci_push_pull`) and then give it Admin permissions to that repo.
 
@@ -148,11 +148,11 @@ Where,
 * `<"Quay.io-key">` is the key found in the Docker Login dialog.
 
 
-## Getting Flux Running
+## Launching and Configuring Flux
 
-There are two parts of Flux that must be configured and installed: the Flux Daemon and the Flux Service.  The Flux daemon is deployed to the cluster and it listens for changes being pushed through git and updates the cluster accordingly. `fluxctl` is the command line utility and it allows you to send requests and commands to the daemon. The flux daemon is deployed first to the cluster and afterwards, `fluxctl` is downloaded and set up the.
+There are two parts of Flux that must be configured and installed: the Flux Daemon and the Flux Service.  The Flux daemon is deployed to the cluster and it listens for changes being pushed through git and updates the cluster accordingly. `fluxctl` is the command line utility and it allows you to send requests and commands to the daemon. The flux daemon is deployed first to the cluster and afterwards, `fluxctl` is downloaded and set up.
 
-Log onto the master Kubernetes node, and create the following .yaml file using your favourite editor:
+**1.** Log onto the master Kubernetes node, and create the following .yaml file using your favourite editor:
 
 ~~~
 ---
@@ -176,28 +176,28 @@ spec:
 ~~~
 Insert your Weave Cloud token at `INSERTTOKENHERE` and then save the file as `fluxd-dep.yaml`
 
-Now you're ready to deploy Deploy the Flux daemon to your Kubernetes cluster:
+**2.** Deploy the Flux daemon to your Kubernetes cluster:
 
 ~~~
 kubectl apply -f ./fluxd-dep.yaml
 ~~~
 
 
-Next, generate a PGP key for your repo, which will be used by Flux to communicate between your repo and your cluster:
+**3.** Generate a PGP key for your repo, which will be used by Flux to communicate between your repo and your cluster:
 
 ```
 ssh-keygen -f id-rsa-flux
 ```
 
 
-First, install the `fluxctl` binary onto the master node:
+**4.** Install the `fluxctl` binary onto the master node:
 
 ```
 curl -o /usr/local/bin/fluxctl -sSL https://github.com/weaveworks/flux/releases/download/master-6cc08e4/fluxctl-linux-amd64
 chmod +x /usr/local/bin/fluxctl
 ```
 
-Next create a file on the master node called `flux.conf` using your favourite text editor:
+**5.** Create a file on the master node called `flux.conf` using your favourite text editor:
 
 ```
 git:
@@ -224,24 +224,24 @@ Copy the following into the `flux.conf`:
 * Copy the private key you created earlier into the private key section of the file. To view the key, run `cat id-rsa-flux`. **Ensure that the indentation is correct.**
 * In the Registry section, copy the authorization details from Quay robot account (`ci_push_pull`) you created earlier. You can find those details by selecting `view credentials` from the robot account you created in Quay.io.
 
-Configure access to Flux via the Kubernetes API:
+**6.** Configure access to the Flux daemon:
 
 ```
-export FLUX_URL=<weave-cloud-token`
+export FLUX_URL=<weave-cloud-token>
 ```
 
-Load this config into Flux using:
+**7.** Load this config into Flux using:
 
 ```
 fluxctl set-config --file=flux.conf
 ```
-Check that all went well by running:
+**8.** And then, check that all went well by running:
 
 ~~~
 fluxctl list-services
 ~~~
 
-<!--There is no need to specify auth for your registry since Flux will poll a public registry. -->
+There is no need to specify auth for your registry since Flux will poll a public registry.
 
 XXX-START-DETAILS-BLOCK
 
@@ -262,8 +262,7 @@ XXX-END-DETAILS-BLOCK
 
 This allows Flux to read and write to the repo with the Kubernetes manifests in it.
 
-Go to the `<YOUR_GITHUB_USERNAME>/microservices-demo` repo on github, click settings, deploy keys (on the left at present). Add a key, paste in the public key from above, check the `Allow write access` box. (Run `cat id-rsa-flux.pub` to get this out.)
-
+Go to the `<YOUR_GITHUB_USERNAME>/microservices-demo` repo on github, click settings, and deploy keys (on the left at present). Add a key, and then paste your public key that generated from above (Run `cat id-rsa-flux.pub`).  Check the `Allow write access` box.
 
 ## Modify the Front-end Manifest to Point to Your Container Image
 
@@ -291,7 +290,7 @@ Where,
 
 * `$YOUR_QUAY_USERNAME` is your Quay.io username.
 
-It's important that you specify a tag for the image. Flux will not recognize it if you don't. In this example, specify `:latest` however, keep in mind that Flux replaces that tag with a specific version every time it does a release.
+It is important that you specify a tag for the image. Flux will not recognize the image if you don't. In this example, specify `:latest` however, keep in mind that Flux replaces that tag with a specific version every time it does a release.
 
 Commit and push this change to your GitHub fork:
 
@@ -300,7 +299,7 @@ git commit -m "Update front-end to refer to my fork." front-end-dep.yaml
 git push
 ```
 
-Commit that and push. Now you should see [Travis-CI](https://travis-ci.org/) build the image and push it to [Quay.io](https://quay.io).
+Commit and push the change. Now you should see [Travis-CI](https://travis-ci.org/) build the image and push it to [Quay.io](https://quay.io).
 
 ##Deploy the Sock Shop to Kubernetes
 
@@ -312,6 +311,7 @@ kubectl apply -f manifests
 ```
 
 Now wait for the socks shop to deploy, and find the NodePort in the usual way:
+
 ~~~
 kubectl describe svc front-end -n sock-shop
 ~~~
@@ -359,7 +359,7 @@ Then change the front-end again, maybe blue this time?
 
 ```
 cd front-end
-sed -i "" s/red/blue/ ./public/css/style.blue.css
+sed -i s/red/blue/ ./public/css/style.blue.css
 ```
 
 Of course, you can make any change you like. Now push the change:
