@@ -1,7 +1,22 @@
 <!-- Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope -->
+When your app is Cloud Native you are free to focus on your code instead of maintaining cloud tools. This allows you to make rapid, incremental feature updates without having to disassemble and reassemble your infrastructure each time your code is changed.  
 
-In Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>, you will set up, verify and troubleshoot an app using Weave Cloud and Weave Scope.
+While the ability to rapidly deploy changes to your app is important, being able to choose your own source control system, deployment tools and container registry without having to maintain a set of brittle custom scripts is also critical.
 
+To streamline the app development pipeline so that you can develop code faster, you've decided on the following:
+
+* A microservices approach to software design
+* Docker Containers
+* Continuous integration and delivery
+* Kubernetes container orchestration
+
+But using these technologies comes with tradeoffs. Most significantly is the configuration effort needed to get all of these technologies working together.  Weave Cloud simplifies this process and gets your app into the cloud without lock in. Weave allows you to choose the tools you need to create high quality code faster.  
+
+In Part 1 of this series, you'll use Weave Cloud to validate and troubleshoot your app: from your development laptop into production. And in parts 3 to 4, you'll move on to how to <a href="https://www.weave.works/guides/cloud-guide-part-2-deploy-continuous-delivery/"> automate code deployment </a> and to <a href="https://www.weave.works/guides/cloud-guide-part-3-monitor-prometheus-monitoring/"> monitor app with Prometheus </a> and then you'll <a href="https://www.weave.works/guides/cloud-guide-part-4-secure-container-firewalls/"> secure the microservices using Kubernetes Network policy </a> all from one convenient troubleshooting dashboard.
+
+In this tutorial you will use the Weaveworks sample app, [The Sock Shop](https://github.com/microservices-demo), deploy it to three Ubuntu hosts, running Docker and Kubernetes and networked with Weave Net. Then you'll validate and troubleshoot any issues with it in Weave Cloud.
+
+This tutorial will take approximately 15 minutes to complete.
 
 <div style="width:50%; padding: 10px; float:right; text-align:right; font-weight:700;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
@@ -11,7 +26,6 @@ In Part 1 of 4 of the <a href="/guides/">Weave Cloud guides series</a>, you will
 <img src="images/setup.png" style="width:100%; border:1em solid #32324b;" />
 <p></p>
 
-You will begin by deploying the microservices demo app, The Sock Shop to your local development laptop using Docker Compose, and then move on to a more production type environment where you'll set up a Kubernetes cluster that networks containers with Weave Net, and deploy your application to it.
 
 
 ##A Video Overview
@@ -19,25 +33,6 @@ You will begin by deploying the microservices demo app, The Sock Shop to your lo
 <center><div style="width:530px; display:inline-block; margin-top:2em;">
 <iframe src="https://player.vimeo.com/video/190563578" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </center>
-
-## Introduction: Setup and Troubleshoot
-
-In this four-part tutorial how to Setup, deploy, monitor and secure a microservices architected app and make it cloud native is described.
-
-To streamline your app development pipeline so that you can develop code faster, the following will be incorporated:
-
-* A microservices approach to software design
-* Docker Containers
-* Continuous integration and delivery
-* Kubernetes container orchestration
-
-A Cloud Native app gives you the freedom to focus on your code instead of maintaining cloud tools, where rapid, incremental updates can be made without having to disassemble and reassemble your infrastructure each time a new feature is added.  And while the ability to rapidly deploy changes to your app is important, the ability to choose your own source control system, deployment tools and container registry without having to maintain a set of custom scripts is also critical.
-
-With Weave Cloud you view and monitor microservices from one convenient troubleshooting dashboard, and together with automated continuous delivery built with your favorite tools, Weave Cloud allows you to create higher quality code more rapidly.
-
-You will use the Weaveworks sample app, [The Sock Shop](https://github.com/microservices-demo), deploy it to a couple of virtual machines running Docker and Kubernetes and then verify and troubleshoot any issues with it in Weave Cloud.
-
-This tutorial will take approximately 15 minutes to complete.
 
 ## What You Will Use
 
@@ -151,7 +146,7 @@ With the load test running, observe the different services communicating by clic
 
 ## Conclusions
 
-In this tutorial you learned how to verify an app deployed to your laptop with the same tools (Weave Scope) used when your app is deployed to a Kubernetes cluster. 
+In this tutorial you learned how to verify an app deployed to your laptop with the same tools (Weave Scope) used when your app is deployed to a Kubernetes cluster.
 <p></p>
 {"gitdown": "include", "file": "./includes/slack-us.md"}
 

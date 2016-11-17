@@ -1,6 +1,20 @@
 <!-- Deploy: Continuous Delivery with Weave Flux -->
+In Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a> you will learn how to achieve fast iteration and continuous delivery with Weave Cloud and Weave Flux, and how automatic app deployment is possible by connecting the output of your continuous integration system into a container orchestrator.
 
-In Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a> you will learn how to achieve fast iteration and continuous delivery with Weave Cloud and Weave Flux, and how automatic app deployment is possible by connecting the output of your continuous integration system into a container orchestrator. This example uses Kubernetes.
+With Weave Flux every developer on your team makes app changes and deploys it to a Kubernetes cluser in the cloud with a simple `git push`.  Because Flux maintains a best practices approach by version controlling the cluster configuration files (Kubernetes manifests) as you go along, and by automatically modifying them to include all pushed Docker image versions, code changes can be made more rapidly and are also less error-prone.
+
+Flux does this by:
+
+ **1.**  Watching a container image registry for changes.
+
+ **2.**  Deploying images (microservices) based on a "manual deployment" or an "automatic deployment" policy.  When a new image arrives, the deployment policy is consulted. Policies can be modified on a service by service basis by running `fluxctl automate`. If Flux is configured to automatically deploy a change, it proceeds immediately. If not, Flux waits for you to run `fluxctl release`.
+
+ **3.**  During a release, Flux clones the latest version of the Kubernetes manifests from version control, updates the manifest for the new image, makes a commit and then pushes the change back to version control. It then applies the change to your cluster. This deployment pipeline automates an otherwise manual and error-prone two-step process of updating the Kubernetes manifest in version control and applying the changes to the cluster.
+
+In this tutorial, you will put yourself in the position of a developer on a devops team, where you will watch a code change go from your laptop to code in version control, and then on through the CI system which automatically builds a container image and pushes it to the registry, after which Flux takes over and, because the service was configured to deploy with `fluxctl automate`, automatically modifies the Kubernetes manifest in version control and deploys the change to your Kubernetes cluster.
+
+In particular, you will change the colour of a button on the frontend of a microservices architectured app, the Socks Shop.
+
 
 <div style="width:50%; padding: 10px; float:left; font-weight: 700;">
 <a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
@@ -16,29 +30,11 @@ In Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a> you will 
 
 Continuous Delivery with Weave Flux speeds up and streamlines the software development pipeline. With Weave Flux change is managed between your container registry, where Docker images are built and pushed, and your version control system, which stores not only the code, but also the Kubernetes manifests.
 
-Flux tracks and acts on changes between these systems without you having to disassemble and reassemble your infrastructure each time a new feature is added to your app. This means you can spend more time developing code and less on configuring cloud infrastructure.
-
 ##A Video Overview
 
 <center><div style="width:530px; display:inline-block; margin-top:2em;">
 <iframe src="https://player.vimeo.com/video/190563579" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div></center>
-
-## Introduction
-
-With Weave Flux every developer on your team makes app changes and deploys it to a Kubernetes cluser in the cloud with a simple `git push`.  Because Flux maintains a best practices approach by version controlling the cluster configuration files (Kubernetes manifests) as you go along, and automatically modifies Kubernetes manifests to include all pushed versions of the app's Docker images, code changes can be made more rapidly and are also less error-prone.
-
-Flux does this by:
-
- **1.**  Watching a container image registry for changes.
-
- **2.**  Deploying images (microservices) based on a "manual deployment" or an "automatic deployment" policy.  When a new image arrives, the deployment policy is consulted. Policies can be modified on a service by service basis by running `fluxctl automate`. If Flux is configured to automatically deploy a change, it proceeds immediately. If not, Flux waits for you to run `fluxctl release`.
-
- **3.**  During a release, Flux clones the latest version of the Kubernetes manifests from version control, updates the manifest for the new image, makes a commit and then pushes the change back to version control. It then applies the change to your cluster. This deployment pipeline automates an otherwise manual and error-prone two-step process of updating the Kubernetes manifest in version control and applying the changes to the cluster.
-
-In this tutorial, you will put yourself in the position of a developer on a devops team, where you will watch a code change go from your laptop to code in version control, and on through the CI system which automatically builds a container image and pushes it to the registry, after which Flux takes over and, because the service was configured to deploy with `fluxctl automate`, automatically modifies the Kubernetes manifest in version control and deploys the change to your Kubernetes cluster.
-
-In particular, you will change the colour of a button on the frontend of a microservices architectured app, the Socks Shop.
 
 ## Deploy a Kubernetes Cluster with Weave Net and the Sample App
 
@@ -133,9 +129,13 @@ Log into Quay.io, and create a robot account (`ci_push_pull`) and then give it A
 
 Next, set up TravisCI. In http://travis-ci.org/, sign in, find the front-end repo and switch it on.
 
-Configure the environment entries for `DOCKER_USER` and `DOCKER_PASS` by copying them from the robot account in quay.io: For Travis, select "More Options" and then "Settings" from the downdown menu on the right.
+Configure the environment entries for `DOCKER_USER` and `DOCKER_PASS` by copying them from the robot account in quay.io:
 
-These "quay.io" variables are found by clicking on the robot account's settings and then credentials. Then selecting 'Robot Token' at the top of this dialog.
+The "quay.io" variables are found in the robot account's settings after clicking on credentials. Select 'Robot Token' from the top of this dialog.
+
+Enter the variables into Travis, by selecting "More Options" and then "Settings" from the drop down menu on the right.
+
+Add the the variables:
 
 `DOCKER_USER=<"user-name+robot-account">`
 `DOCKER_PASS=<"robot-key">`
