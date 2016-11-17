@@ -26,7 +26,7 @@ Flux tracks and acts on changes between these systems without you having to disa
 
 ## Introduction
 
-With Weave Flux every developer on your team makes app changes and deploys it to a Kubernetes cluser in the cloud with a simple `git push`.  Because Flux maintains a best practices approach by version controlling the cluster configuration files (Kubernetes manifests) as you go along, and automatically modifies Kubernetes manifests to include all pushed versions of the app's Docker images, code changes can be made more rapidly and are also less error-prone.
+With Weave Flux every developer on your team makes app changes and deploys it to a Kubernetes cluser in the cloud with a simple `git push`.  Because Flux maintains a best practices approach by version controlling the cluster configuration files (Kubernetes manifests) as you go along, and by automatically modifying them to include all pushed versions of the app's Docker images, code changes can be made more rapidly and are also less error-prone.
 
 Flux does this by:
 
@@ -139,7 +139,7 @@ The "quay.io" variables are found in the robot account's settings after clicking
 
 Enter the variables into Travis, by selecting "More Options" and then "Settings" from the drop down menu on the right.
 
-Add the the variables: 
+Add the the variables:
 
 `DOCKER_USER=<"user-name+robot-account">`
 `DOCKER_PASS=<"robot-key">`
