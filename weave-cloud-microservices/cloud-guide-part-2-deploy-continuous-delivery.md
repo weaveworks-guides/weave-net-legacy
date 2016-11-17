@@ -1,7 +1,7 @@
 <!-- Deploy: Continuous Delivery with Weave Flux -->
 In Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a> you will learn how to achieve fast iteration and continuous delivery with Weave Cloud and Weave Flux, and how automatic app deployment is possible by connecting the output of your continuous integration system into a container orchestrator.
 
-With Weave Flux every developer on your team makes app changes and deploys it to a Kubernetes cluser in the cloud with a simple `git push`.  Because Flux maintains a best practices approach by version controlling the cluster configuration files (Kubernetes manifests) as you go along, and by automatically modifying them to include all pushed versions of the app's Docker images, code changes can be made more rapidly and are also less error-prone.
+With Weave Flux every developer on your team makes app changes and deploys it to a Kubernetes cluser in the cloud with a simple `git push`.  Because Flux maintains a best practices approach by version controlling the cluster configuration files (Kubernetes manifests) as you go along, and by automatically modifying them to include all pushed Docker image versions, code changes can be made more rapidly and are also less error-prone.
 
 Flux does this by:
 

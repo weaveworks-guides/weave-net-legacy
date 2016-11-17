@@ -14,7 +14,9 @@ But using these technologies comes with tradeoffs. Most significantly is the con
 
 In Part 1 of this series, you'll use Weave Cloud to validate and troubleshoot your app: from your development laptop into production. And in parts 3 to 4, you'll move on to how to <a href="https://www.weave.works/guides/cloud-guide-part-2-deploy-continuous-delivery/"> automate code deployment </a> and to <a href="https://www.weave.works/guides/cloud-guide-part-3-monitor-prometheus-monitoring/"> monitor app with Prometheus </a> and then you'll <a href="https://www.weave.works/guides/cloud-guide-part-4-secure-container-firewalls/"> secure the microservices using Kubernetes Network policy </a> all from one convenient troubleshooting dashboard.
 
-In this tutorial you will use the Weaveworks sample app, [The Sock Shop](https://github.com/microservices-demo), deploy it to three Ubuntu hosts  running Docker and Kubernetes and then verify and troubleshoot any issues with it in Weave Cloud.
+In this tutorial you will use the Weaveworks sample app, [The Sock Shop](https://github.com/microservices-demo), deploy it to three Ubuntu hosts, running Docker and Kubernetes and networked with Weave Net. Then you'll validate and troubleshoot any issues with it in Weave Cloud.
+
+This tutorial will take approximately 15 minutes to complete.
 
 <div style="width:50%; padding: 10px; float:right; text-align:right; font-weight:700;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
@@ -24,9 +26,7 @@ In this tutorial you will use the Weaveworks sample app, [The Sock Shop](https:/
 <img src="images/setup.png" style="width:100%; border:1em solid #32324b;" />
 <p></p>
 
-You will begin by deploying the microservices demo app, The Sock Shop to your local development laptop using Docker Compose, and then move on to a more production type environment where you'll set up a Kubernetes cluster that networks containers with Weave Net, and deploy your application to it.
 
-This tutorial will take approximately 15 minutes to complete.
 
 ##A Video Overview
 
