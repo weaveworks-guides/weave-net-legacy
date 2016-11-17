@@ -129,18 +129,14 @@ Log into Quay.io, and create a robot account (`ci_push_pull`) and then give it A
 
 Next, set up TravisCI. In http://travis-ci.org/, sign in, find the front-end repo and switch it on.
 
-Configure the environment entries for `DOCKER_USER` and `DOCKER_PASS` by copying them from the robot account in quay.io:
+Configure the environment entries for `DOCKER_USER` and `DOCKER_PASS` by copying them from the robot account in quay.io. Click the `ci_push_pull` repo and then `credentials` and `settings` and select `Robot Token` from the top of this dialog.
 
-The "quay.io" variables are found in the robot account's settings after clicking on credentials. Select 'Robot Token' from the top of this dialog.
-
-Enter the variables into Travis, by selecting "More Options" and then "Settings" from the drop down menu on the right.
-
-Add the the variables:
+Copy the Quay.io credentials into Travis by selecting `More Options` and then `Settings` from the drop down menu on the right:
 
 `DOCKER_USER=<"user-name+robot-account">`
 `DOCKER_PASS=<"robot-key">`
 
-Where,
+**Where**,
 
 * `<"user-name+ci_push_pull">` is your name with the + sign and the name of the robot account.
 * `<"robot-key">` is the key found in the Robot Token dialog.
