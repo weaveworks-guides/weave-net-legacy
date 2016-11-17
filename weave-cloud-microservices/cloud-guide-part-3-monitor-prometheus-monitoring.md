@@ -4,7 +4,7 @@ This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 
 Microservices environments by nature are dynamic and are in a state of constant change especially if they are running inside containers. They may be spread across multiple clouds or span both a data center and a cloud,  which can make monitoring a challenge.  And since these systems tend to be in a state of constant flow with containers going down and spinning back up again, traditional monitoring systems which are typically server-focused, don't work well with dynamic systems.
 
-Weave Cortex is built upon the open source project Prometheus, and once deployed to your Kubernetes cluster and it listens for changes - within a single Kubernetes cluster or even across a Kubernetes federation. Once Weave Cortex is deployed to your Kubernetes production environment, metrics are automatically pushed to Weave Cloud, where they can be viewed and queried from within the Microservices Dashboard.
+Weave Cortex is built upon the open source project Prometheus, and once deployed to your Kubernetes cluster, it listens for changes in a single Kubernetes cluster or even across a Kubernetes federation. Once Weave Cortex is deployed to your Kubernetes production environment, metrics are automatically pushed to Weave Cloud, where they can be viewed and queried from within the Microservices Dashboard.
 
 You will use the sample app, 'The Sock Shop', deploy it to a couple of virtual machines running Docker and Kubernetes and then monitor metrics from within Weave Cloud.
 
