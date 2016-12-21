@@ -2,9 +2,9 @@
 
 This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 
-Microservices environments by nature are dynamic and are in a state of constant change especially if they are running inside containers. They may be spread across multiple clouds or span both a data center and a cloud,  which can make monitoring a challenge.  And since these systems tend to be in a state of constant flow with containers going down and spinning back up again, traditional monitoring systems which are typically server-focused, don't work well with dynamic systems.
+Microservices environments by nature are dynamic and in a state of constant change especially if they are running inside containers. They may be spread across multiple clouds or span both a data center and a cloud, which can make monitoring a challenge. Because containerized apps tend to be in a state of constant flow with containers going down and spinning back up again, traditional monitoring systems which are typically server-focused, don’t work well in dynamic systems.
 
-Weave Cortex is built upon the open source project Prometheus, and once deployed to your Kubernetes cluster, it listens for changes in a single Kubernetes cluster or even across a Kubernetes federation. Once Weave Cortex is deployed to your Kubernetes production environment, metrics are automatically pushed to Weave Cloud, where they can be viewed and queried from within the Microservices Dashboard.
+Weave Cortex is an extension of the open source project Prometheus and once deployed to your cluster, it listens for changes in a single Kubernetes cluster or even across a Kubernetes federation. When the Weave Cortex agent is deployed to a Kubernetes production environment, metrics are automatically pushed to Weave Cloud, where they can be viewed and queried from within the Microservices Dashboard.
 
 You will use the sample app, 'The Sock Shop', deploy it to a couple of virtual machines running Docker and Kubernetes and then monitor metrics from within Weave Cloud.
 
@@ -102,7 +102,7 @@ weave-cortex-node-exporter-uqwx5     1/1       Running   0          12s
 
 Go to the Weave Cloud Dashboard and click the chart icon from the header bar. You should see the Cortex GUI where you can display metrics from the Sock Shop app.
 
-<img src="images/weave-cloud-snippet.png" style="width:50%;" />
+<img src="images/weave-cloud-cortex.png" style="width:50%;" />
 
 Cortex by default displays a number of metrics at the top that have already been detected by the system.
 
