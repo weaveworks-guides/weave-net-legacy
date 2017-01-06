@@ -1,4 +1,8 @@
-<!-- Deploy: Continuous Delivery with Weave Flux -->
+---
+title: Deploy: Continuous Delivery with Weave Flux
+menu_order: 2
+---
+
 In Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a> you will learn how to achieve fast iteration and continuous delivery with Weave Cloud and Weave Flux, and how automatic app deployment is possible by connecting the output of your continuous integration system into a container orchestrator.
 
 With Weave Flux every developer on your team makes app changes and deploys it to a Kubernetes cluster in the cloud with a simple `git push`.  Because Flux maintains a best practices approach by version controlling the cluster configuration files (Kubernetes manifests) as you go along, and by automatically modifying them to include all pushed Docker image versions, code changes can be made more rapidly and are also less error-prone.
@@ -15,26 +19,25 @@ In this tutorial, you will put yourself in the position of a developer on a devo
 
 In particular, you will change the colour of a button on the frontend of a microservices architectured app, the Socks Shop.
 
-
 <div style="width:50%; padding: 10px; float:left; font-weight: 700;">
-<a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
+  <a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
 </div>
-<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
-<a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;</a>
-</div>
-<div style="clear:both;"></div>
 
+<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
+  <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;</a>
+</div>
 
 <img src="images/deploy.png" style="width:100%; border:1em solid #32324b;" />
-<p></p>
 
 Continuous Delivery with Weave Flux speeds up and streamlines the software development pipeline. With Weave Flux change is managed between your container registry, where Docker images are built and pushed, and your version control system, which stores not only the code, but also the Kubernetes manifests.
 
-##A Video Overview
+## A Video Overview
 
-<center><div style="width:530px; display:inline-block; margin-top:2em;">
-<iframe src="https://player.vimeo.com/video/190563579" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div></center>
+<center>
+  <div style="width:530px; display:inline-block; margin-top:2em;">
+    <iframe src="https://player.vimeo.com/video/190563579" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  </div>
+</center>
 
 ## Deploy a Kubernetes Cluster with Weave Net and the Sample App
 
@@ -45,7 +48,6 @@ XXX-START-DETAILS-BLOCK
 {"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop.md"}
 
 XXX-END-DETAILS-BLOCK
-
 
 ## Fork The Repositories
 
@@ -62,10 +64,9 @@ Go to each GitHub repository and click "Fork" in the top right hand corner, and 
 
 If you followed the instructions above, the Socks Shop demo will already be running on your Kubernetes cluster. You will need to remove that so you can deploy a copy from your own fork:
 
-~~~
+~~~bash
 kubectl delete namespace sock-shop
 ~~~
-
 
 ## Get a Container Registry Account
 
@@ -85,7 +86,7 @@ The example used here is [Travis CI](https://travis-ci.org/). Sign up for an acc
 
 Replace the `.travis.yml` file in your fork of the `front-end` repo so that it contains exactly the following, with `<YOUR_QUAY_USERNAME>` replaced with your Quay.io username:
 
-```
+~~~yaml
 language: node_js
 
 sudo: required
@@ -113,15 +114,14 @@ after_success:
   - ./scripts/build.sh
   - ./test/container.sh
   - ./scripts/push.sh
-```
+~~~
 
 Commit and push this change to your fork of the `front-end` repo. You can do this on your workstation using your favourite text editor.
 
-```
-git commit -m "Update .travis.yml to refer to my quay.io account." .travis.yml
+~~~bash
+git commit -m "Update .travis.yml to refer to my quay.io account" .travis.yml
 git push
-```
-
+~~~
 
 ## Configure a Robot Account in Quay.io
 
@@ -133,14 +133,13 @@ Configure the environment entries for `DOCKER_USER` and `DOCKER_PASS` by copying
 
 Copy the Quay.io credentials into Travis by selecting `More Options` and then `Settings` from the drop down menu on the right:
 
-`DOCKER_USER=<"user-name+robot-account">`
-`DOCKER_PASS=<"robot-key">`
+* `DOCKER_USER=<"user-name+robot-account">`
+* `DOCKER_PASS=<"robot-key">`
 
 **Where**,
 
 * `<"user-name+ci_push_pull">` is your name with the + sign and the name of the robot account.
 * `<"robot-key">` is the key found in the Robot Token dialog.
-
 
 ## Launching and Configuring Flux
 
@@ -148,7 +147,7 @@ Flux consists of two parts: the `fluxd` daemon and the `fluxctl` service.  The `
 
 **1.**  Log onto the master Kubernetes node, and create the following `.yaml` file using your favourite editor:
 
-~~~
+~~~yaml
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -173,7 +172,7 @@ Paste your Weave Cloud token into the arg section: `INSERTTOKENHERE` and then sa
 
 **2.**  Deploy the `fluxd` daemon to the Kubernetes cluster:
 
-~~~
+~~~bash
 kubectl apply -f ./fluxd-dep.yaml
 ~~~
 
@@ -181,21 +180,20 @@ kubectl apply -f ./fluxd-dep.yaml
 
 **3.**  Generate public and private SSH keys for your repo. These keys are used by `fluxd` to manage changes between Github and your cluster:
 
-```
+~~~bash
 ssh-keygen -f id-rsa-flux
-```
-
+~~~
 
 **4.**  Install the `fluxctl` binary onto the master node:
 
-```
+~~~bash
 curl -o /usr/local/bin/fluxctl -sSL https://github.com/weaveworks/flux/releases/download/master-6cc08e4/fluxctl-linux-amd64
 chmod +x /usr/local/bin/fluxctl
-```
+~~~
 
 **5.**  Create a file on the master node called `flux.conf` with your preferred text editor:
 
-```
+~~~yaml
 git:
   URL: git@github.com:<YOUR_GITHUB_USERNAME>/microservices-demo
   path: deploy/kubernetes/manifests
@@ -212,7 +210,7 @@ slack:
   username: ""
 registry:
   auths: {}
-```
+~~~
 
 Copy the following into the `flux.conf`:
 
@@ -222,21 +220,21 @@ Copy the following into the `flux.conf`:
 
 **6.** Configure access to the `fluxd` daemon using:
 
-```
+~~~bash
 export FLUX_URL=<weave-cloud-token>
-```
+~~~
 
 **7.** Load the config file into the Flux service:
 
-```
+~~~bash
 fluxctl set-config --file=flux.conf
-```
+~~~
 
 **Note:** If you've logged out of your shell, you must re-run both `export FLUX_URL=<weave-cloud-token>`and `fluxctl set-config --file=flux.conf` commands to re-establish your environment.
 
 **8.** Check that all went well by running:
 
-~~~
+~~~bash
 fluxctl list-services
 ~~~
 
@@ -246,12 +244,12 @@ XXX-START-DETAILS-BLOCK
 
 If you want to configure `fluxd` to use a private registry, use the following stanza in the `.conf` file:
 
-```
+~~~yaml
 registry:
   auths:
     "<address-of-registry>":
       auth: "<base64-encoded-user:password>"
-```
+~~~
 
 An example of `<address-of-registry>` is `https://index.docker.io/v1/`.  You can copy `<base64-encoded-user:password>` from your `~/.docker/config.json`.
 
@@ -263,28 +261,27 @@ Configure the deploy keys for the `microservices-demo` repository that you forke
 
 Go to the `<YOUR_GITHUB_USERNAME>/microservices-demo` repo on github, click `Settings` from the Setting tab on the top of the repo. Select `Deploy Keys` from the left-hand menu. Click `Add a key`, and then paste in your public key generated from above (Run `cat id-rsa-flux.pub`).  Be sure to enable the `Allow Read/Write access` box so that Flux has full access to the repo.
 
-
 ## Modify the Front-end Manifest to Point to Your Container Image
 
 Begin by logging in to the Kubernetes master node. The rest of the demo will be run from the master Kubernetes node, however you could also run it from your laptop if you wish. Use `ssh -A` to enable the SSH agent so that you can use your GitHub SSH key from your workstation.
 
-```
+~~~bash
 git clone git@github.com:<YOUR_GITHUB_USERNAME>/microservices-demo
 cd microservices-demo/deploy/kubernetes
-```
+~~~
 
 Modify the front-end manifest so that it refers to the container image that you'll be using. Using your favorite editor, open up `deploy/kubernetes/manifests/front-end-dep.yaml`, and update the `image` line.
 
 Change it from:
 
-```
-        image: weaveworksdemos/front-end
-```
+~~~yaml
+image: weaveworksdemos/front-end
+~~~
 To:
 
-```
-        image: quay.io/$YOUR_QUAY_USERNAME/front-end:latest
-```
+~~~yaml
+image: quay.io/$YOUR_QUAY_USERNAME/front-end:latest
+~~~
 
 Where,
 
@@ -294,25 +291,25 @@ You must specify a tag for the image. Flux will not recognize the image if there
 
 Commit and push this change to your GitHub fork:
 
-```
-git commit -m "Update front-end to refer to my fork." front-end-dep.yaml
+~~~bash
+git commit -m "Update front-end to refer to my fork" front-end-dep.yaml
 git push
-```
+~~~
 
 Then go to [Travis-CI](https://travis-ci.org/) and watch as the image is built, unit-tested and then pushed it to the Docker Registry,  [Quay.io](https://quay.io).
 
-##Deploy the Sock Shop to Kubernetes
+## Deploy the Sock Shop to Kubernetes
 
 Deploy the Socks Shop to Kubernetes. This is the last time you will have to run `kubectl` in this demo: after this, everything can be controlled and automated via Flux service, `fluxctl`.
 
-```
+~~~bash
 cd ~/microservices-demo/deploy/kubernetes
 kubectl apply -f manifests
-```
+~~~
 
 Now wait for the Socks Shop to deploy, and find the NodePort by running:
 
-~~~
+~~~bash
 kubectl describe svc front-end -n sock-shop
 ~~~
 
@@ -322,34 +319,34 @@ Display the Sock Shop in the browser using `<master-node-IP>:<NodePort>`
 
 Suppose you want to change the colour of one of the buttons on the socks shop. On your workstation, or wherever you have `front-end` checked out:
 
-```
+~~~bash
 cd front-end
 sed -i s/3386e1/red/ ./public/css/style.blue.css
-```
+~~~
+
 You can also open up the file `./public/css/style.blue.css` in a text editor and go to line 1274 and change `#3386e1` to `red`.
 
 Now push the change to Github:
 
-```
+~~~bash
 git commit -am "Change button to red."
 git push
-```
+~~~
 
 And return to Travis to watch the change get turned into a Docker image and pushed to Quay.
 
-
 Once a new image is in Quay.io, you can query `fluxd` with the service, `fluxctl` to see what images are available for deployment:
 
-```
+~~~bash
 fluxctl list-images --service=sock-shop/front-end
-```
+~~~
 
 Where you will see something as follows:
 
-~~~
-fluxctl list-images --service=sock-shop/front-end
+~~~console
+$ fluxctl list-images --service=sock-shop/front-end
 SERVICE              CONTAINER  IMAGE                                         CREATED
-sock-shop/front-end  front-end  quay.io/abuehrle/front-end                    
+sock-shop/front-end  front-end  quay.io/abuehrle/front-end
                                 |   b071dff52e76c302afbdbd8735fb1901cab3629d  16 Nov 16 18:35 UTC
                                 |   latest                                    16 Nov 16 18:35 UTC
                                 |   snapshot                                  16 Nov 16 18:35 UTC
@@ -364,35 +361,35 @@ sock-shop/front-end  front-end  quay.io/abuehrle/front-end
 
 And then deploy it:
 
-```
+~~~bash
 fluxctl release --service=sock-shop/front-end --update-all-images
-```
+~~~
 
 Once the release is deployed, reload the Socks Shop to see that the buttons in the header have changed to red!
 
 So that's useful for manually gated changes, but it's even better to do continuous delivery. You can turn that on easily by running:
 
-```
-k8s-01$ fluxctl automate --service=sock-shop/front-end
-```
+~~~bash
+fluxctl automate --service=sock-shop/front-end
+~~~
 
 Then change the front-end again, maybe blue this time?
 
-```
+~~~bash
 cd front-end
 sed -i s/red/blue/ ./public/css/style.blue.css
-```
+~~~
 
 Of course, you can make any change you like. Now push the change:
 
-```
-git commit -am "Change button to blue."
+~~~bash
+git commit -am "Change button to blue"
 git push
-```
+~~~
 
 Now watch Travis, Quay and run `fluxctl history` on the master node to see the deployment happening automatically.
 
-~~~
+~~~console
 TIME                 TYPE  MESSAGE
 16 Nov 16 18:43 UTC  v0    front-end: Regrade due to "Release latest images to sock-shop/front-end": done
 16 Nov 16 18:43 UTC  v0    front-end: Starting regrade "Release latest images to sock-shop/front-end"
@@ -402,19 +399,17 @@ TIME                 TYPE  MESSAGE
 16 Nov 16 05:50 UTC  v0    front-end: Automation enabled.
 ~~~
 
-
 ## Slack Integration
 
 Set up Slack integration by specifying a Slack webhook in the `hookURL` configuration variable, and choose the name of your bot in `username`. Edit `flux.conf` accordingly and then run:
 
-~~~
+~~~bash
 fluxctl set-config --file=flux.conf
 ~~~
 
 Flux will then let you know in Slack, in the channels you configure in the webhook, whenever it's doing a release.
 
 <!-- TODO is the above accurate? @squaremo -->
-
 
 ## Tear Down
 
@@ -424,7 +419,6 @@ XXX-START-DETAILS-BLOCK
 
 XXX-END-DETAILS-BLOCK
 
-
 # Conclusion
 
 You've seen how to automate continuous delivery while maintaining best practices, and storing Kubernetes manifests in version control, with Weave Flux.
@@ -433,19 +427,16 @@ Developers now only have to be able to push to `git` to deploy changes to your K
 
 See the [Flux README](https://github.com/weaveworks/flux) and `fluxctl --help` for more details on other commands.
 
-
 # Coming Soon
 
 Weave Cloud will soon include a UI to view and configure your Flux deploys, and you'll be able to configure Flux with a service token.
-<p></p>
+
 {"gitdown": "include", "file": "./includes/slack-us.md"}
 
 <div style="width:50%; padding: 10px; float:left;font-weight: 700;">
-<a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
+  <a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
 </div>
-<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
-<a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;</a>
-</div>
-<div style="clear:both;"></div>
 
-<p></p>
+<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
+  <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;</a>
+</div>

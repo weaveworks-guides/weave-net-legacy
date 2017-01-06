@@ -1,26 +1,26 @@
-<!-- Secure: Container Firewalls -->
-
-
+---
+title: Secure: Container Firewalls
+menu_order: 4
+---
 
 This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 In this guide, how to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net is demonstrated.
 
 <div style="width:50%; padding: 10px float:left;font-weight: 700;">
-<a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
+  <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
 </div>
-<div style="clear:both;"></div>
 
 <img src="images/secure.png" style="width:100%; border:1em solid #32324b;" />
 
-<p></p>
 Securing segments of your app is simple with the application of Kubernetes-based policy that is enforced by Weave Net. Simply add namespaces to the policy yaml files to create software firewalls.
 
 ## A Video Overview
 
-<center><div style="width:530px; padding: 10px; display:inline-block; margin-top:2em;">
-<iframe src="https://player.vimeo.com/video/190563581" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div></center>
-
+<center>
+  <div style="width:530px; padding: 10px; display:inline-block; margin-top:2em;">
+    <iframe src="https://player.vimeo.com/video/190563581" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  </div>
+</center>
 
 ### Sign up for a Weave Cloud account
 
@@ -28,7 +28,6 @@ Go to [Weave Cloud](https://cloud.weave.works/) and register for an account.
 You'll use the Weave Cloud token later to send metrics to Cortex.
 
 <img src="images/weave-cloud-token.png" style="width:100%;" />
-
 
 ## Deploy a Kubernetes Cluster with Weave Net and the Sample App
 
@@ -40,7 +39,6 @@ XXX-START-DETAILS-BLOCK
 {"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop.md"}
 
 XXX-END-DETAILS-BLOCK
-
 
 ## Apply a Network Policy, and Enforce with Weave Net
 
@@ -89,13 +87,9 @@ XXX-END-DETAILS-BLOCK
 ## Conclusions
 
 You've seen that Kubernetes network policy allows you to define flexible and dynamic security policies, and Weave Net allows you to enforce them.
-<p></p>
 
 {"gitdown": "include", "file": "./includes/slack-us.md"}
 
 <div style="width:50%; padding: 10px; float:left;font-weight: 700;">
-<a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
+  <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
 </div>
-<div style="clear:both;"></div>
-
-<p></p>

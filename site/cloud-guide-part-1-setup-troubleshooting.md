@@ -1,5 +1,9 @@
-<!-- Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope -->
-When your app is Cloud Native you are free to focus on your code instead of maintaining cloud tools. This allows you to make rapid, incremental feature updates without having to disassemble and reassemble your infrastructure each time your code is changed.  
+---
+title: Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope
+menu_order: 1
+---
+
+When your app is Cloud Native you are free to focus on your code instead of maintaining cloud tools. This allows you to make rapid, incremental feature updates without having to disassemble and reassemble your infrastructure each time your code is changed.
 
 While the ability to rapidly deploy changes to your app is important, being able to choose your own source control system, deployment tools and container registry without having to maintain a set of brittle custom scripts is also critical.
 
@@ -10,7 +14,7 @@ To streamline the app development pipeline so that you can develop code faster, 
 * Continuous integration and delivery
 * Kubernetes container orchestration
 
-But using these technologies comes with tradeoffs. Most significantly is the configuration effort needed to get all of these technologies working together.  Weave Cloud simplifies this process and gets your app into the cloud without lock in. Weave allows you to choose the tools you need to create high quality code faster.  
+But using these technologies comes with tradeoffs. Most significantly is the configuration effort needed to get all of these technologies working together.  Weave Cloud simplifies this process and gets your app into the cloud without lock in. Weave allows you to choose the tools you need to create high quality code faster.
 
 In Part 1 of this series, you'll use Weave Cloud to validate and troubleshoot your app: from your development laptop into production. And in parts 3 to 4, you'll move on to how to <a href="https://www.weave.works/guides/cloud-guide-part-2-deploy-continuous-delivery/"> automate code deployment </a> and to <a href="https://www.weave.works/guides/cloud-guide-part-3-monitor-prometheus-monitoring/"> monitor app with Prometheus </a> and then you'll <a href="https://www.weave.works/guides/cloud-guide-part-4-secure-container-firewalls/"> secure the microservices using Kubernetes Network policy </a> all from one convenient troubleshooting dashboard.
 
@@ -19,19 +23,17 @@ In this tutorial you will use the Weaveworks sample app, [The Sock Shop](https:/
 This tutorial will take approximately 15 minutes to complete.
 
 <div style="width:50%; padding: 10px; float:right; text-align:right; font-weight:700;">
-<a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
+  <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
-<div style="clear:both;"></div>
 
 <img src="images/setup.png" style="width:100%; border:1em solid #32324b;" />
-<p></p>
 
+## A Video Overview
 
-
-##A Video Overview
-
-<center><div style="width:530px; display:inline-block; margin-top:2em;">
-<iframe src="https://player.vimeo.com/video/190563578" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<center>
+  <div style="width:530px; display:inline-block; margin-top:2em;">
+    <iframe src="https://player.vimeo.com/video/190563578" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  </div>
 </center>
 
 ## What You Will Use
@@ -96,11 +98,9 @@ To deploy The Socks Shop:
 
 **1. Get the code:**
 
-
 ~~~bash
 git clone https://github.com/microservices-demo/microservices-demo.git
 ~~~
-
 
 **2. Change into the following directory:**
 
@@ -108,11 +108,9 @@ git clone https://github.com/microservices-demo/microservices-demo.git
 cd microservices-demo/deploy/docker-compose
 ~~~
 
-
 **3. Run the Sock Shop and display it in your browser:**
 
 ~~~bash
-docker network create mynetwork
 docker-compose up -d
 ~~~
 
@@ -128,7 +126,7 @@ Run a load test with the following:
 
 ~~~bash
 docker run -ti --rm --name=LOAD_TEST \
-  --net=shop_external \
+  --net=dockercompose_default \
   weaveworksdemos/load-test -h edge-router -r 100 -c 2
 ~~~
 
@@ -147,12 +145,9 @@ With the load test running, observe the different services communicating by clic
 ## Conclusions
 
 In this tutorial you learned how to verify an app deployed to your laptop with the same tools (Weave Scope) used when your app is deployed to a Kubernetes cluster.
-<p></p>
+
 {"gitdown": "include", "file": "./includes/slack-us.md"}
 
 <div style="width:50%; padding: 10px; float:right; text-align:right; font-weight: 700;">
-<a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
+  <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
-<div style="clear:both;"></div>
-
-<p></p>

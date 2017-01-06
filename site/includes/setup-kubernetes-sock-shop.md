@@ -193,7 +193,7 @@ kubectl --kubeconfig ./admin.conf get nodes
 Install and launch the Weave Scope probes onto your Kubernetes cluster. From the master:
 
 ~~~
-curl -sSL 'https://cloud.weave.works/launch/k8s/weavescope.yaml?service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>' |sed s/50m/500m/ |kubectl apply -f -
+kubectl apply -n kube-system -f 'https://cloud.weave.works/k8s.yaml?t=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>'
 ~~~
 
 You should fetch `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` from [Weave Cloud](https://cloud.weave.works/).
