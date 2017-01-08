@@ -194,7 +194,7 @@ ssh-keygen -f id-rsa-flux
 **4.**  Install the `fluxctl` binary onto the master node:
 
 ```
-curl -o /usr/local/bin/fluxctl -sSL https://github.com/weaveworks/flux/releases/download/master-0d109dd/fluxctl-linux-amd64
+curl -o /usr/local/bin/fluxctl -sSL https://github.com/weaveworks/flux/releases/download/master-0d109dd/fluxctl_linux_amd64
 chmod +x /usr/local/bin/fluxctl
 ```
 
@@ -228,7 +228,7 @@ Copy the following into the `flux.conf`:
 **6.** Configure access to the `fluxd` daemon using:
 
 ```
-export FLUX_URL=<weave-cloud-token>
+export FLUX_SERVICE_TOKEN=<weave-cloud-token>
 ```
 
 **7.** Load the config file into the Flux service:
@@ -237,7 +237,7 @@ export FLUX_URL=<weave-cloud-token>
 fluxctl set-config --file=flux.conf
 ```
 
-**Note:** If you've logged out of your shell, you must re-run both `export FLUX_URL=<weave-cloud-token>`and `fluxctl set-config --file=flux.conf` commands to re-establish your environment.
+**Note:** If you've logged out of your shell, you must re-run both `export FLUX_SERVICE_TOKEN=<weave-cloud-token>`and `fluxctl set-config --file=flux.conf` commands to re-establish your environment.
 
 **8.** Check that all went well by running:
 
@@ -274,11 +274,11 @@ Go to the `<YOUR_GITHUB_USERNAME>/microservices-demo` repo on github, click `Set
 Begin by logging in to the Kubernetes master node. The rest of the demo will be run from the master Kubernetes node, however you could also run it from your laptop if you wish. Use `ssh -A` to enable the SSH agent so that you can use your GitHub SSH key from your workstation.
 
 ```
-git clone git@github.com:<YOUR_GITHUB_USERNAME>/microservices-demo
+git clone https://github.com/<YOUR_GITHUB_USERNAME>/microservices-demo
 cd microservices-demo/deploy/kubernetes
 ```
 
-Modify the front-end manifest so that it refers to the container image that you'll be using. Using your favorite editor, open up `deploy/kubernetes/manifests/front-end-dep.yaml`, and update the `image` line.
+Modify the front-end manifest so that it refers to the container image that you'll be using. Using your favorite editor, open up `manifests/front-end-dep.yaml`, and update the `image` line.
 
 Change it from:
 
@@ -295,12 +295,12 @@ Where,
 
 * `$YOUR_QUAY_USERNAME` is your Quay.io username.
 
-You must specify a tag for the image. Flux will not recognize the image if there is no tag. In this example, specify `:latest` however, keep in mind that Flux replaces that tag with a specific version every time it does a release.
+You must specify a tag for the image. Flux will not recognize the image if there is no tag. Since Flux replaces tags with a specific version every time it does a release and so it is best not to use `:latest` as a tag.
 
 Commit and push this change to your GitHub fork:
 
 ```
-git commit -m "Update front-end to refer to my fork." front-end-dep.yaml
+git commit -m "Update front-end to refer to my fork." manifests/front-end-dep.yaml
 git push
 ```
 
