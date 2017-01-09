@@ -16,14 +16,18 @@ To streamline the app development pipeline so that you can develop code faster, 
 
 But using these technologies comes with tradeoffs. Most significantly is the configuration effort needed to get all of these technologies working together.  Weave Cloud simplifies this process and gets your app into the cloud without lock in. Weave allows you to choose the tools you need to create high quality code faster.
 
-In Part 1 of this series, you'll use Weave Cloud to validate and troubleshoot your app: from your development laptop into production. And in parts 3 to 4, you'll move on to how to <a href="https://www.weave.works/guides/cloud-guide-part-2-deploy-continuous-delivery/"> automate code deployment </a> and to <a href="https://www.weave.works/guides/cloud-guide-part-3-monitor-prometheus-monitoring/"> monitor app with Prometheus </a> and then you'll <a href="https://www.weave.works/guides/cloud-guide-part-4-secure-container-firewalls/"> secure the microservices using Kubernetes Network policy </a> all from one convenient troubleshooting dashboard.
+In Part 1 of this series, you'll use Weave Cloud to validate and troubleshoot your app: from your development laptop into production. And in parts 3 to 4, you'll move on to how to [automate code deployment][part2] and to [monitor app with Prometheus][part3] and then you'll [secure the microservices using Kubernetes network policy][part4] all from one convenient troubleshooting dashboard.
+
+[part2]: cloud-guide-part-2-deploy-continuous-delivery.md
+[part3]: cloud-guide-part-3-monitor-prometheus-monitoring.md
+[part4]: cloud-guide-part-4-secure-container-firewalls.md
 
 In this tutorial you will use the Weaveworks sample app, [The Sock Shop](https://github.com/microservices-demo), deploy it to three Ubuntu hosts, running Docker and Kubernetes and networked with Weave Net. Then you'll validate and troubleshoot any issues with it in Weave Cloud.
 
 This tutorial will take approximately 15 minutes to complete.
 
 <div style="width:50%; padding: 10px; float:right; text-align:right; font-weight:700;">
-  <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
+  <a href="cloud-guide-part-2-deploy-continuous-delivery.md">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>
 
 <img src="images/setup.png" style="width:100%; border:1em solid #32324b;" />
@@ -149,5 +153,5 @@ In this tutorial you learned how to verify an app deployed to your laptop with t
 {"gitdown": "include", "file": "./includes/slack-us.md"}
 
 <div style="width:50%; padding: 10px; float:right; text-align:right; font-weight: 700;">
-  <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
+  <a href="/site/cloud-guide-part-2-deploy-continuous-delivery.md">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
 </div>

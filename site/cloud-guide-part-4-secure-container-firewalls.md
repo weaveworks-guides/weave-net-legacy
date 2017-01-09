@@ -3,11 +3,11 @@ title: Secure: Container Firewalls
 menu_order: 4
 ---
 
-This is Part 4 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
+This is Part 4 of 4 of the <a href="/site/guides-homepage.md">Weave Cloud guides series</a>.
 In this guide, how to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net is demonstrated.
 
 <div style="width:50%; padding: 10px float:left;font-weight: 700;">
-  <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
+  <a href="/site/cloud-guide-part-3-monitor-prometheus-monitoring.md">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
 </div>
 
 <img src="images/secure.png" style="width:100%; border:1em solid #32324b;" />
@@ -91,5 +91,5 @@ You've seen that Kubernetes network policy allows you to define flexible and dyn
 {"gitdown": "include", "file": "./includes/slack-us.md"}
 
 <div style="width:50%; padding: 10px; float:left;font-weight: 700;">
-  <a href="/guides/cloud-guide-part-3-monitor-prometheus-monitoring/">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
+  <a href="/site/cloud-guide-part-3-monitor-prometheus-monitoring.md">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
 </div>

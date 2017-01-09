@@ -3,7 +3,7 @@ title: Monitor: Prometheus Monitoring with Weave Cortex
 menu_order: 3
 ---
 
-This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
+This is Part 3 of 4 of the <a href="/site/guides-homepage.md">Weave Cloud guides series</a>.
 
 Microservices environments by nature are dynamic and in a state of constant change especially if they are running inside containers. They may be spread across multiple clouds or span both a data center and a cloud, which can make monitoring a challenge. Because containerized apps tend to be in a state of constant flow with containers going down and spinning back up again, traditional monitoring systems which are typically server-focused, don’t work well in dynamic systems.
 
@@ -14,11 +14,11 @@ You will use the sample app, 'The Sock Shop', deploy it to a couple of virtual m
 This tutorial takes approximately 15 minutes to complete.
 
 <div style="width:50%; padding: 10px; float:left; font-weight: 700;">
-  <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
+  <a href="/site/cloud-guide-part-2-deploy-continuous-delivery.md">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
 </div>
 
 <div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
-  <a href="/guides/cloud-guide-part-4-secure-container-firewalls/">Go to next part: Part 4 – Secure: Container Firewalls &raquo;</a>
+  <a href="/site/cloud-guide-part-4-secure-container-firewalls.md">Go to next part: Part 4 – Secure: Container Firewalls &raquo;</a>
 </div>
 
 <img src="images/monitor.png" style="width:100%; border:1em solid #32324b;" />
@@ -155,9 +155,9 @@ You've seen how Weave Cortex can be used to monitor your application, your clust
 {"gitdown": "include", "file": "./includes/slack-us.md"}
 
 <div style="width:50%; float:left; padding: 10px; font-weight: 700;">
-  <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
+  <a href="/site/cloud-guide-part-2-deploy-continuous-delivery.md">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
 </div>
 
 <div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
-  <a href="/guides/cloud-guide-part-4-secure-container-firewalls/">Go to next part: Part 4 – Secure: Container Firewalls &raquo;</a>
+  <a href="/site/cloud-guide-part-4-secure-container-firewalls.md">Go to next part: Part 4 – Secure: Container Firewalls &raquo;</a>
 </div>
