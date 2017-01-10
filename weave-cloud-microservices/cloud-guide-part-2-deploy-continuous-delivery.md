@@ -149,7 +149,7 @@ Add the following variables from the credentials dialog on the robot account you
 
 ## Launching and Configuring Flux
 
-Flux consists of two parts: the `fluxd` daemon and the `fluxctl` service.  The `fluxd` daemon is deployed to the cluster and listens for changes being pushed through git; it then updates the cluster and any images accordingly. `fluxctl` is the command line utility that enables you to send requests and commands to the daemon. The `fluxd` daemon is deployed first to the cluster and then, `fluxctl` is downloaded and configured for your environment.
+Flux consists of two parts: the `fluxd` daemon and the `fluxctl` service.  The `fluxd` daemon is deployed to the cluster and listens for changes being pushed through git; it then updates the cluster and any images accordingly. `fluxctl` is the command line utility that enables you to send requests and commands to the daemon. First deploy the `fluxd` daemon to the cluster and then download the `fluxctl` service and configure it for your environment.
 
 To install and set up Flux in Kubernetes:
 
@@ -228,7 +228,7 @@ Copy the following into the `flux.conf`:
 
 * Replace `<YOUR_GITHUB_USERNAME>` with your GitHub username (required).
 * Copy the private key you created earlier into the private key section of the file. To view the key, run `cat id-rsa-flux` (required). **Ensure that the indentation is correct.**
-* In the Registry section, copy the authorization details from the Quay robot account (`ci_push_pull`) you created earlier. You can find those details by selecting `Settings` and then clicking on `ci_push_pull` Robot Account you created.  Select the `Docker Configuration` tab from the `Robot Credentials` dialog in Quay. This step is optional and only required if you are using a private repository, See [Configuring Access for a Private Registry](#private-repo) for more information.)
+* In the Registry section, copy the authorization details from the Quay robot account (`ci_push_pull`) you created earlier. You can find those details by selecting `Settings` and then clicking on the `ci_push_pull` Robot Account.  Select the `Docker Configuration` tab from the `Robot Credentials` dialog in Quay. This step is optional and only required if you are using a private repository, See [Configuring Access for a Private Registry](#private-repo) for more information.
 
 **6.** Configure access to the `fluxd` daemon using:
 
