@@ -250,8 +250,6 @@ fluxctl set-config --file=flux.conf
 fluxctl list-services
 ~~~
 
-XXX-START-DETAILS-BLOCK
-
 ###<a name="private-repo"></a>Configuring Access for a Private Registry
 
 If you want to configure `fluxd` to use a private registry, use the following stanza in the `.conf` file:
@@ -265,7 +263,7 @@ registry:
 
 An example of `<address-of-registry>` is `https://index.docker.io/v1/`.  You can copy `<base64-encoded-user:password>` from your `~/.docker/config.json`.
 
-XXX-END-DETAILS-BLOCK
+
 
 ## Configuring The SSH Deploy Keys on GitHub
 
