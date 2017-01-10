@@ -62,7 +62,7 @@ You will need a GitHub account for this step.
 In order to modify the Socks Shop, fork the following two repositories:
 
 * [https://github.com/microservices-demo/front-end](https://github.com/microservices-demo/front-end) - the front-end of the application. We will update the color of one of the buttons in this example.
-*  [https://github.com/microservices-demo/microservices-demo](https://github.com/microservices-demo/microservices-demo) - the repo that stores the Kubernetes manifests for the application. Flux will update this repository.
+* [https://github.com/microservices-demo/microservices-demo](https://github.com/microservices-demo/microservices-demo) - the repo that stores the Kubernetes manifests for the application. Flux will update this repository.
 
 Go to each GitHub repository and click "Fork" in the top right hand corner, and fork the repository to your own GitHub account.
 
