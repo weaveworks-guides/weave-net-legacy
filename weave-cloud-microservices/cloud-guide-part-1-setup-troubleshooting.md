@@ -1,7 +1,7 @@
 <!-- Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope -->
 When your app is Cloud Native you are free to focus on your code instead of maintaining cloud tools. This allows you to make rapid, incremental feature updates without having to disassemble and reassemble your infrastructure each time your code is changed.  
 
-While the ability to rapidly deploy changes to your app is important, being able to choose your own source control system, deployment tools and container registry without having to maintain a set of brittle custom scripts is also critical.
+While the ability to rapidly deploy changes to your app is important, being able to choose your own source control system, deployment tools and container registry without having to maintain a set of custom scripts is also critical.
 
 To streamline the app development pipeline so that you can develop code faster, you've decided on the following:
 
@@ -68,7 +68,7 @@ To sign up for Weave Cloud:
 2.  Sign up using either a Github, or Google account or use an email address.
 3.  Obtain the cloud service token from the User settings screen:
 
-<img src="images/weave-cloud-token.png" style="width:100%;" />
+<img src="images/weave-cloud-token-1.png" style="width:100%;" />
 
 ### Launch the Weave Cloud Probes
 
