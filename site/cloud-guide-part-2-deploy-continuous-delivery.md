@@ -3,7 +3,9 @@ title: Deploy: Continuous Delivery with Weave Flux
 menu_order: 2
 ---
 
-In Part 2 of 4 of the <a href="/site/guides-homepage.md">Weave Cloud guides series</a> you will learn how to achieve fast iteration and continuous delivery with Weave Cloud and Weave Flux, and how automatic app deployment is possible by connecting the output of your continuous integration system into a container orchestrator.
+{{ include "./includes/parts.md" }}
+
+In Part 2 of 4 of the [Weave Cloud guides series][index] you will learn how to achieve fast iteration and continuous delivery with Weave Cloud and Weave Flux, and how automatic app deployment is possible by connecting the output of your continuous integration system into a container orchestrator.
 
 With Weave Flux every developer on your team makes app changes and deploys it to a Kubernetes cluster in the cloud with a simple `git push`.  Because Flux maintains a best practices approach by version controlling the cluster configuration files (Kubernetes manifests) as you go along, and by automatically modifying them to include all pushed Docker image versions, code changes can be made more rapidly and are also less error-prone.
 
@@ -19,13 +21,17 @@ In this tutorial, you will put yourself in the position of a developer on a devo
 
 In particular, you will change the colour of a button on the frontend of a microservices architectured app, the Socks Shop.
 
-<div style="width:50%; padding: 10px; float:left; font-weight: 700;">
-  <a href="/site/cloud-guide-part-1-setup-troubleshooting.md">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
-</div>
+[[ open_div \`style='width:50%; padding: 10px; float:left; font-weight: 700;'\` ]]
 
-<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
-  <a href="/site/cloud-guide-part-3-monitor-prometheus-monitoring.md">Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;</a>
-</div>
+[&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard][part1]
+
+[[ close_div ]]
+
+[[ open_div \`style='width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;'\` ]]
+
+[Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;][part3]
+
+[[ close_div ]]
 
 <img src="images/deploy.png" style="width:100%; border:1em solid #32324b;" />
 
@@ -43,11 +49,11 @@ Continuous Delivery with Weave Flux speeds up and streamlines the software devel
 
 If you have already done this as part of one of the other tutorials, you can skip this step. Otherwise, click "Details" below to see how to set up a Kubernetes cluster and deploy the Socks Shop demo app to it.
 
-XXX-START-DETAILS-BLOCK
+[[ open_details ]]
 
-{"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop.md"}
+{{ include "./includes/setup-kubernetes-sock-shop.md" }}
 
-XXX-END-DETAILS-BLOCK
+[[ close_details ]]
 
 ## Fork The Repositories
 
@@ -238,7 +244,7 @@ fluxctl set-config --file=flux.conf
 fluxctl list-services
 ~~~
 
-XXX-START-DETAILS-BLOCK
+[[ open_details ]]
 
 ###<a name="private-repo"></a>Configuring Access for a Private Registry
 
@@ -253,7 +259,7 @@ registry:
 
 An example of `<address-of-registry>` is `https://index.docker.io/v1/`.  You can copy `<base64-encoded-user:password>` from your `~/.docker/config.json`.
 
-XXX-END-DETAILS-BLOCK
+[[ close_details ]]
 
 ## Configure The Deploy Key on GitHub
 
@@ -413,11 +419,11 @@ Flux will then let you know in Slack, in the channels you configure in the webho
 
 ## Tear Down
 
-XXX-START-DETAILS-BLOCK
+[[ open_details ]]
 
-{"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop-teardown.md"}
+{{ include "./includes/setup-kubernetes-sock-shop-teardown.md" }}
 
-XXX-END-DETAILS-BLOCK
+[[ close_details ]]
 
 # Conclusion
 
@@ -431,15 +437,16 @@ See the [Flux README](https://github.com/weaveworks/flux) and `fluxctl --help` f
 
 Weave Cloud will soon include a UI to view and configure your Flux deploys, and you'll be able to configure Flux with a service token.
 
-{"gitdown": "include", "file": "./includes/slack-us.md"}
+{{ include "./includes/slack-us.md" }}
 
-<div style="width:50%; padding: 10px; float:left;font-weight: 700;">
-  <a href="/site/cloud-guide-part-1-setup-troubleshooting.md">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
-</div>
+[[ open_div \`style='width:50%; padding: 10px; float:left;font-weight: 700;'\` ]]
 
-<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
-  <a href="/site/cloud-guide-part-3-monitor-prometheus-monitoring.md">Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;</a>
-  [***TEST*** `code!`](example.com)
-  _TEST2_
-  *test3*
-</div>
+[&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard][part1]
+
+[[ close_div ]]
+
+[[ open_div \`style='width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;'\` ]]
+
+[Go to next part: Part 3 – Monitor: Prometheus Monitoring &raquo;][part3]
+
+[[ close_div ]]

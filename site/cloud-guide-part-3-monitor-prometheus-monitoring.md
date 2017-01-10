@@ -3,7 +3,9 @@ title: Monitor: Prometheus Monitoring with Weave Cortex
 menu_order: 3
 ---
 
-This is Part 3 of 4 of the <a href="/site/guides-homepage.md">Weave Cloud guides series</a>.
+{{ include "./includes/parts.md" }}
+
+This is Part 3 of 4 of the [Weave Cloud guides series][index].
 
 Microservices environments by nature are dynamic and in a state of constant change especially if they are running inside containers. They may be spread across multiple clouds or span both a data center and a cloud, which can make monitoring a challenge. Because containerized apps tend to be in a state of constant flow with containers going down and spinning back up again, traditional monitoring systems which are typically server-focused, don’t work well in dynamic systems.
 
@@ -13,13 +15,17 @@ You will use the sample app, 'The Sock Shop', deploy it to a couple of virtual m
 
 This tutorial takes approximately 15 minutes to complete.
 
-<div style="width:50%; padding: 10px; float:left; font-weight: 700;">
-  <a href="/site/cloud-guide-part-2-deploy-continuous-delivery.md">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
-</div>
+[[ open_div \`style='width:50%; padding: 10px; float:left; font-weight: 700;'\` ]]
 
-<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
-  <a href="/site/cloud-guide-part-4-secure-container-firewalls.md">Go to next part: Part 4 – Secure: Container Firewalls &raquo;</a>
-</div>
+[&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery][part2]
+
+[[ close_div ]]
+
+[[ open_div \`style='width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;'\` ]]
+
+[Go to next part: Part 4 – Secure: Container Firewalls &raquo;][part4]
+
+[[ close_div ]]
 
 <img src="images/monitor.png" style="width:100%; border:1em solid #32324b;" />
 
@@ -44,7 +50,7 @@ View your app, network and container orchestrator metrics altogether in the Weav
 
 Before you can use Cortex to monitor apps, sign up for a Weave Cloud account.
 
-**1.**  Go to <a href="https://cloud.weave.works" target="_blank"> Weave Cloud </a>
+**1.**  Go to [Weave Cloud](https://cloud.weave.works)
 
 **2.**  Sign up using either a Github, or Google account or use an email address.
 
@@ -59,11 +65,11 @@ Before you can use Cortex to monitor apps, sign up for a Weave Cloud account.
 If you have already done this as part of one of the other tutorials, skip this step.
 Otherwise, click "Details" below to see the instructions.
 
-XXX-START-DETAILS-BLOCK
+[[ open_details ]]
 
-{"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop.md"}
+{{ include "./includes/setup-kubernetes-sock-shop.md" }}
 
-XXX-END-DETAILS-BLOCK
+[[ close_details ]]
 
 ## Configuring Cortex for Your Production Environment
 
@@ -138,26 +144,30 @@ Go to the Cortex page in Weave Cloud to view network specific metrics, such as:
 * Number of blocked connections per transport-layer protocol
 * Frequent protocol-dport combinations of blocked connections such as IP address exhaustion
 
-For more information on Weave Net metrics see, <a href="https://www.weave.works/docs/net/latest/metrics/"> "Monitoring with Prometheus" </a>
+For more information on Weave Net metrics see, ["Monitoring with Prometheus"](https://www.weave.works/docs/net/latest/metrics/)
 
 ## Tear Down
 
-XXX-START-DETAILS-BLOCK
+[[ open_details ]]
 
-{"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop-teardown.md"}
+{{ include "./includes/setup-kubernetes-sock-shop-teardown.md" }}
 
-XXX-END-DETAILS-BLOCK
+[[ close_details ]]
 
 ## Conclusions
 
 You've seen how Weave Cortex can be used to monitor your application, your cluster and your network in Weave Cloud.
 
-{"gitdown": "include", "file": "./includes/slack-us.md"}
+{{ include "./includes/slack-us.md" }}
 
-<div style="width:50%; float:left; padding: 10px; font-weight: 700;">
-  <a href="/site/cloud-guide-part-2-deploy-continuous-delivery.md">&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery</a>
-</div>
+[[ open_div \`style='width:50%; float:left; padding: 10px; font-weight: 700;'\` ]]
 
-<div style="width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;">
-  <a href="/site/cloud-guide-part-4-secure-container-firewalls.md">Go to next part: Part 4 – Secure: Container Firewalls &raquo;</a>
-</div>
+[&laquo; Go to previous part: Part 2 – Deploy: Continuous Delivery][part2]
+
+[[ close_div ]]
+
+[[ open_div \`style='width:50%; padding: 10px; float:left; text-align:right; font-weight: 700;'\` ]]
+
+[Go to next part: Part 4 – Secure: Container Firewalls &raquo;][part4]
+
+[[ close_div ]]

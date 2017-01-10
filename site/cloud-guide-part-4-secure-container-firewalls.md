@@ -3,12 +3,16 @@ title: Secure: Container Firewalls
 menu_order: 4
 ---
 
-This is Part 4 of 4 of the <a href="/site/guides-homepage.md">Weave Cloud guides series</a>.
+{{ include "./includes/parts.md" }}
+
+This is Part 4 of 4 of the [Weave Cloud guides series][index].
 In this guide, how to secure your app by defining Kubernetes Network Policy and having it enforced by Weave Net is demonstrated.
 
-<div style="width:50%; padding: 10px float:left;font-weight: 700;">
-  <a href="/site/cloud-guide-part-3-monitor-prometheus-monitoring.md">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
-</div>
+[[ open_div \`style='width:50%; padding: 10px float:left;font-weight: 700;'\` ]]
+
+[&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring][part3]
+
+[[ close_div ]]
 
 <img src="images/secure.png" style="width:100%; border:1em solid #32324b;" />
 
@@ -34,11 +38,11 @@ You'll use the Weave Cloud token later to send metrics to Cortex.
 If you have already done this as part of one of the other tutorials, you can skip this step.
 Otherwise, click "Details" below to see the instructions.
 
-XXX-START-DETAILS-BLOCK
+[[ open_details ]]
 
 {"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop.md"}
 
-XXX-END-DETAILS-BLOCK
+[[ close_details ]]
 
 ## Apply a Network Policy, and Enforce with Weave Net
 
@@ -78,18 +82,20 @@ You can [take a look at the network policy itself](https://github.com/microservi
 
 ## Tear Down
 
-XXX-START-DETAILS-BLOCK
+[[ open_details ]]
 
-{"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop-teardown.md"}
+{{ include "./includes/setup-kubernetes-sock-shop-teardown.md" }}
 
-XXX-END-DETAILS-BLOCK
+[[ close_details ]]
 
 ## Conclusions
 
 You've seen that Kubernetes network policy allows you to define flexible and dynamic security policies, and Weave Net allows you to enforce them.
 
-{"gitdown": "include", "file": "./includes/slack-us.md"}
+{{ include "./includes/slack-us.md" }}
 
-<div style="width:50%; padding: 10px; float:left;font-weight: 700;">
-  <a href="/site/cloud-guide-part-3-monitor-prometheus-monitoring.md">&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring</a>
-</div>
+[[ open_div \`style='width:50%; padding: 10px; float:left;font-weight: 700;'\` ]]
+
+[&laquo; Go to previous part: Part 3 – Monitor: Prometheus Monitoring][part3]
+
+[[ close_div ]]
