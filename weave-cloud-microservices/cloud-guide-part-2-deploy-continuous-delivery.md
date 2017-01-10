@@ -1,7 +1,7 @@
 <!-- Deploy: Continuous Delivery with Weave Flux -->
 In Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a> you will learn how to achieve fast iteration and continuous delivery with Weave Cloud and Weave Flux, and how automatic app deployment is possible by connecting the output of your continuous integration system into a container orchestrator.
 
-As a developer on a DevOps team, you will make a code change to the company microservices-based app, the Sock Shop, push the change to version control, and then automatically deploy the new image to a Kubernetes Cluster. This example uses [Travis CI](https://travis-ci.org/) for Continuous Integration and Quay for the container registry, but Weave Flux is flexible and it works with all of your favourite tools, such as Jenkins, Docker Registry and Gitlab.
+As a developer on a DevOps team, you will make a code change to the company microservices-based app, the Sock Shop, push the change to version control, and then automatically deploy the new image to a Kubernetes Cluster. This example uses [Travis CI](https://travis-ci.org/) for Continuous Integration and [Quay](https://quay.io) for the container registry, but Weave Flux is flexible and it works with all of your favourite tools, such as Jenkins, Docker Registry and Gitlab.
 
 ###How Weave Flux Works
 
@@ -13,7 +13,7 @@ Flux does this by:
 
  **2.**  Deploying images (microservices) based on a "manual deployment" or an "automatic deployment" policy.  Policies can be modified on a service by service basis by running `fluxctl automate`. If Flux is configured to automatically deploy a change, it proceeds immediately. If not, Flux waits for you to run `fluxctl release`.
 
- **3.**  During a release, Flux updates the Kubernetes manifests in version control with the latest images and applies the change to the cluster. This deployment pipeline automates an otherwise manual and error-prone two-step process of updating the Kubernetes manifest in version control and applying the changes to the cluster.
+ **3.**  During a release, Flux updates the Kubernetes manifests in version control with the latest images and applies the change to the cluster. The Flux deployment pipeline automates an otherwise manual and error-prone two-step process by updating the Kubernetes manifest in version control and by applying the changes to the cluster.
 
 <div style="width:50%; padding: 10px; float:left; font-weight: 700;">
 <a href="/guides/cloud-guide-part-1-setup-troubleshooting/">&laquo; Go to previous part: Part 1 – Setup: Troubleshooting Dashboard</a>
@@ -228,7 +228,7 @@ Copy the following into the `flux.conf`:
 
 * Replace `<YOUR_GITHUB_USERNAME>` with your GitHub username (required).
 * Copy the private key you created earlier into the private key section of the file. To view the key, run `cat id-rsa-flux` (required). **Ensure that the indentation is correct.**
-* In the Registry section, copy the authorization details from the Quay robot account (`ci_push_pull`) you created earlier. You can find those details by selecting `View Credentials` and then selecting `Docker Login` from the robot account you created in Quay.io (optional and is only required if you are using a private repository, See [Configuring Access for a Private Registry](#private-repo) for more information.)
+* In the Registry section, copy the authorization details from the Quay robot account (`ci_push_pull`) you created earlier. You can find those details by selecting `Settings` and then clicking on `ci_push_pull` Robot Account you created.  Select the `Docker Configuration` tab from the `Robot Credentials` dialog in Quay. This step is optional and only required if you are using a private repository, See [Configuring Access for a Private Registry](#private-repo) for more information.)
 
 **6.** Configure access to the `fluxd` daemon using:
 
