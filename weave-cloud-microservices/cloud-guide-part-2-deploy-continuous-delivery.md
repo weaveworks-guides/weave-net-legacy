@@ -35,9 +35,23 @@ Continuous Delivery with Weave Flux streamlines the software development pipelin
 <iframe src="https://player.vimeo.com/video/190563579" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div></center>
 
+## Sign Up for Weave Cloud
+
+To begin, sign up for Weave Cloud and deploy the Scope probes on your laptop.  
+
+After verifying that the app works as it should on your laptop, you'll launch a new set of Scope probes in to your production environment, launch the app and Kubernetes and compare that deployment with the one on your laptop.  
+
+To sign up for Weave Cloud:
+
+1.  Go to <a href="https://cloud.weave.works" target="_blank"> Weave Cloud </a> <!-- lkj_ -->
+2.  Sign up using either a Github, or Google account or use an email address.
+3.  Obtain the cloud service token from the User settings screen:
+
+<img src="images/weave-cloud-token-1.png" style="width:100%;" />
+
 ## Deploy the Sock Shop to Kubernetes with Weave Net
 
-If you have already done this as part of one of the other tutorials, you can skip this step. Otherwise, click "Details" below to see how to log into Weave Cloud, set up a Kubernetes cluster and deploy the Socks Shop demo app to it.
+If you have already done this as part of one of the other tutorials, you can skip this step. Otherwise, click "Details" below to see how to set up a Kubernetes cluster and deploy the Socks Shop demo app to it.
 
 XXX-START-DETAILS-BLOCK
 
