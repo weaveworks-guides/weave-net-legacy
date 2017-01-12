@@ -1,22 +1,18 @@
 <!-- Setup: Troubleshooting Dashboard with Weave Cloud and Weave Scope -->
-When your app is Cloud Native you are free to focus on your code instead of maintaining cloud tools. This allows you to make rapid, incremental feature updates without having to disassemble and reassemble your infrastructure each time your code is changed.  
 
-While the ability to rapidly deploy changes to your app is important, being able to choose your own source control system, deployment tools and container registry without having to maintain a set of custom scripts is also critical.
+In Part 1 of this series, you'll use Weave Cloud to validate and troubleshoot your app on a development laptop and then compare it with a production environment.
 
-To streamline the app development pipeline so that you can develop code faster, you've decided on the following:
+In parts 3 to 4, you'll learn how to set up Flux to achieve <a href="https://www.weave.works/guides/cloud-guide-part-2-deploy-continuous-delivery/"> continuous delivery </a> and <a href="https://www.weave.works/guides/cloud-guide-part-3-monitor-prometheus-monitoring/"> how to monitor applications running in the cloud Prometheus.</a>
 
-* A microservices approach to software design
-* Docker Containers
-* Continuous integration and delivery
-* Kubernetes container orchestration
+In Part 4 you will <a href="https://www.weave.works/guides/cloud-guide-part-4-secure-container-firewalls/"> secure your app using Kubernetes Network policy and then eforce it with Weave Net.</a>
 
-But using these technologies comes with tradeoffs. Most significantly is the configuration effort needed to get all of these technologies working together.  Weave Cloud simplifies this process and gets your app into the cloud without lock in. Weave allows you to choose the tools you need to create high quality code faster.  
+All four of these tutorials use the Weaveworks microservices app, [The Sock Shop](https://github.com/microservices-demo).
 
-In Part 1 of this series, you'll use Weave Cloud to validate and troubleshoot your app: from your development laptop into production. And in parts 3 to 4, you'll move on to how to <a href="https://www.weave.works/guides/cloud-guide-part-2-deploy-continuous-delivery/"> automate code deployment </a> and to <a href="https://www.weave.works/guides/cloud-guide-part-3-monitor-prometheus-monitoring/"> monitor app with Prometheus </a> and then you'll <a href="https://www.weave.works/guides/cloud-guide-part-4-secure-container-firewalls/"> secure the microservices using Kubernetes Network policy </a> all from one convenient troubleshooting dashboard.
+###About Part 1
 
 In this tutorial you will use the Weaveworks sample app, [The Sock Shop](https://github.com/microservices-demo), deploy it to three Ubuntu hosts, running Docker and Kubernetes and networked with Weave Net. Then you'll validate and troubleshoot any issues with it in Weave Cloud.
 
-This tutorial will take approximately 15 minutes to complete.
+This tutorial takes approximately 25 minutes to complete.
 
 <div style="width:50%; padding: 10px; float:right; text-align:right; font-weight:700;">
 <a href="/guides/cloud-guide-part-2-deploy-continuous-delivery/">Go to next part: Part 2 – Deploy: Continuous Delivery &raquo;</a>
@@ -25,8 +21,6 @@ This tutorial will take approximately 15 minutes to complete.
 
 <img src="images/setup.png" style="width:100%; border:1em solid #32324b;" />
 <p></p>
-
-
 
 ##A Video Overview
 
@@ -52,15 +46,17 @@ Ensure the following installed are installed before you begin:
  * [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/)
    * Note that this guide also works with [Docker for Mac](https://docs.docker.com/docker-for-mac/)
 
-## If you're on a Mac
+## If You're on a Mac
 
 If you haven't installed Docker for Mac before, follow the installation instructions on <a href="https://docs.docker.com/docker-for-mac/" target="_blank">Docker website </a>. <!-- lkj_ -->
 
-Once it's running you will see <img src="images/docker-for-mac-menu-bar-icon.png" style="height: 1em; display:inline-block;" /> in your menu bar.
+Once it's running you will see <img src="images/docker-for-mac-menu-bar-icon.png" style="height: 2em; display:inline-block;" /> in your menu bar.
 
 ## Sign Up for Weave Cloud
 
-Signup for Weave Cloud and use it to verify what you deployed to your laptop to ensure that everything deployed correctly and that all services are behaving as they should. You will verify the app first on your laptop. Then you'll use Weave Cloud to view the Kubernetes pods as they get deployed, and again to verify the Sock Shop after it gets deployed to Kubernetes in Digital Ocean.
+To begin, sign up for Weave Cloud and deploy the Scope probes on your laptop.  
+
+After verifying that the app works as it should on your laptop, you'll launch a new set of Scope probes in to your production environment, launch the app and Kubernetes and compare that deployment with the one on your laptop.  
 
 To sign up for Weave Cloud:
 
@@ -70,29 +66,28 @@ To sign up for Weave Cloud:
 
 <img src="images/weave-cloud-token-1.png" style="width:100%;" />
 
-### Launch the Weave Cloud Probes
+### Launch the Scope Probes on Your Laptop
 
-Launch the Weave Cloud probes using the token you obtained when you signed up for the service:
+Launch the Scope probes using the token you obtained when you signed up for the service:
 
 <!-- TODO maybe this should use the k8s scope yaml in the launcher -->
 
 ~~~bash
 curl --silent --location https://git.io/scope --output /usr/local/bin/scope
 sudo chmod +x /usr/local/bin/scope
-scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
+scope launch --service-token=<WEAVE_CLOUD_SERVICE_TOKEN>
 ~~~
 
 **Where,**
 
-* `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` - is the token that appears on the settings page, once you’ve logged into Weave Cloud.
+* `<WEAVE_CLOUD_SERVICE_TOKEN>` - is the token that appears on the settings page, once you’ve logged into Weave Cloud.
 
 
 ## Deploying the Socks Shop
 
-To deploy The Socks Shop:
+To deploy The Socks Shop to your local machine:
 
 **1. Get the code:**
-
 
 ~~~bash
 git clone https://github.com/microservices-demo/microservices-demo.git
@@ -105,11 +100,9 @@ git clone https://github.com/microservices-demo/microservices-demo.git
 cd microservices-demo/deploy/docker-compose
 ~~~
 
-
 **3. Run the Sock Shop and display it in your browser:**
 
 ~~~bash
-docker network create mynetwork
 docker-compose up -d
 ~~~
 
@@ -125,21 +118,28 @@ Run a load test with the following:
 
 ~~~bash
 docker run -ti --rm --name=LOAD_TEST \
-  --net=shop_external \
   weaveworksdemos/load-test -h edge-router -r 100 -c 2
 ~~~
 
 With the load test running, observe the different services communicating by clicking on the Load Test container in Weave Cloud. From the metrics panel, open the load test's terminal to view the messages. With the load test running, the topology in Weave Cloud will also begin to form where you can see the microservices communicating with one another in the app.
 
-<img src="images/load-test-messages.png" style="width:100%;" />
+<img src="images/load-test-messages-1-1.png" style="width:100%;" />
 
 # Deploying the app to "production" on Kubernetes
 
 {"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop.md"}
 
-## Tear Down
+## Tear Down on Ubuntu
 
 {"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop-teardown.md"}
+
+## Tear Down on Your laptop
+
+To remove the Sock Shop from your laptop, run the following:
+
+~~~bash
+docker-compose -f deploy/docker-compose/docker-compose.yml down
+~~~
 
 ## Conclusions
 
