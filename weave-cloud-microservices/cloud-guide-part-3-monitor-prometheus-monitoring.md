@@ -2,7 +2,7 @@
 
 This is Part 3 of 4 of the <a href="/guides/">Weave Cloud guides series</a>.
 
-Containerized applications are by nature dynamic and in a state of constant change. One of the advantages of using containers is the fact that they will ‘self-heal’, and so when a container goes down, it automatically spins back up. But when it does so, it may appear on the same virtual machine. To further complicate matters, applications can be spread across multiple cloud provides or they can span both data centers and cloud providers (hybrid clouds). Because of these factors, traditional server-focused monitoring systems, don’t work well with containerized applications.  
+Containerized applications are by nature dynamic and in a state of constant change. One of the advantages of using containers is the fact that they will ‘self-heal’, and when a container goes down, it automatically spins back up. But when it does so, it may not appear on the same virtual machine. To further complicate matters, applications can be spread across multiple cloud provides or they can span both data centers and cloud providers (hybrid clouds). Because of these factors, traditional server-focused monitoring systems, don’t work well with containerized applications.  
 
 Weave Cortex is an extension of the open source project Prometheus and once deployed to your cluster, it listens for changes in a single Kubernetes cluster or even across a Kubernetes federation.
 
