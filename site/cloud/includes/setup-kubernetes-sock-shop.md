@@ -204,7 +204,7 @@ As you follow the next steps you can then watch the socks shop come up in [Weave
 
 Ensure that 'System Containers' are selected from the filters in the left hand corner to see all of the Kubernetes processes.
 
-<img src="images/kubernetes-weave-cloud-2.png" style="width:100%;" />
+<img src="images/kubernetes-weave-cloud.png" style="width:100%;" />
 
 ### Installing the Sock Shop onto Kubernetes
 
