@@ -40,7 +40,7 @@ Otherwise, click "Details" below to see the instructions.
 
 [[ open_details ]]
 
-{"gitdown": "include", "file": "./includes/setup-kubernetes-sock-shop.md"}
+{{ include "./includes/setup-kubernetes-sock-shop.md" }}
 
 [[ close_details ]]
 
@@ -52,13 +52,13 @@ Let's start by testing that. Load up [Weave Cloud](https://cloud.weave.works/) a
 
 Select "catalogue" and click the `>_` icon. This will load up a shell. Then type the following:
 
-~~~
+~~~bash
 wget http://shipping
 ~~~
 
 You should get:
 
-~~~
+~~~bash
 wget: server returned error: HTTP/1.1 404
 ~~~
 
@@ -66,13 +66,13 @@ This is not good! The catalogue service can speak to the shipping service. For a
 
 So, let's apply some network policy. SSH into the master, or where ever you run run `kubectl`:
 
-~~~
+~~~bash
 cd microservices-demo
 kubectl apply -f deploy/kubernetes/manifests-policy/
 ~~~
 
-Now run the wget inside the terminal in Weave Cloud again:
-~~~
+Now run the `wget` inside the terminal in Weave Cloud again:
+~~~bash
 wget http://shipping
 ~~~
 

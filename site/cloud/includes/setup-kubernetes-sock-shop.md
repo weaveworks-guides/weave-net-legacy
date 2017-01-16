@@ -51,7 +51,7 @@ EOF
 apt-get update
 ~~~
 
-Install docker if you don't have it already. You can also use the [official Docker packages](https://docs.docker.com/engine/installation/) instead of `docker.io` here.
+Install Docker if you don't have it already. You can also use the [official Docker packages](https://docs.docker.com/engine/installation/) instead of `docker.io` here.
 ~~~
 apt-get install -y docker.io
 ~~~
@@ -196,9 +196,9 @@ Install and launch the Weave Scope probes onto your Kubernetes cluster. From the
 kubectl apply -n kube-system -f 'https://cloud.weave.works/k8s.yaml?t=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>'
 ~~~
 
-You should fetch `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` from [Weave Cloud](https://cloud.weave.works/).
+The `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` is found in the settings dialog on [Weave Cloud](https://cloud.weave.works/).
 
-Return to the Weave Cloud interface, select View Instance and click on the `Hosts` button to view the hosts.
+Return to the Weave Cloud interface, select View Instance and click on the `Hosts`.
 
 As you follow the next steps you can then watch the socks shop come up in [Weave Cloud](https://cloud.weave.works/).
 
@@ -222,7 +222,6 @@ kubectl apply -n sock-shop -f deploy/kubernetes/manifests
 Switch to the `sock-shop` namespace at the bottom left of your browser window in Weave Cloud when in any of the Kubernetes-specific views (pods, replica sets, deployments & services).
 
 <img src="images/sock-shop-kubernetes.png" style="width:100%;" />
-
 
 ### Viewing the Sock Shop in Your Browser
 

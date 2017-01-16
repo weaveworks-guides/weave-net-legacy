@@ -5,24 +5,19 @@ menu_order: 1
 
 {{ include "./includes/parts.md" }}
 
-When your app is Cloud Native you are free to focus on your code instead of maintaining cloud tools. This allows you to make rapid, incremental feature updates without having to disassemble and reassemble your infrastructure each time your code is changed.
+In Part 1 of this series, you'll use Weave Cloud to validate and troubleshoot your app on a development laptop and then compare it with a production environment.
 
-While the ability to rapidly deploy changes to your app is important, being able to choose your own source control system, deployment tools and container registry without having to maintain a set of brittle custom scripts is also critical.
+In parts 3 to 4, you'll learn how to set up Flux to achieve [continuous delivery][part2] and [how to monitor applications running in the cloud Prometheus][part3].
 
-To streamline the app development pipeline so that you can develop code faster, you've decided on the following:
+In Part 4 you will [secure your app using Kubernetes Network policy and then eforce it with Weave Net][part4].
 
-* A microservices approach to software design
-* Docker Containers
-* Continuous integration and delivery
-* Kubernetes container orchestration
+All four of these tutorials use the Weaveworks microservices app, [The Sock Shop](https://github.com/microservices-demo).
 
-But using these technologies comes with tradeoffs. Most significantly is the configuration effort needed to get all of these technologies working together.  Weave Cloud simplifies this process and gets your app into the cloud without lock in. Weave allows you to choose the tools you need to create high quality code faster.
-
-In Part 1 of this series, you'll use Weave Cloud to validate and troubleshoot your app: from your development laptop into production. And in parts 3 to 4, you'll move on to how to [automate code deployment][part2] and to [monitor app with Prometheus][part3] and then you'll [secure the microservices using Kubernetes network policy][part4] all from one convenient troubleshooting dashboard.
+### About Part 1
 
 In this tutorial you will use the Weaveworks sample app, [The Sock Shop](https://github.com/microservices-demo), deploy it to three Ubuntu hosts, running Docker and Kubernetes and networked with Weave Net. Then you'll validate and troubleshoot any issues with it in Weave Cloud.
 
-This tutorial will take approximately 15 minutes to complete.
+This tutorial takes approximately 25 minutes to complete.
 
 [[ open_div \`style='width:50%; padding: 10px; float:right; text-align:right; font-weight:700;'\` ]]
 
@@ -58,27 +53,29 @@ Ensure the following installed are installed before you begin:
  * [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/)
    * Note that this guide also works with [Docker for Mac](https://docs.docker.com/docker-for-mac/)
 
-## If you're on a Mac
+## If You're on a Mac
 
-If you haven't installed Docker for Mac before, follow the installation instructions on <a href="https://docs.docker.com/docker-for-mac/" target="_blank">Docker website </a>. <!-- lkj_ -->
+If you haven't installed Docker for Mac before, follow the installation instructions on <a href="https://docs.docker.com/docker-for-mac/" target="_blank">Docker website </a>.
 
-Once it's running you will see <img src="images/docker-for-mac-menu-bar-icon.png" style="height: 1em; display:inline-block;" /> in your menu bar.
+Once it's running you will see <img src="images/docker-for-mac-menu-bar-icon.png" style="height: 2em; display:inline-block;" /> in your menu bar.
 
 ## Sign Up for Weave Cloud
 
-Signup for Weave Cloud and use it to verify what you deployed to your laptop to ensure that everything deployed correctly and that all services are behaving as they should. You will verify the app first on your laptop. Then you'll use Weave Cloud to view the Kubernetes pods as they get deployed, and again to verify the Sock Shop after it gets deployed to Kubernetes in Digital Ocean.
+To begin, sign up for Weave Cloud and deploy the Scope probe on your laptop.
+
+After verifying that the app works as it should on your laptop, you'll launch a new set of Scope probe in to your production environment, launch the app and Kubernetes and compare that deployment with the one on your laptop.
 
 To sign up for Weave Cloud:
 
-1.  Go to <a href="https://cloud.weave.works" target="_blank"> Weave Cloud </a> <!-- lkj_ -->
+1.  Go to <a href="https://cloud.weave.works" target="_blank"> Weave Cloud </a>
 2.  Sign up using either a Github, or Google account or use an email address.
 3.  Obtain the cloud service token from the User settings screen:
 
 <img src="images/weave-cloud-token.png" style="width:100%;" />
 
-### Launch the Weave Cloud Probes
+### Launch the Scope Probe on Your Laptop
 
-Launch the Weave Cloud probes using the token you obtained when you signed up for the service:
+Launch the Scope probe using the token you obtained when you signed up for the service:
 
 <!-- TODO maybe this should use the k8s scope yaml in the launcher -->
 
@@ -92,13 +89,9 @@ scope launch --service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>
 
 * `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` - is the token that appears on the settings page, once you’ve logged into Weave Cloud.
 
-**Note:** To set the Weave Cloud controls to read-only for all users, you can launch scope with the `--probe.no-controls` flag.  In this demo, you will be launching a terminal window and viewing messages between microservices, and so this flag is not necessary. However, you may want to keep this flag in mind when using Weave Cloud and sharing your infrastructure views with others outside of your organization.
-
-Weave Cloud controls allow you to stop, start and pause containers. They also enable you to launch a terminal and interact directly with your containers.
-
 ## Deploying the Socks Shop
 
-To deploy The Socks Shop:
+To deploy The Socks Shop to your local machine:
 
 **1. Get the code:**
 
@@ -142,9 +135,19 @@ With the load test running, observe the different services communicating by clic
 
 {{ include "./includes/setup-kubernetes-sock-shop.md" }}
 
-## Tear Down
+## Tear Down on Ubuntu
+
+<!-- TODO this should probably say "on Digital Ocean" -->
 
 {{ include "./includes/setup-kubernetes-sock-shop-teardown.md" }}
+
+## Tear Down on Your laptop
+
+To remove the Sock Shop from your laptop, run the following:
+
+~~~bash
+docker-compose down
+~~~
 
 ## Conclusions
 

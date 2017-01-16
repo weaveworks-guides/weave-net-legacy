@@ -7,13 +7,15 @@ menu_order: 3
 
 This is Part 3 of 4 of the [Weave Cloud guides series][index].
 
-Microservices environments by nature are dynamic and in a state of constant change especially if they are running inside containers. They may be spread across multiple clouds or span both a data center and a cloud, which can make monitoring a challenge. Because containerized apps tend to be in a state of constant flow with containers going down and spinning back up again, traditional monitoring systems which are typically server-focused, don’t work well in dynamic systems.
+Containerized applications are by nature dynamic and in a state of constant change. One of the advantages of using containers is the fact that they will ‘self-heal’, and when a container goes down, it automatically spins back up. But when it does so, it may not appear on the same virtual machine. To further complicate matters, applications can be spread across multiple cloud provides or they can span both data centers and cloud providers (hybrid clouds). Because of these factors, traditional server-focused monitoring systems, don’t work well with containerized applications.
 
-Weave Cortex is an extension of the open source project Prometheus and once deployed to your cluster, it listens for changes in a single Kubernetes cluster or even across a Kubernetes federation. When the Weave Cortex agent is deployed to a Kubernetes production environment, metrics are automatically pushed to Weave Cloud, where they can be viewed and queried from within the Microservices Dashboard.
+Weave Cortex is an extension of the open source project Prometheus and once deployed to your cluster, it listens for changes in a single Kubernetes cluster or even across a Kubernetes federation.
 
-You will use the sample app, 'The Sock Shop', deploy it to a couple of virtual machines running Docker and Kubernetes and then monitor metrics from within Weave Cloud.
+When the Weave Cortex agent is deployed to a Kubernetes production environment, metrics are automatically pushed to Weave Cloud, where they can be viewed and queried from within the Microservices Dashboard.
 
-This tutorial takes approximately 15 minutes to complete.
+You will use the sample app, 'The Sock Shop', deploy it to three virtual machines running Docker and Kubernetes and then monitor metrics from within Weave Cloud.
+
+This tutorial takes approximately 25 minutes to complete.
 
 [[ open_div \`style='width:50%; padding: 10px; float:left; font-weight: 700;'\` ]]
 
@@ -29,7 +31,7 @@ This tutorial takes approximately 15 minutes to complete.
 
 <img src="images/monitor.png" style="width:100%; border:1em solid #32324b;" />
 
-View your app, network and container orchestrator metrics altogether in the Weave Cloud monitoring dashboard, Weave Cortex. This example uses Kubernetes clusters.
+View your app, network and container orchestrator metrics altogether in Weave Cloud with Weave Cortex. This example uses Kubernetes clusters.
 
 ## A Video Overview
 
@@ -50,7 +52,7 @@ View your app, network and container orchestrator metrics altogether in the Weav
 
 Before you can use Cortex to monitor apps, sign up for a Weave Cloud account.
 
-**1.**  Go to [Weave Cloud](https://cloud.weave.works)
+**1.**  Go to <a href="https://cloud.weave.works" target="_blank"> Weave Cloud </a>
 
 **2.**  Sign up using either a Github, or Google account or use an email address.
 
@@ -75,17 +77,17 @@ Otherwise, click "Details" below to see the instructions.
 
 Next, enable Cortex to start pushing metrics to Weave Cloud.
 
-**1.** Log onto the master Kubernetes node and run the following to get the `cortex.yml` file and then update the file with your Weave Cloud token:
+**1.** Log onto the master Kubernetes node and run the following to launch the Cortex daemon onto your hosts. Keep your Cloud service token handy and paste it into the command:
 
 ~~~bash
-kubectl -n kube-system apply -f 'https://cloud.weave.works/k8s.yaml?t=<your-weave-cloud-token>'
+kubectl -n kube-system apply -f 'https://cloud.weave.works/k8s/cortex.yaml?t=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>'
 ~~~
 
 **Where**,
 
-* [`your-weave-cloud-token`] is the token you obtained when you signed up for Weave Cloud above.
+* `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` is the token you obtained when you signed up for Weave Cloud above.
 
-Cortex runs in its own Docker container and it may take a few minutes for it to download and appear on the server. You can watch for it to appear in the Troubleshooting Dashboard.
+Cortex runs in its own Docker container and it may take a few minutes for it to download and appear on the server. You can watch for it to appear in [Weave Cloud](https://cloud.weave.works).
 
 **2.** Or check that Cortex is running on one of the Kubernetes nodes with:
 
@@ -106,15 +108,13 @@ weave-cortex-node-exporter-uqwx5     1/1       Running   0          12s
 
 ## Viewing Sock Shop Metrics in Weave Cortex
 
-Go to the Weave Cloud Dashboard and click the chart icon from the header bar. You should see the Cortex GUI where you can display metrics from the Sock Shop app.
-
-<!-- TODO this is broken |src="images/weave-cloud-cortex.png" style="width:50%;" -->
+Go to [Weave Cloud](https://cloud.weave.works) and click 'Monitor' from the header. You should see the Cortex GUI where you can display metrics from the Sock Shop app.
 
 Cortex by default displays a number of metrics at the top that have already been detected by the system.
 
-Select `process` then `open` and `fds` from the Detected Metrics section of Prometheus System Queries, and then click `execute`, where something similar to the screen capture shown below will be shown (note this is a stacked view of the chart):
+Select `CPU usage in % by pod` from the Kubernetes section in the Detected Metrics section of Prometheus System Queries, where something similar to the screen capture shown below will be shown (note this is a stacked view of the chart):
 
-<img src="images/cortex-detected-metrics.png" style="width:100%;" />
+<img src="images/prometheus-kubernetes-monitor-1.png"/>
 
 ## Run the Load Test
 
@@ -144,7 +144,7 @@ Go to the Cortex page in Weave Cloud to view network specific metrics, such as:
 * Number of blocked connections per transport-layer protocol
 * Frequent protocol-dport combinations of blocked connections such as IP address exhaustion
 
-For more information on Weave Net metrics see, ["Monitoring with Prometheus"](https://www.weave.works/docs/net/latest/metrics/)
+For more information on Weave Net metrics see, ["Monitoring with Prometheus"](https://www.weave.works/docs/net/latest/metrics/).
 
 ## Tear Down
 
