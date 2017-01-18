@@ -4,7 +4,7 @@ In Part 1 of this series, you'll use Weave Cloud to validate and troubleshoot yo
 
 In parts 3 to 4, you'll learn how to set up Flux to achieve <a href="https://www.weave.works/guides/cloud-guide-part-2-deploy-continuous-delivery/"> continuous delivery </a> and <a href="https://www.weave.works/guides/cloud-guide-part-3-monitor-prometheus-monitoring/"> how to monitor applications running in the cloud Prometheus.</a>
 
-In Part 4 you will <a href="https://www.weave.works/guides/cloud-guide-part-4-secure-container-firewalls/"> secure your app using Kubernetes Network policy and then eforce it with Weave Net.</a>
+In Part 4 you will <a href="https://www.weave.works/guides/cloud-guide-part-4-secure-container-firewalls/"> secure your app using Kubernetes Network policy and then enforce it with Weave Net.</a>
 
 All four of these tutorials use the Weaveworks microservices app, [The Sock Shop](https://github.com/microservices-demo).
 
