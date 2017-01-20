@@ -25,7 +25,9 @@ The following topics are described:
 * [Weave Net](https://www.weave.works/docs/net/latest/installing-weave/) and [Multicast](https://www.weave.works/docs/net/latest/features/)
 * AWS CloudFormation Template
 * EC2 Container Console
-* The [Weave Cloud](https://cloud.weave.works) token obtained after you've signed up. 
+* The [Weave Cloud](https://cloud.weave.works) token obtained after you've signed up: 
+
+![Obtain service token for Weave Cloud](weave-cloud-token-screenshot.png)
 
 ##<a name="launching-AWS"></a>Launching the AWS CloudFomation Templates
 
@@ -41,24 +43,24 @@ Before launching the CloudFormation template:
 * [Create the Key Pairs](http://docs.aws.amazon.com/gettingstarted/latest/wah/getting-started-prereq.html). You will need to reference the name of the key pairs when you create the stack.
 * Set up a [Weave Cloud](https://cloud.weave.works) account and [obtain the cloud token](https://www.weave.works/guides/using-weave-scope-cloud-service-to-visualize-and-monitor-docker-containers/).
 
-**Ready to launch a stack?  Click here to launch a stack to AWS:**
+**Ready to launch a stack?  Click here to launch a stack to AWS:**
 
-[![](../images/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?templateURL=https:%2F%2Fs3.amazonaws.com%2Fweaveworks-cfn-public%2Fintegrations%2Fecs-baseline.json)
+[![](cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?templateURL=https:%2F%2Fs3.amazonaws.com%2Fweaveworks-cfn-public%2Fintegrations%2Fecs-baseline.json)
 
 
 ##<a name="the-stack"></a>Creating the Stack
 
 1. Enable the ‘Specify an Amazon S3 template URL’ option and then click `Next`.
- ![](../images/multicast/AWS-1-select-template.png)
+ ![](AWS-1-select-template.png)
 2. Enter a name for the stack. 
 3. This template also comes with an additional sample app, called 'Hit Counter'. It is not required for the multicast demo, so select `No`.  
 4. Select the key pair that you generated for your AWS Region.
-![](../images/multicast/AWS-2-specify-details-parameters.png)
+![](AWS-2-specify-details-parameters.png)
 5. Add the Weave Cloud token into the WeaveScopeCloudService token field and click `Next`.
 4. The options dialog doesn’t require any input, so just click `Next`.
 5. In the Confirmation dialog, enable the capabilities acknowledgement box and then click `Create`.
 
-![](../images/multicast/AWS-4-create-stack.png)
+![](AWS-4-create-stack.png)
 
 The CloudFormation stack dashboard appears, where you can monitor the progress of the stack’s creation. It takes about 10-15 minutes to complete. Press the refresh button in the top right corner to monitor its progress.
 
@@ -70,15 +72,15 @@ To deploy the multicast demo:
 
 Go to the EC2 Container Service console by clicking `Services -> EC2 Container Service Console` where you will see something similar to the following:
 
-![](../images/multicast/create-stack.png)
+![](clusters.png)
 
 The cluster you just created with the AWS template appears under the Cluster group. Its name is prepended with the name that you gave your stack in step 2 during stack creation.
 
 1. Create a task by clicking on `Task Definition` and then `Create New Task`. 
-2. Give the task a name in the Task Definition field: ![](guides/images/multicast/create-task.png).
+2. Give the task a name in the Task Definition field: ![](create-task.png).
 3. Create the multicast containers from the docker image by clicking the `Create Container` button, where the following appears: 
 
-![](../images/multicast/add-container.png)
+![](add-container.png)
 
 Fill in: 
 
@@ -98,9 +100,8 @@ Next, run the task you just created as a service in the cluster. For the purpose
 1. Select the cluster that was created with the AWS Cloud Formation template. 
 2. Click on `Create` to add a service: 
 
-![](../images/multicast/create-service.png)
+![](create-service.png)
 
-![](../images/multicast/service-name-definition-instances.png)
 
 Select the Task Definition you just created, then give the service a name and assign the number of tasks to 3. Click `Create Service` and then `View Service`. Wait for the containers to spin up, when they've changed from PENDING to RUNNING, before moving on to the next section. 
 
@@ -109,15 +110,15 @@ Select the Task Definition you just created, then give the service a name and as
 
 To visualize the demo, log in to Weave Cloud and click View Instance:
 
-![](../images/multicast/containers-multicast.png)
+![](containers-multicast.png)
 
 Click on one of the containers to view its metrics: 
 
-![](../images/multicast/metrics-multicast.png)
+![](metrics-multicast.png)
 
 To view multicast in action, select the terminal button from the controls located on the top of the metrics panel: 
 
-![](../images/multicast/metrics-multicast.png)
+![](containers-multicast-terminal.png)
 
 Click on some of the other containers and launch their terminals to view how all of the IP addresses are being discovered by each of the nodes as they broadcast data across the Weave network.
 
@@ -131,7 +132,6 @@ If you have any questions or comments, we would be happy to hear from you, visit
 
  * [Weave Net Features](https://www.weave.works/docs/net/latest/features/)
  * [Microservice Deployment to ECS with Weave Net](https://www.weave.works/guides/service-discovery-and-load-balancing-with-weave-on-amazon-ecs-2/)
-
 
 
 
