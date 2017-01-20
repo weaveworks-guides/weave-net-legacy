@@ -1,7 +1,7 @@
 ---
 layout: guides
 title: Enabling Weave Net Multicast In AWS 
-description: How to use Weave Scope to monitor and visualize docker container clusters and swarms.
+description: How to use Weave Cloud to visualize multicast.
 ---
 
 
