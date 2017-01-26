@@ -1,11 +1,11 @@
 <!-- Deploy: Continuous Delivery with Weave Flux -->
 In Part 2 of 4 of the <a href="/guides/">Weave Cloud guides series</a> you will learn how to achieve fast iteration and continuous delivery with Weave Cloud and Weave Flux, and how automatic app deployment is possible by connecting the output of your continuous integration system into a container orchestrator.
 
-As a developer on a DevOps team, you will make a code change to the company microservices-based app, the Sock Shop, push the change to version control, and then automatically deploy the new image to a Kubernetes Cluster. This example uses [Travis CI](https://travis-ci.org/) for Continuous Integration and [Quay](https://quay.io) for the container registry, but Weave Flux is flexible and it works with all of your favourite tools, such as Jenkins, Docker Registry and Gitlab.
+As a developer on a DevOps team, you will make a code change to the company microservices app, the Sock Shop, push the change to version control, and then automatically deploy the new image to a Kubernetes Cluster. This example uses [Travis CI](https://travis-ci.org/) for Continuous Integration and [Quay](https://quay.io) for the Docker container registry, but Weave Flux is flexible, and it works with all of your favourite tools, such as [Jenkins](https://jenkins.io), [Docker Trusted Registry](https://docs.docker.com/datacenter/dtr/2.1/guides/) and [Gitlab](https://about.gitlab.com/).
 
 ###How Weave Flux Works
 
-With Weave Flux every developer on your team can make app changes and deploy it to a Kubernetes cluster.  Flux maintains a best practices approach by version controlling the Kubernetes manifests, and by modifying them to include all pushed Docker image versions. This allows DevOps teams to make rapid and less error-prone code changes.
+With Weave Flux every developer on your team can make code changes to the app and then deploy updated app to a Kubernetes cluster.  Flux maintains a best practices approach by version controlling the Kubernetes manifests, and by modifying them to include all pushed Docker image versions. This allows DevOps teams to make rapid and less error-prone code changes.
 
 Flux does this by:
 
@@ -41,13 +41,13 @@ To sign up for Weave Cloud:
 
 1.  Go to <a href="https://cloud.weave.works" target="_blank"> Weave Cloud </a> <!-- lkj_ -->
 2.  Sign up using either a Github, or Google account or use an email address.
-3.  Obtain the cloud service token from the User settings screen:
+3.  Obtain the cloud service token from the user settings screen:
 
 <img src="images/weave-cloud-token-1.png" style="width:100%;" />
 
 ## Deploy the Sock Shop to Kubernetes with Weave Net
 
-If you have already done this as part of one of the other tutorials, you can skip this step. Otherwise, click "Details" below to see how to set up a Kubernetes cluster and deploy the Socks Shop demo app to it.
+If you have already done this as part of one of the other tutorials, you can skip this step. Otherwise, expand the "Details" below to see how to set up a Kubernetes cluster, deploy Weave Scope probes and the Socks Shop demo app to it.
 
 XXX-START-DETAILS-BLOCK
 
@@ -58,18 +58,18 @@ XXX-END-DETAILS-BLOCK
 
 ## Fork The Repositories
 
-You will need a GitHub account for this step.
+You will need a [GitHub](https://www.github.com) account for this step.
 
 Before you can modify the Socks Shop, fork the following two repositories:
 
 * [https://github.com/microservices-demo/front-end](https://github.com/microservices-demo/front-end) - the front-end of the Sock Shop application. You will update the color of one of the buttons in this example.
 *  [https://github.com/microservices-demo/microservices-demo](https://github.com/microservices-demo/microservices-demo). This repo stores the Kubernetes manifests for the application. Flux automatically updates this repository.
 
-To fork the GitHub repositories click "Fork" in the top right hand corner. The repositories will appear in your own GitHub account.
+To fork the GitHub repositories click **Fork** from the top right hand corner. The repositories will appear in your own GitHub account.
 
 ## Shut Down The Socks Shop Running on the Kubernetes Cluster
 
-If you followed the instructions above, the Socks Shop demo will already be running in Kubernetes. First delete the `sock-shop namespace` so you can deploy a copy from your own fork.
+If you followed the instructions above, the Socks Shop demo will already be running in Kubernetes, and you will need to delete the `sock-shop namespace` so you can deploy a copy from your own fork.
 
 On the master node run:
 
@@ -81,13 +81,13 @@ kubectl delete namespace sock-shop
 
 Sign up for a [Quay.io](https://quay.io) account, and record the username that it gives you. When you log in, you'll be able to see it under "Users and Organizations" on the right hand side of the Repositories page.
 
-Create a new public repository called `front-end`. This Docker repository will be used by Travis on which to push newly images.
+Create a new public repository called `front-end`. This is the Docker repository that will be used by Travis on which to push newly images.
 
 ## Get a Continuous Integration Account
 
 If you already have your own CI system, you can use that instead. All that Flux needs is something that creates a container image and pushes it to the registry whenever you push a change to GitHub.
 
-The example used here is [Travis CI](https://travis-ci.org/). Sign up for an account if you haven't got one already, and then hook it up to your GitHub account. Click the `+` button next to "My Repositories" and toggle the button for `<YOUR_GITHUB_USERNAME>/front-end` so that Travis automatically runs builds for the repo.
+The example used here is [Travis CI](https://travis-ci.org/). Sign up for an account if you haven't got one already, and then hook it up to your GitHub account. Click the `+` button next to **My Repositories** and toggle the button for `<YOUR_GITHUB_USERNAME>/front-end` so that Travis automatically runs builds for the repo.
 
 ## Edit the travis.yml File
 
@@ -132,7 +132,7 @@ git push
 
 ## Configure a Robot Account in Quay.io and Link it to Travis CI
 
-**1.** Log into Quay.io, and create a robot account called `ci_push_pull` by selecting the + from the header.
+**1.** Log into Quay.io, and create a **Robot Account** called `ci_push_pull` by selecting the + from the header.
 
 <img src="images/add-robot-account.png" />
 
@@ -153,13 +153,13 @@ Add the following credentials from Quay.io:
 
 **Where**,
 
-* `<"user-name+ci_push_pull">` is your user-name with the + sign and the name of the robot account.
-* `<"robot-key">` is the key found in the **Robot Token** dialog box.
+* `<"user-name+ci_push_pull">` is your user-name including the `+` sign and the name of the robot account.
+* `<"robot-key">` is the key found and copied from the **Robot Token** dialog box.
 
 
 ## Launching and Configuring Flux
 
-Flux consists of two parts: the `fluxd` daemon and the `fluxctl` service.  The `fluxd` daemon is deployed to the cluster and listens for changes being pushed through git; it then updates the cluster and any images accordingly. `fluxctl` is the command line utility that enables you to send requests and commands to the daemon. First deploy the `fluxd` daemon to the cluster and then download the `fluxctl` service and configure it for your environment.
+Flux consists of two parts: the `fluxd` daemon and the `fluxctl` service.  The `fluxd` daemon is deployed to the cluster and listens for changes being pushed through git; it then updates the cluster and any images accordingly. `fluxctl` is the command line utility that allows you to send requests and commands to the daemon. First deploy the `fluxd` daemon to the cluster and then download the `fluxctl` service and configure it for your environment.
 
 To install and set up Flux in Kubernetes:
 
@@ -237,7 +237,9 @@ registry:
 Copy the following into the `flux.conf`:
 
 * Replace `<YOUR_GITHUB_USERNAME>` with your GitHub username (required).
+
 * Copy the private key you created earlier into the private key section of the file. To view the key, run `cat id-rsa-flux` (required). **Ensure that the indentation is correct.**
+
 * In the **Registry** section, copy the authorization details from the Quay Robot Account (`ci_push_pull`) you created earlier. You can find those details by selecting **Settings** and then clicking on the `ci_push_pull` Robot Account.  Select the **Docker Configuration** tab from the **Robot Credentials** dialog in Quay. This step is optional and only required if you are using a private repository, See [Configuring Access for a Private Registry](#private-repo) for more information.
 
 **6.** Configure access to the `fluxd` daemon using:
@@ -245,14 +247,13 @@ Copy the following into the `flux.conf`:
 ```
 export FLUX_SERVICE_TOKEN=<weave-cloud-token>
 ```
+**Note:** If you've logged out of your shell, you must re-run `export FLUX_SERVICE_TOKEN=<weave-cloud-token>` to re-establish your environment.
 
 **7.** Load the config file into the Flux service:
 
 ```
 fluxctl set-config --file=flux.conf
 ```
-
-**Note:** If you've logged out of your shell, you must re-run `export FLUX_SERVICE_TOKEN=<weave-cloud-token>` to re-establish your environment.
 
 **8.** Check that all went well by running:
 
@@ -262,7 +263,7 @@ fluxctl list-services
 
 ###<a name="private-repo"></a>Configuring Access for a Private Registry
 
-If you want to configure `fluxd` to use a private registry, use the following stanza in the `.conf` file:
+To configure `fluxd` to use a private registry, use the following stanza in the `.conf` file:
 
 ```
 registry:
@@ -292,14 +293,14 @@ To set your public key up for the `front-end` repo:
 
 ## Modify the Manifest file so it Points to Your Container Image
 
-Begin by logging in to the Kubernetes master node. The rest of the demo will be run from the master Kubernetes node, however, you could also run it from your laptop if you wish. Use `ssh -A` to enable the SSH agent so that you can use your GitHub SSH key from your workstation.
+Begin by logging in to the Kubernetes master node. The rest of the demo will be run from the master Kubernetes node, but you could also run it from your laptop if you wish. Use `ssh -A` to enable the SSH agent so that you can use your GitHub SSH key from your workstation.
 
 ```
 git clone https://github.com/<YOUR_GITHUB_USERNAME>/microservices-demo
 cd microservices-demo/deploy/kubernetes
 ```
 
-Modify the front-end manifest so that it refers to the container image that you'll be using. Using your favorite editor, open up `manifests/front-end-dep.yaml`, and update the `image` line.
+Modify the front-end manifest so that it refers to the container image that you'll be using. Using an editor of your choice, open `manifests/front-end-dep.yaml`, and update the `image` line.
 
 Change it from:
 
@@ -397,9 +398,11 @@ Now deploy the new image with:
 fluxctl release --service=sock-shop/front-end --update-all-images
 ```
 
-Once the release is deployed, reload the Socks Shop in your browser to see that the buttons in the catalogue and on the cart have all changed to red!
+Once the release is deployed, reload the Socks Shop in your browser and notice that the buttons in the catalogue and on the cart have all changed to red!
 
 So that's useful for manually gated changes, but it's even better to do continuous delivery.
+
+###Enabling Continuous Delivery
 
 Turn continuous delivery on by running:
 
@@ -434,7 +437,8 @@ TIME                 TYPE  MESSAGE
 16 Nov 16 16:33 UTC  v0    front-end: Starting regrade "Release latest images to sock-shop/front-end"
 16 Nov 16 05:50 UTC  v0    front-end: Automation enabled.
 ~~~
-###Viewing and Manging Releases in Weave Cloud
+
+###Viewing and Managing Releases in Weave Cloud
 
 Once you have everything all configured, you can also deploy new changes and view releases right from within Weave Cloud.
 
