@@ -13,7 +13,7 @@ In this guide, how to secure your app by defining Kubernetes Network Policy and 
 <img src="images/secure.png" style="width:100%; border:1em solid #32324b;" />
 
 <p></p>
-Securing segments of your app is simple with the application of Kubernetes-based policy that is enforced by Weave Net. Simply add namespaces to the policy yaml files to create software firewalls.
+Securing segments of your app is simple with the application of Kubernetes-based policy that is enforced by Weave Net. Add namespaces to the policy yaml files to create software firewalls and visualize the result in Weave Cloud.
 
 ## A Video Overview
 
@@ -25,9 +25,9 @@ Securing segments of your app is simple with the application of Kubernetes-based
 ### Sign up for a Weave Cloud account
 
 Go to [Weave Cloud](https://cloud.weave.works/) and register for an account.
-You'll use the Weave Cloud token later to send metrics to Cortex.
+You'll use the Weave Cloud token later to send metrics to Cortex and view Weave Net with it.
 
-<img src="images/weave-cloud-token.png" style="width:100%;" />
+<img src="images/weave-cloud-token-1.png" style="width:100%;" />
 
 
 ## Deploy a Kubernetes Cluster with Weave Net and the Sample App
@@ -48,7 +48,11 @@ In the above guide, you should have deployed the socks shop.  However, the diffe
 
 Let's start by testing that. Load up [Weave Cloud](https://cloud.weave.works/) and make sure you're in the containers view, then observe that the catalogue service can talk to the shipping service.
 
-Select "catalogue" and click the `>_` icon. This will load up a shell. Then type the following:
+Search for the "catalogue" container and then click the `>_` icon from the details panel. This opens up a convenient shell for that container.  
+
+<img src="images/catalogue-terminal.png" />
+
+Type the following:
 
 ~~~
 wget http://shipping
@@ -62,7 +66,7 @@ wget: server returned error: HTTP/1.1 404
 
 This is not good! The catalogue service can speak to the shipping service. For a hacker who managed to infiltrate the catalogue service, they could now get direct access to the shipping service and attack that too.
 
-So, let's apply some network policy. SSH into the master, or where ever you run run `kubectl`:
+So, let's apply some network policy. SSH into the master, or where ever you run `kubectl`:
 
 ~~~
 cd microservices-demo
@@ -70,13 +74,14 @@ kubectl apply -f deploy/kubernetes/manifests-policy/
 ~~~
 
 Now run the wget inside the terminal in Weave Cloud again:
+
 ~~~
 wget http://shipping
 ~~~
 
 And you'll see the connection just times out. Those packets are being dropped. The app is now more secure!
 
-You can [take a look at the network policy itself](https://github.com/microservices-demo/microservices-demo/tree/master/deploy/kubernetes/manifests-policy) and learn about [Kubernetes network policy](http://kubernetes.io/docs/user-guide/networkpolicies/) to learn how to write your own policy for your app.
+You can [take a look at the network policy itself](https://github.com/microservices-demo/microservices-demo/tree/master/deploy/kubernetes/manifests-policy) and learn about [Kubernetes network policy](http://kubernetes.io/docs/user-guide/networkpolicies/) to learn how to write your own policy.
 
 ## Tear Down
 
