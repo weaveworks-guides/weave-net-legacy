@@ -278,11 +278,11 @@ An example of `<address-of-registry>` is `https://index.docker.io/v1/`.  You can
 
 ## Configuring The SSH Deploy Keys on GitHub
 
-Configure the deploy keys for the `front-end` repository that you forked in Github. This allows Flux to read and write to the repo with the Kubernetes manifests in it. It is important to note that the SSH keys you created must be set on the repository that contains the Kubernetes manifests.  These manifests are used by the Flux service to manage changes between the cluster and the app.
+Configure the deploy keys for the `microservices-demo` repository that you forked in Github. This allows Flux to read and write to the repo with the Kubernetes manifests in it. It is important to note that the SSH keys you created must be set on the repository that contains the Kubernetes manifests.  These manifests are used by the Flux service to manage changes between the cluster and the app.
 
-To set your public key up for the `front-end` repo:
+To set your public key up for the `microservices-demo` repo:
 
-**1.** Go to the `<YOUR_GITHUB_USERNAME>/front-end` repo on github, and click **Settings** from the top of the repo.
+**1.** Go to the `<YOUR_GITHUB_USERNAME>/microservices-demo` repo on github, and click **Settings** from the top of the repo.
 
 **2.** Click on **Deploy Keys** from the left-hand menu.
 
