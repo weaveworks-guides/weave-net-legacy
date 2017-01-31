@@ -112,7 +112,7 @@ The key included here is secret, keep it safe &mdash; anyone with this key can a
 
 The key is used for mutual authentication between the master and the joining nodes.
 
-By default, the cluster does schedule pods on the master for security reasons. If you want to be able to schedule pods on the master, for example if you want a single-machine Kubernetes cluster for development, run:
+By default, the cluster does not schedule pods on the master for security reasons. If you want to be able to schedule pods on the master, for example if you want a single-machine Kubernetes cluster for development, run:
 
 ~~~
 kubectl taint nodes --all dedicated-
