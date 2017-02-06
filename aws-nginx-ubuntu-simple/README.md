@@ -10,7 +10,7 @@ sidebarweight: 50
 
 ---
 
-This example demonstrates how using `Weave Net` and `Weave Run` you can deploy Nginx as
+This example demonstrates how with `Weave Net` you can deploy Nginx as
 a load balancer for a simple php application running in containers on multiple nodes in [Amazon
 Web Services](http://aws.amazon.com), with no modifications to the application and minimal docker knowledge.
 
