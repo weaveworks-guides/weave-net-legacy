@@ -27,7 +27,7 @@ The example does not require any programming and it will take 15 minutes to comp
 
 ## What You Will Use
 
-* [Weave](http://weave.works)
+* [Weave](https://weave.works)
 * [Docker](http://docker.com)
 * [Seneca](http://senecajs.org)
 * [Node.js](http://nodejs.org)
@@ -145,7 +145,7 @@ vagrant@weave-gs-02:~$ weave status
 ~~~
 
 
-####About `weavedns`
+####About `weaveDNS`
 
 [WeaveDNS](/documentation/net-1.5-weavedns) answers name queries on a Weave network. It provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', WeaveDNS requires no code changes and it also works across hosts.
 
@@ -205,7 +205,7 @@ The following script is provided that automates the launching the Weave network 
 
 You have now used Weave to quickly deploy a simple Node.js microservices application using Docker containers.
 
-You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
+You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](https://weave.works/help/).
 
 
 ##Further Reading
