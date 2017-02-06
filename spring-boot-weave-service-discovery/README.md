@@ -9,7 +9,7 @@ sidebarpath: /start/micro/dockerspring
 sidebarweight: 20
 ---
 
-In this tutorial you will learn how to use [WeaveDNS](/documentation/net-1.5-weavedns) to automatically discover dockerized microservices using Weave Net.  You will deploy several Spring-based microservices to Docker containers and then discover those microservices using `weavedns` without requiring any modifications to the code.
+In this tutorial you will learn how to use [WeaveDNS](/docs/net/latest/weavedns/) to automatically discover dockerized microservices using Weave Net.  You will deploy several Spring-based microservices to Docker containers and then discover those microservices using `weavedns` without requiring any modifications to the code.
 
 You will: 
 
@@ -221,11 +221,11 @@ vagrant destroy
 
 You have used Weave and Docker to provide service discovery for a Spring based application.
 
-You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
+You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](https://weave.works/help/).
 
 
 ##For Further Reading
- * [How Weave Works](/documentation/net-1.5-router-topology)
- * [Weave Features](/documentation/net-1.5-features)
- * [Naming and Discovery](/documentation/net-1.5-features#naming-and-discovery)
- * [IP Address Management](/documentation/net-1.5-ipam)
+ * [How Weave Works](/docs/net/latest/how-it-works/)
+ * [Weave Features](/docs/net/latest/features)
+ * [Naming and Discovery](/docs/net/latest/features/#naming-and-discovery)
+ * [IP Address Management](/docs/net/latest/features/#addressing)

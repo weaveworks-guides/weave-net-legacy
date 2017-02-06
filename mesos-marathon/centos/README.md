@@ -2,7 +2,7 @@
 layout: guides
 title: Networking Containers with Weave Net and Apache Mesos & Marathon
 description:
-  How-to use Weave Net & Weave Run with Apache Mesos & Marathon for DNS service discovery
+  How-to use Weave Net with Apache Mesos & Marathon for DNS service discovery
   and load balancing.
 tags: mesos, marathon, load-balancing, dns, centos, weaveworks, weave network
 permalink: /guides/platform/mesos-marathon/os/centos/cloud/vagrant/index.html
@@ -192,7 +192,7 @@ vagrant up mesos-02 mesos-03
 
 In this guide, how to use Weave Net with Apache Mesos and its Marathon framework was explained. The infrastructure was configured and installed using Vagrant on CentOS.
 
-You can easily adapt this example and use it as a template for your own implementation. For more inforamtion you can contact us via [email](mailto:help@weave.works) or [Twitter](https://twitter.com/weaveworks).
+You can easily adapt this example and use it as a template for your own implementation. For more inforamtion you can contact us via or [Help & Support](https://weave.works/help/).
 
 ## Further Reading
 

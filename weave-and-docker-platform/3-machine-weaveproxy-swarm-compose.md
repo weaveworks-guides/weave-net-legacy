@@ -178,8 +178,8 @@ Please send us your thoughts or issues via [Help and Support](https://www.weave.
 
 ##Further Reading
 
-  *  [Introducting Weave Net](/docs/net/latest/introducing-weave/)
-  *  [Feature Overview](docs/net/latest/features/)
+  *  [Introducing Weave Net](/docs/net/latest/introducing-weave/)
+  *  [Weave Net Features](docs/net/latest/features/)
   *  [Allocating IP Addresses ](/docs/net/latest/ipam/)
 
 

@@ -19,7 +19,7 @@ This guide requires no programming skills and takes about 10 minutes to complete
 
 ## What You Will Use
 
-* [Weave](http://weave.works)
+* [Weave](https://weave.works)
 * [Docker](http://docker.com)
 * [Ubuntu](http://ubuntu.com)
 
@@ -109,5 +109,5 @@ You have now used Weave to quickly deploy an application across two hosts using 
 
 ## Further Reading
 
- * [How Weave Works](/documentation/net-1.5-router-topology)
- * [Weave Features](/documentation/net-1.5-features)
+ * [How Weave Works](/docs/net/latest/how-it-works/)
+ * [Weave Features](/docs/net/latest/features)

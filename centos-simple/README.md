@@ -221,7 +221,7 @@ Vagrant destroy
 
 In this example, we deployed a simple application, that returns a message from a running Apache webserver. With Weave, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using `Weave Net` and its `weavedns` service, so that applications within containers can communicate with one another. 
 
-You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
+You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](https://weave.works/help/).
 
 ##Further Reading
 

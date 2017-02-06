@@ -2,14 +2,14 @@
 layout: guides
 title: Monitoring Docker Containers with Weave Scope
 description: How to use Weave Scope to monitor and visualize docker container clusters and swarms.
-tags: weave scope, docker container visibillity, cluster, swarms
+tags: weave scope, docker container visibility, cluster, swarms
 permalink: /guides/weave-scope/weave-scope-alone-monitor-containers.html
 sidebarpath: /start/weave-scope-alone
 sidebarweight: 50
 ---
 
 
-Weave Scope automatically detects and monitors every host, Docker container and process in your infrastructure, builds a map showing their inter-communications and then presents an up-to-date view of your infrastructure in a web interface. You can visualize, monitor and control your distributed applications and troubleshoot bottlenecks, memory leaks or any other issues. It does this without requiring changes to your code or configuration, and without having to make declarations about your infrastructure that become out-of-date and stale. 
+Weave Scope automatically detects and monitors every host, Docker container and process in your infrastructure, builds a map showing their communication pathways and then presents an up-to-date view of your infrastructure in a web interface. You can visualize, monitor and control your distributed applications and troubleshoot bottlenecks, memory leaks or any other issues. It does this without requiring changes to your code or configuration, and without having to make declarations about your infrastructure that become out-of-date and stale. 
 
 Weave Scope can be deployed to any infrastructure, and works well in all cloud and bare-metal environments.
 
@@ -39,9 +39,9 @@ This tutorial takes about 15 minutes to complete and while some UNIX skills are 
 
 ##What You Will Use
 
-* [Weave](http://weave.works)
-* [Weave Scope](http://weave.works/scope/index.html)
-* [Docker](http://docker.com)
+* [Weave](https://weave.works)
+* [Weave Scope](https://weave.works/weave-scope/)
+* [Docker](https://docker.com)
 * [Docker Compose](https://www.docker.com/docker-compose)
 
 ##Before You Begin
@@ -187,5 +187,5 @@ sudo scope stop
 
 This guide demonstrated how to launch Weave Scope in standalone mode, so that you can visualize, monitor and control your container network to gain valuable insight into your application's infrastructure. 
 
-If you have any problems with this guide or would like to get in touch, contact us via [Help and Support](http://weave.works/help/index.html).
+If you have any problems with this guide or would like to get in touch, contact us via [Help and Support](https://weave.works/help/).
 
