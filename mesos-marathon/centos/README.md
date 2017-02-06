@@ -192,7 +192,7 @@ vagrant up mesos-02 mesos-03
 
 In this guide, how to use Weave Net with Apache Mesos and its Marathon framework was explained. The infrastructure was configured and installed using Vagrant on CentOS.
 
-You can easily adapt this example and use it as a template for your own implementation. For more inforamtion you can contact us via or [Help & Support](https://weave.works/help/).
+You can easily adapt this example and use it as a template for your own implementation. For more information you can contact us via [Help & Support](https://weave.works/help/).
 
 ## Further Reading
 
