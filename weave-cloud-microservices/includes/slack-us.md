@@ -1,1 +1,1 @@
-If you have any questions or comments you can reach out to us on our <a href="https://slack.weave.works/"> Slack channel </a> or through one of these other channels at <a href="https://www.weave.works/help/"> Help </a>.
+If you have any questions or comments you can reach out to us on our <a href="https://weave-community.slack.com"> Slack channel </a> or through one of these other channels at <a href="https://www.weave.works/help/"> Help </a>.
