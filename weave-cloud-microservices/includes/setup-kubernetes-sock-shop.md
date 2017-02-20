@@ -16,15 +16,15 @@ Sign up or log into [Weave Cloud](https://cloud.weave.works/).
 
 Before you start installing Kubernetes, you may wish to [create an additional instance in Weave Cloud](https://cloud.weave.works/instances/create). This extra instance provides a separate "workspace" for this cluster, and in it you will be able to see the Sock Shop as it spins up on Kubernetes.
 
-To create an additional instance, select the 'Create New Instance' command located in the menu bar.
+Create an additional instance by selecting the 'Create New Instance' command located in the menu bar.
 
 ## Set up a Kubernetes Cluster with kubeadm
 
-This is by far the simplest way in which to install Kubernetes.  With only a few commands, you will have deployed a complete Kubernetes cluster with a resilient and secure container network onto the Cloud Provider of your choice.
+Kubeadm is the simplest way to install Kubernetes.  With only a few commands, you can deploy a complete Kubernetes cluster with a resilient and secure container network onto the Cloud Provider of your choice.
 
-The installation uses a tool called `kubeadm` which is part of Kubernetes 1.4.
+`kubeadm` is a command line tool that are a part of [Kubernetes](https://kubernetes.io/docs/getting-started-guides/kubeadm/).
 
-`kubeadm` works with local VMs, physical servers and/or cloud servers. It is simple enough that you can easily integrate it with your own automation (Terraform, Chef, Puppet, etc).
+`kubeadm` works with local VMs, physical servers and/or cloud servers. It is simple enough that you can easily integrate it with your own automation (Terraform, Chef, Puppet, etc) tools.
 
 See the full [`kubeadm` reference](http://kubernetes.io/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
 
@@ -63,7 +63,7 @@ apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
 ### Initializing the Master
 
-**Note:** Before making one of your machines a master, `kubelet` and `kubeadm` must be installed onto each of the machines beforehand.
+**Note:** Before making one of your machines a master, `kubelet` and `kubeadm` must already be installed onto each of the nodes.
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 
@@ -77,7 +77,7 @@ To initialize the master, pick one of the machines you previously installed `kub
 kubeadm init
 ~~~
 
-Initialization of the master may take a few minutes, so be patient.
+Initialization of the master may take a few minutes.
 
 **Note:** This will autodetect the network interface to advertise the master on as the interface with the default gateway.
 
@@ -162,19 +162,37 @@ kubeadm join --token <token> <master-ip>
 The output should look like:
 
 ~~~
-<util/tokens> validating provided token
-<node/discovery> created cluster info discovery client, requesting info from "http://X.X.X.X:9898/cluster-info/v1/?token-id=0f8588"
-<node/discovery> cluster info object received, verifying signature using given token
-<node/discovery> cluster info signature and contents are valid, will use API endpoints [https://X.X.X.X:443]
-<node/csr> created API client to obtain unique certificate for this node, generating keys and certificate signing request
-<node/csr> received signed certificate from the API server, generating kubelet configuration
-<util/kubeconfig> created "/etc/kubernetes/kubelet.conf"
-Node join complete:
-* Certificate signing request sent to master and response
-  received.
-* Kubelet informed of new secure connection details.
+[kubeadm] WARNING: kubeadm is in alpha, please do not use it for production clusters.
+[preflight] Running pre-flight checks
+[init] Using Kubernetes version: v1.5.3
+[tokens] Generated token: "ad23e7.17c4c857d6a2eef9"
+[certificates] Generated Certificate Authority key and certificate.
+[certificates] Generated API Server key and certificate
+[certificates] Generated Service Account signing keys
+[certificates] Created keys and certificates in "/etc/kubernetes/pki"
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/admin.conf"
+[apiclient] Created API client, waiting for the control plane to become ready
+[apiclient] All control plane components are healthy after 38.977112 seconds
+[apiclient] Waiting for at least one node to register and become ready
+[apiclient] First node is ready after 2.505625 seconds
+[apiclient] Creating a test deployment
+[apiclient] Test deployment succeeded
+[token-discovery] Created the kube-discovery deployment, waiting for it to become ready
+[token-discovery] kube-discovery is ready after 12.504988 seconds
+[addons] Created essential addon: kube-proxy
+[addons] Created essential addon: kube-dns
 
-Run `kubectl get nodes` on the master to see this machine join.
+Your Kubernetes master has initialized successfully!
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+    http://kubernetes.io/docs/admin/addons/
+
+You can now join any number of machines by running the following on each node:
+
+kubeadm join --token=ad23e7.17c4c857d6a2eef9 138.197.150.135
+
 ~~~
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
@@ -188,29 +206,31 @@ scp root@<master ip>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ~~~
 
-### Install and Launch Weave Scope
+### Install and Launch the Weave Cloud Probes
 
-Install and launch the Weave Scope probes onto your Kubernetes cluster. From the master:
+Install and launch the Weave Cloud probes onto your Kubernetes cluster. This command installs all of the Cloud tokens onto your cluster: Flux for Continuous Delivery, Scope for Troubleshooting and Cortex for Prometheus Monitoring.
+
+From the master:
 
 ~~~
-curl -sSL 'https://cloud.weave.works/launch/k8s/weavescope.yaml?service-token=<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>'|kubectl apply -f -
+kubectl apply -f \
+  https://cloud.weave.works/k8s.yaml?t=<cloud-token>
 ~~~
 
-The `<YOUR_WEAVE_CLOUD_SERVICE_TOKEN>` is found in the settings dialog on [Weave Cloud](https://cloud.weave.works/).
+The `<cloud-tome>` is found in the settings dialog on [Weave Cloud](https://cloud.weave.works/).
 
-Return to the Weave Cloud interface, select View Instance and click on the `Hosts`.
+Return to Weave Cloud click Explore from the header and then Pods to display the Kubernetes cluster. Ensure that `All Namespaces` is enabled from the left-hand corner.
 
-As you follow the next steps you can then watch the socks shop come up in [Weave Cloud](https://cloud.weave.works/).
+In these next steps, you can watch as the Sock Shop containers start appearing in Scope in [Weave Cloud](https://cloud.weave.works/).
 
-Ensure that 'System Containers' are selected from the filters in the left hand corner to see all of the Kubernetes processes.
 
 <img src="images/kubernetes-weave-cloud-3-1.png" style="width:100%;" />
 
 ### Installing the Sock Shop onto Kubernetes
 
-To put your cluster through its paces, install the sample microservices application, Socks Shop. To learn more about the sample microservices app, refer to the [microservices-demo README](https://github.com/microservices-demo/microservices-demo).
+To put your cluster through its paces, install the sample microservices application, Socks Shop. You can learn more about the sample microservices app by referring to the [microservices-demo README](https://github.com/microservices-demo/microservices-demo).
 
-On the master, run:
+To install the sockshop, run the following:
 
 ~~~
 kubectl create namespace sock-shop
@@ -219,7 +239,11 @@ cd microservices-demo
 kubectl apply -n sock-shop -f deploy/kubernetes/manifests
 ~~~
 
-Switch to the `sock-shop` namespace at the bottom left of your browser window in Weave Cloud when in any of the Kubernetes-specific views (pods, replica sets, deployments & services).
+Click on the Pod view and then enable the `sock-shop` namespace filter from the bottom left-hand corner of your browser window in Weave Cloud.
+
+It takes several minutes to download and start all of the containers, watch the output of `kubectl get pods -n sock-shop` to see when they're all up and running.
+
+Or view the containers appearing on the screen as they get created in [Weave Cloud](https://cloud.weave.works/).
 
 <img src="images/sock-shop-kubernetes-1-1.png" style="width:100%;" />
 
@@ -247,10 +271,6 @@ Endpoints:              <none>
 Session Affinity:       None
 ~~~
 
-It takes several minutes to download and start all of the containers, watch the output of `kubectl get pods -n sock-shop` to see when they're all up and running.
-
-Or view the containers appearing on the screen as they get created in [Weave Cloud](https://cloud.weave.works/).
-
 Launch the Sock Shop in your browser by going to the IP address of any of your node machines in your browser, and by specifying the NodePort. So for example, `http://<master_ip>:<pNodePort>`. You can find the IP address of the machines in the DigitalOcean dashboard.
 
 In the example above, the NodePort was `31869`.
@@ -264,10 +284,12 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 
 After the Sock Shop has completely deployed onto the cluster, run a load test and view the results in Weave Cloud. You should see the architecture of the application emerge as different microservices begin communicating with one another.
 
+Click on Pods then user-db and open the terminal to see users logging in and added the database. 
+
 ~~~
 docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -r 10000 -c 20 -h <host-ip:[port number]>
 ~~~
 
 Where,
 
-* `<host-ip:[port number]>` is the IP of the master and the port number you see when you run `kubectl describe svc front-end -n sock-shop`
+* `<host-ip:[port number]>` is the IP of the master and the port number you see when you run `kubectl describe svc front-end -n sock-shop`.
