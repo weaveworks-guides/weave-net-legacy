@@ -108,7 +108,7 @@ Cortex by default displays a number of metrics at the top that have already been
 
 Select `CPU usage in % by pod` from the Kubernetes section in the Detected Metrics section of Prometheus System Queries, where something similar to the screen capture shown below will be shown (note this is a stacked view of the chart):
 
-<img src="images/prometheus-kubernetes-monitor-1.png"/>
+<img src="images/prometheus-kubernetes-monitor-2.png"/>
 
 
 ##Run the Load Test
