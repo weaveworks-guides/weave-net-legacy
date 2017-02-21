@@ -222,6 +222,12 @@ kubectl apply -f \
 
 The `<cloud-token>` is found in the settings dialog on [Weave Cloud](https://cloud.weave.works/).
 
+If you mistyped or copied and pasted the command incorrectly, you can remove the DaemonSet with:
+
+~~~
+kubectl delete -f https://cloud.weave.works/k8s.yaml?t=anything
+~~~
+
 Return to Weave Cloud, and click **Explore** to display Scope and then **Pods** to show the Kubernetes cluster. Ensure that the **All Namespaces** filter is enabled from the left-hand corner.
 
 In these next steps, you can watch as the Sock Shop containers start appearing in Scope in [Weave Cloud](https://cloud.weave.works/).
