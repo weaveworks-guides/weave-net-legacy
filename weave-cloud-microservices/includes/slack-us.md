@@ -1,1 +1,3 @@
-If you have any questions or comments you can reach out to us on our <a href="https://weave-community.slack.com"> Slack channel </a>. To invite yourself to the Community Slack channel, visit https://weaveworks.github.io/community-slack/ </a> or contact us through one of these other channels at <a href="https://www.weave.works/help/"> Help and Support Services </a>.
+##Join the Weave Community
+
+If you have any questions or comments you can reach out to us on our <a href="https://weave-community.slack.com"> Slack channel </a>. To invite yourself to the Community Slack channel, visit <a href="https://weaveworks.github.io/community-slack/"> Weave Community Slack invite </a> or contact us through one of these other channels at <a href="https://www.weave.works/help/"> Help and Support Services</a>.

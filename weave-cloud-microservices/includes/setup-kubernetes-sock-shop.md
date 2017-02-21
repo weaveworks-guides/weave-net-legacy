@@ -1,47 +1,39 @@
-**Note:** This example uses Digital Ocean, but you can just as easily create these three instances in AWS or whatever your favorite cloud provider is.
+This example uses Digital Ocean, but you can just as easily create three instances in [AWS](https://aws.amazon.com/), [Google Cloud Platform](https://cloud.google.com/) or [Microsoft Azure](https://azure.microsoft.com/en-us/services/cloud-services/)or any other cloud provider.
 
-## Set Up Droplets in Digital Ocean
+## Create Three Droplets in Digital Ocean
 
-Sign up or log into [Digital Ocean](https://digitalocean.com) and create three Ubuntu 16.04 instances, where you'll deploy a Kubernetes cluster, add a container network using Weave Net and finally install the Sock Shop onto the cluster.
+Sign up or log into [Digital Ocean](https://digitalocean.com) and create three Ubuntu instances with the following specifications:
 
-**Note:** It is recommended that each host have at least 4 gigabytes of memory in order to run this demo smoothly.
+* Ubunutu 16.04
+* 4GB or more of RAM per instance
 
-### Create three Ubuntu Instances
 
-Next, move over to Digital Ocean and create three Ubuntu 16.04 droplets. All of the machines should run Ubuntu 16.04 with 4GB or more of RAM per machine.
-
-### Adding an Additional Instance to Weave Cloud
+### Edit a Weave Cloud Instance Name
 
 Sign up or log into [Weave Cloud](https://cloud.weave.works/).
 
-Before you start installing Kubernetes, you may wish to [create an additional instance in Weave Cloud](https://cloud.weave.works/instances/create). This extra instance provides a separate "workspace" for this cluster, and in it you will be able to see the Sock Shop as it spins up on Kubernetes.
+Before you start installing Kubernetes, you may wish to [rename the default instance in Weave Cloud](https://cloud.weave.works).
 
-Create an additional instance by selecting the 'Create New Instance' command located in the menu bar.
+A Weave Cloud instance provides a separate "workspace" where you  you will be able to see the Sock Shop as it spins up on Kubernetes.
 
 ## Set up a Kubernetes Cluster with kubeadm
 
-Kubeadm is the simplest way to install Kubernetes.  With only a few commands, you can deploy a complete Kubernetes cluster with a resilient and secure container network onto the Cloud Provider of your choice.
+Kubeadm is the simplest way to install Kubernetes.  With only a few commands, you can deploy a complete Kubernetes cluster with a resilient and secure container network onto the Cloud Provider of your choice in a few minutes.
 
 `kubeadm` is a command line tool that are a part of [Kubernetes](https://kubernetes.io/docs/getting-started-guides/kubeadm/).
-
-`kubeadm` works with local VMs, physical servers and/or cloud servers. It is simple enough that you can easily integrate it with your own automation (Terraform, Chef, Puppet, etc) tools.
 
 See the full [`kubeadm` reference](http://kubernetes.io/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
 
 ### Objectives
 
-* Install a secure Kubernetes cluster on your machines
-* Install Weave Net as a pod network on the cluster so that application components (pods) can talk to each other
-* Install a demo microservices application (a Socks Shop) onto the cluster
-* View the result in Weave Cloud as you build the cluster
+* Install a secure Kubernetes cluster
+* Install Weave Net as a pod network so that application components (pods) can communicate with one another
+* Install the Sock Shop, a demo microservices application
+* View the result in Weave Cloud
 
 ###  Installing kubelet and kubeadm on Your Hosts
 
-Install the required packages on all the machines.
-
-For each machine:
-
-* SSH into the machine and become `root` if you are not already (for example, run `sudo su -`):
+To begin SSH into the machine and become `root` if you are not already (for example, run `sudo su -`) and then install the required binaries onto all three instances:
 
 ~~~
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -56,22 +48,23 @@ Install Docker if you don't have it already. You can also use the [official Dock
 apt-get install -y docker.io
 ~~~
 
-Install the Kubernetes packages:
+Finally, install the Kubernetes packages:
+
 ~~~
 apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 ~~~
 
 ### Initializing the Master
 
-**Note:** Before making one of your machines a master, `kubelet` and `kubeadm` must already be installed onto each of the nodes.
+**Note:** Before making one of your machines a master, `kubelet` and `kubeadm` must have been installed onto each of the nodes.
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 
 All of these components run in pods started by `kubelet`.
 
-Right now you can't run `kubeadm init` twice without turning down the cluster in between, see [Tear Down](#tear-down) for more information.
+Keep in mind that you can't run `kubeadm init` twice without tearing down the cluster, see [Tear Down](#tear-down) for more information.
 
-To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
+To initialize the master, pick one of the machines on which you previously installed `kubelet` and `kubeadm` and run:
 
 ~~~
 kubeadm init
@@ -79,90 +72,15 @@ kubeadm init
 
 Initialization of the master may take a few minutes.
 
-**Note:** This will autodetect the network interface to advertise the master on as the interface with the default gateway.
+This autodetects the network interface and then advertises the master on it with the default gateway.
 
-If you want to use a different interface, specify `--api-advertise-addresses=<ip-address>` argument to `kubeadm init`.
+If you want to use a different network interface, you can specify one using `--api-advertise-addresses=<ip-address>` flag when you run `kubeadm init`.
 
-Please refer to the [kubeadm reference doc](http://kubernetes.io/docs/admin/kubeadm/) if you want to read more about the flags `kubeadm init` provides.
+Refer to the [kubeadm reference doc](http://kubernetes.io/docs/admin/kubeadm/) if you want to read more about the flags `kubeadm init` provides.
 
-The output should look like:
-
-~~~
-<master/tokens> generated token: "f0c861.753c505740ecde4c"
-<master/pki> created keys and certificates in "/etc/kubernetes/pki"
-<util/kubeconfig> created "/etc/kubernetes/kubelet.conf"
-<util/kubeconfig> created "/etc/kubernetes/admin.conf"
-<master/apiclient> created API client configuration
-<master/apiclient> created API client, waiting for the control plane to become ready
-<master/apiclient> all control plane components are healthy after 61.346626 seconds
-<master/apiclient> waiting for at least one node to register and become ready
-<master/apiclient> first node is ready after 4.506807 seconds
-<master/discovery> created essential addon: kube-discovery
-<master/addons> created essential addon: kube-proxy
-<master/addons> created essential addon: kube-dns
-
-Kubernetes master initialised successfully!
-You can connect any number of nodes by running:
-    kubeadm join --token <token> <master-ip>
-~~~
-
-Make a record of the `kubeadm join` command that `kubeadm init` outputs. You will need this in a moment.
-
-The key included here is secret, keep it safe &mdash; anyone with this key can add authenticated nodes to your cluster.
-
-The key is used for mutual authentication between the master and the joining nodes.
-
-By default, the cluster does not schedule pods on the master for security reasons. If you want to be able to schedule pods on the master, for example if you want a single-machine Kubernetes cluster for development, run:
+If the initialization is successful, the output should look as follows:
 
 ~~~
-kubectl taint nodes --all dedicated-
-~~~
-
-The output will be:
-~~~
-node "test-01" tainted
-taint key="dedicated" and effect="" not found.
-taint key="dedicated" and effect="" not found.
-~~~
-
-This removes the "dedicated" taint from any nodes that have it, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
-
-### Installing Weave Net
-
-In this section, you will install a Weave Net pod network so that your pods can communicate with each other.
-
-**You must add Weave Net before deploying any applications to your cluster and before `kube-dns` starts up.**
-
-Install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to the master and running:
-
-~~~
-kubectl apply -f https://git.io/weave-kube
-~~~
-The output will be:
-~~~
-daemonset "weave-net" created
-~~~
-
-**Note:** Install **only one** pod network per cluster.
-
-Once a pod network is installed, confirm that it is working by checking that the `kube-dns` pod is `Running` in the output of `kubectl get pods --all-namespaces`.
-
-And once the `kube-dns` pod is up and running, you can continue on to joining your nodes.
-
-### Joining Your Nodes
-
-The nodes are where your workloads (containers and pods, etc) run. If you want to add additional machines as nodes to your cluster, then SSH onto each new machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
-
-For example:
-
-~~~
-kubeadm join --token <token> <master-ip>
-~~~
-
-The output should look like:
-
-~~~
-[kubeadm] WARNING: kubeadm is in alpha, please do not use it for production clusters.
 [preflight] Running pre-flight checks
 [init] Using Kubernetes version: v1.5.3
 [tokens] Generated token: "ad23e7.17c4c857d6a2eef9"
@@ -191,11 +109,98 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 
 You can now join any number of machines by running the following on each node:
 
-kubeadm join --token=ad23e7.17c4c857d6a2eef9 138.197.150.135
+kubeadm join --token=<token> <master-ip>
+~~~
+
+Make a record of the `kubeadm join` command that `kubeadm init` outputs. You will need this once it's time to join the nodes. This token is used for mutual authentication between the master and any joining nodes.
+
+This token is a secret, and so it's important to keep it safe &mdash; anyone with this key can add authenticated nodes to your cluster.
+
+###(Optional) Scheduling Pods on the Master
+
+By default, the cluster does not schedule pods on the master for security reasons. If you want to be able to schedule pods on the master, for example if you want a single-machine Kubernetes cluster for development, then run:
+
+~~~
+kubectl taint nodes --all dedicated-
+~~~
+
+The output will be:
+~~~
+node "test-01" tainted
+taint key="dedicated" and effect="" not found.
+taint key="dedicated" and effect="" not found.
+~~~
+
+This removes the "dedicated" taint from any nodes that have it, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
+
+### Installing Weave Net
+
+In this section, you will install a Weave Net pod network so that your pods can communicate with each other.
+
+You must add Weave Net before deploying any applications to your cluster and before `kube-dns` starts up.
+
+**Note:** Install **only one** pod network per cluster.
+
+Install [Weave Net](https://github.com/weaveworks/weave-kube) by logging onto the master and running:
+
+~~~
+kubectl apply -f https://git.io/weave-kube
+~~~
+
+The output will be:
+
+~~~
+daemonset "weave-net" created
+~~~
+
+Once a pod network is installed, confirm that it is working by checking that the `kube-dns` pod is `running`:  
+
+~~~
+kubectl get pods --all-namespaces
+~~~
+
+Once the `kube-dns` pod is up and running, you can join all of the nodes to form the cluster.
+
+### Joining Your Nodes
+
+The nodes are where the workloads (containers and pods, etc) run.
+
+Add each of the nodes to your cluster by running the following:
+
+~~~
+kubeadm join --token <token> <master-ip>
+~~~
+
+The above command including the token and the master-ip is output by `kubeadm init` that you ran earlier.
+
+The output should look like:
+
+~~~
+preflight] Running pre-flight checks
+[tokens] Validating provided token
+[discovery] Created cluster info discovery client, requesting info from "http://138.197.150.135:9898/cluster-info/v1/?token-id=ad23e7"
+[discovery] Cluster info object received, verifying signature using given token
+[discovery] Cluster info signature and contents are valid, will use API endpoints [https://138.197.150.135:6443]
+[bootstrap] Trying to connect to endpoint https://138.197.150.135:6443
+[bootstrap] Detected server version: v1.5.3
+[bootstrap] Successfully established connection with endpoint "https://138.197.150.135:6443"
+[csr] Created API client to obtain unique certificate for this node, generating keys and certificate signing request
+[csr] Received signed certificate from the API server:
+Issuer: CN=kubernetes | Subject: CN=system:node:node-02 | CA: false
+Not before: 2017-02-20 20:33:00 +0000 UTC Not After: 2018-02-20 20:33:00 +0000 UTC
+[csr] Generating kubelet configuration
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
+
+Node join complete:
+* Certificate signing request sent to master and response
+  received.
+* Kubelet informed of new secure connection details.
+
+Run 'kubectl get nodes' on the master to see this machine join.
 
 ~~~
 
-A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
+Run `kubectl get nodes` on the master to display a cluster with the number of machines as you created.
 
 ### (Optional) Control Your Cluster From Machines Other Than The Master
 
@@ -217,9 +222,9 @@ kubectl apply -f \
   https://cloud.weave.works/k8s.yaml?t=<cloud-token>
 ~~~
 
-The `<cloud-tome>` is found in the settings dialog on [Weave Cloud](https://cloud.weave.works/).
+The `<cloud-token>` is found in the settings dialog on [Weave Cloud](https://cloud.weave.works/).
 
-Return to Weave Cloud click Explore from the header and then Pods to display the Kubernetes cluster. Ensure that `All Namespaces` is enabled from the left-hand corner.
+Return to Weave Cloud, and click **Explore** to display Scope and then **Pods** to show the Kubernetes cluster. Ensure that the **All Namespaces** filter is enabled from the left-hand corner.
 
 In these next steps, you can watch as the Sock Shop containers start appearing in Scope in [Weave Cloud](https://cloud.weave.works/).
 
@@ -239,9 +244,9 @@ cd microservices-demo
 kubectl apply -n sock-shop -f deploy/kubernetes/manifests
 ~~~
 
-Click on the Pod view and then enable the `sock-shop` namespace filter from the bottom left-hand corner of your browser window in Weave Cloud.
+Click on the **Pod** view and then enable the **sock-shop** namespace filter from the bottom left-hand corner in the Weave Cloud user interface.
 
-It takes several minutes to download and start all of the containers, watch the output of `kubectl get pods -n sock-shop` to see when they're all up and running.
+It takes several minutes to download and start all of the containers, watch the output of `kubectl get pods -n sock-shop` to see that all of the containers are running.
 
 Or view the containers appearing on the screen as they get created in [Weave Cloud](https://cloud.weave.works/).
 
@@ -250,7 +255,7 @@ Or view the containers appearing on the screen as they get created in [Weave Clo
 
 ### Viewing the Sock Shop in Your Browser
 
-To find the port that the cluster allocated for the front-end service run:
+Find the port that the cluster allocated for the front-end service by running:
 
 ~~~
 kubectl describe svc front-end -n sock-shop
@@ -282,9 +287,7 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 
 ### Run the Load Test on the Cluster
 
-After the Sock Shop has completely deployed onto the cluster, run a load test and view the results in Weave Cloud. You should see the architecture of the application emerge as different microservices begin communicating with one another.
-
-Click on Pods then user-db and open the terminal to see users logging in and added the database. 
+After the Sock Shop has completely deployed, run a load test and then view the results in Weave Cloud.
 
 ~~~
 docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -r 10000 -c 20 -h <host-ip:[port number]>
@@ -293,3 +296,5 @@ docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -r 10000 -c 20 -
 Where,
 
 * `<host-ip:[port number]>` is the IP of the master and the port number you see when you run `kubectl describe svc front-end -n sock-shop`.
+
+Click on **Pods** and then search for and click on **user-db** to reveal its details panel. From here, click the terminal icon to see users logging in and added the database.
