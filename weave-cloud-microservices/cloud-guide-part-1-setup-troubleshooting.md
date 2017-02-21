@@ -2,7 +2,7 @@
 
 In Part 1 of this series, you'll use Weave Cloud to validate and troubleshoot your app on a development laptop and then compare it with a production environment.
 
-In parts 2, you'll learn how to set up Flux to achieve <a href="https://www.weave.works/guides/cloud-guide-part-2-deploy-continuous-delivery/"> continuous delivery </a> and in part 3 <a href="https://www.weave.works/guides/cloud-guide-part-3-monitor-prometheus-monitoring/"> how to monitor applications with Prometheus and Weave Cortex is discussed.</a>
+In parts 2, you'll learn how to set up Flux to achieve <a href="https://www.weave.works/guides/cloud-guide-part-2-deploy-continuous-delivery/"> continuous delivery </a> and in part 3 <a href="https://www.weave.works/guides/cloud-guide-part-3-monitor-prometheus-monitoring/"> how to monitor applications with Prometheus and Weave Cortex </a>is discussed.
 
 In Part 4 you will <a href="https://www.weave.works/guides/cloud-guide-part-4-secure-container-firewalls/"> secure your app using Kubernetes Network Policy and then enforce it with Weave Net.</a>
 
