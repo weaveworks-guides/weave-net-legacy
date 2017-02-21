@@ -1,4 +1,4 @@
-This example uses Digital Ocean, but you can just as easily create three instances in [AWS](https://aws.amazon.com/), [Google Cloud Platform](https://cloud.google.com/) or [Microsoft Azure](https://azure.microsoft.com/en-us/services/cloud-services/)or any other cloud provider.
+This example uses Digital Ocean, but you can just as easily create three instances in [AWS](https://aws.amazon.com/), [Google Cloud Platform](https://cloud.google.com/) or [Microsoft Azure](https://azure.microsoft.com/en-us/services/cloud-services/) or any other cloud provider.
 
 ## Create Three Droplets in Digital Ocean
 
@@ -12,17 +12,15 @@ Sign up or log into [Digital Ocean](https://digitalocean.com) and create three U
 
 Sign up or log into [Weave Cloud](https://cloud.weave.works/).
 
-Before you start installing Kubernetes, you may wish to [rename the default instance in Weave Cloud](https://cloud.weave.works).
-
-A Weave Cloud instance provides a separate "workspace" where you  you will be able to see the Sock Shop as it spins up on Kubernetes.
+Before you start installing Kubernetes, you may want to [rename the default instance in Weave Cloud](https://cloud.weave.works) with a more meaningful name.  Weave Cloud instances are the primary workspaces from which you can Deploy, Explore and Monitor your app.  In this tutorial you will use Scope in Weave Cloud to Explore the Sock Shop as it spins up on Kubernetes.
 
 ## Set up a Kubernetes Cluster with kubeadm
 
-Kubeadm is the simplest way to install Kubernetes.  With only a few commands, you can deploy a complete Kubernetes cluster with a resilient and secure container network onto the Cloud Provider of your choice in a few minutes.
+Kubeadm is by far the simplest way to set up a Kubernetes cluster.  With only a few commands, you can deploy a complete Kubernetes cluster with a resilient and secure container network onto the Cloud Provider of your choice in only a few minutes.
 
-`kubeadm` is a command line tool that are a part of [Kubernetes](https://kubernetes.io/docs/getting-started-guides/kubeadm/).
+`kubeadm` is a command line tool that and is a part of [Kubernetes 1.4 and greater](https://kubernetes.io/docs/getting-started-guides/kubeadm/).
 
-See the full [`kubeadm` reference](http://kubernetes.io/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
+See the [`kubeadm` reference](http://kubernetes.io/docs/admin/kubeadm) for information on all `kubeadm` command-line options and for advice on automating `kubeadm`.
 
 ### Objectives
 
@@ -33,7 +31,7 @@ See the full [`kubeadm` reference](http://kubernetes.io/docs/admin/kubeadm) for 
 
 ###  Installing kubelet and kubeadm on Your Hosts
 
-To begin SSH into the machine and become `root` if you are not already (for example, run `sudo su -`) and then install the required binaries onto all three instances:
+To begin SSH into the machine and become `root` (for example, run `sudo su -`). Then install the required binaries onto all three instances:
 
 ~~~
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -43,12 +41,12 @@ EOF
 apt-get update
 ~~~
 
-Install Docker if you don't have it already. You can also use the [official Docker packages](https://docs.docker.com/engine/installation/) instead of `docker.io` here.
+Next, install Docker. You can also use the [official Docker packages](https://docs.docker.com/engine/installation/) instead of `docker.io` that is referenced here.
 ~~~
 apt-get install -y docker.io
 ~~~
 
-Finally, install the Kubernetes packages:
+And finally, install the Kubernetes packages:
 
 ~~~
 apt-get install -y kubelet kubeadm kubectl kubernetes-cni
@@ -165,15 +163,15 @@ Once the `kube-dns` pod is up and running, you can join all of the nodes to form
 
 The nodes are where the workloads (containers and pods, etc) run.
 
-Add each of the nodes to your cluster by running the following:
+Join the nodes to your cluster by running:
 
 ~~~
 kubeadm join --token <token> <master-ip>
 ~~~
 
-The above command including the token and the master-ip is output by `kubeadm init` that you ran earlier.
+The above command, including the token and the master-ip, is output by `kubeadm init` that you ran earlier.
 
-The output should look like:
+When the node has successfully joined, the output should look as follows:
 
 ~~~
 preflight] Running pre-flight checks
@@ -204,7 +202,7 @@ Run `kubectl get nodes` on the master to display a cluster with the number of ma
 
 ### (Optional) Control Your Cluster From Machines Other Than The Master
 
-In order to get kubectl on (for example) your laptop to talk to your cluster, copy the `kubeconfig` file from your master to your laptop:
+In order to get `kubectl` on your laptop to talk to your cluster (as an example), copy the `kubeconfig` file from your master to your laptop:
 
 ~~~
 scp root@<master ip>:/etc/kubernetes/admin.conf .
@@ -213,7 +211,7 @@ kubectl --kubeconfig ./admin.conf get nodes
 
 ### Install and Launch the Weave Cloud Probes
 
-Install and launch the Weave Cloud probes onto your Kubernetes cluster. This command installs all of the Cloud tokens onto your cluster: Flux for Continuous Delivery, Scope for Troubleshooting and Cortex for Prometheus Monitoring.
+ This `yaml` file below installs all of the Cloud probes in a DaemonSet and launches them to your cluster. This allows you to use: Flux for Continuous Delivery, Scope for Troubleshooting and Cortex for Prometheus Monitoring.
 
 From the master:
 
@@ -233,9 +231,9 @@ In these next steps, you can watch as the Sock Shop containers start appearing i
 
 ### Installing the Sock Shop onto Kubernetes
 
-To put your cluster through its paces, install the sample microservices application, Socks Shop. You can learn more about the sample microservices app by referring to the [microservices-demo README](https://github.com/microservices-demo/microservices-demo).
+To put your cluster through its paces, install the sample microservices application, Socks Shop. Learn more about the sample microservices app by referring to the [microservices-demo README](https://github.com/microservices-demo/microservices-demo).
 
-To install the sockshop, run the following:
+To install the Sock Shop, run the following:
 
 ~~~
 kubectl create namespace sock-shop
@@ -246,9 +244,9 @@ kubectl apply -n sock-shop -f deploy/kubernetes/manifests
 
 Click on the **Pod** view and then enable the **sock-shop** namespace filter from the bottom left-hand corner in the Weave Cloud user interface.
 
-It takes several minutes to download and start all of the containers, watch the output of `kubectl get pods -n sock-shop` to see that all of the containers are running.
+It takes several minutes to download and start all of the containers.  Watch the output of `kubectl get pods -n sock-shop` to see that all of the containers are successfully running.
 
-Or view the containers appearing on the screen as they get created in [Weave Cloud](https://cloud.weave.works/).
+Or view the containers as they get created in [Weave Cloud](https://cloud.weave.works/).
 
 <img src="images/sock-shop-kubernetes-1-1.png" style="width:100%;" />
 
@@ -297,4 +295,4 @@ Where,
 
 * `<host-ip:[port number]>` is the IP of the master and the port number you see when you run `kubectl describe svc front-end -n sock-shop`.
 
-Click on **Pods** and then search for and click on **user-db** to reveal its details panel. From here, click the terminal icon to see users logging in and added the database.
+Click on **Pods** and then search for and click on **user-db** to reveal its details panel. From here, select the terminal icon to see users logging in and added to the database.
