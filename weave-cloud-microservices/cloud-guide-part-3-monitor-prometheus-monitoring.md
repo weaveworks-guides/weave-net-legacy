@@ -51,7 +51,7 @@ Before you can use Cortex to monitor apps, sign up for a Weave Cloud account.
 
 <img src="images/weave-cloud-token-1.png" style="width:100%;" />
 
-**Note:** If you are continuing from one of the other guides in this series, use your Cloud token to set up Prometheus Monitoring below.
+**Note:** If you are continuing from one of the other guides in this series, then the Cortex probes should be already running on your hosts. If not, use your Cloud token to set up Weave Cloud including Prometheus monitoring with Cortex.
 
 
 ##Deploy a Kubernetes Cluster with Weave Net and the Sample App
@@ -70,16 +70,22 @@ XXX-END-DETAILS-BLOCK
 
 Next, enable Cortex to start pushing metrics to Weave Cloud.
 
-**1.** Log onto the master Kubernetes node and run the following to launch the Cortex daemon onto your hosts. Keep your Cloud service token handy and paste it into the command:
+**1.** Log onto the master Kubernetes node and run the following to launch the all of the Weave Cloud probes onto your hosts. Keep your Cloud service token handy and paste it into the command:
 
 ~~~
-kubectl -n kube-system apply -f 'https://cloud.weave.works/k8s/cortex.yaml?t=<your-weave-cloud-token>'
+kubectl apply -f \
+  https://cloud.weave.works/k8s.yaml?t=<cloud-token>
 ~~~
 
 **Where**,
 
-* [`your-weave-cloud-token`] is the token you obtained when you signed up for Weave Cloud above.
+* [`cloud-token`] is the token you obtained when you signed up for Weave Cloud.
 
+If you mistyped or copied and pasted the command incorrectly, you can remove the DaemonSet with: 
+
+~~~
+kubectl delete -f https://cloud.weave.works/k8s.yaml?t=anything
+~~~
 
 Cortex runs in its own Docker container and it may take a few minutes for it to download and appear on the server. You can watch for it to appear in [Weave Cloud](https://cloud.weave.works).
 
