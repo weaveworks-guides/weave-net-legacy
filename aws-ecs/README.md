@@ -508,10 +508,10 @@ You have used Weave out-of-the-box within the Amazon Container Management servic
 
 Weave runs regardless of whether it was executed on the same or on different hosts, and can even run across completely different cloud providers if necessary.
 
-You can easily adapt these examples and use them as a templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help).
+You can easily adapt these examples and use them as a templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](https://weave.works/help/).
 
 ###Further Reading
 
-* [Automatic Discovery with weavedns](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
-* [Weave - Weaving Containers into Applications](https://github.com/weaveworks/weave)
-* [Documentation Home Page](/docs)
+* [Discovering Containers with WeaveDNS](https://www.weave.works/docs/net/latest/weavedns/)
+* [Weave Scope Docs](https://www.weave.works/docs/scope/latest/installing/#ecs)
+* [Weaveworks Documentation](/docs)
