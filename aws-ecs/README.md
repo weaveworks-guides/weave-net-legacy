@@ -2,7 +2,7 @@
 layout: guides
 
 shorttitle: Service Discovery & Load Balancing on Amazon ECS
-title: The fastest path to Docker on ECS: microservice deployment on Amazon EC2 Container Service with Weave Net
+title: Microservices deployment on Amazon EC2 Container Service with Weave Net
 description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
 tags: aws, load-balancing, dns, packer, ecs, amazon-linux, microservices, weave scope
 permalink: /guides/service-discovery-with-weave-aws-ecs.html
@@ -398,7 +398,7 @@ Add inbound rules to the group to allow:
 * Private Weave access between instances:
     * tcp port 6783 for data.
     * udp port 6783 for control in sleeve mode.
-    * udp port 6784 for control in [fastdp](/documentation/net-1.5-features#fast-data-path) mode.
+    * udp port 6784 for control in [fastdp](https://www.weave.works/docs/net/latest/using-weave/fastdp/) mode.
 * Public and private access to Weave Scope between instances (tcp port 4040) . This is Only needed when not using Scope 'Cloud').
 
 ~~~bash
