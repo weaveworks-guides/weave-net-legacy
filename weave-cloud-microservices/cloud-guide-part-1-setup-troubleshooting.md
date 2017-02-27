@@ -117,13 +117,13 @@ To fully appreciate the topology of this app in Weave Scope, you will need to fi
 Run a load test with the following:
 
 ~~~bash
-docker run -ti --rm --name=LOAD_TEST \
+docker run -ti --rm --name=LOAD_TEST --net=dockercompose_default \
   weaveworksdemos/load-test -h edge-router -r 100 -c 2
 ~~~
 
-With the load test running, the topology in Weave Cloud also forms where you can see the microservices communicating as socks are being selected and purchased.
+With the load test running, the topology in Weave Cloud begins to form where you can see the microservices communicating as socks are being selected and purchased.
 
-With the load test running, search for the user-db container, and click on it to open the metrics panel. From the metrics panel that appears, select the terminal icon and view the messages from users logging onto the site.
+With the load test running, search for the user-db container, and click on it to open the metrics panel. From the metrics panel that appears, click on the terminal icon to view the messages from the simulated users logging onto the site.
 
 <img src="images/load-test-messages-1-1.png" style="width:100%;" />
 

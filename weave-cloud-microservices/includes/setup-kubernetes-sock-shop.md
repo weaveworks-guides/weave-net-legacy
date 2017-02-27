@@ -289,16 +289,12 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 <img src="images/socks-shop.png" style="width:100%;" />
 
 
-### Run the Load Test on the Cluster
+### Create a Load on the Sock Shop
 
-After the Sock Shop has completely deployed, run a load test and then view the results in Weave Cloud.
+To fully appreciate the topology of the Sock Shop in Weave Scope, you'll have to create a load on the app.
 
-~~~
-docker run -ti --rm --name=LOAD_TEST  weaveworksdemos/load-test -r 10000 -c 20 -h <host-ip:[port number]>
-~~~
-
-Where,
+View the Sock Shop in your app with `host-ip:[port number]`
 
 * `<host-ip:[port number]>` is the IP of the master and the port number you see when you run `kubectl describe svc front-end -n sock-shop`.
 
-Click on **Pods** and then search for and click on **user-db** to reveal its details panel. From here, select the terminal icon to see users logging in and added to the database.
+With the Sock Shop displayed in the browser, log in to the application with `user1` and `password`.  Select a few pairs of socks and then return to Weave Cloud. Click on the **Containers** view where you will see the app begin to take shape with lines appearing between each service.
