@@ -14,7 +14,19 @@ Weave Scope can be deployed to any infrastructure, and works well in all cloud a
 
 [Weave Cloud](http://cloud.weave.works) centrally manages and shares access to your Weave Scope user interface. With the cloud service, you run Weave Scope probes locally across your machines and then monitor the infrastructure from the Weaveworks website where the Weave Scope app feed is hosted. 
 
-You can also launch Weave Scope in stand-alone mode, and run Weave Scope locally in your own environment. See, ["Monitoring Docker Containers with Weave Scope"](/monitor-docker-containers/) for more information and an example on how to use it. 
+You can also launch Weave Scope in stand-alone mode, and run Weave Scope locally in your own environment. See, ["Monitoring Docker Containers with Weave Scope"](/monitor-docker-containers/) for more information and an example on how to use it.
+
+###About This Guide
+
+This guide demonstrates how to launch Weave Scope and use it in Weave Cloud. You will:
+
+1. Deploy a 3-tiered web application stack, consisting of a pool of data services, a set of custom application servers and a load balancing layer.
+2. Launch Weave Scope to visualize and monitor containers and return useful intelligence.
+
+
+This tutorial takes about 15 minutes to complete and while some UNIX skills are required, it does not require any programming skills to complete.
+
+
 
 ##Signing Up With Weave Cloud Service
 
@@ -25,18 +37,50 @@ Login to Weave Cloud and click the settings icon in the top right hand corner to
 ![Weave Cloud](/guides/images/aws-ecs/weave-cloud-main-page.png)
 
 
-##Running Weave Cloud
+##Launch the Weave Scope Probes
 
-Use the Weave Cloud service token to launch a Weave Scope probe onto every machine that you want to monitor:
+Use the Weave Cloud token to launch a Weave Scope probe onto every host that you want to monitor:
 
 ~~~bash
 +sudo wget -O /usr/local/bin/scope \
 +  https://github.com/weaveworks/scope/releases/download/latest_release/scope
 +sudo chmod a+x /usr/local/bin/scope
-sudo scope launch --service-token=<token>
+sudo scope launch --service-token=<weave-cloud-token>
 ~~~
 
-##Viewing Your Infrastructure Setup
+###Deploying the Sample Application
+
+You will deploy a sample application using Docker Compose to your laptop. This example uses a single host, but keep in mind that Weave Scope works across on multiple hosts, or even across data centers and cloud providers.
+
+##Install Docker and Docker Compose onto the VM by running:
+
+$ wget -qO- https://get.docker.com/ | sh
+$ sudo curl -L https://github.com/docker/compose/releases/download/1.5.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+$ sudo chmod +x /usr/local/bin/docker-compose
+And next, use Docker Compose to launch all of the components of the sample application:
+
+$ wget -O docker-compose.yml http://git.io/scope-compose
+$ docker-compose up -d
+Check that all seven application containers are running by typing docker ps:
+
+CONTAINER ID  IMAGE            PORTS                 NAMES
+fe41c10a63ca  tns_lb1:latest   0.0.0.0:8001->80/tcp  tns_lb1_1
+c94005d87115  tns_lb2:latest   0.0.0.0:8002->80/tcp  tns_lb2_1
+8c15a1325094  tns_app1:latest  8080/tcp              tns_app1_1
+645386356a2e  tns_app2:latest  8080/tcp              tns_app2_1
+e34ccea042fd  tns_db3:latest   9000/tcp              tns_db3_1
+c0d53d1327b4  tns_db2:latest   9000/tcp              tns_db2_1
+0a920e17818a  tns_db1:latest   9000/tcp              tns_db1_1
+Verify that the containers are reachable by curling one of the tns_lb instances.
+
+By default, the containers listen on ports 8001 and 8002:
+
+$ curl localhost:8001  # on a Mac, try: curl `boot2docker ip`:8001
+lb-6d5b2352f76d4a807423ce847b80f060 via http://app1:8080
+app-60fbe0a31aee9526385d8e5b44d46afb via http://db2:9000
+db-e68d33ceeddbb77f4e36a447513367e8 OK
+
+##Viewing Your App in Weave Cloud
 
 With Weave Scope probes deployed and the app launched, go to [https://cloud.weave.works](https://cloud.weave.works) to see an immediate overview of your containerized app displayed in your browser. 
 
@@ -78,6 +122,6 @@ sudo scope stop
 
 ##Getting Help
 
-If you encounter any problems with this application or documentation or you would like to get in touch, contact us via [Help and Support](http://weave.works/help/index.html).
+If you encounter any problems with this application or documentation or you would like to get in touch, contact us via [Help and Support](https://weave.works/help/).
 
 
