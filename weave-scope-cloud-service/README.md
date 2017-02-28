@@ -24,8 +24,7 @@ This guide demonstrates how to launch Weave Scope and use it in Weave Cloud. You
 2. Launch Weave Scope to visualize and monitor containers and return useful intelligence.
 
 
-This tutorial takes about 15 minutes to complete and while some UNIX skills are required, it does not require any programming skills to complete.
-
+This tutorial takes about 15 minutes to complete and while some UNIX skills are required, and doesn't require any programming skills to complete.
 
 
 ##Signing Up With Weave Cloud Service
@@ -42,11 +41,16 @@ Login to Weave Cloud and click the settings icon in the top right hand corner to
 Use the Weave Cloud token to launch a Weave Scope probe onto every host that you want to monitor:
 
 ~~~bash
-+sudo wget -O /usr/local/bin/scope \
-+  https://github.com/weaveworks/scope/releases/download/latest_release/scope
-+sudo chmod a+x /usr/local/bin/scope
+sudo wget -O /usr/local/bin/scope \
+  https://github.com/weaveworks/scope/releases/download/latest_release/scope
+sudo chmod a+x /usr/local/bin/scope
 sudo scope launch --service-token=<weave-cloud-token>
 ~~~
+
+Where, 
+
+* <weave-cloud-token> is the token found in the Weave Cloud settings page when you login.
+
 
 ###Deploying the Sample Application
 
@@ -54,15 +58,23 @@ You will deploy a sample application using Docker Compose to your laptop. This e
 
 ##Install Docker and Docker Compose onto the VM by running:
 
-$ wget -qO- https://get.docker.com/ | sh
-$ sudo curl -L https://github.com/docker/compose/releases/download/1.5.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-$ sudo chmod +x /usr/local/bin/docker-compose
+~~~bash
+wget -qO- https://get.docker.com/ | sh
+sudo curl -L https://github.com/docker/compose/releases/download/1.5.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+~~~
+
 And next, use Docker Compose to launch all of the components of the sample application:
 
-$ wget -O docker-compose.yml http://git.io/scope-compose
-$ docker-compose up -d
+~~~bash
+wget -O docker-compose.yml http://git.io/scope-compose
+docker-compose up -d
+~~~
+
 Check that all seven application containers are running by typing docker ps:
 
+
+~~~bash
 CONTAINER ID  IMAGE            PORTS                 NAMES
 fe41c10a63ca  tns_lb1:latest   0.0.0.0:8001->80/tcp  tns_lb1_1
 c94005d87115  tns_lb2:latest   0.0.0.0:8002->80/tcp  tns_lb2_1
@@ -71,14 +83,18 @@ c94005d87115  tns_lb2:latest   0.0.0.0:8002->80/tcp  tns_lb2_1
 e34ccea042fd  tns_db3:latest   9000/tcp              tns_db3_1
 c0d53d1327b4  tns_db2:latest   9000/tcp              tns_db2_1
 0a920e17818a  tns_db1:latest   9000/tcp              tns_db1_1
+~~~
+
 Verify that the containers are reachable by curling one of the tns_lb instances.
 
 By default, the containers listen on ports 8001 and 8002:
 
-$ curl localhost:8001  # on a Mac, try: curl `boot2docker ip`:8001
+~~~bash
+curl localhost:8001  # on a Mac, try: curl `boot2docker ip`:8001
 lb-6d5b2352f76d4a807423ce847b80f060 via http://app1:8080
 app-60fbe0a31aee9526385d8e5b44d46afb via http://db2:9000
 db-e68d33ceeddbb77f4e36a447513367e8 OK
+~~~
 
 ##Viewing Your App in Weave Cloud
 
