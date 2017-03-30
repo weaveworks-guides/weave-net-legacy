@@ -15,7 +15,7 @@ In this example, you will:
 
 This guide requires no programming skills and takes about 10 minutes to complete.
 
-![Weave and Docker](https://github.com/weaveworks/guides/blob/master/ubuntu-simple/Simple_Weave.png)
+![Weave and Docker](../images/Simple_Weave.png)
 
 ## What You Will Use
 
