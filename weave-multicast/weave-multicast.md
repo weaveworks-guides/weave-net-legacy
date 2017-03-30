@@ -49,16 +49,16 @@ Before launching the CloudFormation template:
 ## <a name="the-stack"></a>Creating the Stack
 
 1. Enable the ‘Specify an Amazon S3 template URL’ option and then click `Next`.
- ![](https://github.com/weaveworks/guides/blob/master/images/muticast/AWS-1-select-template.png)
+ ![](../images/muticast/AWS-1-select-template.png)
 2. Enter a name for the stack. 
 3. This template also comes with an additional sample app, called 'Hit Counter'. It is not required for the multicast demo, so select `No`.  
 4. Select the key pair that you generated for your AWS Region.
-![](https://github.com/weaveworks/guides/blob/master/images/muticast/AWS-2-specify-details-parameters.png)
+![](../images/muticast/AWS-2-specify-details-parameters.png)
 5. Add the Weave Cloud token into the WeaveScopeCloudService token field and click `Next`.
 4. The options dialog doesn’t require any input, so just click `Next`.
 5. In the Confirmation dialog, enable the capabilities acknowledgement box and then click `Create`.
 
-![](https://github.com/weaveworks/guides/blob/master/images/muticast/AWS-4-create-stack.png)
+![](../images/muticast/AWS-4-create-stack.png)
 
 The CloudFormation stack dashboard appears, where you can monitor the progress of the stack’s creation. It takes about 10-15 minutes to complete. Press the refresh button in the top right corner to monitor its progress.
 
@@ -70,7 +70,7 @@ To deploy the multicast demo:
 
 Go to the EC2 Container Service console by clicking `Services -> EC2 Container Service Console` where you will see something similar to the following:
 
-![](https://github.com/weaveworks/guides/blob/master/images/muticast/create-stack.png)
+![](../images/muticast/create-stack.png)
 
 The cluster you just created with the AWS template appears under the Cluster group. Its name is prepended with the name that you gave your stack in step 2 during stack creation.
 
@@ -78,7 +78,7 @@ The cluster you just created with the AWS template appears under the Cluster gro
 2. Give the task a name in the Task Definition field.
 3. Create the multicast containers from the docker image by clicking the `Create Container` button, where the following appears: 
 
-![](https://github.com/weaveworks/guides/blob/master/images/muticast/add-container.png)
+![](../images/muticast/add-container.png)
 
 Fill in: 
 
@@ -98,9 +98,9 @@ Next, run the task you just created as a service in the cluster. For the purpose
 1. Select the cluster that was created with the AWS Cloud Formation template. 
 2. Click on `Create` to add a service: 
 
-![](https://github.com/weaveworks/guides/blob/master/images/muticast/create-service.png)
+![](../images/muticast/create-service.png)
 
-![](https://github.com/weaveworks/guides/blob/master/images/muticast/service-name-definition-instances.png)
+![](../images/muticast/service-name-definition-instances.png)
 
 Select the Task Definition you just created, then give the service a name and assign the number of tasks to 3. Click `Create Service` and then `View Service`. Wait for the containers to spin up, when they've changed from PENDING to RUNNING, before moving on to the next section. 
 
@@ -109,15 +109,15 @@ Select the Task Definition you just created, then give the service a name and as
 
 To visualize the demo, log in to Weave Cloud and click View Instance:
 
-![](https://github.com/weaveworks/guides/blob/master/images/muticast/containers-multicast.png)
+![](../images/muticast/containers-multicast.png)
 
 Click on one of the containers to view its metrics: 
 
-![](https://github.com/weaveworks/guides/blob/master/images/muticast/metrics-multicast.png)
+![](../images/muticast/metrics-multicast.png)
 
 To view multicast in action, select the terminal button from the controls located on the top of the metrics panel: 
 
-![](https://github.com/weaveworks/guides/blob/master/images/muticast/metrics-multicast.png)
+![](../images/muticast/metrics-multicast.png)
 
 Click on some of the other containers and launch their terminals to view how all of the IP addresses are being discovered by each of the nodes as they broadcast data across the Weave network.
 
