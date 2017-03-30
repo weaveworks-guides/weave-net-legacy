@@ -2,7 +2,7 @@
 layout: guides
 
 shorttitle: Service Discovery & Load Balancing on Amazon ECS
-title: The fastest path to Docker on ECS: microservice deployment on Amazon EC2 Container Service with Weave Net
+title: Microservices deployment on Amazon EC2 Container Service with Weave Net
 description: Weave Net & Weave Run provides a simpler way to run applications on the EC2 Container Service
 tags: aws, load-balancing, dns, packer, ecs, amazon-linux, microservices, weave scope
 permalink: /guides/service-discovery-with-weave-aws-ecs.html
@@ -398,7 +398,7 @@ Add inbound rules to the group to allow:
 * Private Weave access between instances:
     * tcp port 6783 for data.
     * udp port 6783 for control in sleeve mode.
-    * udp port 6784 for control in [fastdp](/documentation/net-1.5-features#fast-data-path) mode.
+    * udp port 6784 for control in [fastdp](https://www.weave.works/docs/net/latest/using-weave/fastdp/) mode.
 * Public and private access to Weave Scope between instances (tcp port 4040) . This is Only needed when not using Scope 'Cloud').
 
 ~~~bash
@@ -508,10 +508,10 @@ You have used Weave out-of-the-box within the Amazon Container Management servic
 
 Weave runs regardless of whether it was executed on the same or on different hosts, and can even run across completely different cloud providers if necessary.
 
-You can easily adapt these examples and use them as a templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help).
+You can easily adapt these examples and use them as a templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](https://weave.works/help/).
 
 ###Further Reading
 
-* [Automatic Discovery with weavedns](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
-* [Weave - Weaving Containers into Applications](https://github.com/weaveworks/weave)
-* [Documentation Home Page](/docs)
+* [Discovering Containers with WeaveDNS](https://www.weave.works/docs/net/latest/weavedns/)
+* [Weave Scope Docs](https://www.weave.works/docs/scope/latest/installing/#ecs)
+* [Weaveworks Documentation](/docs)
