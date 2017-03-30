@@ -17,7 +17,7 @@ An advantage to using DNS is that when you use a container name within (say) a c
 
 There is no need to deploy extra services to achieve DNS lookup and load balancing. Weave Net takes care of both automatic service discovery and load balancing, reducing overhead and complexity. Weave saves you time and money, and lets you focus on app development rather than your infrastructure design.
 
-###About This Example
+### About This Example
 
 This guide takes approximately 15 minutes to complete: you will use Weave for service discovery and load balancing
 between [containers that have been deployed to Amazon Elastic Cloud (EC2) instances using Amazon Container Service or ECS](http://aws.amazon.com/ecs/). 
@@ -303,7 +303,7 @@ View the IP addresses of the HTTP Servers and the Data Producers by running:
 
 Re-running these commands vary the IP addresses. This is the `weavedns` service transparently balancing the load by randomizing the IP addresses, as the HTTP servers are connecting to Data Producers.
 
-###Cleanup
+### Cleanup
 
 To clean up this demonstration run:
 
@@ -316,7 +316,7 @@ demonstration (for example, if `setup.sh` didn't finish due to missing AWS
 permissions). If this was the case, `cleanup.sh` may output errors while it is
 trying to destroy resources, which weren't created. Simply disregard them.
 
-##Manual Setup
+## Manual Setup
 
 To manually reproduce what `./setup.sh` does automatically:
 
@@ -492,7 +492,7 @@ aws ecs create-service --cluster weave-ecs-demo-cluster --service-name  weave-ec
 ~~~
 
 
-##Known Issues and Limitations
+## Known Issues and Limitations
 
 * Auto Scaling Groups are required for ECS to work with Weave. If you create individual
   instances, they will not work and won't be able to see each other due to how Weave finds peers in ECS.
@@ -502,7 +502,7 @@ aws ecs create-service --cluster weave-ecs-demo-cluster --service-name  weave-ec
 If you need to incorporate changes to the Weave AMI, you can do so by following [these steps](https://github.com/weaveworks/integrations/tree/master/aws/ecs#creating-your-own-customized-weave-ecs-ami).
 
 
-##Conclusions
+## Conclusions
 
 You have used Weave out-of-the-box within the Amazon Container Management service or ECS and used Weave for both service discovery and load balancing between containers running in Amazon EC2 instances. In addition to this, you were introduced to Weave Cloud for visualizing and monitoring a Weave container network. 
 
@@ -510,7 +510,7 @@ Weave runs regardless of whether it was executed on the same or on different hos
 
 You can easily adapt these examples and use them as a templates in your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](https://weave.works/help/).
 
-###Further Reading
+### Further Reading
 
 * [Discovering Containers with WeaveDNS](https://www.weave.works/docs/net/latest/weavedns/)
 * [Weave Scope Docs](https://www.weave.works/docs/scope/latest/installing/#ecs)
