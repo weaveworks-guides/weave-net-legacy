@@ -23,7 +23,7 @@ Specifically, you will:
 
 The example does not require any programming and it will take 15 minutes to complete. 
 
-![Weave, Microservices and Docker](/guides/images/Microservices_Seneca_Weave.png)
+![Weave, Microservices and Docker](../images/Microservices_Seneca_Weave.png)
 
 ## What You Will Use
 
@@ -208,7 +208,7 @@ You have now used Weave to quickly deploy a simple Node.js microservices applica
 You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](https://weave.works/help/).
 
 
-##Further Reading
+## Further Reading
 
  * [How Weave Works](/documentation/net-1.5-router-topology)
  * [Weave Features](/documentation/net-1.5-features)
