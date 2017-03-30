@@ -16,7 +16,7 @@ In this example you will use `Weave Net` to provide nework connectivity and serv
 2. On weave-gs-02, we will deploy a second container that enables you to query the web service on weave-gs-01.
 3. Run curl to query the _'Hello, Weave!'_ service from the second container.
 
-![Weave and Docker on CoreOS](/guides/images/Simple_Weave.png)
+![Weave and Docker on CoreOS](../images/Simple_Weave.png)
 
 This tutorial uses simple UNIX tools, and it doesn't require any programming skills.
 
@@ -29,7 +29,7 @@ This example will take about 15 minutes to complete.
 * [Docker](http://docker.com)
 * [CoreOS](http://coreos.com)
 
-##Before You Begin
+## Before You Begin
 
 Install and configure the following separately before proceeding:
 
@@ -81,7 +81,7 @@ To install Weave we use a feature of the CoreOS cloud config files called "units
 installs weave. You can review the cloud-config file we used [here](https://github.com/weaveworks/guides/blob/master/coreos-simple/user-data). Systemd is outside the scope of this document, for more information please review [Getting Started With
 systemd](https://coreos.com/docs/launching-containers/launching/getting-started-with-systemd/).     
  
-##Launching Weave ##
+## Launching Weave ##
 
 Next you start Weave on each host in turn.
 
@@ -95,7 +95,7 @@ On host `weave-gs-02`
 
 Your two hosts are now connected to each other, and any subsequent containers you launch with Weave will be visible to other containers Weave is aware of.
 
-###What Just Happened?
+### What Just Happened?
 
 As this is the first time you have launched Weave you
 
@@ -152,13 +152,13 @@ On `weave-gs-01` run
 
 At this point you have a running Apache server in a Docker container based on Ubuntu.
 
-###About Container Deployment
+### About Container Deployment
 
 Weave has launched a pre-built Docker container containing an Apache webserver, and assigned it an address of `10.0.1.1`. The Docker image you are using has been downloaded from the [Docker Hub](https://hub.docker.com/).
 
 The container is registered with Weave and is accessible to other containers registered with Weave across multiple hosts.
 
-##Deploying The Client Container
+## Deploying The Client Container
 
 You now want to create a container on your second host and connect to the webserver in the container on our first host. 
 We will use a container we created for our [Getting started with Weave and Docker on CentOS guide](). Containers return a container ID which you will capture to use further on in this example. On `weave-gs-02` run
@@ -186,7 +186,7 @@ In this example, we deployed a simple application, that returns a message from a
 
 You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](https://weave.works/help/).
 
-##Further Reading
+## Further Reading
 
- * [How Weave Works](/documentation/net-1.5-router-topology)
- * [Weave Features](/documentation/net-1.5-features)
+ * [How Weave Works](https://www.weave.works/docs/net/latest/how-it-works/)
+ * [Weave Features](https://www.weave.works/docs/net/latest/features/)
