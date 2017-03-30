@@ -187,7 +187,7 @@ This completes Part 1 of this tutorial. If you are not going on to [Part 2](/par
 > docker-machine rm -f weave-1
 ~~~
 
-##Conclusions
+## Conclusions
 
 This tutorial demonstrated how to launch a Weave network using Docker Machine. A simple  _"Hello, Weave!"_ service was deployed to a container that listens on TCP port 4000 for any connections from other containers.
 
