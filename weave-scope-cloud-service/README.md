@@ -16,7 +16,7 @@ You can also launch Weave Scope in stand-alone mode, and run Weave Scope locally
 
 ## Signing Up With Weave Cloud Service
 
-To register with Weave Cloud, go to [https://cloud.weave.works](https://cloud.weave.works), and enter your email address. A confirmation email will be sent with further instructions. 
+To register with Weave Cloud, go to [https://cloud.weave.works](https://cloud.weave.works), and enter your email address. A confirmation email will be sent with further instructions.
 
 Login to Weave Cloud and click the settings icon in the top right hand corner to obtain the cloud service token:
 
