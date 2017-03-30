@@ -20,7 +20,7 @@ In this example, you will:
 2. Deploy `curl` into a second container on `weave-gs-02`.
 3. Use curl to query the _'Hello, Weave!'_ service from the second container on one host to another host.
 
-![Weave and Docker on Ubuntu](/guides/images/Simple_Weave.png)
+![Weave and Docker on Ubuntu](../images/Simple_Weave.png)
 
 This tutorial uses simple UNIX tools, and it doesn't require any programming skills.
 
