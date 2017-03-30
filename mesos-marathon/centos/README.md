@@ -20,19 +20,19 @@ You will:
 
 This example requires no programming, but does assume some UNIX skills. It will take about 10 minutes to complete. 
 
-##How Weave Net Interacts with Mesos  
+## How Weave Net Interacts with Mesos  
 
 [Weave Net](/net) networks containers on an isolated overlay network, and also provides DNS and IP address allocation.
 
 Mesos Marathon frameworks implements a management API (used by `deploy_on_marathon.sh` script) and the user interface. Mesos schedules any tasks created through Marathon and runs those on the cluster, where with the exception of `mesos-00` there is a `mesos-slave` service on each of the nodes . Docker and the Weave Net containers run on all nodes, it doesn't have to run on `mesos-00`, but from a management perspective, it may be convenient to do so. 
 
-![Architecture Overview](/guides/images/mesos-marathon/centos/diagram-1.png)
+![Architecture Overview](../../images/mesos-marathon/centos/diagram-1.png)
 
 To enable Marathon to deploy tasks as Docker containers and to use Weave Net, [a configuration file](https://github.com/weaveworks/guides/blob/master/mesos-marathon/centos/mesos-slave-containerizers.conf) [installed](https://github.com/weaveworks/guides/blob/0b10b27f0559b8852c12b81b94034823c3816777/mesos-marathon/centos/setup_and_launch_mesos_slave.sh#L7) using Vagrant's provisioning logic is provided.  See these files for further information on how this tutorial is configured.  
 
 The following diagram shows how Weave Net interacts with Docker and Mesos.
 
-![Weave Net, Docker and Mesos](/guides/images/mesos-marathon/centos/diagram-2.png)
+![Weave Net, Docker and Mesos](../../images/mesos-marathon/centos/diagram-2.png)
 
 For more information on the Apache Mesos and its application manager, Marathon, refer to the [Apache Mesos Docs](http://mesos.apache.org/documentation/latest/) and the [Marathon Docs](https://mesosphere.github.io/marathon/).
 
@@ -40,14 +40,14 @@ For more information on the Apache Mesos and its application manager, Marathon, 
 
 During the provisioning phase (`vagrant up`), several shell scripts run on Vagrant that install and configure both Weave Net and any necessary RPM packages from the Mesosphere repository. Open the [Vagrantfile](https://github.com/weaveworks/guides/blob/0b10b27f0559b8852c12b81b94034823c3816777/mesos-marathon/centos/Vagrantfile#L59-L82), to see the logic of how, where and when those scripts are executed.
 
-##Before You Begin
+## Before You Begin
 
 Please ensure the following are installed:
 
 * [Git](http://git-scm.com/downloads)
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
-##Setting up the VMs and Configuring Apache Zookeeper
+## Setting up the VMs and Configuring Apache Zookeeper
 
 First, clone the repo and then run the vagrant script:
 
@@ -115,7 +115,7 @@ Back in your local shell, run:
 
 This script deploys a simple "Hello, World" web app, as shown in [Marathon tutorial](http://open.mesosphere.com/intro-course/ex17.html).  And in this tutorial, four instances of the web app are deployed.
 
-###Load Balancing with Weave Net
+### Load Balancing with Weave Net
 
 Weave Net can also be used as a transparent, DNS-based, load-balancer, and it also eliminates the need for port remapping and instead uses a default container port.
 
@@ -188,7 +188,7 @@ echo '$mesos_slaves = 3' > config.rb
 vagrant up mesos-02 mesos-03
 ~~~
 
-##Conclusions
+## Conclusions
 
 In this guide, how to use Weave Net with Apache Mesos and its Marathon framework was explained. The infrastructure was configured and installed using Vagrant on CentOS.
 
@@ -196,8 +196,8 @@ You can easily adapt this example and use it as a template for your own implemen
 
 ## Further Reading
 
- * [How Weave Works](/documentation/net-1.5-router-topology)
- * [Weave Features](/documentation/net-1.5-features)
- * [Integrating Docker via the API Proxy](/documentation/net-1.5-weave-docker-api)
+ * [How Weave Works](/https://www.weave.works/docs/net/latest/how-it-works/)
+ * [Weave Features](https://www.weave.works/docs/net/latest/features/)
+ * [Integrating Docker via the API Proxy](https://www.weave.works/docs/net/latest/how-it-works/)
 
 

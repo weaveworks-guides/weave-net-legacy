@@ -78,7 +78,7 @@ The IP addresses used for this demo are:
     172.17.8.101 	weave-gs-01
     172.17.8.102 	weave-gs-02
 
-##Installing Weave
+## Installing Weave Net
 
 Install Weave on each host [using a separate terminal for each host](http://weave.works/guides/about/vagrant.html#general-usage-pattern):
 
@@ -100,7 +100,7 @@ The commands to install and launch Weave are provided as part of this getting st
 
 If you prefer to see the demo right away, refer to [Launching the Demo Application](#launching-the-demo-application) where a script is provided to automate the whole process. 
 
-###1. Launch Weave on Each Host
+### 1. Launch Weave on Each Host
 
 ~~~bash
 vagrant ssh weave-gs-01
@@ -145,13 +145,13 @@ vagrant@weave-gs-02:~$ weave status
 ~~~
 
 
-####About `weaveDNS`
+#### About `weaveDNS`
 
-[WeaveDNS](/documentation/net-1.5-weavedns) answers name queries on a Weave network. It provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', WeaveDNS requires no code changes and it also works across hosts.
+[WeaveDNS](https://www.weave.works/docs/net/latest/weavedns/) answers name queries on a Weave network. It provides a simple way for containers to find each other: just give them hostnames and tell other containers to connect to those names. Unlike Docker 'links', WeaveDNS requires no code changes and it also works across hosts.
 
 The seneca code was modified in this example to refer to hostnames. Each container was given a hostname and then uses `weavedns` to find the correct container for a request.
 
-###2. Start the Node.js application 
+### 2. Start the Node.js application 
 
 On weave-gs-02: 
 

@@ -178,11 +178,11 @@ For more information about dockerizing rails applications, see [the
 rails docker image
 documentation](https://registry.hub.docker.com/_/rails/)
 
-##Launching Weave
+## Launching Weave Net
 
 Weave is responsible for the raw
 network connection and also any routing between containers.
-[WeaveDNS](/documentation/net-1.5-weavedns)
+[Discovering Containers with WeaveDNS](https://www.weave.works/docs/net/latest/weavedns/)
 provides service-discovery between the app, and the database
 container.
 
@@ -200,7 +200,7 @@ $ eval "$(weave env)"
 Proxy](/documentation/net-1.5-weave-docker-api). The Weave Docker API Proxy allows you to use the official docker client, and it will also attach any booted containers to the weave network. To enable the proxy, first install Weave on to your local machine, run `weave launch` and then set the environment by running `eval "$(weave env)"`
 
 
-##Launching PostgreSQL
+## Launching PostgreSQL
 
 For convenience, the official [PostgreSQL image from dockerhub](https://registry.hub.docker.com/_/postgres/) is used.
 
@@ -216,7 +216,7 @@ care of resolving that address to our PostgreSQL container.
 Keep in mind, that this example is not concerned about
 preserving data with backups. However, the PostgreSQL container does store its data at `/var/lib/postgresql/data`, which is enough to preserve data across container restarts.
 
-##Run Database Migrations
+## Run Database Migrations
 
 With the database running, create and migrate the rails
 database using rake.
@@ -225,7 +225,7 @@ database using rake.
 $ docker run -it --rm -w /usr/src/app webapp rake db:create
 ~~~
 
-##Launching Rails
+## Launching Rails
 
 Run the server container for the webapp:
 
@@ -279,7 +279,7 @@ Your app will now be running on port 3000 on your vagrant host and is available 
 
 If advanced load-balancing with HAProxy or nginx is required, you could use those DNS entries to route the traffic. In the simplest case, weaveDNS can be used for load-balancing between the rails containers. However, both of those scenarios are outside the scope of this guide.
 
-##Cleaning Up the VMs
+## Cleaning Up the VMs
 
 To clean up the VMs run: 
 
@@ -287,15 +287,15 @@ To clean up the VMs run:
 vagrant destroy
 ~~~
 
-##Conclusions
+## Conclusions
 
 While our example application is very simple, it has many of the same elements as a real rails application.
 
 You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 
 
-##Further Reading
+## Further Reading
 
- * [How Weave Works](/documentation/net-1.5-router-topology)
- * [Weave Features](/documentation/net-1.5-features)
- * [Weave Docker API Proxy](/documentation/net-1.5-weave-docker-api)
+ * [How Weave Works](https://www.weave.works/docs/net/latest/how-it-works/)
+ * [Weave Features](https://www.weave.works/docs/net/latest/features/)
+ * [Weave Docker API Proxy](https://www.weave.works/docs/net/latest/weave-docker-api/)
