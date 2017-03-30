@@ -22,7 +22,7 @@ You will use Weave and Ansible to:
 
 This example requires no programming and takes about 15 minutes to complete. 
 
-![Weave deploys HAProxy in AWS](/guides/images/2_Node_HAProxy_AWS_Example.png)
+![Weave deploys HAProxy in AWS](../images/2_Node_HAProxy_AWS_Example.png)
 
 ## What You Will Use ##
 
@@ -165,7 +165,7 @@ You can also connect to your HAProxy instance directly with Curl.
         "date" : "2015-03-13 11:25:30"
     }
 
-##Conclusions ##
+## Conclusions ##
 
 You have used Weave, Docker and Ansible to deploy a load balanced application with HAProxy on AWS.
 
