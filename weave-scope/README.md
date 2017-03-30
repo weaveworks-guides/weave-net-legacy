@@ -170,7 +170,7 @@ The logical view is useful for application developers, but for those with a more
 
 Click on `Applications` to show all processes communicating in your network. This is the most granular view of Weave Scope. Weave Scope collects information in a flexible data model, which makes it possible to visualize nearly all possible transformations of your infrastructure setup.
 
-**An Overview of all Processes Communicating:**![Weave Scope View Processes Communicating](/guides/images/weave-scope/weave-scope-applications-view.png)
+**An Overview of all Processes Communicating:**![Weave Scope View Processes Communicating](../images/weave-scope/weave-scope-applications-view.png)
 
 
 ## Stopping Weave Scope
