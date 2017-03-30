@@ -20,20 +20,20 @@ The following topics are described:
    * [Running Multicast Services in an ECS Cluster](#running-multicast)
 * [Visualizing Multicast in Weave Cloud](#visualize-multicast)
 
-##<a name="what-use"></a>What You Will Use
+## <a name="what-use"></a>What You Will Use
 
 * [Weave Net](https://www.weave.works/docs/net/latest/installing-weave/) and [Multicast](https://www.weave.works/docs/net/latest/features/)
 * AWS CloudFormation Template
 * EC2 Container Console
 * The [Weave Cloud](https://cloud.weave.works) token obtained after you've signed up. 
 
-##<a name="launching-AWS"></a>Launching the AWS CloudFomation Templates
+## <a name="launching-AWS"></a>Launching the AWS CloudFomation Templates
 
 This AWS CloudFormation template is the easiest way to get started with Weave Net and Weave Cloud. CloudFormation templates provide a simple way to create a collection or a stack of related AWS resources, and allows you to provision and update them in an orderly and predictable fashion.
 
 Use this specially created Weaveworks CloudFormation template to create an EC2 cluster with all of the resources you need, including Weave Net and Weave Scope pre-installed onto an ECS Cluster.
 
-###Before You Begin
+### Before You Begin
 
 Before launching the CloudFormation template:
 
@@ -46,7 +46,7 @@ Before launching the CloudFormation template:
 [![](../images/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?templateURL=https:%2F%2Fs3.amazonaws.com%2Fweaveworks-cfn-public%2Fintegrations%2Fecs-baseline.json)
 
 
-##<a name="the-stack"></a> Creating the Stack
+## <a name="the-stack"></a>Creating the Stack
 
 1. Enable the ‘Specify an Amazon S3 template URL’ option and then click `Next`.
  ![](https://github.com/weaveworks/guides/blob/master/images/muticast/AWS-1-select-template.png)
@@ -64,7 +64,7 @@ The CloudFormation stack dashboard appears, where you can monitor the progress o
 
 Once the stack has been created, you can go back to [Weave Cloud](https://cloud.weave.works) where you can visualize the demo app. However, before you can do that, you need to deploy the multicast app as a set of services to the ECS cluster you just created. 
 
-##<a name="multicast-demo"></a> Deploying the Multicast Demo to an EC2 Cluster
+## <a name="multicast-demo"></a>Deploying the Multicast Demo to an EC2 Cluster
 
 To deploy the multicast demo: 
 
@@ -91,7 +91,7 @@ For this demo, these are the only fields that need to be configured. Once comple
 
 Return to the top level `Task Definitions`, where you should see your newly created task in the list.
 
-###<a name="running-multicast"></a> Running Multicast Services in an ECS Cluster
+### <a name="running-multicast"></a>Running Multicast Services in an ECS Cluster
 
 Next, run the task you just created as a service in the cluster. For the purposes of this demo, you will run three instances of the service. 
 
@@ -105,7 +105,7 @@ Next, run the task you just created as a service in the cluster. For the purpose
 Select the Task Definition you just created, then give the service a name and assign the number of tasks to 3. Click `Create Service` and then `View Service`. Wait for the containers to spin up, when they've changed from PENDING to RUNNING, before moving on to the next section. 
 
 
-##<a name="visualize-multicast"></a> Visualizing Multicast in Weave Cloud
+## <a name="visualize-multicast"></a>Visualizing Multicast in Weave Cloud
 
 To visualize the demo, log in to Weave Cloud and click View Instance:
 
