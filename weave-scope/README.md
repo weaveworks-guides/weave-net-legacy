@@ -18,9 +18,9 @@ Weave Scope consists of three parts: the probe, the app and the user interface. 
 
 ### Weave Cloud
 
-Weave Cloud manages and shares access to your Weave Scope user interface. With [Weave Cloud](http://cloud.weave.works), Weave Scope probes are run locally on your machines, whereas the app and the user interface are hosted on the Weave Cloud. Microservices are monitored in a browser from the [https://cloud.weave.works](http://cloud.weave.works) website.
+Weave Cloud manages and shares access to your Weave Scope user interface. With [Weave Cloud](https://cloud.weave.works), Weave Scope probes are run locally on your machines, whereas the app and the user interface are hosted on the Weave Cloud. Microservices are monitored in a browser from the [https://cloud.weave.works](https://cloud.weave.works) website.
 
-Sign up at [https://cloud.weave.works](http://cloud.weave.works) to obtain a secure service token. 
+Sign up at [https://cloud.weave.works](https://cloud.weave.works) to obtain a secure service token. 
 
 ### Weave Scope Standalone
 
@@ -144,7 +144,7 @@ Hostnames are regularly resolved as A records, where each answer is used as a ta
 
 Once Weave Scope is launched in your browser, an immediate overview of the infrastructure is displayed, including any running containers. The Weave Scope view is presented in an order with clients generally placed above servers. Read a Weave Scope view by going from top to bottom.
 
-**An Overview of Application Layers:**![Weave Scope Overview of Application Layers](/guides/images/weave-scope/weave-scope-application-layers.png)
+**An Overview of Application Layers:**![Weave Scope Overview of Application Layers](../images/weave-scope/weave-scope-application-layers.png)
 
 A line between two nodes within the view represents a connection between containers. To help you understand the connections in your view, hover over a container or a connection to highlight all connected containers. This is especially useful for infrastructures that use a lot of containers.
 
@@ -152,7 +152,7 @@ A line between two nodes within the view represents a connection between contain
 
 Metrics about a node are displayed by clicking on a node in the Weave Scope view.  For example, to examine the metrics about one of the database (db) containers in this example, click on the node with the label tns_db1_1.
 
-**Metrics of the DB Container**:![Weave Scope Metrics of DB Container](/guides/images/weave-scope/weave-scope-database-metrics.png)
+**Metrics of the DB Container**:![Weave Scope Metrics of DB Container](../images/weave-scope/weave-scope-database-metrics.png)
 
 The panel on the right shows information about the database, such as the image and process names, sparklines displaying memory consumption and peformance, as well as network metrics like the number of TCP connections.
 
@@ -162,7 +162,7 @@ The panel on the right shows information about the database, such as the image a
 
 Weave Scope works great for infrastructures of any size, but if there are too many containers on the screen at once for you to manage, use Weave Scope’s grouping features to make the view easier to understand. In the Containers view, click the Image button to merge all containers running on the same host together.
 
-**Grouped Container View:**![Weave Scope Grouped Container View](/guides/images/weave-scope/weave-scope-group-containers.png)
+**Grouped Container View:**![Weave Scope Grouped Container View](../images/weave-scope/weave-scope-group-containers.png)
 
 All db, app, and lb instances are merged together into single nodes, even when they exist across hosts. This is a logical, rather than a physical lens on the infrastructure — something that application developers intuitively understand. Detailed statistics are also merged.
 
