@@ -24,12 +24,12 @@ This example requires no programming, but it does require basic UNIX skills.
 
 This tutorial will take approximately 15-25 minutes to complete.
 
-##What You Will Use
+## What You Will Use
 
   - [Weave](http://weave.works)
   - [Docker, Swarm & Machine](http://docker.com)
 
-##What You Need to Complete Part 2
+## What You Need to Complete Part 2
 
 If you are using OS X or Windows, then install [Docker Toolbox](https://www.docker.com/toolbox), which provides all of the tools you need to complete this guide.
 
@@ -42,7 +42,7 @@ For all other operating systems, install and configure the following separately 
 
 If you completed [Part 1][ch1],then all of these dependencies should already be installed.
 
-##Cloning the Guides Repo and Installing Weave Net
+## Cloning the Guides Repo and Installing Weave Net
 
 If you didn't complete [Part 1][ch1], then clone the guides directory: 
 
@@ -52,7 +52,7 @@ git clone https://github.com/weaveworks/guides
 
 and cd to the `weave-and-docker-platform` directory. 
 
-##Installing Weave Net
+## Installing Weave Net
 
 Download the latest version of `weave`. If you do not have ownership of the `/usr/local/bin` directory, you may need to preface the commands with `sudo`:
 
@@ -62,7 +62,7 @@ chmod a+x /usr/local/bin/weave
 ~~~
 
 
-###How This Guide is Organized
+### How This Guide is Organized
 
 This guide describes how to provision a cluster on the command line manually. If you prefer to jump ahead and see Weave Net in action, then refer to [Automating Cluster Provisioning ](#automate-cluster), where several helpful shell scripts are provided that automates this entire process.
 
@@ -77,7 +77,7 @@ But if you prefer to work through setting up a swarm using Weave Net, then see t
   * [Automating Cluster Provisioning](#automate-cluster)
 
 
-##<a name="work-order"></a>Workflow for Setting up a Swarm
+## <a name="work-order"></a>Workflow for Setting up a Swarm
 
 Among the three VMs to be provisioned, choose one that will act as the swarm master. In this example, we refer to `weave-1` as the head or the bootstrap node. Keep in mind that Weave Net has no specific knowledge of a Swarm master and its agents, and you can deploy your network in whatever topology you choose. But for the purposes of this example, `weave-1` acts as the bootstrap node which provides the initial configuration information for any newly joining nodes.
 
@@ -93,7 +93,7 @@ The swarm discovery token is a unique cluster ID. Normally this token is created
 For more information see the [Docker Swarm Documentation](https://docs.docker.com/swarm/install-w-machine/). 
 
 
-##<a name="swarm-token"></a>Generate the Swarm Discovery Token
+## <a name="swarm-token"></a>Generate the Swarm Discovery Token
 
 There are a two ways to generate the token, one is after the VMs have been created, which requires a swarm image to be downloaded which is then used to generate the token, and the other, generates it from a discovery service website, and returns it via curl. This example uses the latter, (which incidently is not recommended for production).
 
@@ -107,7 +107,7 @@ Copy the discovery token somewhere, you will need it when you are creating the v
 
 See [Create a Swarm Discovery Token](https://docs.docker.com/swarm/install-w-machine/#create-a-swarm-discovery-token)
 
-##<a name="create-vms"></a>Create the VMs and Set Up the Swarm
+## <a name="create-vms"></a>Create the VMs and Set Up the Swarm
 
 Using the swarm discovery token you just generated, you will create the machines and also set up the structure for Docker Swarm. 
 
@@ -133,7 +133,7 @@ Where,
  * --swarm-master is the head node or the boostrapping node (and only applies to the bootstrap node, weave-1)
 
 
-##<a name="connect-cluster"></a>Connecting the Cluster with Weave Net: Initializing Peers
+## <a name="connect-cluster"></a>Connecting the Cluster with Weave Net: Initializing Peers
 
 Next launch Weave Net onto the virtual machines you just created and connect the nodes together in a swarm. 
 
@@ -216,11 +216,11 @@ And finally, check that all nodes are in a Swarm by running `docker `docker-mach
       └ Reserved CPUs: 0 / 1
       └ Reserved Memory: 0 B / 1.021 GiB
 
-##<a name="swarm-agents-proxy"></a>Setting up Swarm Agents to Use the Weave Docker API Proxy
+## <a name="swarm-agents-proxy"></a>Setting up Swarm Agents to Use the Weave Docker API Proxy
 
 This next step is a necessary work-around to a reported Docker Machine issue, which we will refrain from covering in detail. Refer to  [issue #1334 in Docker Machine](https://github.com/docker/machine/issues/1334) for more information.  In short, the swarm agents are restarted with a new discovery token and then registered to TCP port 12375 for the `Docker API Proxy`. The following script [`scripts/3-replace-swarm-agents.sh`][step3] describes this process in more detail.
 
-##<a name="deploy-agents-proxy"></a>Deploying Containers and Testing the Weave Network
+## <a name="deploy-agents-proxy"></a>Deploying Containers and Testing the Weave Network
 
 Before deploying containers to the Weave Net, ensure that the environment for the Weave Docker API Proxy is setup by 
 running: 
@@ -231,7 +231,7 @@ eval "$(weave env)"
 
 The Docker API Proxy allows you to use standard Docker commands to attach containers to the Weave network and assign IP addresses to them. An alternative way to attach containers to the Weave network is by using the Docker Plugin [(for Docker >= 1.9)]((/docs/net/latest/plugin/). Here you are using the Weave Docker API Proxy to attach containers (which is the preferred method). 
 
-###Testing the Weave Network
+### Testing the Weave Network
 
 Deploy the _"Hello, Weave!"_ container:
 
@@ -283,7 +283,7 @@ Since everything worked as expected, you can get rid of both containers by runni
     pingme
     pinger
 
-##<a name="automate-cluster"></a>Automating Cluster Provisioning
+## <a name="automate-cluster"></a>Automating Cluster Provisioning
 
 Change to the scripts directory:
 
@@ -310,7 +310,7 @@ Proceed to In [Part 3 "Creating and Scaling Multi-host Docker Deployment with Sw
 
 Send us your thoughts or issues via [Help and Support](http://weave.works/help/index.html).
 
-##Further Reading
+## Further Reading
 
   *  [How Weave Works](/docs/net/latest/how-it-works/)
   *  [Allocating IP Addresses](/docs/net/latest/ipam/)

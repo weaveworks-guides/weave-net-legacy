@@ -32,14 +32,14 @@ This example requires no programming skills and will take about 15 minutes to co
 * [Docker](http://docker.com)
 * [Ubuntu](http://ubuntu.com)
 
-##Before You Begin
+## Before You Begin
 
 Install and configure the following separately before proceeding:
 
 * [Git](http://git-scm.com/downloads)
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
 
-##Setting Up The Hosts
+## Setting Up The Hosts
 
 The code for this example is available on github. Clone the getting started repository:
 
@@ -71,7 +71,7 @@ The IP addresses we use for this demo are:
 172.17.8.102 	weave-gs-02
 ~~~
 
-##Installing Weave
+## Installing Weave
 
 Install `Weave` on to each host [using a separate terminal for each host](http://weave.works/guides/about/vagrant.html#general-usage-pattern):
 
@@ -91,7 +91,7 @@ root@weave-gs-01:~# chmod a+x /usr/local/bin/weave
 
 The commands to install `Weave` are provided as part of this getting started guide, but in practice you would automate this step for each host.
 
-##Launching Weave
+## Launching Weave
 
 Now launch `Weave` on each host and create a peer connection by passing the IP of one host to another:
 
@@ -179,7 +179,7 @@ To view it:
 root@weave-gs-01:~# docker ps
 ~~~
 
-###About Container Deployment
+### About Container Deployment
 
 `Weave` launched a pre-built Docker image containing an Apache webserver, named it `hello-app`, and then assigned it an IP address. The Docker image is downloaded from the [Docker Hub](https://hub.docker.com/).
 
@@ -205,7 +205,7 @@ JSON returns:
 }
 ~~~
 
-##Cleaning Up The VMs
+## Cleaning Up The VMs
 
 To remove the VMs you just created: 
 
@@ -213,7 +213,7 @@ To remove the VMs you just created:
 vagrant destroy
 ~~~
 
-##Conclusions
+## Conclusions
 
 In this example, we deployed a simple application, that returns a message from a running Apache webserver. With `Weave`, you quickly deployed two containers to the network residing on different hosts. These containers were made discoverable using `weavedns`, so that applications within containers can communicate with one another. 
 

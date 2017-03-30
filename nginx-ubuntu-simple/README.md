@@ -16,7 +16,7 @@ In this example we will demonstrate how Weave allows you to quickly and easily d
 a load balancer for a simple php application running in containers on multiple nodes, with no
 modifications to the application and minimal docker knowledge.
 
-![Weave, Nginx, Apache and Docker 3 Nodes](/guides/images/3_Node_Nginx_Example.png)
+![Weave, Nginx, Apache and Docker 3 Nodes](../images/3_Node_Nginx_Example.png)
 
 ## What You Will Use ##
 

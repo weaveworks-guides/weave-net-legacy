@@ -97,7 +97,7 @@ With the load test running, you can observe the different services communicating
 
 ![Weave Load Test](load-test-messages.png)
 
-###Tearing Down the App
+### Tearing Down the App
 
 To clean up the app from your system: 
 
@@ -105,7 +105,7 @@ To clean up the app from your system:
 docker-compose down
 ~~~
 
-###Conclusions
+### Conclusions
 
 In this guide, an online store using a microservices-based approach was launched into the Weave Cloud, where you could observe communication events and also interact with the topology of the microservices app. 
 

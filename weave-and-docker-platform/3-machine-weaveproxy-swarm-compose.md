@@ -176,7 +176,7 @@ You may automate your deployment somewhat differently, and for this reason, this
 
 Please send us your thoughts or issues via [Help and Support](https://www.weave.works/help/).
 
-##Further Reading
+## Further Reading
 
   *  [Introducing Weave Net](/docs/net/latest/introducing-weave/)
   *  [Weave Net Features](docs/net/latest/features/)

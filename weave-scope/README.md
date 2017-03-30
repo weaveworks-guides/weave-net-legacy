@@ -4,8 +4,7 @@ title: Monitoring Docker Containers with Weave Scope
 description: How to use Weave Scope to monitor and visualize docker container clusters and swarms.
 tags: weave scope, docker container visibility, cluster, swarms
 permalink: /guides/weave-scope/weave-scope-alone-monitor-containers.html
-sidebarpath: /start/weave-scope-alone
-sidebarweight: 50
+
 ---
 
 
@@ -13,21 +12,21 @@ Weave Scope automatically detects and monitors every host, Docker container and 
 
 Weave Scope can be deployed to any infrastructure, and works well in all cloud and bare-metal environments.
 
-##How Weave Scope is Deployed?
+## How Weave Scope is Deployed?
 
 Weave Scope consists of three parts: the probe, the app and the user interface. There are two ways in which Weave Scope can be deployed: as a standalone configuration, or if you don't want to bother with the administration yourself, you can sign up for [Weave Cloud](https://cloud.weave.works).
 
-###Weave Cloud
+### Weave Cloud
 
-Weave Cloud manages and shares access to your Weave Scope user interface. With [Weave Cloud](http://cloud.weave.works), Weave Scope probes are run locally on your machines, whereas the app and the user interface are hosted on the Weave Cloud. Microservices are monitored in a browser from the [https://cloud.weave.works](http://cloud.weave.works) website.
+Weave Cloud manages and shares access to your Weave Scope user interface. With [Weave Cloud](https://cloud.weave.works), Weave Scope probes are run locally on your machines, whereas the app and the user interface are hosted on the Weave Cloud. Microservices are monitored in a browser from the [https://cloud.weave.works](https://cloud.weave.works) website.
 
-Sign up at [https://cloud.weave.works](http://cloud.weave.works) to obtain a secure service token. 
+Sign up at [https://cloud.weave.works](https://cloud.weave.works) to obtain a secure service token. 
 
-###Weave Scope Standalone
+### Weave Scope Standalone
 
 In standalone mode, all Weave Scope components are run locally: the probes and the app are deployed to your machines, and then the user interface is displayed in your browser to view the infrastructure setup.
 
-##About This Guide
+## About This Guide
 
 This guide demonstrates how to launch and use Weave Scope in standalone mode. You will: 
 
@@ -37,14 +36,14 @@ This guide demonstrates how to launch and use Weave Scope in standalone mode. Yo
 This tutorial takes about 15 minutes to complete and while some UNIX skills are required, it does not require any programming skills to complete. 
 
 
-##What You Will Use
+## What You Will Use
 
 * [Weave](https://weave.works)
 * [Weave Scope](https://weave.works/weave-scope/)
 * [Docker](https://docker.com)
 * [Docker Compose](https://www.docker.com/docker-compose)
 
-##Before You Begin
+## Before You Begin
 
 If you are using OS X or Windows, you can install [Docker Toolbox](https://www.docker.com/toolbox), which provides all of the tools you need to complete this guide.
 
@@ -55,7 +54,7 @@ For other operating systems, please install and configure the following separate
   - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (_`>= 4.3.x`_)
   - `curl` (_any version_)
 
-##Setting up the VM
+## Setting up the VM
 
 First, install Linux onto a VM using virtual toolbox by typing: 
 
@@ -69,7 +68,7 @@ SSH onto the newly created VM and then proceed to the next section:
 docker-machine ssh weave-scope-demo
 ~~~
 
-###Deploying the Sample Application
+### Deploying the Sample Application
 
 To demonstrate Weave Scope in stand-alone mode, you will deploy an example application using Docker Compose. This example uses a single host, but keep in mind that Weave Scope works across on multiple hosts, or even across data centers and cloud providers.
 
@@ -112,7 +111,7 @@ app-60fbe0a31aee9526385d8e5b44d46afb via http://db2:9000
 db-e68d33ceeddbb77f4e36a447513367e8 OK
 ~~~
 
-###Launching Weave Scope
+### Launching Weave Scope
 
 With the sample app up and running, you are ready to install and launch Weave Scope:
 
@@ -125,7 +124,7 @@ sudo scope launch
 
 Point your web browser to: `http://192.168.99.100:4040/` (or to the address displayed to you in the terminal window after Weave Scope was launched).
 
-##Launching Weave Scope When Using Weave Net to Connect Containers
+## Launching Weave Scope When Using Weave Net to Connect Containers
 
 If you are running Weave Scope on the same machine as a Weave network, Weave Scope uses `weaveDNS` to discover other instances of Weave Scope. 
 
@@ -141,29 +140,29 @@ Hostnames are regularly resolved as A records, where each answer is used as a ta
 
 `scope launch` prints out the URLs to which you can point your browser and display the user interface.
 
-##Visualizing Infrastructure
+## Visualizing Infrastructure
 
 Once Weave Scope is launched in your browser, an immediate overview of the infrastructure is displayed, including any running containers. The Weave Scope view is presented in an order with clients generally placed above servers. Read a Weave Scope view by going from top to bottom.
 
-**An Overview of Application Layers:**![Weave Scope Overview of Application Layers](/guides/images/weave-scope/weave-scope-application-layers.png)
+**An Overview of Application Layers:**![Weave Scope Overview of Application Layers](../images/weave-scope/weave-scope-application-layers.png)
 
 A line between two nodes within the view represents a connection between containers. To help you understand the connections in your view, hover over a container or a connection to highlight all connected containers. This is especially useful for infrastructures that use a lot of containers.
 
-##Viewing Metrics
+## Viewing Metrics
 
 Metrics about a node are displayed by clicking on a node in the Weave Scope view.  For example, to examine the metrics about one of the database (db) containers in this example, click on the node with the label tns_db1_1.
 
-**Metrics of the DB Container**:![Weave Scope Metrics of DB Container](/guides/images/weave-scope/weave-scope-database-metrics.png)
+**Metrics of the DB Container**:![Weave Scope Metrics of DB Container](../images/weave-scope/weave-scope-database-metrics.png)
 
 The panel on the right shows information about the database, such as the image and process names, sparklines displaying memory consumption and peformance, as well as network metrics like the number of TCP connections.
 
 >Note: In this view, you can Pause, Restart, and Stop containers, and for this reason, access to the Weave Scope user interface should be restricted to trusted individuals. 
 
-##Grouping By Containers or Hosts
+## Grouping By Containers or Hosts
 
 Weave Scope works great for infrastructures of any size, but if there are too many containers on the screen at once for you to manage, use Weave Scope’s grouping features to make the view easier to understand. In the Containers view, click the Image button to merge all containers running on the same host together.
 
-**Grouped Container View:**![Weave Scope Grouped Container View](/guides/images/weave-scope/weave-scope-group-containers.png)
+**Grouped Container View:**![Weave Scope Grouped Container View](../images/weave-scope/weave-scope-group-containers.png)
 
 All db, app, and lb instances are merged together into single nodes, even when they exist across hosts. This is a logical, rather than a physical lens on the infrastructure — something that application developers intuitively understand. Detailed statistics are also merged.
 
@@ -171,10 +170,10 @@ The logical view is useful for application developers, but for those with a more
 
 Click on `Applications` to show all processes communicating in your network. This is the most granular view of Weave Scope. Weave Scope collects information in a flexible data model, which makes it possible to visualize nearly all possible transformations of your infrastructure setup.
 
-**An Overview of all Processes Communicating:**![Weave Scope View Processes Communicating](/guides/images/weave-scope/weave-scope-applications-view.png)
+**An Overview of all Processes Communicating:**![Weave Scope View Processes Communicating](../images/weave-scope/weave-scope-applications-view.png)
 
 
-##Stopping Weave Scope
+## Stopping Weave Scope
 
 To stop Weave Scope: 
 
@@ -183,7 +182,7 @@ sudo scope stop
 ~~~
 
 
-##Conclusions
+## Conclusions
 
 This guide demonstrated how to launch Weave Scope in standalone mode, so that you can visualize, monitor and control your container network to gain valuable insight into your application's infrastructure. 
 

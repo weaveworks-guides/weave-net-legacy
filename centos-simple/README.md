@@ -18,7 +18,7 @@ In this example:
 2. On weave-gs-02, we will deploy a second container that enables you to query the web service on weave-gs-01.
 3. Run curl to query the _'Hello, Weave!'_ service from the second container.
 
-![Weave and Docker on CentOS](/guides/images/Simple_Weave.png)
+![Weave and Docker on CentOS](../images/Simple_Weave.png)
 
 This tutorial uses simple UNIX tools, and it doesn't require any programming skills.
 
@@ -31,7 +31,7 @@ This example will take about 15 minutes to complete.
 * [Docker](http://docker.com)
 * [CentOS](http://http://centos.org/)
 
-##Before You Begin
+## Before You Begin
 
 Install and configure the following separately before proceeding:
 
@@ -159,7 +159,7 @@ Run `weave status` to view the peered hosts:
         Address: unix:///var/run/weave/weave.sock
 ~~~
 
-##Deploying the _'Hello, Weave!'_ Service
+## Deploying the _'Hello, Weave!'_ Service
 
 Next you will use Weave to run a Docker image containing an Apache webserver.  Details on how this container was created using docker are available [here](https://github.com/weaveworks/guides/blob/master/centos-simple/DockerfileREADME.md).
 
@@ -171,13 +171,13 @@ On `weave-gs-01` run
 
 You should now have an Apache server running in a Docker container.
 
-###About Container Deployment
+### About Container Deployment
 
 Weave has launched a pre-built Docker container containing an Apache webserver, and assigned it an address of `10.0.1.1`. The Docker image you are using has been downloaded from the [Docker Hub](https://hub.docker.com/).
 
 The container is registered with `WeaveDNS` and is accessible to other containers registered with Weave across multiple hosts.
 
-##Deploying The Client Container
+## Deploying The Client Container
 
 Next, create a container on your second host and connect to the webserver in the container on our first host. 
 
@@ -209,7 +209,7 @@ And you will see the following JSON message returned:
 
 You can now exit from the container and since you finished the command in which the container was running (in this case `/bin/bash`), the container also exits.
 
-##Cleaning Up The VMs
+## Cleaning Up The VMs
 
 To remove the VMs you just created: 
 
@@ -223,7 +223,7 @@ In this example, we deployed a simple application, that returns a message from a
 
 You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](https://weave.works/help/).
 
-##Further Reading
+## Further Reading
 
  * [How Weave Works](/documentation/net-1.5-router-topology)
  * [Weave Features](/documentation/net-1.5-features)

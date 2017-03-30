@@ -16,13 +16,13 @@ You will:
 2. Return the IP address of each container from the webservice using `curl`.
 3. Load balance six containers across two hosts on a Weave network.
 
-![Simple Loadbalancing with Weave](/guides/images/Weave_LoadBalance.png)
+![Simple Loadbalancing with Weave](../images/Weave_LoadBalance.png)
 
 ## What You Will Use ##
 
 You will work with Weave and Docker on Ubuntu, and it uses Vagrant and Virtualbox, which can be run on your personal system.
 
-* [Weave](http://weave.works)
+* [Weave](https://weave.works)
 * [Docker](http://docker.com)
 * [Ubuntu](http://ubuntu.com)
 * [Vagrant & VirtualBox](/guides/about/vagrant.html)
@@ -87,19 +87,19 @@ Weave Net should be deployed to the hosts using the address range that were expl
 
 The `setup-weave.sh` script automates this process for you as well.
 
-#### About weavedns and Automatic IP Management
+#### About weaveDNS and Automatic IP Management
 
 `weavedns` answers name queries on a Weave network and also provides a simple way for containers to find each other. Just assign the containers hostnames and then tell any other containers to connect to another one using those names. 
 
 Unlike Docker ‘ambassador links’, `weavedns` requires no code changes and it also works across hosts. 
 
-See [Discovering Containers with WeaveDNS](/documentation/net-1.5-weavedns) for information about how the weavedns service works.
+See [Discovering Containers with WeaveDNS](https://www.weave.works/docs/net/latest/weavedns/) for information about how the weavedns service works.
 
-[Weave Automatic IP Address Management (IPAM)](/documentation/net-1.5-ipam) automatically assigns any new containers a unique IP address across the network. With Weave IPAM you can add more containers to the network without having to worry about manually assigning each a unique IP.
+[Weave Automatic IP Address Management (IPAM)](https://www.weave.works/docs/net/latest/ipam/) automatically assigns any new containers a unique IP address across the network. With Weave IPAM you can add more containers to the network without having to worry about manually assigning each a unique IP.
 
-####Checking the Weave Network
+#### Checking the Weave Network
 
-The two hosts should now be peered with one another on the Weave network. Weavedns and Weave IPAM are also standing by to discover and assign IPs to any running containers on the network.
+The two hosts should now be peered with one another on the Weave network. WeaveDNS and Weave IPAM are also standing by to discover and assign IPs to any running containers on the network.
 
 Log on to either one of the hosts and type `weave status` to view the Weave Net components:  
 
@@ -213,7 +213,7 @@ This produces the following output:
 
 Notice that requests are balanced equally among all six containers running across the hosts (`10.2.0.x` are from `weave-gs-01`, and `10.2.128.x` are from `weave-gs-02`).
 
-##Cleanup
+## Cleanup
 
 To remove the hosts from your machine:
 
@@ -224,14 +224,14 @@ Vagrant destroy weave-gs-02
 ~~~
 
 
-##Summary
+## Summary
 
 You have used Weave Net and Docker to deploy a simple load balanced application.
 
 You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](https://www.weave.works/help/).
 
-###Find Out More
+### Find Out More
 
-* [Automatic Discovery with weavedns](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
-* [Weave - Weaving Containers into Applications](https://github.com/weaveworks/weave)
-* [Documentation Home Page](/docs)
+* [Automatic Discovery with weavedns](https://www.weave.works/docs/net/latest/weavedns/)
+* [Weave - Weaving Containers into Applications](https://www.weave.works/)
+* [Documentation](/docs)

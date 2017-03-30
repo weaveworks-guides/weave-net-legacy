@@ -31,14 +31,14 @@ This tutorial requires no progamming, but it does require some UNIX skills. This
 * [Spring](http://spring.io)
 * [Java](http://openjdk.java.net/)
 
-##Before You Begin
+## Before You Begin
 
 Ensure that you have following installed and configured for your operating system:
 
 * [Git](http://git-scm.com/downloads)
 * [Vagrant & VirtualBox](http://weave.works/guides/about/vagrant.html)
 
-##Configuring and Setting Up Your Hosts
+## Configuring and Setting Up Your Hosts
 
 To begin, clone the Weaveworks/Guides repository:
 
@@ -76,15 +76,15 @@ The IP addresses used for this demo are as follows:
 172.17.8.101    weave-gs-01
 ~~~
 
-####Weave and DNS
+#### Weave and DNS
 
 The [WeaveDNS](/documentation/net-1.5-weavedns) service answers name queries on a Weave network. `weavedns` provides a simple way for containers to find each other by giving them hostnames and telling the other containers to connect to those names.
 
-####Weave and Automatic IP Address Management
+#### Weave and Automatic IP Address Management
 
 [Weave Automatic IP Address Management (IPAM)](/documentation/net-1.5-ipam) automatically assigns containers IP addresses that are unique across the network. With Weave IPAM you can easily add more containers to your network, ensuring that each container receives a unique IP.
 
-## Launching Weave
+## Launching Weave Net
 
 To begin this tutorial, ssh on to the host, and then launch Weave Net:
 
@@ -209,7 +209,7 @@ This returns the following:
 Hello, Weave!
 ~~~
 
-##Cleaning Up the VMs
+## Cleaning Up the VMs
 
 To clean up the VMs run: 
 
@@ -217,14 +217,14 @@ To clean up the VMs run:
 vagrant destroy
 ~~~
 
-##Conclusions
+## Conclusions
 
 You have used Weave and Docker to provide service discovery for a Spring based application.
 
 You can adapt this example and use it as a template for your own implementation. We would be very happy to hear any of your thoughts or issues via [Help and Support](https://weave.works/help/).
 
 
-##For Further Reading
+## Further Reading
  * [How Weave Works](/docs/net/latest/how-it-works/)
  * [Weave Features](/docs/net/latest/features)
  * [Naming and Discovery](/docs/net/latest/features/#naming-and-discovery)
