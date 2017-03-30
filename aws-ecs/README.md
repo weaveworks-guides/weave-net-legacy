@@ -39,7 +39,7 @@ Weave solves these issues using its built-in DNS server, where it securely and t
 their names.
 * Manages load balancing by randomizing the order of DNS responses.
 
-For more information about the weaveDNS service see [Automatic Discovery with weaveDNS](https://github.com/weaveworks/weave/blob/master/site/weavedns.md)
+For more information about the weaveDNS service see [Automatic Discovery with weaveDNS](https://www.weave.works/docs/net/latest/weavedns/)
 
 ## What You Will Use
 
