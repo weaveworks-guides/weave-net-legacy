@@ -114,7 +114,7 @@ To sign up for Weave Cloud:
 2.  Sign up using either a Github, or Google account or use an email address.
 3.  Obtain the cloud token from the User settings screen:
 
-<img src="images/weave-cloud-token-1.png" style="width:100%;" />
+<img src="../images/weave-cloud-token-1.png" style="width:100%;" />
 
 ### Launch the Weave Cloud Agents
 
@@ -170,7 +170,7 @@ The Weave Scope view is presented in an order with clients generally placed abov
 
 **An Overview of Application Layers:**![Weave Scope Overview of Application Layers](../images/weave-scope/weave-scope-application-layers.png)
 
-A line between two nodes within the view represents a connection between containers. To help you understand the connections in your view, hover over a container or a connection to highlight all connected containers and to reveal the communication direction. 
+A line between two nodes within the view represents a connection between containers. To help you understand the connections in your view, hover over a container or a connection to highlight all connected containers and to also reveal communication direction. 
 
 ## Viewing Metrics
 
@@ -180,7 +180,10 @@ Metrics about a node are displayed by clicking on a node from one of the Scope v
 
 The panel on the right shows information about the database, such as the image and process names, sparklines displaying memory consumption and peformance, as well as network metrics like the number of TCP connections.
 
->Note: In this view, you can Pause, Restart, and Stop containers, and for this reason, access to the Weave Scope user interface should be restricted to trusted individuals. 
+In addition to this a terminal window can be launched that allows you to interact directly with a container. You can also view Docker logs, and can stop, pause and relaunch containers all from this same control panel. 
+
+>**Important!** Because you can Pause, Restart, and Stop containers, access to the Weave Scope user interface should be restricted to trusted individuals.
+
 
 ## Processes Views
 
@@ -194,7 +197,7 @@ The logical view is useful for application developers, but for those with a more
 
 ### Filtering Views
 
-Use Weave Scope’s filtering features to make a view easier to understand:  
+Use Weave Scope’s filtering features to further refine a view:  
 
 The Container view can be filtered by: 
 
@@ -203,7 +206,7 @@ The Container view can be filtered by:
 * Uncontained, Contained or Both
 * Network
 
-In addition to those high-level filters, your application can also show relative CPU and Memory consumption and when in the Processes view can show which have Open Files. When any of those filters are set, mousing over a node displays these metrics.
+In addition to these high-level filters, your application can also show relative CPU and Memory consumption and when in the Processes view can show which processes have Open Files. When any of those filters are set, mousing over a node displays these metrics.
 
 **Filter Containers by Application and Show Memory:**![Weave Scope Container](../images/weave-scope/weave-scope-group-containers.png)
 
