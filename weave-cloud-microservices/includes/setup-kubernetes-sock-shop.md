@@ -137,12 +137,19 @@ In this section, you will install a Weave Net pod network so that your pods can 
 
 You must add Weave Net before deploying any applications to your cluster and before `kube-dns` starts up.
 
-**Note:** Install **only one** pod network per cluster.
+**Note:** Install **only one** pod network per cluster. There are two versions of the Weave Net daemonset installer. One installs Weave Net to version 1.5 of the Kubernetes binaries and the other installs to 1.6.
 
-Install [Weave Net](https://github.com/weaveworks/weave-kube) by logging onto the master and running:
+
+If you're running Kubernetes 1.5 (and less) install [Weave Net](https://github.com/weaveworks/weave-kube) by logging onto the master and running:
 
 ~~~
 kubectl apply -f https://git.io/weave-kube
+~~~
+
+If you're running Kubernetes 1.6 (and above), install [Weave Net](https://github.com/weaveworks/weave-kube-1.6) by logging onto the master and running:
+
+~~~
+kubectl apply -f https://git.io/weave-kube-1.6
 ~~~
 
 The output will be:
