@@ -28,7 +28,7 @@ In standalone mode, all Weave Scope components are run locally: the probes and t
 
 ## About This Guide
 
-This guide demonstrates how to launch and use Weave Scope in stand-alone mode. You will: 
+This guide demonstrates how to launch and use Weave Scope in standalone mode. You will: 
 
 1. Deploy a 3-tiered web application stack, consisting of a pool of data services, a set of custom application servers and a load balancing layer. 
 2. Launch Weave Scope to visualize and monitor containers and return useful intelligence. 
