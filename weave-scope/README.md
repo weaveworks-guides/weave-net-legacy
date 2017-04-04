@@ -69,6 +69,12 @@ $ wget -O docker-compose.yml http://git.io/scope-compose
 $ docker-compose up -d
 ~~~
 
+If you are using OSX, replace `wget` with curl: 
+
+~~~bash
+$ curl -L -o https://get.docker.com/ | sh
+~~~
+
 Check that all seven application containers are running by typing `docker ps`:
 
 ~~~bash
@@ -96,7 +102,38 @@ app-60fbe0a31aee9526385d8e5b44d46afb via http://db2:9000
 db-e68d33ceeddbb77f4e36a447513367e8 OK
 ~~~
 
-### Launching Weave Scope
+## Sign Up for Weave Cloud
+
+To begin, sign up for Weave Cloud and deploy the Scope probes on your laptop.  
+
+After verifying that the app works as it should on your laptop, you'll then install the Weave Cloud probes to production, set up a Kubernetes cluster and deploy the app it, and then compare production with the app on your laptop.  
+
+To sign up for Weave Cloud:
+
+1.  Go to <a href="https://cloud.weave.works" target="_blank"> Weave Cloud </a> <!-- lkj_ -->
+2.  Sign up using either a Github, or Google account or use an email address.
+3.  Obtain the cloud token from the User settings screen:
+
+<img src="images/weave-cloud-token-1.png" style="width:100%;" />
+
+### Launch the Weave Cloud Agents
+
+Launch the Scope probes using the token you obtained when you signed up for the service:
+
+<!-- TODO maybe this should use the k8s scope yaml in the launcher -->
+
+~~~bash
+curl --silent --location https://git.io/scope --output /usr/local/bin/scope
+sudo chmod +x /usr/local/bin/scope
+scope launch --service-token=<cloud-token>
+~~~
+
+**Where,**
+
+* `<cloud-token>` - is the token that appears on the settings page, once you’ve logged into Weave Cloud.
+
+
+### Launching Weave Scope in Standalone Mode
 
 With the sample app running, install and launch Weave Scope:
 
@@ -107,6 +144,7 @@ scope launch
 ~~~
 
 Point your web browser to: `http://192.168.99.100:4040/` (or to the address displayed to you in the terminal window after Weave Scope was launched).
+
 
 ## Launching Weave Scope When Using Weave Net to Connect Containers
 
@@ -165,7 +203,7 @@ The Container view can be filtered by:
 * Uncontained, Contained or Both
 * Network
 
-In addition to those high-level filters, your application can also show relative CPU and Memory consumption. When set to either of those filters, mousing over a Process, Container or Host displays provides a visual cue of these metrics.
+In addition to those high-level filters, your application can also show relative CPU and Memory consumption and when in the Processes view can show which have Open Files. When any of those filters are set, mousing over a node displays these metrics.
 
 **Filter Containers by Application and Show Memory:**![Weave Scope Container](../images/weave-scope/weave-scope-group-containers.png)
 
