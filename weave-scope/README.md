@@ -114,7 +114,7 @@ To sign up for Weave Cloud:
 2.  Sign up using either a Github, or Google account or use an email address.
 3.  Obtain the cloud token from the User settings screen:
 
-<img src="../images/weave-cloud-token-1.png" style="width:100%;" />
+<img src="../images/weave-cloud-token.png" style="width:100%;" />
 
 ### Launch the Weave Cloud Agents
 
