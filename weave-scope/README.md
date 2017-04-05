@@ -14,7 +14,7 @@ Weave Scope can be deployed to any infrastructure, and works well in all cloud a
 
 ## How Weave Scope is Deployed?
 
-There are two ways in which Weave Scope can be deployed: as a standalone configuration, or if you don't want to bother with the administration yourself, you can sign up for [Weave Cloud](https://cloud.weave.works).
+There are two ways in which Weave Scope can be deployed: as a standalone configuration, or if you don't want to bother with the administration yourself and also benefit from many other features, such as Prometheus Monitoring and Continuous Delivery, you can sign up for [Weave Cloud](https://cloud.weave.works).
 
 ### Weave Cloud
 
@@ -166,7 +166,11 @@ Hostnames are regularly resolved as A records, where each answer is used as a ta
 
 Once Weave Scope is launched in your browser, an immediate overview of the infrastructure are split up by views which include: Processes, Containers and Hosts. And if you were running this app in an orchestrator, an additional view also appears. If the app is running in Kubernetes Pods appear and if you are running in ECS then Tasks appears.  
 
-The Weave Scope view is presented in an order with clients generally placed above servers. Read a Weave Scope view by going from top to bottom.
+In addition to these views, if you are using Weave Net, you can also view your container network and any associated metrics.
+
+In Graph mode, the Weave Scope view is presented in an order with clients generally placed above servers. Read a Weave Scope view by going from top to bottom.
+
+Scope also provides a convenient Table mode as well which operates much like the UNIX `top` command and shows your running processes and containers by resource consumption. 
 
 **An Overview of Application Layers:**![Weave Scope Overview of Application Layers](../images/weave-scope/weave-scope-application-layers.png)
 
@@ -204,9 +208,9 @@ The Container view can be filtered by:
 * Application or System
 * Running, Stopped or Both
 * Uncontained, Contained or Both
-* Network
+* Networks
 
-In addition to these high-level filters, your application can also show relative CPU and Memory consumption and when in the Processes view can show which processes have Open Files. When any of those filters are set, mousing over a node displays these metrics.
+In addition to these high-level filters, your application can also show relative CPU and Memory consumption and when in the Processes view can show which processes have Open Files. When any of those filters are set, mousing over a node displays the set metric.
 
 **Filter Containers by Application and Show Memory:**![Weave Scope Container](../images/weave-scope/weave-scope-group-containers.png)
 
