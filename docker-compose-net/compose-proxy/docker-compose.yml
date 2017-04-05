@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+ pingme:
+    image: alpine
+    container_name: pingme
+    command: sleep 3600
+    hostname: pingme.weave.local
+    network_mode: "bridge"
+    
+ pinger:
+    image: alpine
+    container_name: pinger
+    command: ping pingme.weave.local
+    hostname: hello.weave.local
+    network_mode: "bridge"
