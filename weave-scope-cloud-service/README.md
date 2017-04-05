@@ -14,13 +14,13 @@ Weave Scope can be deployed to any infrastructure, and works well in all cloud a
 
 You can also launch Weave Scope in stand-alone mode, and run Weave Scope locally in your own environment. See, ["Monitoring Docker Containers with Weave Scope"](/monitor-docker-containers/) for more information and an example on how to use it. 
 
-## Signing Up With Weave Cloud Service
+## Signing Up With Weave Cloud
 
 To register with Weave Cloud, go to [https://cloud.weave.works](https://cloud.weave.works), and enter your email address. A confirmation email will be sent with further instructions.
 
 Login to Weave Cloud and click the settings icon in the top right hand corner to obtain the cloud service token:
 
-![Weave Cloud](../images/aws-ecs/weave-cloud-main-page.png)
+![Weave Cloud](../images/weave-cloud-token.png)
 
 
 ## Running Weave Cloud
