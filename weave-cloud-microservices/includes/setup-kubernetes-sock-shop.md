@@ -188,7 +188,7 @@ preflight] Running pre-flight checks
 [discovery] Cluster info object received, verifying signature using given token
 [discovery] Cluster info signature and contents are valid, will use API endpoints [https://138.197.150.135:6443]
 [bootstrap] Trying to connect to endpoint https://138.197.150.135:6443
-[bootstrap] Detected server version: v1.5.3
+[bootstrap] Detected server version: v1.6.0
 [bootstrap] Successfully established connection with endpoint "https://138.197.150.135:6443"
 [csr] Created API client to obtain unique certificate for this node, generating keys and certificate signing request
 [csr] Received signed certificate from the API server:
@@ -224,8 +224,8 @@ kubectl --kubeconfig ./admin.conf get nodes
 From the master:
 
 ~~~
-kubectl apply -f \
-  https://cloud.weave.works/k8s.yaml?t=<cloud-token>
+kubectl apply -n kube-system \
+  -f "https://cloud.weave.works/k8s/v1.6/weave-cloud?t=<cloud-token>"
 ~~~
 
 The `<cloud-token>` is found in the settings dialog on [Weave Cloud](https://cloud.weave.works/).
@@ -233,7 +233,8 @@ The `<cloud-token>` is found in the settings dialog on [Weave Cloud](https://clo
 If you mistyped or copied and pasted the command incorrectly, you can remove the DaemonSet with:
 
 ~~~
-kubectl delete -f https://cloud.weave.works/k8s.yaml?t=anything
+kubectl delete -n kube-system \
+  -f "https://cloud.weave.works/k8s/v1.6/weave-cloud?t=?t=anything"
 ~~~
 
 Return to Weave Cloud, and click **Explore** to display Scope and then **Pods** to show the Kubernetes cluster. Ensure that the **All Namespaces** filter is enabled from the left-hand corner.
