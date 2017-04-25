@@ -147,7 +147,7 @@ If you're running Kubernetes 1.5 (and less) install [Weave Net](https://www.weav
 kubectl apply -f https://git.io/weave-kube
 ~~~
 
-If you're running Kubernetes 1.6 (and above), install [Weave Net](https://github.com/weaveworks/weave-kube-1.6) by logging onto the master and running:
+If you're running Kubernetes 1.6 (and above), install [Weave Net](https://www.weave.works/docs/net/latest/features/) by logging onto the master and running:
 
 ~~~
 kubectl apply -f https://git.io/weave-kube-1.6
