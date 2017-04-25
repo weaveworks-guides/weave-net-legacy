@@ -141,7 +141,7 @@ You must add Weave Net before deploying any applications to your cluster and bef
 **Note:** Install **only one** pod network per cluster. There are two versions of the Weave Net daemonset installer. One installs Weave Net to version 1.5 of the Kubernetes binaries and the other installs to 1.6.
 
 
-If you're running Kubernetes 1.5 (and less) install [Weave Net](https://github.com/weaveworks/weave-kube) by logging onto the master and running:
+If you're running Kubernetes 1.5 (and less) install [Weave Net](https://www.weave.works/docs/net/latest/features/) by logging onto the master and running:
 
 ~~~
 kubectl apply -f https://git.io/weave-kube
