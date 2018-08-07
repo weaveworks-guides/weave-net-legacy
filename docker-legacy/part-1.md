@@ -2,6 +2,11 @@
 title: "Part 1: Launching Weave Net with Docker Machine"
 ---
 
+**Note:** You are looking at our `old-guides` repository. The guides in here haven't been updated in a while.
+They might or might not work for you. We are keeping them around for informational purposes.
+
+---
+
 In this Part 1  "Launching Weave Net with Docker Machine" the basics of launching a container network with Weave Net is introduced. In [Part 2 "Using Weave With Docker Machine and Swarm](./part-2.md), you will learn how to configure a basic [Docker Swarm Cluster](https://docs.docker.com/swarm/) and use Weave Net to discover containers within it. In [Part 3 "Creating and Scaling Multi-host Docker Deployment with Swarm and Compose using Weave"](./part-3.md), you will take what you learned in Parts 1 and 2 and use [Docker Compose](https://docs.docker.com/compose/) and Weave Net to launch a two-tier application spread across three VMs. 
 
 [Docker Machine](https://docs.docker.com/machine/) makes it simple to create Docker hosts (VMs) on your computer, on cloud providers or within your own data center. It creates servers, installs Docker on them, and then it configures the Docker client to talk to them.
