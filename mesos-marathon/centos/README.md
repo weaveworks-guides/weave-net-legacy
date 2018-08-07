@@ -126,7 +126,7 @@ If you are looking to deploy your own app instead of this example, make sure to 
 
 The Marathon UI is accessed at `http://172.17.85.100:8080`
 
-![Marathon Apps](/docs/tutorials/old-guides/mesos-image/marathon-1.png)
+![Marathon Apps](./images/marathon-1.png)
 ![Marathon Apps - outyet](./images/marathon-2.png)
 
 Log on to `mesos-01`, become root and set the environment for Weave Net, which is necessary for attaching containers to a Weave network:

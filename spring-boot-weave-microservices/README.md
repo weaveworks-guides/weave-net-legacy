@@ -301,7 +301,7 @@ webapp-register 10.32.0.4    a2c19c69fe45 4e:fa:13:6e:48:c7
 
 With the containers deployed, and all in communication, you are ready to test the application.  Open the following URL in your browser: `http://127.0.0.1:8080/register.html` to display the registration page.
 
-![Testing the Microservices App](/docs/tutorials/old-guides/images/spring-boot-microservices/email-registration.png)
+![Testing the Microservices App](./images/email-registration.png)
 
 To ensure that your message reached the correct destination, display `Weave Scope`, click on the RESTful Service container, and then open the terminal view. The terminal view is launched by clicking the control button furthest left.
 
