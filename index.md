@@ -19,9 +19,9 @@ https://www.weave.works/wp-admin/admin.php?page=dd_layouts_edit&action=edit&layo
 <hr>
 <h4>Getting Started with Docker and Weave Net</h4>
 <p>After <a href="http://www.weave.works/install-weave-net/" target="_blank">installing Weave Net</a>, these three guides are the fastest way to get started with Docker and Weave Net:</p>
-<p><a href="http://www.weave.works/guides/part-1-launching-weave-net-with-docker-machine/">Part 1: Weave Net with Docker Machine</a></p>
-<p><a href="http://www.weave.works/guides/part-2-using-weave-with-docker-machine-and-swarm/">Part 2: Weave Net with Docker Machine and Swarm</a></p>
-<p><a href="http://www.weave.works/guides/part-3-creating-and-scaling-multi-host-docker-deployment-with-swarm-and-compose-using-weave/">Part 3: Scaling with Docker Swarm and Docker Compose</a></p>
+<p><a href="./docker-legacy/guides/part-1.md">Part 1: Weave Net with Docker Machine</a></p>
+<p><a href="./docker-legacy/guides/part-2.md">Part 2: Weave Net with Docker Machine and Swarm</a></p>
+<p><a href="./docker-legacy/guides/part-3.md">Part 3: Scaling with Docker Swarm and Docker Compose</a></p>
 <p>&nbsp;</p>
 <h4>Getting Started with Docker and Weave Scope</h4>
 <p>After <a href="http://www.weave.works/install-weave-scope/" target="_blank">installing Weave Scope</a>, these guides are&nbsp;the fastest way to visualize your Docker containers and their interactions using Weave Scope</p>
