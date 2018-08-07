@@ -7,6 +7,10 @@ permalink: /guides/weave-scope/weave-scope-alone-monitor-containers.html
 
 ---
 
+**Note:** You are looking at our `old-guides` repository. The guides in here haven't been updated in a while.
+They might or might not work for you. We are keeping them around for informational purposes.
+
+---
 
 Weave Scope automatically detects and monitors every host, Docker container and process in your infrastructure, builds a map showing their communication pathways and then presents an up-to-date view of your infrastructure in a web interface. You can visualize, monitor and control your distributed applications and troubleshoot bottlenecks, memory leaks or any other issues. It does this without requiring changes to your code or configuration, and without having to make declarations about your infrastructure that become out-of-date and stale. 
 

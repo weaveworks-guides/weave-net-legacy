@@ -9,6 +9,11 @@ sidebarpath: /start/micro/dockerspring
 sidebarweight: 20
 ---
 
+**Note:** You are looking at our `old-guides` repository. The guides in here haven't been updated in a while.
+They might or might not work for you. We are keeping them around for informational purposes.
+
+---
+
 In this tutorial you will learn how to use [WeaveDNS](/docs/net/latest/weavedns/) to automatically discover dockerized microservices using Weave Net.  You will deploy several Spring-based microservices to Docker containers and then discover those microservices using `weavedns` without requiring any modifications to the code.
 
 You will: 

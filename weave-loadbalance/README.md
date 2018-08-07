@@ -6,6 +6,11 @@ permalink: /guides/weave-docker-loadbalancing-simple.html
 
 ---
 
+**Note:** You are looking at our `old-guides` repository. The guides in here haven't been updated in a while.
+They might or might not work for you. We are keeping them around for informational purposes.
+
+---
+
 In this example, you will use `Weave Net` to load balance your app. Weave Net implements load balancing using [round robin DNS](https://en.wikipedia.org/wiki/Round-robin_DNS) and can be run without making any modifications to the application's code. 
 
 You will deploy a simple go-based REST server that listens for and then outputs the IP address of each container deployed to the Weave network. 

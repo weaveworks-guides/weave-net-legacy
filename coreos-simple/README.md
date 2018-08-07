@@ -10,6 +10,11 @@ sidebarpath: /start/wd/coreos
 sidebarweight: 15
 ---
 
+**Note:** You are looking at our `old-guides` repository. The guides in here haven't been updated in a while.
+They might or might not work for you. We are keeping them around for informational purposes.
+
+---
+
 In this example you will use `Weave Net` to provide nework connectivity and service discovery using the [WeaveDNS service](/documentation/net-1.5-weavedns). 
 
 1. You will create a simple containerized web service that runs in on weave-gs-01.
