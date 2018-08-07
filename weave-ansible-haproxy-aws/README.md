@@ -9,6 +9,11 @@ sidebarpath: /start/aws/awsans
 sidebarweight: 30
 ---
 
+**Note:** You are looking at our `old-guides` repository. The guides in here haven't been updated in a while.
+They might or might not work for you. We are keeping them around for informational purposes.
+
+---
+
 In this example we will demonstrate how Weave allows you to quickly and easily deploy HAProxy as
 a load balancer for a simple PHP application running in containers on multiple nodes in [Amazon
 Web Services](http://aws.amazon.com), with no modifications to the application and minimal docker

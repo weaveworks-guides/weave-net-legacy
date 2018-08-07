@@ -9,6 +9,11 @@ sidebarpath: /start/micro/nodeubuntu
 sidebarweight: 50
 ---
 
+**Note:** You are looking at our `old-guides` repository. The guides in here haven't been updated in a while.
+They might or might not work for you. We are keeping them around for informational purposes.
+
+---
+
 This example demonstrates how to create a containerized set of microservices built with [Node.js](http://nodejs.org), and the microservices toolkit for Node.js, [Seneca](http://senecajs.org/).
 
 The example is derived from the Seneca microservices example and is available on 

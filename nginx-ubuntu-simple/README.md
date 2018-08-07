@@ -11,6 +11,10 @@ sidebarweight: 20
 
 ---
 
+**Note:** You are looking at our `old-guides` repository. The guides in here haven't been updated in a while.
+They might or might not work for you. We are keeping them around for informational purposes.
+
+---
 
 In this example we will demonstrate how Weave allows you to quickly and easily deploy Nginx as
 a load balancer for a simple php application running in containers on multiple nodes, with no

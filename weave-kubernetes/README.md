@@ -9,6 +9,11 @@ sidebarpath: /start/kubernetesAzure
 sidebarweight: 55
 ---
 
+**Note:** You are looking at our `old-guides` repository. The guides in here haven't been updated in a while.
+They might or might not work for you. We are keeping them around for informational purposes.
+
+---
+
 This example demonstrates how a Weave network integrates with Google Kubernetes clusters on CoreOS in the Microsoft Azure cloud management system.
 
 [Kubernetes](http://kubernetes.io/v1.0/docs/user-guide/overview.html) is an open source container cluster manager built by Google. It allows you to manage multiple clusters of containers between hosts.

@@ -13,6 +13,11 @@ sidebarpath: /start/micro/ruby
 sidebarweight: 45
 ---
 
+**Note:** You are looking at our `old-guides` repository. The guides in here haven't been updated in a while.
+They might or might not work for you. We are keeping them around for informational purposes.
+
+---
+
 In this example you will set up a simple, containerized deployment of a Ruby on Rails application, backed by a PostgreSQL database. WeaveDNS will then discover all containers on the network without any code changes. 
 
 Specifically, you will: 
